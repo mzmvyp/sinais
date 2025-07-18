@@ -1,8 +1,9 @@
 """
-Signal Writer - Escrita de sinais no banco de análise
+Signal Writer Adaptado - Formato Compatível com Sistema Existente
 """
 import sqlite3
 import json
+import time
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, asdict
@@ -12,20 +13,28 @@ from config.settings import settings
 
 @dataclass
 class TradingSignal:
-    """Estrutura para um sinal de trading"""
+    """Estrutura de sinal compatível com sistema existente"""
     symbol: str
-    signal_type: str        # 'BUY', 'SELL', 'NEUTRAL'
-    strategy: str           # Nome da estratégia
-    confidence: float       # 0.0 a 1.0
-    strength: float         # 0.0 a 1.0
+    signal_type: str        # BUY_LONG_analize, SELL_SHORT_analize
     entry_price: float
+    confidence: float       # 0.0 a 1.0
+    
+    # Campos obrigatórios do sistema padrão
+    targets: List[float] = None
+    stop_loss: float = None
+    confluence_score: int = 95  # Padrão 95
+    status: str = "ACTIVE"
+    indicators_used: List[str] = None
+    targets_hit: List[bool] = None
+    
+    # Campos automáticos
+    id: str = None
     timestamp: datetime = None
     
-    # Opcionais
-    stop_loss: Optional[float] = None
-    take_profit: Optional[float] = None
+    # Campos opcionais de compatibilidade
+    strategy: str = ""
+    strength: float = 0.0
     target_timeframe: Optional[str] = None
-    indicators_used: Optional[Dict] = None
     pattern_data: Optional[Dict] = None
     market_conditions: Optional[Dict] = None
     notes: Optional[str] = None
@@ -34,59 +43,119 @@ class TradingSignal:
         if self.timestamp is None:
             self.timestamp = datetime.now()
         
-        # Valida tipos de sinal
-        valid_signals = ['BUY', 'SELL', 'NEUTRAL']
-        if self.signal_type not in valid_signals:
-            raise ValueError(f"signal_type deve ser um de: {valid_signals}")
+        # Gera ID no formato padrão: SYMBOL_TYPE_TIMESTAMP
+        if self.id is None:
+            timestamp_int = int(time.time() * 100)  # Timestamp em centésimos
+            self.id = f"{self.symbol}_{self.signal_type}_{timestamp_int}"
         
-        # Valida confidence e strength
-        if not (0.0 <= self.confidence <= 1.0):
-            raise ValueError("confidence deve estar entre 0.0 e 1.0")
+        # Valida e ajusta signal_type para formato padrão
+        self._normalize_signal_type()
         
-        if not (0.0 <= self.strength <= 1.0):
-            raise ValueError("strength deve estar entre 0.0 e 1.0")
+        # Define targets padrão se não fornecido
+        if self.targets is None:
+            self.targets = self._calculate_default_targets()
+        
+        # Define stop_loss padrão se não fornecido
+        if self.stop_loss is None:
+            self.stop_loss = self._calculate_default_stop_loss()
+        
+        # Define indicators_used padrão
+        if self.indicators_used is None:
+            self.indicators_used = [f"technical_analize_{self.signal_type.lower()}"]
+        
+        # Define targets_hit padrão (todos false inicialmente)
+        if self.targets_hit is None:
+            self.targets_hit = [False] * len(self.targets)
+        
+        # Converte confidence (0-1) para confluence_score (0-100) se necessário
+        if 0 <= self.confidence <= 1:
+            # Mapeia confidence para confluence_score (95-100)
+            self.confluence_score = int(95 + (self.confidence * 5))
     
-    @property
-    def is_strong_signal(self) -> bool:
-        """Verifica se é um sinal forte"""
-        return self.confidence >= settings.analysis.confidence_threshold and self.strength >= 0.7
+    def _normalize_signal_type(self):
+        """Normaliza signal_type para formato padrão"""
+        if self.signal_type in ['BUY', 'buy']:
+            self.signal_type = 'BUY_LONG'
+        elif self.signal_type in ['SELL', 'sell']:
+            self.signal_type = 'SELL_SHORT'
+        elif not self.signal_type.endswith('_analize'):
+            # Se já está no formato correto mas sem sufixo
+            if 'BUY' in self.signal_type.upper():
+                self.signal_type = 'BUY_LONG'
+            elif 'SELL' in self.signal_type.upper():
+                self.signal_type = 'SELL_SHORT'
     
-    @property
-    def signal_quality(self) -> str:
-        """Retorna qualidade do sinal"""
-        score = (self.confidence + self.strength) / 2
-        
-        if score >= 0.8:
-            return "EXCELLENT"
-        elif score >= 0.7:
-            return "GOOD"
-        elif score >= 0.6:
-            return "FAIR"
+    def _calculate_default_targets(self):
+        """Calcula targets padrão no formato do sistema existente"""
+        if 'BUY' in self.signal_type:
+            # Targets para BUY_LONG: 3 níveis crescentes
+            return [
+                self.entry_price * 1.015,  # +1.5%
+                self.entry_price * 1.025,  # +2.5%  
+                self.entry_price * 1.04    # +4.0%
+            ]
         else:
-            return "WEAK"
+            # Targets para SELL_SHORT: 3 níveis decrescentes
+            return [
+                self.entry_price * 0.985,  # -1.5%
+                self.entry_price * 0.975,  # -2.5%
+                self.entry_price * 0.96    # -4.0%
+            ]
     
-    def to_dict(self) -> Dict[str, Any]:
-        """Converte para dicionário para serialização"""
-        data = asdict(self)
+    def _calculate_default_stop_loss(self):
+        """Calcula stop_loss padrão"""
+        if 'BUY' in self.signal_type:
+            return self.entry_price * 0.97  # -3% para BUY_LONG
+        else:
+            return self.entry_price * 1.03  # +3% para SELL_SHORT
+    
+    def to_database_format(self):
+        """Converte para formato do banco de dados"""
+        return {
+            'id': self.id,
+            'symbol': self.symbol,
+            'signal_type': self.signal_type,
+            'entry_price': self.entry_price,
+            'targets': json.dumps(self.targets),
+            'stop_loss': self.stop_loss,
+            'confidence': self.confidence,
+            'confluence_score': self.confluence_score,
+            'status': self.status,
+            'created_at': self.timestamp.isoformat(),
+            'entry_time': self.timestamp.isoformat(),
+            'exit_time': None,
+            'current_price': self.entry_price,  # Inicial = entry_price
+            'pnl_percentage': 0.0,
+            'pnl_absolute': 0.0,
+            'duration_hours': 0.0,
+            'targets_hit': json.dumps(self.targets_hit),
+            'indicators_used': json.dumps(self.indicators_used),
+            'volume_confirmed': 1 if self.confluence_score >= 100 else 0,
+            'risk_reward_ratio': self._calculate_risk_reward(),
+            'max_profit': 0.0,
+            'max_drawdown': 0.0,
+            'updated_at': self.timestamp.isoformat()
+        }
+    
+    def _calculate_risk_reward(self):
+        """Calcula risk/reward ratio"""
+        if not self.targets:
+            return 1.0
         
-        # Converte datetime para string
-        if isinstance(data['timestamp'], datetime):
-            data['timestamp'] = data['timestamp'].isoformat()
+        target_distance = abs(self.targets[0] - self.entry_price)
+        stop_distance = abs(self.stop_loss - self.entry_price)
         
-        # Converte dicts para JSON strings
-        for field in ['indicators_used', 'pattern_data', 'market_conditions']:
-            if data[field] is not None:
-                data[field] = json.dumps(data[field])
-        
-        return data
+        if stop_distance > 0:
+            return target_distance / stop_distance
+        return 1.0
 
 class SignalWriter:
-    """Classe para escrita de sinais no banco"""
+    """Writer adaptado para formato padrão"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.signals_db_path = settings.database.signals_db_path
-        self.signals_table = settings.database.signals_table
+        self.signals_table = "trading_signals_v2"
         self._ensure_table_exists()
     
     def _get_connection(self) -> sqlite3.Connection:
@@ -99,85 +168,47 @@ class SignalWriter:
             raise
     
     def _ensure_table_exists(self):
-        """Garante que a tabela de sinais existe"""
-        create_table_sql = """
-        CREATE TABLE IF NOT EXISTS {table} (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            symbol TEXT NOT NULL,
-            timestamp DATETIME NOT NULL,
-            
-            -- Informações do sinal
-            signal_type TEXT NOT NULL,
-            strategy TEXT NOT NULL,
-            confidence REAL NOT NULL,
-            strength REAL NOT NULL,
-            
-            -- Dados técnicos
-            entry_price REAL,
-            stop_loss REAL,
-            take_profit REAL,
-            target_timeframe TEXT,
-            
-            -- Metadados
-            indicators_used TEXT,
-            pattern_data TEXT,
-            market_conditions TEXT,
-            
-            -- Campos de sistema
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            is_active BOOLEAN DEFAULT 1,
-            notes TEXT,
-            
-            -- Índice para evitar sinais duplicados
-            UNIQUE(symbol, timestamp, strategy)
-        )
-        """.format(table=self.signals_table)
-        
+        """Garante que a tabela existe com estrutura correta"""
+        # A tabela já existe, apenas verifica
         try:
             with self._get_connection() as conn:
-                conn.execute(create_table_sql)
-                conn.commit()
-                self.logger.info("Tabela de sinais verificada/criada")
+                cursor = conn.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{self.signals_table}'")
+                if cursor.fetchone():
+                    self.logger.info(f"Tabela {self.signals_table} verificada")
+                else:
+                    self.logger.warning(f"Tabela {self.signals_table} não encontrada")
         except Exception as e:
-            self.logger.error(f"Erro ao criar tabela: {e}")
-            raise
+            self.logger.error(f"Erro ao verificar tabela: {e}")
     
     def write_signal(self, signal: TradingSignal) -> bool:
-        """
-        Escreve um sinal no banco
+        """Escreve sinal no formato padrão"""
         
-        Args:
-            signal: Sinal de trading
+        # Verifica se já existe sinal ativo para este symbol
+        if self._has_active_signal_for_symbol(signal.symbol):
+            self.logger.info(f"Symbol {signal.symbol} já possui sinal ativo - pulando")
+            return False
         
-        Returns:
-            True se sucesso, False caso contrário
+        insert_sql = f"""
+        INSERT OR REPLACE INTO {self.signals_table} (
+            id, symbol, signal_type, entry_price, targets, stop_loss,
+            confidence, confluence_score, status, created_at, entry_time,
+            exit_time, current_price, pnl_percentage, pnl_absolute,
+            duration_hours, targets_hit, indicators_used, volume_confirmed,
+            risk_reward_ratio, max_profit, max_drawdown, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
-        insert_sql = """
-        INSERT OR REPLACE INTO {table} (
-            symbol, timestamp, signal_type, strategy, confidence, strength,
-            entry_price, stop_loss, take_profit, target_timeframe,
-            indicators_used, pattern_data, market_conditions, notes
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """.format(table=self.signals_table)
         
         try:
-            signal_dict = signal.to_dict()
+            data = signal.to_database_format()
             
             values = (
-                signal_dict['symbol'],
-                signal_dict['timestamp'],
-                signal_dict['signal_type'],
-                signal_dict['strategy'],
-                signal_dict['confidence'],
-                signal_dict['strength'],
-                signal_dict['entry_price'],
-                signal_dict['stop_loss'],
-                signal_dict['take_profit'],
-                signal_dict['target_timeframe'],
-                signal_dict['indicators_used'],
-                signal_dict['pattern_data'],
-                signal_dict['market_conditions'],
-                signal_dict['notes']
+                data['id'], data['symbol'], data['signal_type'], data['entry_price'],
+                data['targets'], data['stop_loss'], data['confidence'], data['confluence_score'],
+                data['status'], data['created_at'], data['entry_time'], data['exit_time'],
+                data['current_price'], data['pnl_percentage'], data['pnl_absolute'],
+                data['duration_hours'], data['targets_hit'], data['indicators_used'],
+                data['volume_confirmed'], data['risk_reward_ratio'], data['max_profit'],
+                data['max_drawdown'], data['updated_at']
             )
             
             with self._get_connection() as conn:
@@ -185,55 +216,53 @@ class SignalWriter:
                 conn.commit()
             
             self.logger.info(
-                f"Sinal gravado: {signal.symbol} {signal.signal_type} "
-                f"{signal.strategy} (conf: {signal.confidence:.2f})"
+                f"Sinal padrão gravado: {signal.symbol} {signal.signal_type} "
+                f"(conf: {signal.confluence_score}, ID: {signal.id[:12]})"
             )
             return True
             
         except Exception as e:
-            self.logger.error(f"Erro ao gravar sinal: {e}")
+            self.logger.error(f"Erro ao gravar sinal padrão: {e}")
             return False
     
+    def _has_active_signal_for_symbol(self, symbol: str) -> bool:
+        """Verifica se symbol já tem sinal ativo"""
+        try:
+            query = f"""
+            SELECT COUNT(*) FROM {self.signals_table}
+            WHERE symbol = ? AND status = 'ACTIVE'
+            """
+            
+            with self._get_connection() as conn:
+                cursor = conn.execute(query, (symbol,))
+                count = cursor.fetchone()[0]
+                return count > 0
+                
+        except Exception as e:
+            self.logger.error(f"Erro ao verificar sinais ativos: {e}")
+            return False  # Em caso de erro, permite criar
+    
     def write_multiple_signals(self, signals: List[TradingSignal]) -> int:
-        """
-        Escreve múltiplos sinais
-        
-        Args:
-            signals: Lista de sinais
-        
-        Returns:
-            Número de sinais gravados com sucesso
-        """
+        """Escreve múltiplos sinais"""
         success_count = 0
         
         for signal in signals:
             if self.write_signal(signal):
                 success_count += 1
         
-        self.logger.info(f"Gravados {success_count}/{len(signals)} sinais")
+        self.logger.info(f"Gravados {success_count}/{len(signals)} sinais padrão")
         return success_count
     
     def get_active_signals(self, symbol: str = None) -> List[Dict[str, Any]]:
-        """
-        Busca sinais ativos
-        
-        Args:
-            symbol: Symbol específico (opcional)
-        
-        Returns:
-            Lista de sinais ativos
-        """
-        query = f"""
-        SELECT * FROM {self.signals_table}
-        WHERE is_active = 1
-        """
+        """Busca sinais ativos"""
+        query = f"SELECT * FROM {self.signals_table} WHERE status = 'ACTIVE'"
         
         params = []
         if symbol:
             query += " AND symbol = ?"
             params.append(symbol)
         
-        query += " ORDER BY timestamp DESC"
+        query += " ORDER BY created_at DESC"
         
         try:
             with self._get_connection() as conn:
@@ -245,8 +274,8 @@ class SignalWriter:
                     row_dict = dict(zip(columns, row))
                     
                     # Deserializa campos JSON
-                    for field in ['indicators_used', 'pattern_data', 'market_conditions']:
-                        if row_dict[field]:
+                    for field in ['targets', 'targets_hit', 'indicators_used']:
+                        if row_dict.get(field):
                             try:
                                 row_dict[field] = json.loads(row_dict[field])
                             except json.JSONDecodeError:
@@ -260,94 +289,18 @@ class SignalWriter:
             self.logger.error(f"Erro ao buscar sinais ativos: {e}")
             return []
     
-    def deactivate_signal(self, signal_id: int) -> bool:
-        """
-        Desativa um sinal
-        
-        Args:
-            signal_id: ID do sinal
-        
-        Returns:
-            True se sucesso
-        """
-        update_sql = f"""
-        UPDATE {self.signals_table}
-        SET is_active = 0
-        WHERE id = ?
-        """
-        
-        try:
-            with self._get_connection() as conn:
-                conn.execute(update_sql, (signal_id,))
-                conn.commit()
-            
-            self.logger.info(f"Sinal {signal_id} desativado")
-            return True
-            
-        except Exception as e:
-            self.logger.error(f"Erro ao desativar sinal {signal_id}: {e}")
-            return False
-    
-    def cleanup_old_signals(self, days_old: int = 7) -> int:
-        """
-        Remove sinais antigos
-        
-        Args:
-            days_old: Sinais mais antigos que X dias
-        
-        Returns:
-            Número de sinais removidos
-        """
-        delete_sql = f"""
-        DELETE FROM {self.signals_table}
-        WHERE timestamp < datetime('now', '-{days_old} days')
-        """
-        
-        try:
-            with self._get_connection() as conn:
-                cursor = conn.execute(delete_sql)
-                removed_count = cursor.rowcount
-                conn.commit()
-            
-            self.logger.info(f"Removidos {removed_count} sinais antigos")
-            return removed_count
-            
-        except Exception as e:
-            self.logger.error(f"Erro ao limpar sinais antigos: {e}")
-            return 0
-    
     def get_signal_statistics(self) -> Dict[str, Any]:
-        """
-        Retorna estatísticas dos sinais
-        
-        Returns:
-            Dicionário com estatísticas
-        """
-        stats_sql = f"""
-        SELECT 
-            COUNT(*) as total_signals,
-            COUNT(CASE WHEN is_active = 1 THEN 1 END) as active_signals,
-            COUNT(DISTINCT symbol) as symbols_count,
-            COUNT(DISTINCT strategy) as strategies_count,
-            AVG(confidence) as avg_confidence,
-            AVG(strength) as avg_strength,
-            signal_type,
-            COUNT(*) as count_by_type
-        FROM {self.signals_table}
-        GROUP BY signal_type
-        """
-        
+        """Retorna estatísticas dos sinais"""
         try:
             with self._get_connection() as conn:
                 # Estatísticas gerais
                 general_stats = conn.execute(f"""
                     SELECT 
                         COUNT(*) as total_signals,
-                        COUNT(CASE WHEN is_active = 1 THEN 1 END) as active_signals,
+                        COUNT(CASE WHEN status = 'ACTIVE' THEN 1 END) as active_signals,
                         COUNT(DISTINCT symbol) as symbols_count,
-                        COUNT(DISTINCT strategy) as strategies_count,
                         AVG(confidence) as avg_confidence,
-                        AVG(strength) as avg_strength
+                        AVG(confluence_score) as avg_confluence
                     FROM {self.signals_table}
                 """).fetchone()
                 
@@ -362,12 +315,31 @@ class SignalWriter:
                     'total_signals': general_stats[0] or 0,
                     'active_signals': general_stats[1] or 0,
                     'symbols_count': general_stats[2] or 0,
-                    'strategies_count': general_stats[3] or 0,
-                    'avg_confidence': round(general_stats[4] or 0, 3),
-                    'avg_strength': round(general_stats[5] or 0, 3),
+                    'avg_confidence': round(general_stats[3] or 0, 3),
+                    'avg_confluence': round(general_stats[4] or 0, 3),
                     'by_type': {row[0]: row[1] for row in type_stats}
                 }
                 
         except Exception as e:
             self.logger.error(f"Erro ao buscar estatísticas: {e}")
-            return {}
+            return {'error': str(e)}
+    
+    def cleanup_old_signals(self, days_old: int = 7) -> int:
+        """Remove sinais antigos"""
+        delete_sql = f"""
+        DELETE FROM {self.signals_table}
+        WHERE created_at < datetime('now', '-{days_old} days')
+        """
+        
+        try:
+            with self._get_connection() as conn:
+                cursor = conn.execute(delete_sql)
+                removed_count = cursor.rowcount
+                conn.commit()
+            
+            self.logger.info(f"Removidos {removed_count} sinais antigos")
+            return removed_count
+            
+        except Exception as e:
+            self.logger.error(f"Erro ao limpar sinais antigos: {e}")
+            return 0
