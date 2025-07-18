@@ -9,7 +9,7 @@ from datetime import datetime
 from typing import Optional
 
 # Imports do sistema
-from core.analyzer import TradingAnalyzer
+from core.analyzer import TradingAnalyzer, EnhancedFilters, EnhancedTradingAnalyzer
 from config.settings import settings
 import logging
 
@@ -144,7 +144,7 @@ def main():
     
     try:
         # Inicializa o analisador
-        analyzer = TradingAnalyzer()
+        analyzer = EnhancedTradingAnalyzer()
         
         # Executa comando solicitado
         if args.status:

@@ -1,5 +1,5 @@
 """
-Signal Writer Adaptado - Formato Compatível com Sistema Existente
+Signal Writer Adaptado - Targets com Mesmo Padrão de Decimais do Entry Price
 """
 import sqlite3
 import json
@@ -8,6 +8,7 @@ from datetime import datetime
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, asdict
 import logging
+from decimal import Decimal, ROUND_HALF_UP
 
 from config.settings import settings
 
@@ -72,6 +73,33 @@ class TradingSignal:
             # Mapeia confidence para confluence_score (95-100)
             self.confluence_score = int(95 + (self.confidence * 5))
     
+    def _get_decimal_places(self, price: float) -> int:
+        """Detecta o número de casas decimais do preço"""
+        try:
+            # Converte para string e conta decimais
+            price_str = f"{price:.10f}".rstrip('0')
+            if '.' in price_str:
+                return len(price_str.split('.')[1])
+            return 0
+        except:
+            return 2  # Padrão 2 casas decimais
+    
+    def _round_to_decimal_places(self, value: float, decimal_places: int) -> float:
+        """Arredonda valor para o número específico de casas decimais"""
+        try:
+            if decimal_places <= 0:
+                return round(value)
+            
+            # Usa Decimal para arredondamento preciso
+            decimal_value = Decimal(str(value))
+            rounded = decimal_value.quantize(
+                Decimal('0.' + '0' * decimal_places), 
+                rounding=ROUND_HALF_UP
+            )
+            return float(rounded)
+        except:
+            return round(value, decimal_places)
+    
     def _normalize_signal_type(self):
         """Normaliza signal_type para formato padrão"""
         if self.signal_type in ['BUY', 'buy']:
@@ -86,28 +114,43 @@ class TradingSignal:
                 self.signal_type = 'SELL_SHORT'
     
     def _calculate_default_targets(self):
-        """Calcula targets padrão no formato do sistema existente"""
+        """Calcula targets padrão mantendo o mesmo número de decimais do entry_price"""
+        # Detecta casas decimais do entry_price
+        decimal_places = self._get_decimal_places(self.entry_price)
+        
         if 'BUY' in self.signal_type:
             # Targets para BUY_LONG: 3 níveis crescentes
-            return [
+            raw_targets = [
                 self.entry_price * 1.015,  # +1.5%
                 self.entry_price * 1.025,  # +2.5%  
                 self.entry_price * 1.04    # +4.0%
             ]
         else:
             # Targets para SELL_SHORT: 3 níveis decrescentes
-            return [
+            raw_targets = [
                 self.entry_price * 0.985,  # -1.5%
                 self.entry_price * 0.975,  # -2.5%
                 self.entry_price * 0.96    # -4.0%
             ]
+        
+        # Arredonda todos os targets para o mesmo número de decimais
+        formatted_targets = [
+            self._round_to_decimal_places(target, decimal_places) 
+            for target in raw_targets
+        ]
+        
+        return formatted_targets
     
     def _calculate_default_stop_loss(self):
-        """Calcula stop_loss padrão"""
+        """Calcula stop_loss padrão mantendo o mesmo número de decimais"""
+        decimal_places = self._get_decimal_places(self.entry_price)
+        
         if 'BUY' in self.signal_type:
-            return self.entry_price * 0.97  # -3% para BUY_LONG
+            raw_stop = self.entry_price * 0.97  # -3% para BUY_LONG
         else:
-            return self.entry_price * 1.03  # +3% para SELL_SHORT
+            raw_stop = self.entry_price * 1.03  # +3% para SELL_SHORT
+        
+        return self._round_to_decimal_places(raw_stop, decimal_places)
     
     def to_database_format(self):
         """Converte para formato do banco de dados"""
@@ -217,7 +260,8 @@ class SignalWriter:
             
             self.logger.info(
                 f"Sinal padrão gravado: {signal.symbol} {signal.signal_type} "
-                f"(conf: {signal.confluence_score}, ID: {signal.id[:12]})"
+                f"(conf: {signal.confluence_score}, entry: {signal.entry_price}, "
+                f"targets: {signal.targets}, ID: {signal.id[:12]})"
             )
             return True
             
