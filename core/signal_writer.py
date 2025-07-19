@@ -1,10 +1,10 @@
 """
-Signal Writer Adaptado - Targets com Mesmo Padrão de Decimais do Entry Price
+Signal Writer CORRIGIDO - Sem travamentos e com melhor gestão de conexão
 """
 import sqlite3
 import json
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass, asdict
 import logging
@@ -193,18 +193,40 @@ class TradingSignal:
         return 1.0
 
 class SignalWriter:
-    """Writer adaptado para formato padrão"""
+    """Writer CORRIGIDO para evitar travamentos"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.signals_db_path = settings.database.signals_db_path
         self.signals_table = "trading_signals_v2"
+        
+        # NOVO: Configurações de timeout
+        self.connection_timeout = getattr(settings.database, 'connection_timeout', 30)
+        self.query_timeout = getattr(settings.database, 'query_timeout', 10)
+        
+        # NOVO: Cache para verificação de sinais ativos
+        self._active_signals_cache = {}
+        self._cache_expiry = {}
+        self._cache_timeout = 300  # 5 minutos
+        
         self._ensure_table_exists()
-    
+        self.logger.info("SignalWriter inicializado com proteção contra travamentos")
+        
     def _get_connection(self) -> sqlite3.Connection:
-        """Cria conexão com banco de sinais"""
+        """Cria conexão com banco de sinais COM TIMEOUT"""
         try:
-            conn = sqlite3.connect(self.signals_db_path)
+            conn = sqlite3.connect(
+                self.signals_db_path, 
+                timeout=self.connection_timeout
+            )
+            
+            # NOVO: Configurações para evitar locks
+            conn.execute("PRAGMA journal_mode=WAL")
+            conn.execute("PRAGMA synchronous=NORMAL")
+            conn.execute("PRAGMA cache_size=5000")
+            conn.execute("PRAGMA temp_store=memory")
+            conn.execute("PRAGMA busy_timeout=5000")  # 5 segundos
+            
             return conn
         except sqlite3.Error as e:
             self.logger.error(f"Erro ao conectar com banco de sinais: {e}")
@@ -212,7 +234,6 @@ class SignalWriter:
     
     def _ensure_table_exists(self):
         """Garante que a tabela existe com estrutura correta"""
-        # A tabela já existe, apenas verifica
         try:
             with self._get_connection() as conn:
                 cursor = conn.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{self.signals_table}'")
@@ -223,8 +244,58 @@ class SignalWriter:
         except Exception as e:
             self.logger.error(f"Erro ao verificar tabela: {e}")
     
+    def _is_cache_valid(self, symbol: str) -> bool:
+        """Verifica se cache ainda é válido para o symbol"""
+        now = time.time()
+        return (symbol in self._cache_expiry and 
+                self._cache_expiry[symbol] > now)
+    
+    def _update_cache(self, symbol: str, has_active: bool):
+        """Atualiza cache de sinais ativos"""
+        self._active_signals_cache[symbol] = has_active
+        self._cache_expiry[symbol] = time.time() + self._cache_timeout
+    
+    def _has_active_signal_for_symbol(self, symbol: str) -> bool:
+        """Verifica se symbol já tem sinal ativo - COM CACHE"""
+        
+        # NOVO: Verifica cache primeiro
+        if self._is_cache_valid(symbol):
+            return self._active_signals_cache.get(symbol, False)
+        
+        try:
+            query = f"""
+            SELECT COUNT(*) FROM {self.signals_table}
+            WHERE symbol = ? AND status = 'ACTIVE'
+            """
+            
+            start_time = time.time()
+            
+            with self._get_connection() as conn:
+                cursor = conn.execute(query, (symbol,))
+                count = cursor.fetchone()[0]
+                has_active = count > 0
+                
+                # Atualiza cache
+                self._update_cache(symbol, has_active)
+                
+                query_time = time.time() - start_time
+                self.logger.debug(f"Verificação de sinal ativo para {symbol}: {has_active} ({query_time:.3f}s)")
+                
+                return has_active
+                
+        except sqlite3.OperationalError as e:
+            if "database is locked" in str(e).lower():
+                self.logger.warning(f"🔒 Banco travado ao verificar {symbol} - assumindo sem sinal ativo")
+                return False  # Em caso de lock, permite criar sinal
+            raise
+        except Exception as e:
+            self.logger.error(f"Erro ao verificar sinais ativos para {symbol}: {e}")
+            return False  # Em caso de erro, permite criar
+    
     def write_signal(self, signal: TradingSignal) -> bool:
-        """Escreve sinal no formato padrão"""
+        """Escreve sinal no formato padrão - SEM TRAVAMENTOS"""
+        
+        start_time = time.time()
         
         # Verifica se já existe sinal ativo para este symbol
         if self._has_active_signal_for_symbol(signal.symbol):
@@ -257,48 +328,63 @@ class SignalWriter:
             with self._get_connection() as conn:
                 conn.execute(insert_sql, values)
                 conn.commit()
+                
+                # NOVO: Invalida cache após inserção
+                self._update_cache(signal.symbol, True)
+            
+            write_time = time.time() - start_time
             
             self.logger.info(
-                f"Sinal padrão gravado: {signal.symbol} {signal.signal_type} "
+                f"✅ Sinal gravado: {signal.symbol} {signal.signal_type} "
                 f"(conf: {signal.confluence_score}, entry: {signal.entry_price}, "
-                f"targets: {signal.targets}, ID: {signal.id[:12]})"
+                f"ID: {signal.id[:12]}) em {write_time:.3f}s"
             )
             return True
             
-        except Exception as e:
-            self.logger.error(f"Erro ao gravar sinal padrão: {e}")
-            return False
-    
-    def _has_active_signal_for_symbol(self, symbol: str) -> bool:
-        """Verifica se symbol já tem sinal ativo"""
-        try:
-            query = f"""
-            SELECT COUNT(*) FROM {self.signals_table}
-            WHERE symbol = ? AND status = 'ACTIVE'
-            """
-            
-            with self._get_connection() as conn:
-                cursor = conn.execute(query, (symbol,))
-                count = cursor.fetchone()[0]
-                return count > 0
+        except sqlite3.OperationalError as e:
+            if "database is locked" in str(e).lower():
+                self.logger.error(f"🔒 Banco travado ao gravar sinal para {signal.symbol}")
+                # Tenta uma vez mais após pequena pausa
+                time.sleep(1)
+                try:
+                    with self._get_connection() as conn:
+                        conn.execute(insert_sql, values)
+                        conn.commit()
+                        self._update_cache(signal.symbol, True)
+                    self.logger.info(f"✅ Sinal gravado na segunda tentativa: {signal.symbol}")
+                    return True
+                except Exception:
+                    self.logger.error(f"❌ Falha definitiva ao gravar sinal para {signal.symbol}")
+                    return False
+            else:
+                self.logger.error(f"Erro de operação ao gravar sinal: {e}")
+                return False
                 
         except Exception as e:
-            self.logger.error(f"Erro ao verificar sinais ativos: {e}")
-            return False  # Em caso de erro, permite criar
+            self.logger.error(f"Erro ao gravar sinal: {e}")
+            return False
     
     def write_multiple_signals(self, signals: List[TradingSignal]) -> int:
-        """Escreve múltiplos sinais"""
+        """Escreve múltiplos sinais - SEQUENCIAL PARA EVITAR LOCKS"""
         success_count = 0
         
         for signal in signals:
-            if self.write_signal(signal):
-                success_count += 1
+            try:
+                if self.write_signal(signal):
+                    success_count += 1
+                    
+                # NOVO: Pequena pausa entre sinais para evitar contenção
+                time.sleep(0.1)
+                
+            except Exception as e:
+                self.logger.error(f"Erro ao gravar sinal {signal.symbol}: {e}")
+                continue
         
-        self.logger.info(f"Gravados {success_count}/{len(signals)} sinais padrão")
+        self.logger.info(f"📊 Gravados {success_count}/{len(signals)} sinais")
         return success_count
     
     def get_active_signals(self, symbol: str = None) -> List[Dict[str, Any]]:
-        """Busca sinais ativos"""
+        """Busca sinais ativos - COM TIMEOUT"""
         query = f"SELECT * FROM {self.signals_table} WHERE status = 'ACTIVE'"
         
         params = []
@@ -306,7 +392,7 @@ class SignalWriter:
             query += " AND symbol = ?"
             params.append(symbol)
         
-        query += " ORDER BY created_at DESC"
+        query += " ORDER BY created_at DESC LIMIT 100"  # NOVO: Limita resultados
         
         try:
             with self._get_connection() as conn:
@@ -333,11 +419,35 @@ class SignalWriter:
             self.logger.error(f"Erro ao buscar sinais ativos: {e}")
             return []
     
-    def get_signal_statistics(self) -> Dict[str, Any]:
-        """Retorna estatísticas dos sinais"""
+    def cleanup_old_signals(self, days_old: int = 7) -> int:
+        """Remove sinais antigos - COM PROTEÇÃO"""
+        delete_sql = f"""
+        DELETE FROM {self.signals_table}
+        WHERE created_at < datetime('now', '-{days_old} days')
+        """
+        
         try:
             with self._get_connection() as conn:
-                # Estatísticas gerais
+                cursor = conn.execute(delete_sql)
+                removed_count = cursor.rowcount
+                conn.commit()
+                
+                # NOVO: Limpa cache após limpeza
+                self._active_signals_cache.clear()
+                self._cache_expiry.clear()
+            
+            self.logger.info(f"🗑️  Removidos {removed_count} sinais antigos")
+            return removed_count
+            
+        except Exception as e:
+            self.logger.error(f"Erro ao limpar sinais antigos: {e}")
+            return 0
+    
+    def get_signal_statistics(self) -> Dict[str, Any]:
+        """Retorna estatísticas dos sinais - COM TIMEOUT"""
+        try:
+            with self._get_connection() as conn:
+                # Estatísticas gerais com LIMIT
                 general_stats = conn.execute(f"""
                     SELECT 
                         COUNT(*) as total_signals,
@@ -346,13 +456,16 @@ class SignalWriter:
                         AVG(confidence) as avg_confidence,
                         AVG(confluence_score) as avg_confluence
                     FROM {self.signals_table}
+                    WHERE created_at >= datetime('now', '-30 days')  -- Só últimos 30 dias
                 """).fetchone()
                 
-                # Contagem por tipo
+                # Contagem por tipo com LIMIT
                 type_stats = conn.execute(f"""
                     SELECT signal_type, COUNT(*) as count
                     FROM {self.signals_table}
+                    WHERE created_at >= datetime('now', '-30 days')
                     GROUP BY signal_type
+                    LIMIT 20
                 """).fetchall()
                 
                 return {
@@ -367,23 +480,61 @@ class SignalWriter:
         except Exception as e:
             self.logger.error(f"Erro ao buscar estatísticas: {e}")
             return {'error': str(e)}
+
+# Função utilitária para diagnóstico
+def diagnose_signal_writer():
+    """Diagnóstica problemas do signal writer"""
+    print("🔍 DIAGNÓSTICO DO SIGNAL WRITER")
+    print("=" * 35)
     
-    def cleanup_old_signals(self, days_old: int = 7) -> int:
-        """Remove sinais antigos"""
-        delete_sql = f"""
-        DELETE FROM {self.signals_table}
-        WHERE created_at < datetime('now', '-{days_old} days')
-        """
+    try:
+        writer = SignalWriter()
+        
+        # Testa conexão
+        print("🔗 TESTANDO CONEXÃO:")
+        start_time = time.time()
         
         try:
-            with self._get_connection() as conn:
-                cursor = conn.execute(delete_sql)
-                removed_count = cursor.rowcount
-                conn.commit()
-            
-            self.logger.info(f"Removidos {removed_count} sinais antigos")
-            return removed_count
-            
+            with writer._get_connection() as conn:
+                result = conn.execute("SELECT 1").fetchone()
+                conn_time = time.time() - start_time
+                print(f"   ✅ Conexão OK ({conn_time:.3f}s)")
         except Exception as e:
-            self.logger.error(f"Erro ao limpar sinais antigos: {e}")
-            return 0
+            print(f"   ❌ Erro de conexão: {e}")
+            return
+        
+        # Estatísticas
+        print("\n📊 ESTATÍSTICAS:")
+        stats = writer.get_signal_statistics()
+        
+        if 'error' not in stats:
+            print(f"   Total de sinais: {stats['total_signals']}")
+            print(f"   Sinais ativos: {stats['active_signals']}")
+            print(f"   Symbols únicos: {stats['symbols_count']}")
+            print(f"   Confidence média: {stats['avg_confidence']:.3f}")
+        else:
+            print(f"   ❌ Erro: {stats['error']}")
+        
+        # Testa cache
+        print("\n💾 TESTANDO CACHE:")
+        test_symbol = "BTCUSDT"
+        
+        # Primeira verificação
+        start_time = time.time()
+        has_active1 = writer._has_active_signal_for_symbol(test_symbol)
+        time1 = time.time() - start_time
+        
+        # Segunda verificação (deve usar cache)
+        start_time = time.time()
+        has_active2 = writer._has_active_signal_for_symbol(test_symbol)
+        time2 = time.time() - start_time
+        
+        print(f"   Primeira consulta: {time1:.3f}s")
+        print(f"   Segunda consulta: {time2:.3f}s")
+        print(f"   Cache funcionando: {'✅' if time2 < time1 * 0.5 else '❌'}")
+        
+        return stats
+        
+    except Exception as e:
+        print(f"❌ Erro no diagnóstico: {e}")
+        return None
