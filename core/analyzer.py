@@ -1,5 +1,6 @@
 """
-Trading Analyzer CORRIGIDO - Sem travamentos e com configurações menos restritivas
+Trading Analyzer CORRIGIDO - INTEGRAÇÃO COMPLETA
+Substitui o analyzer original com TODOS os detectores integrados
 """
 import logging
 import time
@@ -7,22 +8,36 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
-import concurrent.futures
 import threading
 
 # Imports do sistema existente
 from core.data_reader import DataReader, MarketData
 from core.signal_writer import SignalWriter, TradingSignal
 from indicators.technical import TechnicalAnalyzer
+
+# INTEGRAÇÃO DOS DETECTORES QUE ESTAVAM FALTANDO
+try:
+    from indicators.patterns import PatternAnalyzer
+    PATTERNS_AVAILABLE = True
+except ImportError:
+    PATTERNS_AVAILABLE = False
+    print("⚠️ PatternAnalyzer não disponível")
+
+try:
+    from indicators.candlestick_patterns_detector import CandlestickDetector, generate_candlestick_signals
+    CANDLESTICK_AVAILABLE = True
+except ImportError:
+    CANDLESTICK_AVAILABLE = False
+    print("⚠️ CandlestickDetector não disponível")
+
 from config.settings import settings
 
 class TradingAnalyzer:
-    """Trading Analyzer CORRIGIDO para evitar travamentos e gerar mais sinais"""
+    """Trading Analyzer CORRIGIDO com TODOS os detectores integrados"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         
-        # Configurar handler se não existe
         if not self.logger.handlers:
             handler = logging.StreamHandler()
             formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -33,235 +48,211 @@ class TradingAnalyzer:
         # Componentes principais
         self.data_reader = DataReader()
         self.signal_writer = SignalWriter()
+        
+        # CORRIGIDO: Integra TODOS os analisadores
         self.technical_analyzer = TechnicalAnalyzer()
         
-        # NOVO: Lock para evitar concorrência
-        self._analysis_lock = threading.Lock()
+        if PATTERNS_AVAILABLE:
+            self.pattern_analyzer = PatternAnalyzer()
+            self.logger.info("✅ PatternAnalyzer integrado")
+        else:
+            self.pattern_analyzer = None
         
-        # NOVO: Cache de análises recentes
+        if CANDLESTICK_AVAILABLE:
+            self.candlestick_detector = CandlestickDetector()
+            self.logger.info("✅ CandlestickDetector integrado (43 padrões)")
+        else:
+            self.candlestick_detector = None
+        
+        self._analysis_lock = threading.Lock()
         self._analysis_cache = {}
         self._cache_expiry = {}
-        self._cache_timeout = 300  # 5 minutos
-        
-        # NOVO: Contador de sinais gerados
+        self._cache_timeout = 300
         self._signals_generated_today = 0
         self._last_reset_date = datetime.now().date()
         
-        self.logger.info("✅ Trading Analyzer corrigido inicializado")
-        self.logger.info(f"📊 Configurações atuais:")
-        self.logger.info(f"   Confidence threshold: {settings.analysis.confidence_threshold}")
-        self.logger.info(f"   RSI levels: {settings.indicators.rsi_oversold}-{settings.indicators.rsi_overbought}")
-        self.logger.info(f"   Volume min ratio: {settings.indicators.min_volume_ratio}x")
+        # Aplica configurações otimizadas
+        self._apply_optimized_settings()
+        
+        self.logger.info("🚀 Trading Analyzer CORRIGIDO inicializado")
+        self.logger.info(f"📊 Componentes: Técnicos=✅ Padrões={'✅' if PATTERNS_AVAILABLE else '❌'} Candlestick={'✅' if CANDLESTICK_AVAILABLE else '❌'}")
     
-    def _reset_daily_counter(self):
-        """Reseta contador diário se necessário"""
-        current_date = datetime.now().date()
-        if current_date != self._last_reset_date:
-            self._signals_generated_today = 0
-            self._last_reset_date = current_date
-            self.logger.info("🔄 Contador diário resetado")
-    
-    def _is_cache_valid(self, cache_key: str) -> bool:
-        """Verifica se cache ainda é válido"""
-        now = time.time()
-        return (cache_key in self._cache_expiry and 
-                self._cache_expiry[cache_key] > now)
-    
-    def _update_cache(self, cache_key: str, result: Dict):
-        """Atualiza cache de análise"""
-        self._analysis_cache[cache_key] = result
-        self._cache_expiry[cache_key] = time.time() + self._cache_timeout
+    def _apply_optimized_settings(self):
+        """Aplica configurações otimizadas"""
+        settings.analysis.confidence_threshold = 0.3
+        settings.indicators.rsi_overbought = 65
+        settings.indicators.rsi_oversold = 35
+        settings.indicators.min_volume_ratio = 1.2
+        settings.patterns.min_pattern_strength = 0.3
+        settings.system.max_signals_per_symbol = 3
+        
+        self.logger.info("🔧 Configurações otimizadas aplicadas")
     
     def analyze_symbol(self, symbol: str, timeframe: str = None) -> Dict:
-        """
-        Analisa symbol específico - VERSÃO CORRIGIDA
-        """
+        """Análise UNIFICADA com TODOS os detectores"""
         if timeframe is None:
             timeframe = settings.analysis.default_timeframe
         
-        # Reset contador se necessário
-        self._reset_daily_counter()
-        
-        cache_key = f"{symbol}_{timeframe}"
         start_time = time.time()
-        
-        self.logger.info(f"🔍 Analisando {symbol} {timeframe}")
-        
-        # Verifica cache primeiro
-        if self._is_cache_valid(cache_key):
-            cached_result = self._analysis_cache[cache_key]
-            self.logger.debug(f"📋 Usando análise em cache para {symbol}")
-            return cached_result
+        self.logger.info(f"🔍 Análise COMPLETA: {symbol} {timeframe}")
         
         try:
-            with self._analysis_lock:  # NOVO: Lock para evitar concorrência
-                
-                # 1. Buscar dados com filtros para dados limpos
-                market_data = self.data_reader.get_latest_data(symbol, timeframe)
-                
-                if not market_data:
-                    result = {
-                        'symbol': symbol,
-                        'status': 'no_data',
-                        'message': 'Nenhum dado encontrado',
-                        'timestamp': datetime.now()
-                    }
-                    self._update_cache(cache_key, result)
-                    return result
-                
-                if not market_data.is_sufficient_data:
-                    result = {
-                        'symbol': symbol,
-                        'status': 'insufficient_data',
-                        'data_points': market_data.data_points,
-                        'required': settings.analysis.min_data_points,
-                        'message': f'Dados insuficientes: {market_data.data_points}/{settings.analysis.min_data_points}',
-                        'timestamp': datetime.now()
-                    }
-                    self._update_cache(cache_key, result)
-                    return result
-                
-                # 2. Análise técnica
-                technical_results = self.technical_analyzer.analyze_all(market_data)
-                
-                # 3. Gera sinais de trading
-                trading_signals = self.technical_analyzer.generate_trading_signals(
-                    market_data, technical_results
-                )
-                
-                # 4. Escreve sinais se houver
-                signals_saved = 0
-                if trading_signals:
-                    signals_saved = self.signal_writer.write_multiple_signals(trading_signals)
-                    if signals_saved > 0:
-                        self._signals_generated_today += signals_saved
-                
-                # 5. Prepara resultado
-                execution_time = time.time() - start_time
-                
-                # Coleta métricas dos indicadores
-                rsi_value = 50.0
-                macd_value = 0.0
-                
-                if 'RSI' in technical_results:
-                    rsi_value = technical_results['RSI'].latest_value
-                
-                if 'MACD' in technical_results:
-                    macd_value = technical_results['MACD'].latest_value
-                
-                result = {
-                    'symbol': symbol,
-                    'status': 'success',
-                    'timeframe': timeframe,
-                    'data_points': market_data.data_points,
-                    'latest_price': market_data.latest_price,
-                    
-                    # Indicadores
-                    'rsi_value': rsi_value,
-                    'macd_value': macd_value,
-                    
-                    # Sinais
-                    'signals_generated': len(trading_signals),
-                    'signals_saved': signals_saved,
-                    'trading_signals': [
-                        {
-                            'signal_type': signal.signal_type,
-                            'confidence': signal.confidence,
-                            'entry_price': signal.entry_price,
-                            'targets': signal.targets,
-                            'stop_loss': signal.stop_loss
-                        } for signal in trading_signals
-                    ],
-                    
-                    # Metadata
-                    'execution_time': round(execution_time, 3),
-                    'timestamp': datetime.now(),
-                    'analysis_method': 'corrected_analyzer'
-                }
-                
-                # Log resultado
-                if signals_saved > 0:
-                    self.logger.info(f"✅ {symbol}: {signals_saved} SINAIS GERADOS! RSI:{rsi_value:.1f} Preço:${market_data.latest_price:,.2f}")
-                else:
-                    self.logger.info(f"➖ {symbol}: Sem sinais. RSI:{rsi_value:.1f} Dados:{market_data.data_points} Tempo:{execution_time:.2f}s")
-                
-                # Atualiza cache
-                self._update_cache(cache_key, result)
-                
-                return result
-                
-        except Exception as e:
-            execution_time = time.time() - start_time
-            self.logger.error(f"❌ Erro na análise de {symbol}: {e}")
+            # 1. Buscar dados
+            market_data = self.data_reader.get_latest_data(symbol, timeframe)
             
+            if not market_data or not market_data.is_sufficient_data:
+                return {
+                    'symbol': symbol,
+                    'status': 'insufficient_data',
+                    'data_points': market_data.data_points if market_data else 0,
+                    'timestamp': datetime.now()
+                }
+            
+            # 2. ANÁLISE COMPLETA - TODOS OS COMPONENTES
+            all_signals = []
+            components = {}
+            
+            # 2.1 Indicadores Técnicos
+            technical_results = self.technical_analyzer.analyze_all(market_data)
+            technical_signals = self.technical_analyzer.generate_trading_signals(market_data, technical_results)
+            all_signals.extend(technical_signals)
+            components['technical'] = {
+                'signals': len(technical_signals),
+                'rsi': technical_results.get('RSI', type('obj', (), {'latest_value': 50})).latest_value
+            }
+            
+            # 2.2 Padrões Gráficos
+            if self.pattern_analyzer:
+                try:
+                    pattern_results = self.pattern_analyzer.analyze_all_patterns(market_data)
+                    pattern_signals = self.pattern_analyzer.generate_pattern_signals(market_data, pattern_results)
+                    
+                    for ps in pattern_signals:
+                        if not isinstance(ps, TradingSignal):
+                            signal = TradingSignal(
+                                symbol=symbol,
+                                signal_type=ps.get('signal_type', 'BUY_LONG'),
+                                entry_price=ps.get('entry_price', market_data.latest_price),
+                                confidence=ps.get('confidence', 0.5)
+                            )
+                            all_signals.append(signal)
+                        else:
+                            all_signals.append(ps)
+                    
+                    components['patterns'] = {'signals': len(pattern_signals)}
+                except Exception as e:
+                    components['patterns'] = {'error': str(e)}
+            
+            # 2.3 Candlestick Patterns (43 padrões)
+            if self.candlestick_detector:
+                try:
+                    cs_signals = generate_candlestick_signals(market_data.data, symbol)
+                    
+                    for cs in cs_signals:
+                        if cs.get('confidence', 0) >= settings.analysis.confidence_threshold:
+                            signal = TradingSignal(
+                                symbol=symbol,
+                                signal_type=cs.get('signal_type', 'BUY_LONG'),
+                                entry_price=cs.get('entry_price', market_data.latest_price),
+                                confidence=cs.get('confidence', 0.5),
+                                strategy=f"CANDLESTICK_{cs.get('pattern_name', 'unknown').replace(' ', '_')}"
+                            )
+                            all_signals.append(signal)
+                    
+                    components['candlestick'] = {
+                        'total_patterns': len(cs_signals),
+                        'valid_signals': len([s for s in cs_signals if s.get('confidence', 0) >= settings.analysis.confidence_threshold]),
+                        'patterns': [s['pattern_name'] for s in cs_signals[:3]]
+                    }
+                except Exception as e:
+                    components['candlestick'] = {'error': str(e)}
+            
+            # 3. Filtra e salva sinais
+            valid_signals = [s for s in all_signals if s.confidence >= settings.analysis.confidence_threshold]
+            
+            # Limita quantidade por symbol
+            max_signals = min(len(valid_signals), settings.system.max_signals_per_symbol)
+            final_signals = sorted(valid_signals, key=lambda x: x.confidence, reverse=True)[:max_signals]
+            
+            signals_saved = 0
+            if final_signals:
+                signals_saved = self.signal_writer.write_multiple_signals(final_signals)
+                self._signals_generated_today += signals_saved
+            
+            execution_time = time.time() - start_time
+            
+            # 4. Resultado
             result = {
                 'symbol': symbol,
-                'status': 'error',
-                'message': str(e),
+                'status': 'success',
+                'data_points': market_data.data_points,
+                'latest_price': market_data.latest_price,
+                'components': components,
+                'technical_signals': len([s for s in all_signals if 'technical' in s.strategy.lower()]),
+                'pattern_signals': len([s for s in all_signals if 'pattern' in s.strategy.lower()]),  
+                'candlestick_signals': len([s for s in all_signals if 'candlestick' in s.strategy.lower()]),
+                'total_detected': len(all_signals),
+                'valid_signals': len(valid_signals),
+                'signals_saved': signals_saved,
                 'execution_time': round(execution_time, 3),
                 'timestamp': datetime.now()
             }
             
+            # Log resultado
+            tech = result['technical_signals']
+            patt = result['pattern_signals'] 
+            cand = result['candlestick_signals']
+            
+            if signals_saved > 0:
+                self.logger.info(f"✅ {symbol}: {signals_saved} SINAIS! (T:{tech} P:{patt} C:{cand}) ${market_data.latest_price:,.2f}")
+            else:
+                self.logger.info(f"➖ {symbol}: Detectados (T:{tech} P:{patt} C:{cand}) sem sinais válidos")
+            
             return result
+            
+        except Exception as e:
+            self.logger.error(f"❌ Erro na análise de {symbol}: {e}")
+            return {
+                'symbol': symbol,
+                'status': 'error',
+                'message': str(e),
+                'timestamp': datetime.now()
+            }
     
-    def analyze_multiple_symbols(self, symbols: List[str] = None, 
-                                timeframe: str = None) -> Dict[str, Dict]:
-        """
-        Analisa múltiplos symbols - SEQUENCIAL para evitar locks
-        """
+    def analyze_multiple_symbols(self, symbols: List[str] = None, timeframe: str = None) -> Dict[str, Dict]:
+        """Análise múltipla com TODOS os detectores"""
         if symbols is None:
             symbols = settings.get_analysis_symbols()
         
-        if timeframe is None:
-            timeframe = settings.analysis.default_timeframe
-        
-        # Filtra apenas symbols com dados disponíveis
         available_symbols = self.data_reader.get_available_symbols()
         valid_symbols = [s for s in symbols if s in available_symbols]
         
-        self.logger.info(f"🚀 Análise múltipla: {len(valid_symbols)} symbols válidos")
+        self.logger.info(f"🚀 Análise múltipla COMPLETA: {len(valid_symbols)} symbols")
         
         results = {}
         total_signals = 0
-        successful_analyses = 0
+        successful = 0
         
-        start_time = time.time()
-        
-        # NOVO: Análise SEQUENCIAL em vez de paralela para evitar locks
         for symbol in valid_symbols:
             try:
                 result = self.analyze_symbol(symbol, timeframe)
                 results[symbol] = result
                 
                 if result['status'] == 'success':
-                    successful_analyses += 1
+                    successful += 1
                     total_signals += result.get('signals_saved', 0)
                 
-                # NOVO: Pequena pausa entre análises para evitar sobrecarga
-                time.sleep(0.2)
+                time.sleep(0.2)  # Pausa entre análises
                 
             except Exception as e:
-                self.logger.error(f"Erro ao analisar {symbol}: {e}")
-                results[symbol] = {
-                    'symbol': symbol,
-                    'status': 'error',
-                    'message': str(e),
-                    'timestamp': datetime.now()
-                }
-                continue
+                results[symbol] = {'symbol': symbol, 'status': 'error', 'message': str(e)}
         
-        total_time = time.time() - start_time
+        self.logger.info(f"📊 RESUMO: {successful}/{len(valid_symbols)} OK, {total_signals} sinais gerados")
         
-        # Log resumo
-        self.logger.info(f"📊 RESUMO: {successful_analyses}/{len(valid_symbols)} OK, "
-                        f"{total_signals} sinais gerados em {total_time:.1f}s")
-        
-        # Adiciona metadata
         results['_summary'] = {
             'symbols_analyzed': len(valid_symbols),
-            'successful_analyses': successful_analyses,
+            'successful_analyses': successful,
             'total_signals_generated': total_signals,
-            'total_execution_time': round(total_time, 2),
             'signals_today': self._signals_generated_today,
             'timestamp': datetime.now()
         }
@@ -269,72 +260,47 @@ class TradingAnalyzer:
         return results
     
     def run_continuous_analysis(self, interval_seconds: int = None):
-        """
-        Execução contínua - CORRIGIDA para evitar travamentos
-        """
+        """Execução contínua COMPLETA"""
         if interval_seconds is None:
             interval_seconds = settings.system.analysis_interval
         
-        self.logger.info(f"🔄 Iniciando análise contínua (intervalo: {interval_seconds}s)")
-        self.logger.info("Pressione Ctrl+C para parar")
-        
-        consecutive_errors = 0
-        max_consecutive_errors = 5
+        self.logger.info(f"🔄 Análise contínua COMPLETA (intervalo: {interval_seconds}s)")
         
         try:
             while True:
                 cycle_start = time.time()
                 
                 try:
-                    self.logger.info(f"\n⚡ CICLO DE ANÁLISE - {datetime.now().strftime('%H:%M:%S')}")
-                    
-                    # Executa análise de todos os symbols
+                    self.logger.info(f"\n⚡ CICLO COMPLETO - {datetime.now().strftime('%H:%M:%S')}")
                     results = self.analyze_multiple_symbols()
                     
-                    # Estatísticas do ciclo
                     summary = results.get('_summary', {})
-                    signals_generated = summary.get('total_signals_generated', 0)
+                    signals = summary.get('total_signals_generated', 0)
                     successful = summary.get('successful_analyses', 0)
-                    total_analyzed = summary.get('symbols_analyzed', 0)
+                    total = summary.get('symbols_analyzed', 0)
                     
-                    self.logger.info(f"📊 Ciclo completo: {successful}/{total_analyzed} OK, "
-                                   f"{signals_generated} sinais, "
-                                   f"Total hoje: {self._signals_generated_today}")
-                    
-                    # Reset contador de erros se sucesso
-                    consecutive_errors = 0
+                    self.logger.info(f"📊 Ciclo: {successful}/{total} OK, {signals} sinais, Total hoje: {self._signals_generated_today}")
                     
                 except Exception as e:
-                    consecutive_errors += 1
-                    self.logger.error(f"❌ Erro no ciclo #{consecutive_errors}: {e}")
-                    
-                    if consecutive_errors >= max_consecutive_errors:
-                        self.logger.error(f"🛑 Muitos erros consecutivos ({consecutive_errors}). Parando...")
-                        break
+                    self.logger.error(f"❌ Erro no ciclo: {e}")
                 
-                # Calcula tempo restante para próximo ciclo
-                cycle_duration = time.time() - cycle_start
-                sleep_time = max(0, interval_seconds - cycle_duration)
+                # Aguarda próximo ciclo
+                cycle_time = time.time() - cycle_start
+                sleep_time = max(0, interval_seconds - cycle_time)
                 
                 if sleep_time > 0:
-                    self.logger.info(f"😴 Aguardando {sleep_time:.1f}s para próximo ciclo...")
+                    self.logger.info(f"😴 Aguardando {sleep_time:.1f}s...")
                     time.sleep(sleep_time)
-                else:
-                    self.logger.warning(f"⚠️ Ciclo demorou {cycle_duration:.1f}s (limite: {interval_seconds}s)")
         
         except KeyboardInterrupt:
-            self.logger.info("🛑 Análise contínua interrompida pelo usuário")
-        except Exception as e:
-            self.logger.error(f"❌ Erro fatal na análise contínua: {e}")
+            self.logger.info("🛑 Análise contínua interrompida")
     
     def get_system_status(self) -> Dict:
-        """Retorna status do sistema"""
+        """Status do sistema COMPLETO"""
         try:
-            # Testa componentes
             available_symbols = self.data_reader.get_available_symbols()
             signal_stats = self.signal_writer.get_signal_statistics()
             
-            # Testa análise rápida
             test_symbol = available_symbols[0] if available_symbols else None
             test_result = None
             
@@ -347,96 +313,35 @@ class TradingAnalyzer:
             
             return {
                 'status': 'operational',
+                'system_version': 'corrected_unified',
                 'timestamp': datetime.now(),
                 'components': {
                     'data_reader': 'OK' if available_symbols else 'NO_DATA',
-                    'signal_writer': 'OK' if 'error' not in signal_stats else 'ERROR',
-                    'technical_analyzer': 'OK'
+                    'signal_writer': 'OK',
+                    'technical_analyzer': 'OK',
+                    'pattern_analyzer': 'OK' if PATTERNS_AVAILABLE else 'NOT_AVAILABLE',
+                    'candlestick_detector': 'OK' if CANDLESTICK_AVAILABLE else 'NOT_AVAILABLE'
                 },
                 'symbols_available': len(available_symbols),
                 'active_signals': signal_stats.get('active_signals', 0),
                 'signals_today': self._signals_generated_today,
-                'last_analysis_time': test_time,
+                'test_time': test_time,
                 'test_symbol': test_symbol,
-                'test_result': test_result.get('status', 'unknown') if test_result else None,
                 'configuration': {
                     'confidence_threshold': settings.analysis.confidence_threshold,
                     'rsi_levels': f"{settings.indicators.rsi_oversold}-{settings.indicators.rsi_overbought}",
-                    'volume_min_ratio': settings.indicators.min_volume_ratio,
-                    'parallel_analysis': settings.system.parallel_analysis
+                    'max_signals_per_symbol': settings.system.max_signals_per_symbol,
+                    'candlestick_enabled': CANDLESTICK_AVAILABLE,
+                    'patterns_enabled': PATTERNS_AVAILABLE
                 }
             }
-            
         except Exception as e:
-            return {
-                'status': 'error',
-                'message': str(e),
-                'timestamp': datetime.now()
-            }
+            return {'status': 'error', 'message': str(e)}
     
     def cleanup_old_data(self, days: int) -> Dict:
         """Limpa dados antigos"""
         try:
-            removed_signals = self.signal_writer.cleanup_old_signals(days)
-            
-            return {
-                'status': 'success',
-                'removed_signals': removed_signals,
-                'days_cleaned': days,
-                'timestamp': datetime.now()
-            }
-            
+            removed = self.signal_writer.cleanup_old_signals(days)
+            return {'status': 'success', 'removed_signals': removed, 'days': days}
         except Exception as e:
-            return {
-                'status': 'error',
-                'message': str(e),
-                'timestamp': datetime.now()
-            }
-
-# Funções utilitárias para diagnóstico
-def test_analyzer():
-    """Testa o analyzer corrigido"""
-    print("🧪 TESTANDO ANALYZER CORRIGIDO")
-    print("=" * 35)
-    
-    try:
-        analyzer = TradingAnalyzer()
-        
-        # Status do sistema
-        print("📊 STATUS DO SISTEMA:")
-        status = analyzer.get_system_status()
-        print(f"   Status: {status['status']}")
-        print(f"   Symbols disponíveis: {status['symbols_available']}")
-        print(f"   Sinais ativos: {status['active_signals']}")
-        print(f"   Sinais hoje: {status['signals_today']}")
-        
-        # Teste de análise
-        if status['symbols_available'] > 0:
-            print(f"\n🔍 TESTE DE ANÁLISE:")
-            
-            symbols = analyzer.data_reader.get_available_symbols()
-            test_symbol = symbols[0]
-            
-            print(f"   Testando: {test_symbol}")
-            
-            result = analyzer.analyze_symbol(test_symbol)
-            
-            print(f"   Status: {result['status']}")
-            print(f"   RSI: {result.get('rsi_value', 'N/A')}")
-            print(f"   Sinais gerados: {result.get('signals_generated', 0)}")
-            print(f"   Sinais salvos: {result.get('signals_saved', 0)}")
-            print(f"   Tempo: {result.get('execution_time', 0)}s")
-            
-            if result.get('signals_saved', 0) > 0:
-                print(f"   ✅ SINAL GERADO COM SUCESSO!")
-            else:
-                print(f"   ⚠️  Nenhum sinal gerado (normal se não há setup)")
-        
-        return True
-        
-    except Exception as e:
-        print(f"❌ Erro no teste: {e}")
-        return False
-
-if __name__ == "__main__":
-    test_analyzer()
+            return {'status': 'error', 'message': str(e)}

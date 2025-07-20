@@ -21,7 +21,7 @@ class AnalysisConfig:
     default_timeframe: str = "15m"
     min_data_points: int = 50
     lookback_hours: int = 24
-    confidence_threshold: float = 0.7  # CORRIGIDO: era 0.2
+    confidence_threshold: float = 0.70  # CORRIGIDO: era 0.2
     symbols: List[str] = None
     
     def __post_init__(self):
