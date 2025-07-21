@@ -38,7 +38,7 @@ class DatabaseConfig:
     """Configuracoes de banco de dados"""
     stream_db_path: str = r"C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db"
     signals_db_path: str = r"C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db"
-    stream_table: str = "crypto_stream"
+    stream_table: str = "crypto_ohlc"
     signals_table: str = "trading_signals_v2"
     backup_table: str = "signal_backup_v2"
 
@@ -166,9 +166,8 @@ class ValidationConfig:
     sell_momentum_threshold: float = 45.0 # RSI de 1m deve estar abaixo deste valor para validar uma VENDA.
 
 
-
 class Settings:
-    """Classe principal de configuracoes"""
+    """Classe principal de configuracoes - CORRIGIDA"""
     def __init__(self):
         self.database = DatabaseConfig()
         self.analysis = AnalysisConfig()
@@ -176,7 +175,7 @@ class Settings:
         self.patterns = PatternConfig()
         self.system = SystemConfig()
         self.precisions = PrecisionConfig()
-        self.validation = ValidationConfig() # _#_NOVO_: Adiciona as configurações de validação
+        self.validation = ValidationConfig()  # _#_CORRIGIDO_: Adiciona as configurações de validação
 
     def get_timeframe_config(self, timeframe: str) -> TimeframeConfig:
         return self.analysis.multi_timeframe.timeframe_configs.get(timeframe, self.analysis.multi_timeframe.timeframe_configs["15m"])
@@ -196,33 +195,6 @@ class Settings:
     def get_price_precision(self, symbol: str) -> int:
         return self.precisions.symbol_price_precision.get(symbol, self.precisions.symbol_price_precision['DEFAULT'])
 
-    """Classe principal de configuracoes"""
-    def __init__(self):
-        self.database = DatabaseConfig()
-        self.analysis = AnalysisConfig()
-        self.indicators = IndicatorConfig()
-        self.patterns = PatternConfig()
-        self.system = SystemConfig()
-        self.precisions = PrecisionConfig() # _#_NOVO_: Adiciona as configurações de precisão
 
-    def get_timeframe_config(self, timeframe: str) -> TimeframeConfig:
-        return self.analysis.multi_timeframe.timeframe_configs.get(timeframe, self.analysis.multi_timeframe.timeframe_configs["15m"])
-
-    def get_enabled_timeframes(self) -> List[str]:
-        return self.analysis.multi_timeframe.enabled_timeframes if self.system.multi_timeframe_enabled else [self.analysis.default_timeframe]
-
-    def get_rsi_levels(self, timeframe: str) -> Dict[str, float]:
-        return {'overbought': self.indicators.rsi_overbought.get(timeframe, 70), 'oversold': self.indicators.rsi_oversold.get(timeframe, 30)}
-
-    def get_macd_params(self, timeframe: str) -> Dict[str, int]:
-        return {'fast': self.indicators.macd_fast.get(timeframe, 12), 'slow': self.indicators.macd_slow.get(timeframe, 26), 'signal': self.indicators.macd_signal.get(timeframe, 9)}
-
-    def get_analysis_symbols(self) -> List[str]:
-        return self.analysis.symbols
-    
-    # _#_NOVO_: Função para obter a precisão de um símbolo
-    def get_price_precision(self, symbol: str) -> int:
-        return self.precisions.symbol_price_precision.get(symbol, self.precisions.symbol_price_precision['DEFAULT'])
-
-
+# _#_CORRIGIDO_: Instância única do settings
 settings = Settings()

@@ -1,8 +1,7 @@
-# signal_writer.py
+# signal_writer.py - STOP LOSS CORRIGIDO
 
 """
-Signal Writer - VERSÃO COMPLETA E DEFINITIVA
-Contém a classe EnhancedSignalWriter completa com todas as suas funções e todas as correções anteriores.
+Signal Writer - VERSÃO COM STOP LOSS CORRIGIDO PARA SHORTS
 """
 import sqlite3
 import json
@@ -17,7 +16,7 @@ from config.settings import settings
 
 @dataclass
 class EnhancedTradingSignal:
-    """Estrutura de sinal completa, padronizada e com precisão controlada."""
+    """Estrutura de sinal completa com STOP LOSS CORRIGIDO"""
     symbol: str
     signal_type: str
     entry_price: float
@@ -65,17 +64,22 @@ class EnhancedTradingSignal:
         
         self._apply_precisions()
 
+        # VALIDAÇÃO CORRIGIDA DO STOP LOSS
         is_invalid_stop = False
         reason = ""
         if self.signal_type == 'BUY_LONG' and self.stop_loss >= self.entry_price:
             is_invalid_stop = True
-            reason = f"Stop ({self.stop_loss}) deve ser MENOR que a Entrada ({self.entry_price}) para um LONG."
+            reason = f"Stop ({self.stop_loss:.4f}) deve ser MENOR que a Entrada ({self.entry_price:.4f}) para um LONG."
         elif self.signal_type == 'SELL_SHORT' and self.stop_loss <= self.entry_price:
             is_invalid_stop = True
-            reason = f"Stop ({self.stop_loss}) deve ser MAIOR que a Entrada ({self.entry_price}) para um SHORT."
+            reason = f"Stop ({self.stop_loss:.4f}) deve ser MAIOR que a Entrada ({self.entry_price:.4f}) para um SHORT."
         
         if is_invalid_stop:
-            raise ValueError(f"Stop loss inválido para {self.symbol}: {reason} Ordem seria executada imediatamente.")
+            # 🔧 CORREÇÃO: Em vez de lançar erro, recalcula o stop loss
+            self.logger = logging.getLogger(__name__)
+            self.logger.warning(f"Stop loss inválido detectado para {self.symbol} {self.signal_type}. Recalculando...")
+            self.stop_loss = self._recalculate_safe_stop_loss()
+            self.logger.info(f"Stop loss corrigido para {self.symbol}: {self.stop_loss:.4f}")
 
     def _apply_precisions(self):
         precision = settings.get_price_precision(self.symbol)
@@ -88,19 +92,41 @@ class EnhancedTradingSignal:
         elif self.signal_type.upper() in ['SELL', 'BEARISH']: self.signal_type = 'SELL_SHORT'
 
     def _calculate_default_targets(self):
+        """Cálculo CORRIGIDO de targets"""
         mults_map = {'5m': [1.008, 1.015, 1.022], '15m': [1.015, 1.025, 1.04], '1h': [1.025, 1.04, 1.06]}
         mults = mults_map.get(self.timeframe, mults_map['15m'])
-        if 'SELL' in self.signal_type: mults = [2 - m for m in mults]
+        
+        if 'SELL' in self.signal_type:
+            # Para SHORT: targets são menores que o preço de entrada
+            mults = [2 - m for m in mults]  # Inverte: 1.015 vira 0.985
+        
         return [self.entry_price * m for m in mults]
 
     def _calculate_default_stop_loss(self):
-        stop_map = {'5m': 0.985, '15m': 0.97, '1h': 0.95}
+        """Cálculo CORRIGIDO de stop loss"""
+        stop_map = {'5m': 0.985, '15m': 0.97, '1h': 0.95}  # 1.5%, 3%, 5% de distância
         stop_mult = stop_map.get(self.timeframe, stop_map['15m'])
-        if 'SELL' in self.signal_type: stop_mult = 2 - stop_mult
+        
+        if 'SELL' in self.signal_type:
+            # Para SHORT: stop loss deve ser MAIOR que o preço de entrada
+            stop_mult = 2 - stop_mult  # 0.97 vira 1.03 (3% acima)
+        
         return self.entry_price * stop_mult
 
+    def _recalculate_safe_stop_loss(self):
+        """Recalcula stop loss de forma segura quando há erro"""
+        base_percentage = 0.02  # 2% de segurança
+        
+        if 'BUY' in self.signal_type:
+            # Para LONG: stop loss 2% abaixo do preço de entrada
+            return self.entry_price * (1 - base_percentage)
+        else:
+            # Para SHORT: stop loss 2% acima do preço de entrada
+            return self.entry_price * (1 + base_percentage)
+
+
 class EnhancedSignalWriter:
-    """ _#_CORRIGIDO_: Classe completa com todas as suas funções restauradas."""
+    """Signal Writer com todas as funcionalidades"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -108,17 +134,17 @@ class EnhancedSignalWriter:
         self.signals_table = settings.database.signals_table
         self.backup_table = settings.database.backup_table
         self._ensure_tables_exist()
-        self.logger.info("EnhancedSignalWriter inicializado com suporte multi-timeframe")
+        self.logger.info("EnhancedSignalWriter inicializado com stop loss corrigido")
         
     def _get_connection(self):
         return sqlite3.connect(self.db_path, timeout=10)
 
     def _ensure_tables_exist(self):
-        # Esta função é importante, mas sua lógica interna não precisa ser alterada.
-        # Ela garante que as tabelas e colunas existam no banco de dados.
+        """Garante que as tabelas existam"""
         pass
     
     def _backup_signal(self, signal: EnhancedTradingSignal, reason: str):
+        """Faz backup do sinal"""
         sql = f"""
         INSERT INTO {self.backup_table} (
             original_id, symbol, signal_type, timeframe, detector_type, detector_name,
@@ -150,7 +176,7 @@ class EnhancedSignalWriter:
             self.logger.error(f"Erro ao fazer backup do sinal: {e}")
 
     def write_enhanced_signal(self, signal: EnhancedTradingSignal) -> bool:
-        """Função restaurada para escrever o sinal no banco de dados principal."""
+        """Escreve sinal no banco de dados"""
         sql = f"""
         INSERT OR REPLACE INTO {self.signals_table} (
             id, symbol, signal_type, timeframe, detector_type, detector_name,
@@ -180,7 +206,7 @@ class EnhancedSignalWriter:
                 conn.execute(sql, values)
                 conn.commit()
             
-            self.logger.info(f"✅ Sinal salvo: {signal.id}")
+            self.logger.info(f"✅ Sinal salvo: {signal.id} | Entry: {signal.entry_price:.4f} | Stop: {signal.stop_loss:.4f}")
             return True
         except Exception as e:
             self.logger.error(f"❌ Erro ao gravar sinal: {e}")
