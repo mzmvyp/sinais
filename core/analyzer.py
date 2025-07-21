@@ -71,22 +71,10 @@ class TradingAnalyzer:
         self._signals_generated_today = 0
         self._last_reset_date = datetime.now().date()
         
-        # Aplica configurações otimizadas
-        self._apply_optimized_settings()
         
         self.logger.info("🚀 Trading Analyzer CORRIGIDO inicializado")
         self.logger.info(f"📊 Componentes: Técnicos=✅ Padrões={'✅' if PATTERNS_AVAILABLE else '❌'} Candlestick={'✅' if CANDLESTICK_AVAILABLE else '❌'}")
     
-    def _apply_optimized_settings(self):
-        """Aplica configurações otimizadas"""
-        settings.analysis.confidence_threshold = 0.3
-        settings.indicators.rsi_overbought = 65
-        settings.indicators.rsi_oversold = 35
-        settings.indicators.min_volume_ratio = 1.2
-        settings.patterns.min_pattern_strength = 0.3
-        settings.system.max_signals_per_symbol = 3
-        
-        self.logger.info("🔧 Configurações otimizadas aplicadas")
     
     def analyze_symbol(self, symbol: str, timeframe: str = None) -> Dict:
         """Análise UNIFICADA com TODOS os detectores"""
@@ -120,6 +108,33 @@ class TradingAnalyzer:
                 'signals': len(technical_signals),
                 'rsi': technical_results.get('RSI', type('obj', (), {'latest_value': 50})).latest_value
             }
+            
+            buy_signals = [s for s in all_signals if 'BUY' in s.signal_type]
+            sell_signals = [s for s in all_signals if 'SELL' in s.signal_type]
+            
+            # Se tem sinais conflitantes, não gera nenhum
+            if buy_signals and sell_signals:
+                self.logger.warning(f"Sinais conflitantes para {symbol} - ignorando")
+                valid_signals = []
+            else:
+                # Aplica filtros rigorosos
+                valid_signals = []
+                for signal in all_signals:
+                    # Só aceita alta confiança
+                    if signal.confidence >= 0.75:  # Mais rigoroso
+                        # Verifica volume (exemplo simplificado)
+                        current_volume = market_data.data['volume'].iloc[-1]
+                        avg_volume = market_data.data['volume'].rolling(20).mean().iloc[-1]
+                        
+                        if current_volume >= avg_volume * 1.5:
+                            valid_signals.append(signal)
+            
+            # Limita a 1 sinal por vez
+            if valid_signals:
+                best_signal = max(valid_signals, key=lambda x: x.confidence)
+                final_signals = [best_signal]
+            else:
+                final_signals = []
             
             # 2.2 Padrões Gráficos
             if self.pattern_analyzer:

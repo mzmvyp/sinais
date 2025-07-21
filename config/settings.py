@@ -19,9 +19,9 @@ class DatabaseConfig:
 class AnalysisConfig:
     """Configuracoes de analise"""
     default_timeframe: str = "15m"
-    min_data_points: int = 50
+    min_data_points: int = 100
     lookback_hours: int = 24
-    confidence_threshold: float = 0.7  # CORRIGIDO: era 0.2
+    confidence_threshold: float = 0.75  # CORRIGIDO: era 0.2
     symbols: List[str] = None
     
     def __post_init__(self):
@@ -75,8 +75,8 @@ class PatternConfig:
 @dataclass
 class SystemConfig:
     """Configuracoes do sistema"""
-    analysis_interval: int = 300
-    max_signals_per_symbol: int = 2     # era 5-20
+    analysis_interval: int = 600
+    max_signals_per_symbol: int = 1     # era 5-20
     log_level: str = "INFO"
     log_file: str = "trading_analyzer.log"
     parallel_analysis: bool = True

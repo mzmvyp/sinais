@@ -298,9 +298,9 @@ class SignalWriter:
         start_time = time.time()
         
         # Verifica se já existe sinal ativo para este symbol
-        if self._has_active_signal_for_symbol(signal.symbol):
-            self.logger.info(f"Symbol {signal.symbol} já possui sinal ativo - pulando")
-            return False
+        #if self._has_active_signal_for_symbol(signal.symbol):
+         #   self.logger.info(f"Symbol {signal.symbol} já possui sinal ativo - pulando")
+          #  return False
         
         insert_sql = f"""
         INSERT OR REPLACE INTO {self.signals_table} (

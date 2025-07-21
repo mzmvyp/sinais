@@ -34,7 +34,7 @@ try:
         generate_candlestick_signals,
         verify_patterns_implementation
     )
-    CANDLESTICK_AVAILABLE = True
+    CANDLESTICK_AVAILABLE = False
     print("✅ Detector de Candlestick carregado: 43 padrões disponíveis")
     
     # Verifica se todos os 43 padrões estão implementados

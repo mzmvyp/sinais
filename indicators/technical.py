@@ -7,6 +7,7 @@ import logging
 from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass
 from datetime import datetime
+from config.settings import settings
 
 try:
     import talib
@@ -35,9 +36,9 @@ class RSIAnalyzer:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.period = 14
-        self.overbought = 58  
-        self.oversold = 42    
+        self.period = settings.indicators.rsi_period
+        self.overbought = settings.indicators.rsi_overbought  # 70
+        self.oversold = settings.indicators.rsi_oversold      # 30
     
     def calculate_rsi(self, close_prices: pd.Series) -> pd.Series:
         """Calcula RSI"""
@@ -90,41 +91,77 @@ class RSIAnalyzer:
         signals = []
         timestamp = df['timestamp'].iloc[-1]
         
-        # Determina tipo de sinal e confidence
-        if latest_rsi >= self.overbought:
-            signal_type = 'SELL_SHORT'
-            confidence = min(0.95, (latest_rsi - self.overbought) / (100 - self.overbought) + 0.5)
-            priority = 'high'
-        elif latest_rsi <= self.oversold:
-            signal_type = 'BUY_LONG'
-            confidence = min(0.95, (self.oversold - latest_rsi) / self.oversold + 0.5)
-            priority = 'high'
-        elif latest_rsi > 50:
-            signal_type = 'SELL_SHORT'
-            confidence = 0.4 + (latest_rsi - 50) / 50 * 0.3
-            priority = 'medium'
-        else:
-            signal_type = 'BUY_LONG'
-            confidence = 0.4 + (50 - latest_rsi) / 50 * 0.3
-            priority = 'medium'
+        if self.oversold + 5 <= latest_rsi <= self.overbought - 5:
+            # RSI entre 35-65 = zona neutra = sem sinal
+            return IndicatorResult(
+                name="RSI",
+                values=rsi,
+                signals=[],  # VAZIO - sem sinais
+                metadata={'current_rsi': latest_rsi, 'zone': 'neutral'}
+            )
         
-        signals.append({
-            'type': f'rsi_{signal_type.lower()}',
-            'timestamp': timestamp,
-            'rsi_value': latest_rsi,
-            'signal_type': signal_type,
-            'confidence': confidence,
-            'strength': 0.7 if priority == 'high' else 0.5,
-            'priority': priority,
-            'indicator': 'RSI'
-        })
+        # Só gera sinais em extremos
+        signals = []
+        if latest_rsi >= self.overbought:
+            signals.append({
+                'type': 'rsi_overbought',
+                'signal_type': 'SELL_SHORT',
+                'confidence': 0.8 + (latest_rsi - self.overbought) / 30 * 0.2,
+                'strength': 0.8,
+                'priority': 'high'
+            })
+        elif latest_rsi <= self.oversold:
+            signals.append({
+                'type': 'rsi_oversold', 
+                'signal_type': 'BUY_LONG',
+                'confidence': 0.8 + (self.oversold - latest_rsi) / 30 * 0.2,
+                'strength': 0.8,
+                'priority': 'high'
+            })
         
         return IndicatorResult(
             name="RSI",
             values=rsi,
             signals=signals,
-            metadata={'current_rsi': latest_rsi, 'signal_format': 'standard'}
+            metadata={'current_rsi': latest_rsi}
         )
+        
+        # Determina tipo de sinal e confidence
+        #if latest_rsi >= self.overbought:
+        #    signal_type = 'SELL_SHORT'
+        #    confidence = min(0.95, (latest_rsi - self.overbought) / (100 - self.overbought) + 0.5)
+        #    priority = 'high'
+        #lif latest_rsi <= self.oversold:
+        #    signal_type = 'BUY_LONG'
+        #    confidence = min(0.95, (self.oversold - latest_rsi) / self.oversold + 0.5)
+        #    priority = 'high'
+        #elif latest_rsi > 50:
+        #    signal_type = 'SELL_SHORT'
+        #    confidence = 0.4 + (latest_rsi - 50) / 50 * 0.3
+        #    priority = 'medium'
+        #else:
+        #    signal_type = 'BUY_LONG'
+        #    confidence = 0.4 + (50 - latest_rsi) / 50 * 0.3
+        #    priority = 'medium'
+       # 
+       # signals.append({
+       #     'type': f'rsi_{signal_type.lower()}',
+       #     'timestamp': timestamp,
+       #     'rsi_value': latest_rsi,
+       #     'signal_type': signal_type,
+       #     'confidence': confidence,
+       #     'strength': 0.7 if priority == 'high' else 0.5,
+       #     'priority': priority,
+       #    'indicator': 'RSI'
+       # })
+        
+       # return IndicatorResult(
+       #     name="RSI",
+       #     values=rsi,
+       #     signals=signals,
+       #     metadata={'current_rsi': latest_rsi}
+       # )
+        
 
 class MACDAnalyzer:
     """MACD Analyzer adaptado"""

@@ -120,8 +120,8 @@ def get_current_settings_summary():
 def apply_permissive_settings():
     """Modo mais permissivo"""
     settings.analysis.confidence_threshold = 0.55
-    settings.indicators.rsi_overbought = 65
-    settings.indicators.rsi_oversold = 35
+    settings.indicators.rsi_overbought = 70
+    settings.indicators.rsi_oversold = 30
     settings.indicators.min_volume_ratio = 1.2
     settings.patterns.min_pattern_strength = 0.5
     print("Configuracoes permissivas aplicadas")
