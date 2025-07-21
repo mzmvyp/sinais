@@ -316,6 +316,9 @@ Exemplos de uso:
     
     parser.add_argument('--quiet', action='store_true',
                        help='Modo silencioso (apenas erros)')
+    # No parser de argumentos, adicione:
+    parser.add_argument('--check-signals', action='store_true',
+                    help='Verifica sinais ativos por symbol')
     
     args = parser.parse_args()
     
@@ -342,6 +345,7 @@ Exemplos de uso:
             
             status = analyzer.get_system_status()
             print(format_system_status(status, args.output))
+        
         
         elif args.analyze:
             # Analisa symbol específico com sistema unificado
@@ -382,7 +386,7 @@ Exemplos de uso:
                 print(f"Iniciando análise contínua unificada (intervalo: {interval}s)")
                 print("Pressione Ctrl+C para parar\n")
             
-            analyzer.run_continuous_analysis(interval)
+            analyzer.run_continuous_multi_timeframe_analysis(interval)
         
         elif args.cleanup is not None:
             # Limpeza de dados antigos

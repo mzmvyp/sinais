@@ -458714,3 +458714,429 @@ ENTRY CALCULATION 15MIN:
 2025-07-20 21:14:30,148 - core.analyzer - INFO - 📊 Ciclo: 8/14 OK, 8 sinais, Total hoje: 16
 2025-07-20 21:14:30,148 - core.analyzer - INFO - 😴 Aguardando 583.7s...
 2025-07-20 21:23:52,222 - core.analyzer - INFO - 🛑 Análise contínua interrompida
+2025-07-20 21:56:40,363 - core.data_reader - INFO - DataReader inicializado com proteção contra travamentos
+2025-07-20 21:56:40,370 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:40,370 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:40,371 - core.analyzer - INFO - ✅ PatternAnalyzer integrado
+2025-07-20 21:56:40,371 - core.analyzer - INFO - ✅ CandlestickDetector integrado (43 padrões)
+2025-07-20 21:56:40,371 - core.analyzer - INFO - 🚀 Trading Analyzer CORRIGIDO inicializado
+2025-07-20 21:56:40,372 - core.analyzer - INFO - 📊 Componentes: Técnicos=✅ Padrões=✅ Candlestick=✅
+2025-07-20 21:56:40,372 - core.analyzer - INFO - 🔄 Análise contínua COMPLETA (intervalo: 600s)
+2025-07-20 21:56:40,372 - core.analyzer - INFO - 
+⚡ CICLO COMPLETO - 21:56:40
+2025-07-20 21:56:40,376 - core.data_reader - INFO - 📊 Encontrados 14 symbols com dados limpos
+2025-07-20 21:56:40,376 - core.analyzer - INFO - 🚀 Análise múltipla COMPLETA: 14 symbols
+2025-07-20 21:56:40,377 - core.analyzer - INFO - 🔍 Análise COMPLETA: BNB 15m
+2025-07-20 21:56:40,387 - core.data_reader - INFO - ✅ BNB 15m: 148 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:40,390 - indicators.technical - INFO - Análise técnica concluída para BNB: RSI=0, MACD=1
+2025-07-20 21:56:40,392 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:40,392 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:40,393 - core.analyzer - ERROR - ❌ Erro na análise de BNB: no such table: trading_signals_v2
+2025-07-20 21:56:40,595 - core.analyzer - INFO - 🔍 Análise COMPLETA: BTC 15m
+2025-07-20 21:56:40,601 - core.data_reader - INFO - ✅ BTC 15m: 148 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:40,604 - indicators.technical - INFO - Análise técnica concluída para BTC: RSI=1, MACD=1
+2025-07-20 21:56:40,605 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:40,605 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:40,606 - core.analyzer - ERROR - ❌ Erro na análise de BTC: no such table: trading_signals_v2
+2025-07-20 21:56:40,807 - core.analyzer - INFO - 🔍 Análise COMPLETA: ENA 15m
+2025-07-20 21:56:40,818 - core.data_reader - INFO - ✅ ENA 15m: 148 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 21:56:40,821 - indicators.technical - INFO - Análise técnica concluída para ENA: RSI=0, MACD=1
+2025-07-20 21:56:40,823 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:40,823 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:40,824 - core.analyzer - ERROR - ❌ Erro na análise de ENA: no such table: trading_signals_v2
+2025-07-20 21:56:41,025 - core.analyzer - INFO - 🔍 Análise COMPLETA: ETH 15m
+2025-07-20 21:56:41,032 - core.data_reader - INFO - ✅ ETH 15m: 148 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:41,035 - indicators.technical - INFO - Análise técnica concluída para ETH: RSI=0, MACD=1
+2025-07-20 21:56:41,036 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:41,036 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:41,037 - core.analyzer - ERROR - ❌ Erro na análise de ETH: no such table: trading_signals_v2
+2025-07-20 21:56:41,238 - core.analyzer - INFO - 🔍 Análise COMPLETA: HBAR 15m
+2025-07-20 21:56:41,247 - core.data_reader - INFO - ✅ HBAR 15m: 147 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 21:56:41,251 - indicators.technical - INFO - Análise técnica concluída para HBAR: RSI=0, MACD=1
+2025-07-20 21:56:41,252 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:41,253 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:41,254 - core.analyzer - ERROR - ❌ Erro na análise de HBAR: no such table: trading_signals_v2
+2025-07-20 21:56:41,455 - core.analyzer - INFO - 🔍 Análise COMPLETA: NEAR 15m
+2025-07-20 21:56:41,464 - core.data_reader - INFO - ✅ NEAR 15m: 147 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 21:56:41,468 - indicators.technical - INFO - Análise técnica concluída para NEAR: RSI=0, MACD=1
+2025-07-20 21:56:41,469 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:41,469 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:41,471 - core.analyzer - ERROR - ❌ Erro na análise de NEAR: no such table: trading_signals_v2
+2025-07-20 21:56:41,671 - core.analyzer - INFO - 🔍 Análise COMPLETA: OMNI 15m
+2025-07-20 21:56:41,680 - core.data_reader - INFO - ✅ OMNI 15m: 147 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 21:56:41,683 - indicators.technical - INFO - Análise técnica concluída para OMNI: RSI=0, MACD=1
+2025-07-20 21:56:41,684 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:41,684 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:41,685 - core.analyzer - ERROR - ❌ Erro na análise de OMNI: no such table: trading_signals_v2
+2025-07-20 21:56:41,886 - core.analyzer - INFO - 🔍 Análise COMPLETA: SOL 15m
+2025-07-20 21:56:41,895 - core.data_reader - INFO - ✅ SOL 15m: 147 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:41,897 - indicators.technical - INFO - Análise técnica concluída para SOL: RSI=0, MACD=1
+2025-07-20 21:56:41,898 - core.signal_writer - WARNING - Tabela trading_signals_v2 não encontrada
+2025-07-20 21:56:41,899 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 21:56:41,899 - core.analyzer - ERROR - ❌ Erro na análise de SOL: no such table: trading_signals_v2
+2025-07-20 21:56:42,100 - core.analyzer - INFO - 🔍 Análise COMPLETA: SUI 15m
+2025-07-20 21:56:42,107 - core.data_reader - INFO - ✅ SUI 15m: 87 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:42,107 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 21:56:42,308 - core.analyzer - INFO - 🔍 Análise COMPLETA: HYPE 15m
+2025-07-20 21:56:42,317 - core.data_reader - INFO - ✅ HYPE 15m: 87 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:42,317 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 21:56:42,518 - core.analyzer - INFO - 🔍 Análise COMPLETA: PEPE 15m
+2025-07-20 21:56:42,525 - core.data_reader - INFO - ✅ PEPE 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:42,525 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 21:56:42,726 - core.analyzer - INFO - 🔍 Análise COMPLETA: TURBO 15m
+2025-07-20 21:56:42,733 - core.data_reader - INFO - ✅ TURBO 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:42,733 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 21:56:42,933 - core.analyzer - INFO - 🔍 Análise COMPLETA: IMX 15m
+2025-07-20 21:56:42,940 - core.data_reader - INFO - ✅ IMX 15m: 87 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:42,940 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 21:56:43,141 - core.analyzer - INFO - 🔍 Análise COMPLETA: CRV 15m
+2025-07-20 21:56:43,147 - core.data_reader - INFO - ✅ CRV 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 21:56:43,148 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 21:56:43,348 - core.analyzer - INFO - 📊 RESUMO: 0/14 OK, 0 sinais gerados
+2025-07-20 21:56:43,349 - core.analyzer - INFO - 📊 Ciclo: 0/14 OK, 0 sinais, Total hoje: 0
+2025-07-20 21:56:43,349 - core.analyzer - INFO - 😴 Aguardando 597.0s...
+2025-07-20 22:06:40,373 - core.analyzer - INFO - 
+⚡ CICLO COMPLETO - 22:06:40
+2025-07-20 22:06:40,376 - core.data_reader - INFO - 📊 Encontrados 14 symbols com dados limpos
+2025-07-20 22:06:40,376 - core.analyzer - INFO - 🚀 Análise múltipla COMPLETA: 14 symbols
+2025-07-20 22:06:40,376 - core.analyzer - INFO - 🔍 Análise COMPLETA: BNB 15m
+2025-07-20 22:06:40,385 - core.data_reader - INFO - ✅ BNB 15m: 148 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:06:40,387 - indicators.technical - INFO - Análise técnica concluída para BNB: RSI=0, MACD=1
+2025-07-20 22:06:40,388 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:40,388 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:42,100 - indicators.patterns - INFO - Padrões detectados para BNB: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:42,244 - core.signal_writer - INFO - ✅ Sinal gravado: BNB BUY_LONG (conf: 99, entry: 748.77, ID: BNB_BUY_LONG) em 0.001s
+2025-07-20 22:06:42,345 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:42,346 - core.analyzer - INFO - ✅ BNB: 1 SINAIS! (T:0 P:0 C:5) $748.77
+2025-07-20 22:06:42,546 - core.analyzer - INFO - 🔍 Análise COMPLETA: BTC 15m
+2025-07-20 22:06:42,555 - core.data_reader - INFO - ✅ BTC 15m: 148 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:06:42,557 - indicators.technical - INFO - Análise técnica concluída para BTC: RSI=1, MACD=1
+2025-07-20 22:06:42,567 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:42,567 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:44,086 - indicators.patterns - INFO - Padrões detectados para BTC: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:44,224 - core.signal_writer - INFO - ✅ Sinal gravado: BTC BUY_LONG (conf: 99, entry: 116978.8, ID: BTC_BUY_LONG) em 0.001s
+2025-07-20 22:06:44,325 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:44,325 - core.analyzer - INFO - ✅ BTC: 1 SINAIS! (T:0 P:0 C:5) $116,978.80
+2025-07-20 22:06:44,526 - core.analyzer - INFO - 🔍 Análise COMPLETA: ENA 15m
+2025-07-20 22:06:44,537 - core.data_reader - INFO - ✅ ENA 15m: 148 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:06:44,539 - indicators.technical - INFO - Análise técnica concluída para ENA: RSI=0, MACD=1
+2025-07-20 22:06:44,549 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:44,549 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:46,166 - indicators.patterns - INFO - Padrões detectados para ENA: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:46,271 - core.signal_writer - INFO - ✅ Sinal gravado: ENA SELL_SHORT (conf: 99, entry: 0.4909, ID: ENA_SELL_SHO) em 0.001s
+2025-07-20 22:06:46,371 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:46,371 - core.analyzer - INFO - ✅ ENA: 1 SINAIS! (T:0 P:0 C:5) $0.49
+2025-07-20 22:06:46,572 - core.analyzer - INFO - 🔍 Análise COMPLETA: ETH 15m
+2025-07-20 22:06:46,581 - core.data_reader - INFO - ✅ ETH 15m: 148 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:06:46,583 - indicators.technical - INFO - Análise técnica concluída para ETH: RSI=0, MACD=1
+2025-07-20 22:06:46,593 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:46,593 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:48,353 - indicators.patterns - INFO - Padrões detectados para ETH: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:48,452 - core.signal_writer - INFO - ✅ Sinal gravado: ETH SELL_SHORT (conf: 99, entry: 3728.04, ID: ETH_SELL_SHO) em 0.001s
+2025-07-20 22:06:48,552 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:48,553 - core.analyzer - INFO - ✅ ETH: 1 SINAIS! (T:0 P:0 C:5) $3,728.04
+2025-07-20 22:06:48,754 - core.analyzer - INFO - 🔍 Análise COMPLETA: HBAR 15m
+2025-07-20 22:06:48,765 - core.data_reader - INFO - ✅ HBAR 15m: 147 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:06:48,769 - indicators.technical - INFO - Análise técnica concluída para HBAR: RSI=0, MACD=1
+2025-07-20 22:06:48,782 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:48,782 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:50,711 - indicators.patterns - INFO - Padrões detectados para HBAR: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:50,807 - core.signal_writer - INFO - ✅ Sinal gravado: HBAR SELL_SHORT (conf: 99, entry: 0.27112, ID: HBAR_SELL_SH) em 0.001s
+2025-07-20 22:06:50,908 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:50,908 - core.analyzer - INFO - ✅ HBAR: 1 SINAIS! (T:0 P:0 C:5) $0.27
+2025-07-20 22:06:51,108 - core.analyzer - INFO - 🔍 Análise COMPLETA: NEAR 15m
+2025-07-20 22:06:51,117 - core.data_reader - INFO - ✅ NEAR 15m: 147 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:06:51,120 - indicators.technical - INFO - Análise técnica concluída para NEAR: RSI=0, MACD=1
+2025-07-20 22:06:51,130 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:51,130 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:52,866 - indicators.patterns - INFO - Padrões detectados para NEAR: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:52,994 - core.signal_writer - INFO - ✅ Sinal gravado: NEAR SELL_SHORT (conf: 99, entry: 2.935, ID: NEAR_SELL_SH) em 0.002s
+2025-07-20 22:06:53,095 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:53,095 - core.analyzer - INFO - ✅ NEAR: 1 SINAIS! (T:0 P:0 C:5) $2.94
+2025-07-20 22:06:53,296 - core.analyzer - INFO - 🔍 Análise COMPLETA: OMNI 15m
+2025-07-20 22:06:53,304 - core.data_reader - INFO - ✅ OMNI 15m: 147 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:06:53,306 - indicators.technical - INFO - Análise técnica concluída para OMNI: RSI=0, MACD=1
+2025-07-20 22:06:53,315 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:53,316 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:54,774 - indicators.patterns - INFO - Padrões detectados para OMNI: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:54,883 - core.signal_writer - INFO - ✅ Sinal gravado: OMNI SELL_SHORT (conf: 99, entry: 2.658, ID: OMNI_SELL_SH) em 0.001s
+2025-07-20 22:06:54,984 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:54,985 - core.analyzer - INFO - ✅ OMNI: 1 SINAIS! (T:0 P:0 C:5) $2.66
+2025-07-20 22:06:55,185 - core.analyzer - INFO - 🔍 Análise COMPLETA: SOL 15m
+2025-07-20 22:06:55,197 - core.data_reader - INFO - ✅ SOL 15m: 147 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:06:55,201 - indicators.technical - INFO - Análise técnica concluída para SOL: RSI=0, MACD=1
+2025-07-20 22:06:55,218 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:06:55,218 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:06:57,040 - indicators.patterns - INFO - Padrões detectados para SOL: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:06:57,150 - core.signal_writer - INFO - ✅ Sinal gravado: SOL SELL_SHORT (conf: 99, entry: 179.07, ID: SOL_SELL_SHO) em 0.001s
+2025-07-20 22:06:57,251 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:06:57,252 - core.analyzer - INFO - ✅ SOL: 1 SINAIS! (T:0 P:0 C:5) $179.07
+2025-07-20 22:06:57,452 - core.analyzer - INFO - 🔍 Análise COMPLETA: SUI 15m
+2025-07-20 22:06:57,460 - core.data_reader - INFO - ✅ SUI 15m: 87 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:06:57,461 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 22:06:57,662 - core.analyzer - INFO - 🔍 Análise COMPLETA: HYPE 15m
+2025-07-20 22:06:57,668 - core.data_reader - INFO - ✅ HYPE 15m: 87 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:06:57,669 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 22:06:57,876 - core.analyzer - INFO - 🔍 Análise COMPLETA: PEPE 15m
+2025-07-20 22:06:57,927 - core.data_reader - INFO - ✅ PEPE 15m: 86 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:06:57,928 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:06:58,129 - core.analyzer - INFO - 🔍 Análise COMPLETA: TURBO 15m
+2025-07-20 22:06:58,138 - core.data_reader - INFO - ✅ TURBO 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:06:58,138 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:06:58,339 - core.analyzer - INFO - 🔍 Análise COMPLETA: IMX 15m
+2025-07-20 22:06:58,348 - core.data_reader - INFO - ✅ IMX 15m: 87 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:06:58,348 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 22:06:58,549 - core.analyzer - INFO - 🔍 Análise COMPLETA: CRV 15m
+2025-07-20 22:06:58,556 - core.data_reader - INFO - ✅ CRV 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:06:58,557 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:06:58,757 - core.analyzer - INFO - 📊 RESUMO: 8/14 OK, 8 sinais gerados
+2025-07-20 22:06:58,758 - core.analyzer - INFO - 📊 Ciclo: 8/14 OK, 8 sinais, Total hoje: 8
+2025-07-20 22:06:58,759 - core.analyzer - INFO - 😴 Aguardando 581.6s...
+2025-07-20 22:15:43,820 - core.analyzer - INFO - 🛑 Análise contínua interrompida
+2025-07-20 22:15:46,310 - core.data_reader - INFO - DataReader inicializado com proteção contra travamentos
+2025-07-20 22:15:46,320 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:15:46,320 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:15:46,320 - core.analyzer - INFO - ✅ PatternAnalyzer integrado
+2025-07-20 22:15:46,321 - core.analyzer - INFO - ✅ CandlestickDetector integrado (43 padrões)
+2025-07-20 22:15:46,321 - core.analyzer - INFO - 🚀 Trading Analyzer CORRIGIDO inicializado
+2025-07-20 22:15:46,321 - core.analyzer - INFO - 📊 Componentes: Técnicos=✅ Padrões=✅ Candlestick=✅
+2025-07-20 22:15:46,322 - core.analyzer - INFO - 🔄 Análise contínua COMPLETA (intervalo: 600s)
+2025-07-20 22:15:46,322 - core.analyzer - INFO - 
+⚡ CICLO COMPLETO - 22:15:46
+2025-07-20 22:15:46,327 - core.data_reader - INFO - 📊 Encontrados 14 symbols com dados limpos
+2025-07-20 22:15:46,327 - core.analyzer - INFO - 🚀 Análise múltipla COMPLETA: 14 symbols
+2025-07-20 22:15:46,328 - core.analyzer - INFO - 🔍 Análise COMPLETA: BNB 15m
+2025-07-20 22:15:46,529 - core.analyzer - INFO - 🔍 Análise COMPLETA: BTC 15m
+2025-07-20 22:15:46,731 - core.analyzer - INFO - 🔍 Análise COMPLETA: ENA 15m
+2025-07-20 22:15:46,934 - core.analyzer - INFO - 🔍 Análise COMPLETA: ETH 15m
+2025-07-20 22:15:47,136 - core.analyzer - INFO - 🔍 Análise COMPLETA: HBAR 15m
+2025-07-20 22:15:47,338 - core.analyzer - INFO - 🔍 Análise COMPLETA: NEAR 15m
+2025-07-20 22:15:47,540 - core.analyzer - INFO - 🔍 Análise COMPLETA: OMNI 15m
+2025-07-20 22:15:47,742 - core.analyzer - INFO - 🔍 Análise COMPLETA: SOL 15m
+2025-07-20 22:15:47,943 - core.analyzer - INFO - 🔍 Análise COMPLETA: SUI 15m
+2025-07-20 22:15:47,953 - core.data_reader - INFO - ✅ SUI 15m: 88 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:15:47,954 - core.data_reader - WARNING - Dados insuficientes após limpeza: 88
+2025-07-20 22:15:48,154 - core.analyzer - INFO - 🔍 Análise COMPLETA: HYPE 15m
+2025-07-20 22:15:48,162 - core.data_reader - INFO - ✅ HYPE 15m: 88 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:15:48,162 - core.data_reader - WARNING - Dados insuficientes após limpeza: 88
+2025-07-20 22:15:48,363 - core.analyzer - INFO - 🔍 Análise COMPLETA: PEPE 15m
+2025-07-20 22:15:48,370 - core.data_reader - INFO - ✅ PEPE 15m: 87 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:15:48,371 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 22:15:48,571 - core.analyzer - INFO - 🔍 Análise COMPLETA: TURBO 15m
+2025-07-20 22:15:48,578 - core.data_reader - INFO - ✅ TURBO 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:15:48,579 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:15:48,779 - core.analyzer - INFO - 🔍 Análise COMPLETA: IMX 15m
+2025-07-20 22:15:48,787 - core.data_reader - INFO - ✅ IMX 15m: 88 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:15:48,787 - core.data_reader - WARNING - Dados insuficientes após limpeza: 88
+2025-07-20 22:15:48,988 - core.analyzer - INFO - 🔍 Análise COMPLETA: CRV 15m
+2025-07-20 22:15:48,995 - core.data_reader - INFO - ✅ CRV 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:15:48,995 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:15:49,196 - core.analyzer - INFO - 📊 RESUMO: 0/14 OK, 0 sinais gerados
+2025-07-20 22:15:49,197 - core.analyzer - INFO - 📊 Ciclo: 0/14 OK, 0 sinais, Total hoje: 0
+2025-07-20 22:15:49,197 - core.analyzer - INFO - 😴 Aguardando 597.1s...
+2025-07-20 22:25:46,323 - core.analyzer - INFO - 
+⚡ CICLO COMPLETO - 22:25:46
+2025-07-20 22:25:46,327 - core.data_reader - INFO - 📊 Encontrados 14 symbols com dados limpos
+2025-07-20 22:25:46,328 - core.analyzer - INFO - 🚀 Análise múltipla COMPLETA: 14 symbols
+2025-07-20 22:25:46,328 - core.analyzer - INFO - 🔍 Análise COMPLETA: BNB 15m
+2025-07-20 22:25:46,531 - core.analyzer - INFO - 🔍 Análise COMPLETA: BTC 15m
+2025-07-20 22:25:46,734 - core.analyzer - INFO - 🔍 Análise COMPLETA: ENA 15m
+2025-07-20 22:25:46,936 - core.analyzer - INFO - 🔍 Análise COMPLETA: ETH 15m
+2025-07-20 22:25:47,139 - core.analyzer - INFO - 🔍 Análise COMPLETA: HBAR 15m
+2025-07-20 22:25:47,341 - core.analyzer - INFO - 🔍 Análise COMPLETA: NEAR 15m
+2025-07-20 22:25:47,545 - core.analyzer - INFO - 🔍 Análise COMPLETA: OMNI 15m
+2025-07-20 22:25:47,748 - core.analyzer - INFO - 🔍 Análise COMPLETA: SOL 15m
+2025-07-20 22:25:47,951 - core.analyzer - INFO - 🔍 Análise COMPLETA: SUI 15m
+2025-07-20 22:25:47,964 - core.data_reader - INFO - ✅ SUI 15m: 88 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:25:47,965 - core.data_reader - WARNING - Dados insuficientes após limpeza: 88
+2025-07-20 22:25:48,165 - core.analyzer - INFO - 🔍 Análise COMPLETA: HYPE 15m
+2025-07-20 22:25:48,177 - core.data_reader - INFO - ✅ HYPE 15m: 88 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:25:48,178 - core.data_reader - WARNING - Dados insuficientes após limpeza: 88
+2025-07-20 22:25:48,379 - core.analyzer - INFO - 🔍 Análise COMPLETA: PEPE 15m
+2025-07-20 22:25:48,389 - core.data_reader - INFO - ✅ PEPE 15m: 87 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:25:48,389 - core.data_reader - WARNING - Dados insuficientes após limpeza: 87
+2025-07-20 22:25:48,590 - core.analyzer - INFO - 🔍 Análise COMPLETA: TURBO 15m
+2025-07-20 22:25:48,602 - core.data_reader - INFO - ✅ TURBO 15m: 86 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:25:48,603 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:25:48,803 - core.analyzer - INFO - 🔍 Análise COMPLETA: IMX 15m
+2025-07-20 22:25:48,814 - core.data_reader - INFO - ✅ IMX 15m: 88 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:25:48,815 - core.data_reader - WARNING - Dados insuficientes após limpeza: 88
+2025-07-20 22:25:49,015 - core.analyzer - INFO - 🔍 Análise COMPLETA: CRV 15m
+2025-07-20 22:25:49,026 - core.data_reader - INFO - ✅ CRV 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:25:49,026 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:25:49,227 - core.analyzer - INFO - 📊 RESUMO: 0/14 OK, 0 sinais gerados
+2025-07-20 22:25:49,228 - core.analyzer - INFO - 📊 Ciclo: 0/14 OK, 0 sinais, Total hoje: 0
+2025-07-20 22:25:49,228 - core.analyzer - INFO - 😴 Aguardando 597.1s...
+2025-07-20 22:27:25,227 - core.analyzer - INFO - 🛑 Análise contínua interrompida
+2025-07-20 22:30:53,225 - core.data_reader - INFO - DataReader inicializado com proteção contra travamentos
+2025-07-20 22:30:53,228 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:30:53,229 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:30:53,229 - core.analyzer - INFO - ✅ PatternAnalyzer integrado
+2025-07-20 22:30:53,230 - core.analyzer - INFO - ✅ CandlestickDetector integrado (43 padrões)
+2025-07-20 22:30:53,230 - core.analyzer - INFO - 🚀 Trading Analyzer CORRIGIDO inicializado
+2025-07-20 22:30:53,231 - core.analyzer - INFO - 📊 Componentes: Técnicos=✅ Padrões=✅ Candlestick=✅
+2025-07-20 22:30:53,232 - core.analyzer - INFO - 🔄 Análise contínua COMPLETA (intervalo: 600s)
+2025-07-20 22:30:53,232 - core.analyzer - INFO - 
+⚡ CICLO COMPLETO - 22:30:53
+2025-07-20 22:30:53,237 - core.data_reader - INFO - 📊 Encontrados 14 symbols com dados limpos
+2025-07-20 22:30:53,238 - core.analyzer - INFO - 🚀 Análise múltipla COMPLETA: 14 symbols
+2025-07-20 22:30:53,238 - core.analyzer - INFO - 🔍 Análise COMPLETA: BNB 15m
+2025-07-20 22:30:53,440 - core.analyzer - INFO - 🔍 Análise COMPLETA: BTC 15m
+2025-07-20 22:30:53,643 - core.analyzer - INFO - 🔍 Análise COMPLETA: ENA 15m
+2025-07-20 22:30:53,846 - core.analyzer - INFO - 🔍 Análise COMPLETA: ETH 15m
+2025-07-20 22:30:54,049 - core.analyzer - INFO - 🔍 Análise COMPLETA: HBAR 15m
+2025-07-20 22:30:54,252 - core.analyzer - INFO - 🔍 Análise COMPLETA: NEAR 15m
+2025-07-20 22:30:54,455 - core.analyzer - INFO - 🔍 Análise COMPLETA: OMNI 15m
+2025-07-20 22:30:54,657 - core.analyzer - INFO - 🔍 Análise COMPLETA: SOL 15m
+2025-07-20 22:30:54,860 - core.analyzer - INFO - 🔍 Análise COMPLETA: SUI 15m
+2025-07-20 22:30:54,874 - core.data_reader - INFO - ✅ SUI 15m: 89 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:30:54,874 - core.data_reader - WARNING - Dados insuficientes após limpeza: 89
+2025-07-20 22:30:55,075 - core.analyzer - INFO - 🔍 Análise COMPLETA: HYPE 15m
+2025-07-20 22:30:55,086 - core.data_reader - INFO - ✅ HYPE 15m: 89 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:30:55,087 - core.data_reader - WARNING - Dados insuficientes após limpeza: 89
+2025-07-20 22:30:55,288 - core.analyzer - INFO - 🔍 Análise COMPLETA: PEPE 15m
+2025-07-20 22:30:55,299 - core.data_reader - INFO - ✅ PEPE 15m: 88 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:30:55,300 - core.data_reader - WARNING - Dados insuficientes após limpeza: 88
+2025-07-20 22:30:55,501 - core.analyzer - INFO - 🔍 Análise COMPLETA: TURBO 15m
+2025-07-20 22:30:55,512 - core.data_reader - INFO - ✅ TURBO 15m: 86 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:30:55,513 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:30:55,713 - core.analyzer - INFO - 🔍 Análise COMPLETA: IMX 15m
+2025-07-20 22:30:55,726 - core.data_reader - INFO - ✅ IMX 15m: 89 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:30:55,727 - core.data_reader - WARNING - Dados insuficientes após limpeza: 89
+2025-07-20 22:30:55,928 - core.analyzer - INFO - 🔍 Análise COMPLETA: CRV 15m
+2025-07-20 22:30:55,939 - core.data_reader - INFO - ✅ CRV 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:30:55,939 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:30:56,140 - core.analyzer - INFO - 📊 RESUMO: 0/14 OK, 0 sinais gerados
+2025-07-20 22:30:56,141 - core.analyzer - INFO - 📊 Ciclo: 0/14 OK, 0 sinais, Total hoje: 0
+2025-07-20 22:30:56,142 - core.analyzer - INFO - 😴 Aguardando 597.1s...
+2025-07-20 22:40:53,234 - core.analyzer - INFO - 
+⚡ CICLO COMPLETO - 22:40:53
+2025-07-20 22:40:53,238 - core.data_reader - INFO - 📊 Encontrados 14 symbols com dados limpos
+2025-07-20 22:40:53,239 - core.analyzer - INFO - 🚀 Análise múltipla COMPLETA: 14 symbols
+2025-07-20 22:40:53,240 - core.analyzer - INFO - 🔍 Análise COMPLETA: BNB 15m
+2025-07-20 22:40:53,252 - core.data_reader - INFO - ✅ BNB 15m: 150 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:40:53,255 - indicators.technical - INFO - Análise técnica concluída para BNB: RSI=0, MACD=1
+2025-07-20 22:40:53,257 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:40:53,257 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:40:55,202 - indicators.patterns - INFO - Padrões detectados para BNB: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:40:55,381 - core.signal_writer - INFO - ✅ Sinal gravado: BNB BUY_LONG (conf: 99, entry: 751.95, ID: BNB_BUY_LONG) em 0.004s
+2025-07-20 22:40:55,481 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:40:55,482 - core.analyzer - INFO - ✅ BNB: 1 SINAIS! (T:0 P:0 C:5) $751.95
+2025-07-20 22:40:55,683 - core.analyzer - INFO - 🔍 Análise COMPLETA: BTC 15m
+2025-07-20 22:40:55,704 - core.data_reader - INFO - ✅ BTC 15m: 150 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:40:55,709 - indicators.technical - INFO - Análise técnica concluída para BTC: RSI=0, MACD=1
+2025-07-20 22:40:55,711 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:40:55,712 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:40:57,580 - indicators.patterns - INFO - Padrões detectados para BTC: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:40:57,777 - core.signal_writer - INFO - ✅ Sinal gravado: BTC SELL_SHORT (conf: 99, entry: 117125.2, ID: BTC_SELL_SHO) em 0.013s
+2025-07-20 22:40:57,878 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:40:57,879 - core.analyzer - INFO - ✅ BTC: 1 SINAIS! (T:0 P:0 C:5) $117,125.20
+2025-07-20 22:40:58,079 - core.analyzer - INFO - 🔍 Análise COMPLETA: ENA 15m
+2025-07-20 22:40:58,106 - core.data_reader - INFO - ✅ ENA 15m: 150 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:40:58,111 - indicators.technical - INFO - Análise técnica concluída para ENA: RSI=0, MACD=1
+2025-07-20 22:40:58,113 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:40:58,113 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:40:59,796 - indicators.patterns - INFO - Padrões detectados para ENA: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:40:59,946 - core.signal_writer - INFO - ✅ Sinal gravado: ENA BUY_LONG (conf: 99, entry: 0.5025, ID: ENA_BUY_LONG) em 0.003s
+2025-07-20 22:41:00,047 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:41:00,048 - core.analyzer - INFO - ✅ ENA: 1 SINAIS! (T:0 P:0 C:5) $0.50
+2025-07-20 22:41:00,248 - core.analyzer - INFO - 🔍 Análise COMPLETA: ETH 15m
+2025-07-20 22:41:00,284 - core.data_reader - INFO - ✅ ETH 15m: 150 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:41:00,290 - indicators.technical - INFO - Análise técnica concluída para ETH: RSI=0, MACD=1
+2025-07-20 22:41:00,293 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:41:00,293 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:41:02,517 - indicators.patterns - INFO - Padrões detectados para ETH: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:41:02,700 - core.signal_writer - INFO - ✅ Sinal gravado: ETH SELL_SHORT (conf: 99, entry: 3738.05, ID: ETH_SELL_SHO) em 0.018s
+2025-07-20 22:41:02,801 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:41:02,801 - core.analyzer - INFO - ✅ ETH: 1 SINAIS! (T:0 P:0 C:5) $3,738.05
+2025-07-20 22:41:03,002 - core.analyzer - INFO - 🔍 Análise COMPLETA: HBAR 15m
+2025-07-20 22:41:03,026 - core.data_reader - INFO - ✅ HBAR 15m: 147 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:41:03,030 - indicators.technical - INFO - Análise técnica concluída para HBAR: RSI=0, MACD=1
+2025-07-20 22:41:03,032 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:41:03,032 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:41:05,011 - indicators.patterns - INFO - Padrões detectados para HBAR: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:41:05,136 - core.signal_writer - INFO - ✅ Sinal gravado: HBAR SELL_SHORT (conf: 99, entry: 0.27112, ID: HBAR_SELL_SH) em 0.003s
+2025-07-20 22:41:05,237 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:41:05,237 - core.analyzer - INFO - ✅ HBAR: 1 SINAIS! (T:0 P:0 C:5) $0.27
+2025-07-20 22:41:05,439 - core.analyzer - INFO - 🔍 Análise COMPLETA: NEAR 15m
+2025-07-20 22:41:05,476 - core.data_reader - INFO - ✅ NEAR 15m: 149 pontos limpos (filtrados: 0) em 0.02s
+2025-07-20 22:41:05,481 - indicators.technical - INFO - Análise técnica concluída para NEAR: RSI=0, MACD=1
+2025-07-20 22:41:05,483 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:41:05,484 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:41:08,190 - indicators.patterns - INFO - Padrões detectados para NEAR: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:41:08,336 - core.signal_writer - INFO - ✅ Sinal gravado: NEAR SELL_SHORT (conf: 99, entry: 2.942, ID: NEAR_SELL_SH) em 0.011s
+2025-07-20 22:41:08,437 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:41:08,438 - core.analyzer - INFO - ✅ NEAR: 1 SINAIS! (T:0 P:0 C:5) $2.94
+2025-07-20 22:41:08,639 - core.analyzer - INFO - 🔍 Análise COMPLETA: OMNI 15m
+2025-07-20 22:41:08,677 - core.data_reader - INFO - ✅ OMNI 15m: 147 pontos limpos (filtrados: 0) em 0.02s
+2025-07-20 22:41:08,685 - indicators.technical - INFO - Análise técnica concluída para OMNI: RSI=0, MACD=1
+2025-07-20 22:41:08,687 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:41:08,688 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:41:11,415 - indicators.patterns - INFO - Padrões detectados para OMNI: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:41:11,702 - core.signal_writer - INFO - ✅ Sinal gravado: OMNI SELL_SHORT (conf: 99, entry: 2.658, ID: OMNI_SELL_SH) em 0.014s
+2025-07-20 22:41:11,802 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:41:11,803 - core.analyzer - INFO - ✅ OMNI: 1 SINAIS! (T:0 P:0 C:5) $2.66
+2025-07-20 22:41:12,004 - core.analyzer - INFO - 🔍 Análise COMPLETA: SOL 15m
+2025-07-20 22:41:12,032 - core.data_reader - INFO - ✅ SOL 15m: 149 pontos limpos (filtrados: 0) em 0.02s
+2025-07-20 22:41:12,039 - indicators.technical - INFO - Análise técnica concluída para SOL: RSI=0, MACD=1
+2025-07-20 22:41:12,041 - core.signal_writer - INFO - Tabela trading_signals_v2 verificada
+2025-07-20 22:41:12,042 - core.signal_writer - INFO - SignalWriter inicializado com proteção contra travamentos
+2025-07-20 22:41:14,875 - indicators.patterns - INFO - Padrões detectados para SOL: OHO/OCO=0, Duplos=0, Cup&Handle=0 → 0 selecionados
+2025-07-20 22:41:15,242 - core.signal_writer - INFO - ✅ Sinal gravado: SOL SELL_SHORT (conf: 99, entry: 179.61, ID: SOL_SELL_SHO) em 0.021s
+2025-07-20 22:41:15,343 - core.signal_writer - INFO - 📊 Gravados 1/1 sinais
+2025-07-20 22:41:15,344 - core.analyzer - INFO - ✅ SOL: 1 SINAIS! (T:0 P:0 C:5) $179.61
+2025-07-20 22:41:15,545 - core.analyzer - INFO - 🔍 Análise COMPLETA: SUI 15m
+2025-07-20 22:41:15,607 - core.data_reader - INFO - ✅ SUI 15m: 90 pontos limpos (filtrados: 0) em 0.03s
+2025-07-20 22:41:15,608 - core.data_reader - WARNING - Dados insuficientes após limpeza: 90
+2025-07-20 22:41:15,809 - core.analyzer - INFO - 🔍 Análise COMPLETA: HYPE 15m
+2025-07-20 22:41:15,824 - core.data_reader - INFO - ✅ HYPE 15m: 89 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:41:15,824 - core.data_reader - WARNING - Dados insuficientes após limpeza: 89
+2025-07-20 22:41:16,025 - core.analyzer - INFO - 🔍 Análise COMPLETA: PEPE 15m
+2025-07-20 22:41:16,066 - core.data_reader - INFO - ✅ PEPE 15m: 89 pontos limpos (filtrados: 0) em 0.03s
+2025-07-20 22:41:16,067 - core.data_reader - WARNING - Dados insuficientes após limpeza: 89
+2025-07-20 22:41:16,267 - core.analyzer - INFO - 🔍 Análise COMPLETA: TURBO 15m
+2025-07-20 22:41:16,288 - core.data_reader - INFO - ✅ TURBO 15m: 86 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:41:16,288 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:41:16,489 - core.analyzer - INFO - 🔍 Análise COMPLETA: IMX 15m
+2025-07-20 22:41:16,509 - core.data_reader - INFO - ✅ IMX 15m: 89 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:41:16,509 - core.data_reader - WARNING - Dados insuficientes após limpeza: 89
+2025-07-20 22:41:16,710 - core.analyzer - INFO - 🔍 Análise COMPLETA: CRV 15m
+2025-07-20 22:41:16,724 - core.data_reader - INFO - ✅ CRV 15m: 86 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:41:16,725 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:41:16,925 - core.analyzer - INFO - 📊 RESUMO: 8/14 OK, 8 sinais gerados
+2025-07-20 22:41:16,926 - core.analyzer - INFO - 📊 Ciclo: 8/14 OK, 8 sinais, Total hoje: 8
+2025-07-20 22:41:16,927 - core.analyzer - INFO - 😴 Aguardando 576.3s...
+2025-07-20 22:50:53,235 - core.analyzer - INFO - 
+⚡ CICLO COMPLETO - 22:50:53
+2025-07-20 22:50:53,238 - core.data_reader - INFO - 📊 Encontrados 14 symbols com dados limpos
+2025-07-20 22:50:53,239 - core.analyzer - INFO - 🚀 Análise múltipla COMPLETA: 14 symbols
+2025-07-20 22:50:53,239 - core.analyzer - INFO - 🔍 Análise COMPLETA: BNB 15m
+2025-07-20 22:50:53,442 - core.analyzer - INFO - 🔍 Análise COMPLETA: BTC 15m
+2025-07-20 22:50:53,646 - core.analyzer - INFO - 🔍 Análise COMPLETA: ENA 15m
+2025-07-20 22:50:53,849 - core.analyzer - INFO - 🔍 Análise COMPLETA: ETH 15m
+2025-07-20 22:50:54,052 - core.analyzer - INFO - 🔍 Análise COMPLETA: HBAR 15m
+2025-07-20 22:50:54,254 - core.analyzer - INFO - 🔍 Análise COMPLETA: NEAR 15m
+2025-07-20 22:50:54,457 - core.analyzer - INFO - 🔍 Análise COMPLETA: OMNI 15m
+2025-07-20 22:50:54,660 - core.analyzer - INFO - 🔍 Análise COMPLETA: SOL 15m
+2025-07-20 22:50:54,862 - core.analyzer - INFO - 🔍 Análise COMPLETA: SUI 15m
+2025-07-20 22:50:54,872 - core.data_reader - INFO - ✅ SUI 15m: 90 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:50:54,873 - core.data_reader - WARNING - Dados insuficientes após limpeza: 90
+2025-07-20 22:50:55,074 - core.analyzer - INFO - 🔍 Análise COMPLETA: HYPE 15m
+2025-07-20 22:50:55,085 - core.data_reader - INFO - ✅ HYPE 15m: 90 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:50:55,085 - core.data_reader - WARNING - Dados insuficientes após limpeza: 90
+2025-07-20 22:50:55,286 - core.analyzer - INFO - 🔍 Análise COMPLETA: PEPE 15m
+2025-07-20 22:50:55,296 - core.data_reader - INFO - ✅ PEPE 15m: 89 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:50:55,296 - core.data_reader - WARNING - Dados insuficientes após limpeza: 89
+2025-07-20 22:50:55,497 - core.analyzer - INFO - 🔍 Análise COMPLETA: TURBO 15m
+2025-07-20 22:50:55,510 - core.data_reader - INFO - ✅ TURBO 15m: 86 pontos limpos (filtrados: 0) em 0.01s
+2025-07-20 22:50:55,511 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:50:55,711 - core.analyzer - INFO - 🔍 Análise COMPLETA: IMX 15m
+2025-07-20 22:50:55,721 - core.data_reader - INFO - ✅ IMX 15m: 90 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:50:55,722 - core.data_reader - WARNING - Dados insuficientes após limpeza: 90
+2025-07-20 22:50:55,922 - core.analyzer - INFO - 🔍 Análise COMPLETA: CRV 15m
+2025-07-20 22:50:55,943 - core.data_reader - INFO - ✅ CRV 15m: 86 pontos limpos (filtrados: 0) em 0.00s
+2025-07-20 22:50:55,943 - core.data_reader - WARNING - Dados insuficientes após limpeza: 86
+2025-07-20 22:50:56,144 - core.analyzer - INFO - 📊 RESUMO: 0/14 OK, 0 sinais gerados
+2025-07-20 22:50:56,145 - core.analyzer - INFO - 📊 Ciclo: 0/14 OK, 0 sinais, Total hoje: 8
+2025-07-20 22:50:56,146 - core.analyzer - INFO - 😴 Aguardando 597.1s...
+2025-07-20 22:58:39,540 - core.analyzer - INFO - 🛑 Análise contínua interrompida

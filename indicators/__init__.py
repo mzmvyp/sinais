@@ -20,7 +20,7 @@ try:
         CupAndHandleDetector,
         PatternResult
     )
-    PATTERNS_AVAILABLE = True
+    PATTERNS_AVAILABLE = False
     print("✅ Padrões gráficos carregados: Head&Shoulders, Double Top/Bottom, Cup&Handle")
 except ImportError as e:
     PATTERNS_AVAILABLE = False
@@ -34,7 +34,7 @@ try:
         generate_candlestick_signals,
         verify_patterns_implementation
     )
-    CANDLESTICK_AVAILABLE = False
+    CANDLESTICK_AVAILABLE = True
     print("✅ Detector de Candlestick carregado: 43 padrões disponíveis")
     
     # Verifica se todos os 43 padrões estão implementados

@@ -730,28 +730,27 @@ class PatternAnalyzer:
         
         return final_patterns
     
-    def generate_pattern_signals(self, market_data: MarketData, patterns: List[PatternResult]) -> List[TradingSignal]:
+    def generate_pattern_signals(self, market_data, patterns: List[PatternResult]) -> List[TradingSignal]:
         """Gera sinais de trading baseados nos padrões detectados"""
         signals = []
         
         for pattern in patterns:
-            # Só gera sinais para padrões com confiança suficiente
             if pattern.confidence >= settings.analysis.confidence_threshold:
                 
-                signal_type = 'BUY' if pattern.pattern_type == 'bullish' else 'SELL'
+                signal_type = 'BUY_LONG' if pattern.pattern_type == 'bullish' else 'SELL_SHORT'
                 
+                # _#_ LINHA CRÍTICA: Esta seção garante que 'detector_type' e outros campos obrigatórios sejam incluídos.
                 trading_signal = TradingSignal(
                     symbol=market_data.symbol,
                     signal_type=signal_type,
-                    strategy=f"PATTERN_{pattern.pattern_name.replace(' ', '_')}",
+                    timeframe=market_data.timeframe,
+                    detector_type='pattern', # Campo obrigatório adicionado
+                    detector_name=pattern.pattern_name.replace(' ', '_'),
                     confidence=pattern.confidence,
-                    strength=pattern.strength,
                     entry_price=pattern.entry_price,
                     stop_loss=pattern.stop_loss,
-                    take_profit=pattern.target_price,
-                    target_timeframe=market_data.timeframe,
+                    targets=[pattern.target_price],
                     pattern_data=pattern.formation_data,
-                    notes=f"Padrão {pattern.pattern_name} detectado"
                 )
                 
                 signals.append(trading_signal)
