@@ -154,7 +154,48 @@ class SystemConfig:
     parallel_analysis: bool = True
     max_workers: int = 6
 
+@dataclass
+class ValidationConfig:
+    """Configurações para a validação de sinais com microestrutura (Sniper)."""
+    enabled: bool = True
+    # _#_NOVO_: Nome da tabela de microestrutura adicionado aqui.
+    microstructure_table: str = "kline_microstructure_1m"
+    validation_window_minutes: int = 5  # Quantos minutos olhar à frente na microestrutura.
+    momentum_period: int = 5            # Período para o RSI de momentum na microestrutura.
+    buy_momentum_threshold: float = 55.0  # RSI de 1m deve estar acima deste valor para validar uma COMPRA.
+    sell_momentum_threshold: float = 45.0 # RSI de 1m deve estar abaixo deste valor para validar uma VENDA.
+
+
+
 class Settings:
+    """Classe principal de configuracoes"""
+    def __init__(self):
+        self.database = DatabaseConfig()
+        self.analysis = AnalysisConfig()
+        self.indicators = IndicatorConfig()
+        self.patterns = PatternConfig()
+        self.system = SystemConfig()
+        self.precisions = PrecisionConfig()
+        self.validation = ValidationConfig() # _#_NOVO_: Adiciona as configurações de validação
+
+    def get_timeframe_config(self, timeframe: str) -> TimeframeConfig:
+        return self.analysis.multi_timeframe.timeframe_configs.get(timeframe, self.analysis.multi_timeframe.timeframe_configs["15m"])
+
+    def get_enabled_timeframes(self) -> List[str]:
+        return self.analysis.multi_timeframe.enabled_timeframes if self.system.multi_timeframe_enabled else [self.analysis.default_timeframe]
+
+    def get_rsi_levels(self, timeframe: str) -> Dict[str, float]:
+        return {'overbought': self.indicators.rsi_overbought.get(timeframe, 70), 'oversold': self.indicators.rsi_oversold.get(timeframe, 30)}
+
+    def get_macd_params(self, timeframe: str) -> Dict[str, int]:
+        return {'fast': self.indicators.macd_fast.get(timeframe, 12), 'slow': self.indicators.macd_slow.get(timeframe, 26), 'signal': self.indicators.macd_signal.get(timeframe, 9)}
+
+    def get_analysis_symbols(self) -> List[str]:
+        return self.analysis.symbols
+    
+    def get_price_precision(self, symbol: str) -> int:
+        return self.precisions.symbol_price_precision.get(symbol, self.precisions.symbol_price_precision['DEFAULT'])
+
     """Classe principal de configuracoes"""
     def __init__(self):
         self.database = DatabaseConfig()
@@ -182,5 +223,6 @@ class Settings:
     # _#_NOVO_: Função para obter a precisão de um símbolo
     def get_price_precision(self, symbol: str) -> int:
         return self.precisions.symbol_price_precision.get(symbol, self.precisions.symbol_price_precision['DEFAULT'])
+
 
 settings = Settings()

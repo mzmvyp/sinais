@@ -87,7 +87,47 @@ class DataReader:
         except Exception as e:
             self.logger.error(f"Erro ao buscar dados para {symbol} {timeframe}: {e}", exc_info=True)
             return None
+    
+    # No arquivo data_reader.py, dentro da classe DataReader
 
+    def get_microstructure_for_validation(self, symbol: str, start_time: datetime, window_minutes: int) -> Optional[pd.DataFrame]:
+        """
+        _#_NOVO_: Busca dados da tabela de microestrutura de 1m para validação de sinais.
+
+        Args:
+            symbol: O símbolo do ativo (ex: 'BTCUSDT').
+            start_time: O timestamp de início da busca (geralmente o tempo do candle que gerou o sinal).
+            window_minutes: A janela em minutos para buscar dados à frente de start_time.
+
+        Returns:
+            Um DataFrame com os dados de microestrutura ou None se não houver dados.
+        """
+        # Utiliza as novas configurações de validação
+        microstructure_table = settings.validation.microstructure_table
+        end_time = start_time + timedelta(minutes=window_minutes)
+
+        query = f"""
+        SELECT timestamp, open_price, high_price, low_price, close_price, volume
+        FROM {microstructure_table}
+        WHERE symbol = ? AND timestamp > ? AND timestamp <= ?
+        ORDER BY timestamp ASC
+        """
+
+        try:
+            with self._get_connection() as conn:
+                df = pd.read_sql_query(query, conn, params=(symbol, start_time.strftime('%Y-%m-%d %H:%M:%S'), end_time.strftime('%Y-%m-%d %H:%M:%S')))
+
+            if df.empty:
+                self.logger.warning(f"Nenhum dado de microestrutura encontrado para {symbol} entre {start_time} e {end_time}.")
+                return None
+
+            df['timestamp'] = pd.to_datetime(df['timestamp'])
+            return df
+
+        except Exception as e:
+            self.logger.error(f"Erro ao buscar dados de microestrutura para {symbol}: {e}", exc_info=True)
+            return None
+    
     def get_available_symbols(self) -> List[str]:
         query = f"SELECT DISTINCT symbol FROM {self.stream_table}"
         try:

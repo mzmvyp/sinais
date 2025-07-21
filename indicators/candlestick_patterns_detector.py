@@ -59,13 +59,14 @@ class CandlestickDetector:
             stop_loss = entry_price - (atr * self.config['atr_multiplier_stop'])
             risk = entry_price - stop_loss
             target_price = entry_price + (risk * self.config['risk_reward_ratio'])
-        else:
+        else: # Bearish (SELL_SHORT)
+            # _#_CORRIGIDO_: O stop para um SHORT deve ser ACIMA do preço de entrada.
             stop_loss = entry_price + (atr * self.config['atr_multiplier_stop'])
             risk = stop_loss - entry_price
             target_price = entry_price - (risk * self.config['risk_reward_ratio'])
 
         return {'entry_price': entry_price, 'stop_loss': stop_loss, 'target_price': target_price}
-
+    
     def prepare_candlestick_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """Pré-calcula propriedades dos candles para otimizar a detecção."""
         data = df.copy()

@@ -41,21 +41,23 @@ class RSIAnalyzer:
 
     def analyze(self, market_data, timeframe: str):
         self.logger.debug(f"Analisando RSI para {market_data.symbol} no timeframe {timeframe}")
-        df = market_data.data
-        if len(df) < self.period + 5:
+        # _#_CORRIGIDO_: Garante que a análise use um slice que termina no candle fechado.
+        df_closed = market_data.data.iloc[:-1]
+
+        if len(df_closed) < self.period + 5:
             return IndicatorResult("RSI", pd.Series(dtype=float), [], {})
 
-        close_prices = df['close_price']
+        close_prices = df_closed['close_price']
         rsi_levels = settings.get_rsi_levels(timeframe)
         overbought = rsi_levels['overbought']
         oversold = rsi_levels['oversold']
 
         rsi = self.calculate_rsi(close_prices)
-        if len(rsi) < 2:
+        if rsi.empty:
             return IndicatorResult("RSI", rsi, [], {})
-        
-        # _#_ALTERADO_: Opera na vela fechada para evitar repainting
-        latest_rsi = rsi.iloc[-2]
+
+        # Pega o valor mais recente do RSI, que corresponde ao último candle fechado.
+        latest_rsi = rsi.iloc[-1]
 
         signals = []
         if latest_rsi >= overbought:
@@ -63,8 +65,11 @@ class RSIAnalyzer:
         elif latest_rsi <= oversold:
             signals.append({'type': 'rsi_oversold', 'signal_type': 'BUY_LONG', 'confidence': 0.75, 'priority': 'high'})
 
-        return IndicatorResult("RSI", rsi, signals, {'current_rsi': rsi.iloc[-1]})
+        # O metadata pode usar o RSI do candle atual para simples informação
+        current_rsi_full = self.calculate_rsi(market_data.data['close_price'])
+        return IndicatorResult("RSI", rsi, signals, {'current_rsi': current_rsi_full.iloc[-1] if not current_rsi_full.empty else 50.0})
 
+# Substitua a classe MACDAnalyzer inteira por este código:
 class MACDAnalyzer:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -79,29 +84,34 @@ class MACDAnalyzer:
 
     def analyze(self, market_data, timeframe: str):
         self.logger.debug(f"Analisando MACD para {market_data.symbol} no timeframe {timeframe}")
-        df = market_data.data
         params = settings.get_macd_params(timeframe)
+        # _#_CORRIGIDO_: Garante que a análise use um slice que termina no candle fechado.
+        df_closed = market_data.data.iloc[:-1]
 
-        if len(df) < params['slow'] + 5:
+        if len(df_closed) < params['slow'] + 5:
             return IndicatorResult("MACD", pd.Series(dtype=float), [], {})
 
-        close_prices = df['close_price']
+        close_prices = df_closed['close_price']
         macd, signal, _ = self.calculate_macd(close_prices, params)
 
-        if len(macd) < 3:
+        if len(macd) < 2:
             return IndicatorResult("MACD", macd, [], {})
 
-        # _#_ALTERADO_: Usa velas fechadas para o sinal (evita repainting)
-        latest_macd, prev_macd = macd.iloc[-2], macd.iloc[-3]
-        latest_signal, prev_signal = signal.iloc[-2], signal.iloc[-3]
+        # Usa os dois últimos pontos de dados (que são do penúltimo e antepenúltimo candles fechados)
+        latest_macd, prev_macd = macd.iloc[-1], macd.iloc[-2]
+        latest_signal, prev_signal = signal.iloc[-1], signal.iloc[-2]
 
         signals = []
+        # Detecção de cruzamento
         if prev_macd <= prev_signal and latest_macd > latest_signal:
             signals.append({'type': 'macd_bullish_crossover', 'signal_type': 'BUY_LONG', 'confidence': 0.8, 'priority': 'crossover'})
         elif prev_macd >= prev_signal and latest_macd < latest_signal:
             signals.append({'type': 'macd_bearish_crossover', 'signal_type': 'SELL_SHORT', 'confidence': 0.8, 'priority': 'crossover'})
 
-        return IndicatorResult("MACD", macd, signals, {'current_macd': macd.iloc[-1], 'current_signal': signal.iloc[-1]})
+        # O metadata pode usar o MACD do candle atual para simples informação
+        full_macd, full_signal, _ = self.calculate_macd(market_data.data['close_price'], params)
+        return IndicatorResult("MACD", macd, signals, {'current_macd': full_macd.iloc[-1], 'current_signal': full_signal.iloc[-1]})
+
 
 class TechnicalAnalyzer:
     def __init__(self):

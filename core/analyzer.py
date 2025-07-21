@@ -1,17 +1,16 @@
-# analyzer.py
+# No arquivo analyzer.py
 
-"""
-Multi-Timeframe Trading Analyzer - VERSÃO COMPLETA E FINAL
-Contém todas as funções necessárias e correções implementadas.
-"""
+# Substitua as importações no topo do arquivo para incluir o que faltava
 import logging
 import time
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Tuple # _#_CORRIGIDO_: Adicionado 'Tuple'
 
 from core.data_reader import DataReader, MarketData
 from core.signal_writer import EnhancedSignalWriter, EnhancedTradingSignal
-from indicators.technical import TechnicalAnalyzer
+# _#_CORRIGIDO_: Importa RSIAnalyzer diretamente para que possa ser usado
+from indicators.technical import TechnicalAnalyzer, RSIAnalyzer 
 
+# (O resto das importações permanece o mesmo)
 try:
     from indicators.patterns import PatternAnalyzer
     PATTERNS_AVAILABLE = True
@@ -28,6 +27,8 @@ except ImportError as e:
 
 from config.settings import settings
 
+
+# Agora, substitua a classe MultiTimeframeAnalyzer inteira por este código:
 class MultiTimeframeAnalyzer:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -36,18 +37,14 @@ class MultiTimeframeAnalyzer:
         self.technical_analyzers = {tf: TechnicalAnalyzer() for tf in settings.get_enabled_timeframes()}
         if PATTERNS_AVAILABLE:
             self.pattern_analyzers = {tf: PatternAnalyzer() for tf in settings.get_enabled_timeframes()}
-        
-        self.logger.info("MultiTimeframeAnalyzer inicializado com todas as correções.")
+
+        self.logger.info("MultiTimeframeAnalyzer inicializado com Validação de Microestrutura (Sniper).")
 
     def analyze_symbol_all_timeframes(self, symbol: str) -> Dict[str, Any]:
-        """
-        Função principal que orquestra a análise completa de um símbolo em múltiplos timeframes.
-        """
-        self.logger.info(f"Análise multi-timeframe iniciada para: {symbol}")
+        self.logger.info(f"Análise sniper iniciada para: {symbol}")
         enabled_timeframes = settings.get_enabled_timeframes()
         all_signals = []
-        coordination_data = {}
-        
+
         market_data_by_tf = {
             tf: self.data_reader.get_latest_data(symbol, tf) for tf in enabled_timeframes
         }
@@ -56,34 +53,42 @@ class MultiTimeframeAnalyzer:
             if market_data and market_data.is_sufficient_data:
                 tf_result = self._analyze_single_timeframe(symbol, timeframe, market_data)
                 all_signals.extend(tf_result.get('signals', []))
-                coordination_data[timeframe] = {'trend': self._determine_trend(market_data)}
             else:
-                 self.logger.warning(f"Análise para {symbol} em {timeframe} pulada (dados insuficientes ou antigos).")
+                self.logger.warning(f"Análise para {symbol} em {timeframe} pulada (dados insuficientes ou antigos).")
 
-        validated_signals = self._validate_and_coordinate_signals(all_signals, coordination_data, market_data_by_tf)
-        
+        validated_signals = self._validate_and_filter_signals(all_signals, market_data_by_tf)
+
         signals_saved = 0
         if validated_signals:
-            best_signal = max(validated_signals, key=lambda s: s.confidence)
-            if self.signal_writer.write_enhanced_signal(best_signal):
-                signals_saved += 1
-                self.logger.info(f"✅ SINAL SALVO para {symbol}: {best_signal.detector_name} em {best_signal.timeframe}")
+            validated_signals.sort(key=lambda s: s.confidence, reverse=True)
+            for signal in validated_signals[:settings.system.max_total_signals_per_symbol]:
+                if self.signal_writer.write_enhanced_signal(signal):
+                    signals_saved += 1
+                    self.logger.info(f"🎯 SNIPER HIT: Sinal para {symbol} validado e salvo! Detector: {signal.detector_name} em {signal.timeframe}")
 
-        return {'symbol': symbol, 'status': 'success', 'signals_detected': len(all_signals), 'signals_saved': signals_saved}
+        return {'symbol': symbol, 'status': 'success', 'signals_detected': len(all_signals), 'signals_validated': len(validated_signals), 'signals_saved': signals_saved}
 
     def _analyze_single_timeframe(self, symbol: str, timeframe: str, market_data: MarketData) -> Dict[str, Any]:
-        """
-        Executa todas as análises configuradas para um único timeframe e lida com a criação de sinais.
-        """
         tf_config = settings.get_timeframe_config(timeframe)
         signals = []
-        
+
+        if len(market_data.data) < 2:
+            return {'signals': []}
+            
+        closed_candle = market_data.data.iloc[-2]
+        entry_price = float(closed_candle['close_price'])
+        signal_timestamp = closed_candle['timestamp'].to_pydatetime()
+
         def create_valid_signal(**kwargs):
-            """Função auxiliar para criar sinais de forma segura, capturando erros de validação."""
             try:
-                signal = EnhancedTradingSignal(**kwargs)
+                base_args = {'symbol': symbol, 'timeframe': timeframe, 'entry_price': entry_price, 'timestamp': signal_timestamp}
+                final_args = {**kwargs, **base_args}
+                allowed_keys = EnhancedTradingSignal.__annotations__.keys()
+                filtered_args = {k: v for k, v in final_args.items() if k in allowed_keys}
+                
+                signal = EnhancedTradingSignal(**filtered_args)
                 signals.append(signal)
-            except ValueError as e:
+            except (ValueError, TypeError) as e:
                 self.logger.warning(f"Sinal para {symbol} em {timeframe} descartado na criação: {e}")
 
         if 'technical' in tf_config.enabled_detectors:
@@ -93,6 +98,13 @@ class MultiTimeframeAnalyzer:
             for s in raw_signals:
                 create_valid_signal(**s.__dict__)
 
+        if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
+            df_for_cs = market_data.data.iloc[:-1]
+            if not df_for_cs.empty:
+                cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
+                for cs in cs_signals_raw:
+                    create_valid_signal(**cs)
+
         if 'patterns' in tf_config.enabled_detectors and PATTERNS_AVAILABLE:
             pattern_analyzer = self.pattern_analyzers[timeframe]
             pattern_results = pattern_analyzer.analyze_all_patterns(market_data)
@@ -100,71 +112,103 @@ class MultiTimeframeAnalyzer:
             for s in raw_signals:
                  create_valid_signal(**s.__dict__)
 
-        if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
-            closed_candle_data = market_data.data.iloc[:-1]
-            if not closed_candle_data.empty:
-                cs_signals_raw = generate_candlestick_signals(closed_candle_data, symbol)
-                for cs in cs_signals_raw:
-                    create_valid_signal(symbol=symbol, timeframe=timeframe, **cs)
-        
         return {'signals': signals}
 
-    def _validate_and_coordinate_signals(self, all_signals: List[EnhancedTradingSignal], coordination_data: Dict, market_data_by_tf: Dict[str, MarketData]) -> List[EnhancedTradingSignal]:
-        """Aplica filtros de qualidade finais (tendência, volume) nos sinais gerados."""
-        if not all_signals: return []
-        
-        higher_tf_trend = coordination_data.get('1h', {}).get('trend', 0)
-        validated = []
-        
-        for signal in all_signals:
+    def _validate_and_filter_signals(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
+        if not signals:
+            return []
+
+        validated_signals = []
+        for signal in signals:
             is_valid = True
-            
-            # Filtro de Tendência
-            if (higher_tf_trend > 0.1 and 'SELL' in signal.signal_type) or \
-               (higher_tf_trend < -0.1 and 'BUY' in signal.signal_type):
-                self.logger.info(f"Sinal {signal.detector_name} em {signal.timeframe} filtrado por desalinhamento com tendência de 1h.")
-                is_valid = False
-            
-            # Filtro de Volume
-            if is_valid and signal.detector_type == 'candlestick':
-                market_data = market_data_by_tf.get(signal.timeframe)
-                if market_data and len(market_data.data) > 21:
-                    signal_candle = market_data.data.iloc[-2]
-                    avg_volume = market_data.data['volume'].iloc[-22:-2].mean()
-                    volume_ratio = signal_candle['volume'] / (avg_volume + 1e-10)
-                    if volume_ratio < 1.3:
-                        self.logger.info(f"Sinal {signal.detector_name} em {signal.timeframe} filtrado por BAIXO VOLUME (Ratio: {volume_ratio:.2f}).")
-                        is_valid = False
+            validation_notes = []
+
+            if settings.validation.enabled:
+                is_micro_valid, note = self._validate_with_microstructure(signal)
+                if not is_micro_valid:
+                    is_valid = False
+                validation_notes.append(note)
 
             if is_valid:
-                validated.append(signal)
+                is_volume_valid, note = self._validate_with_volume(signal, market_data_by_tf)
+                if not is_volume_valid:
+                    is_valid = False
+                validation_notes.append(note)
 
-        return validated
+            if is_valid:
+                self.logger.info(f"Sinal {signal.id} para {signal.symbol} passou em todas as validações.")
+                signal.market_conditions['validation_notes'] = validation_notes
+                validated_signals.append(signal)
+            else:
+                self.logger.info(f"Sinal {signal.id} para {signal.symbol} REPROVADO. Motivos: {'; '.join(validation_notes)}")
+        return validated_signals
 
-    def _determine_trend(self, market_data: MarketData) -> float:
-        """Determina a tendência de curto prazo para fins de filtro."""
-        try:
-            closes = market_data.data['close_price'].tail(50)
-            if len(closes) < 50: return 0.0
-            ema_fast = closes.ewm(span=20, adjust=False).mean().iloc[-1]
-            ema_slow = closes.ewm(span=50, adjust=False).mean().iloc[-1]
-            return 1.0 if ema_fast > ema_slow else -1.0
-        except: return 0.0
+    def _validate_with_microstructure(self, signal: EnhancedTradingSignal) -> Tuple[bool, str]:
+        conf = settings.validation
+        micro_df = self.data_reader.get_microstructure_for_validation(
+            signal.symbol,
+            signal.timestamp,
+            conf.validation_window_minutes
+        )
+
+        if micro_df is None or micro_df.empty:
+            return False, "Microstructure data not found for validation window"
+
+        rsi_analyzer = RSIAnalyzer()
+        micro_rsi = rsi_analyzer.calculate_rsi(micro_df['close_price'])
+
+        if micro_rsi.empty:
+            return False, "Could not calculate microstructure momentum (RSI)"
+
+        if 'BUY' in signal.signal_type:
+            if (micro_rsi > conf.buy_momentum_threshold).any():
+                return True, f"Micro-momentum confirmed BUY (RSI > {conf.buy_momentum_threshold})"
+            return False, f"Micro-momentum FAILED BUY (Max RSI was {micro_rsi.max():.2f})"
+        elif 'SELL' in signal.signal_type:
+            if (micro_rsi < conf.sell_momentum_threshold).any():
+                return True, f"Micro-momentum confirmed SELL (RSI < {conf.sell_momentum_threshold})"
+            return False, f"Micro-momentum FAILED SELL (Min RSI was {micro_rsi.min():.2f})"
+        return False, "Signal type not BUY or SELL"
+
+    def _validate_with_volume(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
+        market_data = market_data_by_tf.get(signal.timeframe)
+        if not market_data or len(market_data.data) < 22:
+            return True, "Volume validation skipped (insufficient data)"
+
+        volume_ma_period = settings.indicators.volume_ma_period
+        signal_candle_index = -2
+        
+        avg_volume = market_data.data['volume'].iloc[signal_candle_index - volume_ma_period : signal_candle_index].mean()
+        signal_candle_volume = market_data.data['volume'].iloc[signal_candle_index]
+
+        if avg_volume == 0:
+            return True, "Volume validation skipped (avg volume is zero)"
+
+        volume_ratio = signal_candle_volume / avg_volume
+        min_ratio = settings.get_timeframe_config(signal.timeframe).volume_threshold_multiplier
+
+        if volume_ratio >= min_ratio:
+            return True, f"Volume confirmed (Ratio: {volume_ratio:.2f} >= {min_ratio})"
+        return False, f"Volume FAILED (Ratio: {volume_ratio:.2f} < {min_ratio})"
 
     def run_continuous_multi_timeframe_analysis(self, base_interval: int = None):
-        """Loop principal para execução contínua do analisador."""
         if base_interval is None: base_interval = settings.system.analysis_interval
         symbols_to_analyze = settings.get_analysis_symbols()
-        self.logger.info(f"Iniciando análise contínua para {len(symbols_to_analyze)} símbolos.")
+        self.logger.info(f"Iniciando análise contínua para {len(symbols_to_analyze)} símbolos com lógica SNIPER.")
         while True:
             try:
                 for symbol in symbols_to_analyze:
-                    self.analyze_symbol_all_timeframes(symbol) # Esta linha agora funciona
+                    self.analyze_symbol_all_timeframes(symbol)
                     time.sleep(1)
+            except KeyboardInterrupt:
+                self.logger.info("Análise contínua interrompida pelo usuário.")
+                break
             except Exception as e:
                 self.logger.error(f"Erro no ciclo de análise contínua: {e}", exc_info=True)
             self.logger.info(f"Ciclo concluído. Aguardando {base_interval} segundos...")
             time.sleep(base_interval)
 
+# Alias para manter compatibilidade com o `main.py`
+TradingAnalyzer = MultiTimeframeAnalyzer
 # Alias para manter compatibilidade com o `main.py`
 TradingAnalyzer = MultiTimeframeAnalyzer
