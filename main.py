@@ -1,6 +1,6 @@
 """
-Trading Analyzer - SISTEMA ANTI-SPAM COMPLETO - VERSÃO ROBUSTA
-Máximo 1 sinal ativo por symbol+timeframe + Proteção anti-travamento
+Trading Analyzer - SISTEMA COMPLETO COM ANALISADORES TÉCNICOS
+Máximo 1 sinal ativo por symbol + Stop Loss e Targets Técnicos + Analisadores de Qualidade
 """
 import argparse
 import sys
@@ -75,12 +75,29 @@ except ImportError:
     STOP_ANALYZER_AVAILABLE = False
     print("⚠️ Stop Loss Analyzer não disponível")
 
+# 🚨 NOVO: Analisador de Targets
+try:
+    from core.targets_analyzer import TargetsQualityAnalyzer, print_targets_quality_report
+    TARGETS_ANALYZER_AVAILABLE = True
+except ImportError:
+    TARGETS_ANALYZER_AVAILABLE = False
+    print("⚠️ Targets Analyzer não disponível")
+
 try:
     from core.signal_monitor import SignalStatusMonitor, print_signal_monitoring_report
     SIGNAL_MONITOR_AVAILABLE = True
 except ImportError:
     SIGNAL_MONITOR_AVAILABLE = False
     print("⚠️ Signal Monitor não disponível")
+
+# 🚨 NOVO: Configurações Avançadas
+try:
+    from config.stop_loss_config import print_current_config as print_stop_config
+    from config.targets_config import print_targets_config
+    ADVANCED_CONFIG_AVAILABLE = True
+except ImportError:
+    ADVANCED_CONFIG_AVAILABLE = False
+    print("⚠️ Configurações avançadas não disponíveis")
 
 def setup_logging(log_level: str):
     """Configura sistema de logging SEM EMOJIS"""
@@ -91,7 +108,7 @@ def setup_logging(log_level: str):
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             handlers=[
                 logging.StreamHandler(sys.stdout),
-                logging.FileHandler("trading_analyzer_robust.log", encoding='utf-8')
+                logging.FileHandler("trading_analyzer_complete.log", encoding='utf-8')
             ]
         )
     else:
@@ -100,26 +117,29 @@ def setup_logging(log_level: str):
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             handlers=[
                 logging.StreamHandler(),
-                logging.FileHandler("trading_analyzer_robust.log")
+                logging.FileHandler("trading_analyzer_complete.log")
             ]
         )
 
 def print_banner():
-    """Exibe banner do sistema OTIMIZADO E ROBUSTO"""
+    """Exibe banner do sistema COMPLETO"""
     banner = """
 +=================================================================+
-|                    TRADING ANALYZER v2.0.1                     |
-|              Sistema OTIMIZADO - Anti-Travamento               |
+|                    TRADING ANALYZER v2.1.0                     |
+|           Sistema COMPLETO - Análise Técnica Integrada         |
 |                                                                 |
 |  🎯 SINAL ÚNICO: Máx 1 sinal ativo por crypto                  |
 |  ⚡ TIMEFRAMES: 5m (prioritário) + 15m APENAS                  |
-|  🛑 STOP TÉCNICO: ATR calculado automaticamente                |
+|  🛑 STOP TÉCNICO: ATR + S/R + Estrutura + Swing               |
+|  🎯 TARGETS TÉCNICOS: Fibonacci + S/R + Estrutura + RR        |
 |  📊 INDICADORES: RSI + MACD (5m/15m)                           |
 |  📈 PADRÕES: Apenas Double Top/Bottom                          |
 |  🕯️ CANDLESTICKS: 43 padrões (alta confiança)                 |
+|  📊 ANALISADORES: Stop Loss + Targets + Performance           |
 |  🧹 LIMPEZA AUTO: Move sinais inativos diariamente             |
 |  ⚖️ VALIDAÇÃO: Volume + Momentum + Microestrutura             |
 |  🛡️ PROTEÇÃO: Timeout + Cache + Validação robusta             |
+|  ⚙️ CONFIGURAÇÕES: Avançadas por symbol/timeframe             |
 +=================================================================+
     """
     print(banner)
@@ -211,19 +231,45 @@ def initialize_analyzer_safe():
         return None
 
 def main():
-    """Função principal COM PROTEÇÃO ANTI-TRAVAMENTO"""
+    """Função principal COM PROTEÇÃO ANTI-TRAVAMENTO E ANALISADORES TÉCNICOS"""
     parser = argparse.ArgumentParser(
-        description="Trading Analyzer v2.0.1 - Sistema Anti-Travamento COMPLETO",
+        description="Trading Analyzer v2.1.0 - Sistema Completo com Análise Técnica",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Exemplos de uso ROBUSTOS:
+Exemplos de uso COMPLETOS:
+
+🔍 ANÁLISE:
   python main.py --status                    # Status do sistema (timeout: 10s)
   python main.py --analyze BTCUSDT           # Análise de um symbol (timeout: 30s)
   python main.py --analyze-all               # Análise de todos (timeout: 300s)
   python main.py --continuous                # Execução contínua robusta
+
+📊 GERENCIAMENTO DE SINAIS:
   python main.py --check-signals             # Lista sinais ativos
-  python main.py --clear-signals BTCUSDT     # Limpa sinais
+  python main.py --check-signals BTCUSDT     # Sinais de um symbol específico
+  python main.py --clear-signals BTCUSDT     # Limpa sinais de um symbol
+  python main.py --clear-signals BTCUSDT 5m  # Limpa sinal específico
+
+📈 MONITORAMENTO:
+  python main.py --monitor-signals           # Monitora status dos sinais
+  python main.py --update-signals            # Atualiza status automaticamente
+
+🛑 ANÁLISE DE QUALIDADE - STOP LOSS:
+  python main.py --analyze-stops             # Relatório de stop losses
+  python main.py --analyze-stops --days 14   # Últimos 14 dias
+
+🎯 ANÁLISE DE QUALIDADE - TARGETS:
+  python main.py --analyze-targets           # Relatório de targets (NOVO!)
+  python main.py --analyze-targets --days 14 # Últimos 14 dias
+
+⚙️ CONFIGURAÇÕES:
+  python main.py --show-stop-config          # Mostra config de stop loss
+  python main.py --show-targets-config       # Mostra config de targets (NOVO!)
+
+🔧 OPÇÕES:
   python main.py --timeout 60 --analyze BTC  # Define timeout customizado
+  python main.py --output json --status      # Saída em JSON
+  python main.py --safe-mode --analyze-all   # Modo seguro
         """
     )
     
@@ -246,8 +292,12 @@ Exemplos de uso ROBUSTOS:
     parser.add_argument('--clear-signals', nargs='+', metavar=('SYMBOL', 'TIMEFRAME'),
                        help='Limpa sinais')
     
+    # 🚨 COMANDOS DE ANÁLISE TÉCNICA
     parser.add_argument('--analyze-stops', action='store_true',
-                       help='Análise de stop losses')
+                       help='Análise de qualidade dos stop losses')
+    
+    parser.add_argument('--analyze-targets', action='store_true',
+                       help='Análise de qualidade dos targets')  # NOVO!
     
     parser.add_argument('--monitor-signals', action='store_true',
                        help='Monitora sinais')
@@ -255,7 +305,17 @@ Exemplos de uso ROBUSTOS:
     parser.add_argument('--update-signals', action='store_true',
                        help='Atualiza status dos sinais')
     
+    # 🚨 COMANDOS DE CONFIGURAÇÃO
+    parser.add_argument('--show-stop-config', action='store_true',
+                       help='Mostra configuração de stop loss')
+    
+    parser.add_argument('--show-targets-config', action='store_true',
+                       help='Mostra configuração de targets')  # NOVO!
+    
     # Opções de configuração
+    parser.add_argument('--days', type=int, default=7,
+                       help='Número de dias para análise (padrão: 7)')
+    
     parser.add_argument('--timeout', type=int, default=30,
                        help='Timeout em segundos (padrão: 30)')
     
@@ -288,8 +348,33 @@ Exemplos de uso ROBUSTOS:
         print_banner()
     
     try:
+        # 🚨 COMANDOS DE CONFIGURAÇÃO (sem analyzer)
+        if args.show_stop_config:
+            if not ADVANCED_CONFIG_AVAILABLE:
+                print("❌ Configurações avançadas não disponíveis")
+                sys.exit(1)
+            
+            def run_show_stop_config():
+                print_stop_config()
+                return {'status': 'success'}
+            
+            result = safe_execute(run_show_stop_config, timeout=5, operation_name="Configuração de stop loss")
+            return
+        
+        elif args.show_targets_config:
+            if not ADVANCED_CONFIG_AVAILABLE:
+                print("❌ Configurações avançadas não disponíveis")
+                sys.exit(1)
+            
+            def run_show_targets_config():
+                print_targets_config()
+                return {'status': 'success'}
+            
+            result = safe_execute(run_show_targets_config, timeout=5, operation_name="Configuração de targets")
+            return
+        
         # COMANDOS DE GERENCIAMENTO (sem analyzer)
-        if args.check_signals is not None:
+        elif args.check_signals is not None:
             if not SIGNAL_MANAGER_AVAILABLE:
                 print("❌ Signal Manager não disponível")
                 sys.exit(1)
@@ -323,6 +408,7 @@ Exemplos de uso ROBUSTOS:
             print(format_output_safe(result, args.output))
             return
         
+        # 🚨 NOVOS COMANDOS DE ANÁLISE TÉCNICA
         elif args.analyze_stops:
             if not STOP_ANALYZER_AVAILABLE:
                 print("❌ Stop Loss Analyzer não disponível")
@@ -331,12 +417,30 @@ Exemplos de uso ROBUSTOS:
             def run_analyze_stops():
                 if args.output == 'json':
                     analyzer = StopLossQualityAnalyzer()
-                    return analyzer.get_stop_loss_quality_report(7)
+                    return analyzer.get_stop_loss_quality_report(args.days)
                 else:
-                    print_stop_loss_quality_report(7)
+                    print_stop_loss_quality_report(args.days)
                     return {'status': 'success'}
             
             result = safe_execute(run_analyze_stops, timeout=20, operation_name="Análise de stops")
+            if args.output == 'json':
+                print(format_output_safe(result, args.output))
+            return
+        
+        elif args.analyze_targets:  # 🚨 NOVO COMANDO
+            if not TARGETS_ANALYZER_AVAILABLE:
+                print("❌ Targets Analyzer não disponível")
+                sys.exit(1)
+            
+            def run_analyze_targets():
+                if args.output == 'json':
+                    analyzer = TargetsQualityAnalyzer()
+                    return analyzer.get_targets_quality_report(args.days)
+                else:
+                    print_targets_quality_report(args.days)
+                    return {'status': 'success'}
+            
+            result = safe_execute(run_analyze_targets, timeout=20, operation_name="Análise de targets")
             if args.output == 'json':
                 print(format_output_safe(result, args.output))
             return

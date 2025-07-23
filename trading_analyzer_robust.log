@@ -41,3 +41,822 @@
 2025-07-22 22:58:49,519 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
 2025-07-22 22:58:49,620 - core.analyzer - INFO - ✅ Ciclo 1: 1 novos | 7 bloqueados | 0 erros | 1.5s
 2025-07-22 22:58:49,620 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:02:56,995 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-22 23:02:56,995 - root - INFO - Inicializando Trading Analyzer...
+2025-07-22 23:02:56,996 - core.data_reader - INFO - DataReader inicializado (OTIMIZADO para 5m/15m).
+2025-07-22 23:02:56,996 - core.signal_writer - INFO - EnhancedSignalWriter inicializado com stop loss técnico (ATR)
+2025-07-22 23:02:56,996 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-22 23:02:56,996 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-22 23:02:56,996 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-22 23:02:56,997 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-22 23:02:56,997 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-22 23:02:56,997 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-22 23:02:56,997 - core.analyzer - INFO - MultiTimeframeAnalyzer OTIMIZADO inicializado:
+2025-07-22 23:02:56,997 - core.analyzer - INFO -   • Timeframes ativos: ['5m', '15m']
+2025-07-22 23:02:56,998 - core.analyzer - INFO -   • Preferência: 5m absoluta
+2025-07-22 23:02:56,998 - core.analyzer - INFO -   • Sinais únicos por crypto: ATIVO
+2025-07-22 23:02:56,998 - core.analyzer - INFO -   • Limpeza automática: ATIVA
+2025-07-22 23:02:56,998 - root - INFO - Trading Analyzer inicializado com sucesso
+2025-07-22 23:02:56,998 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-22 23:02:56,999 - core.analyzer - INFO - 🚀 Iniciando análise contínua OTIMIZADA
+2025-07-22 23:02:56,999 - core.analyzer - INFO - 🔍 Verificando símbolos com dados suficientes...
+2025-07-22 23:02:56,999 - core.data_reader - INFO - Verificando 8 símbolos...
+2025-07-22 23:02:57,442 - core.data_reader - INFO - ✅ Símbolos válidos: 8/8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-22 23:02:57,442 - core.analyzer - INFO - ✅ Símbolos válidos: 8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-22 23:02:57,443 - core.analyzer - INFO - ⏱️ Intervalo: 300s | Timeframes: APENAS 5m e 15m
+2025-07-22 23:02:57,443 - core.analyzer - INFO - 🔄 Ciclo 1 iniciado
+2025-07-22 23:02:57,456 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-22 23:02:58,058 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BNB, priorizando...
+2025-07-22 23:02:58,059 - core.analyzer - WARNING - 🚨 CONFLITO: BNB - 2 sinais
+2025-07-22 23:02:58,059 - core.analyzer - INFO - ✅ PREFERÊNCIA 5m: BNB → Bullish Engulfing | Conf: 0.850
+2025-07-22 23:02:58,059 - core.analyzer - WARNING - 🚨 Total de conflitos resolvidos com PREFERÊNCIA 5m: 1
+2025-07-22 23:02:58,075 - core.analyzer - INFO - ✅ SINAL VALIDADO: BNB | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-22 23:02:58,093 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: BNB 5m | Entry: 796.3300 | Stop: 764.8300 (4.0%) | T1: 807.0800 (1.3%) | T2: 817.8300 (2.7%)
+2025-07-22 23:02:58,093 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: BNB | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-22 23:02:58,093 - core.analyzer - INFO - 🎯 BNB (1/8): 1 sinais em 0.7s
+2025-07-22 23:02:58,206 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-22 23:02:58,763 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BTC, priorizando...
+2025-07-22 23:02:58,769 - core.analyzer - INFO - ✅ SINAL VALIDADO: BTC | 5m | Bullish Engulfing | Score: 5/6 (83.3%)
+2025-07-22 23:02:58,784 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: BTC 5m | Entry: 119560.6000 | Stop: 118869.2200 (0.6%) | T1: 121174.6700 (1.4%) | T2: 122788.7400 (2.7%)
+2025-07-22 23:02:58,784 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: BTC | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-22 23:02:58,785 - core.analyzer - INFO - 🎯 BTC (2/8): 1 sinais em 0.6s
+2025-07-22 23:02:58,895 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-22 23:02:59,352 - root - WARNING - Stop loss LONG corrigido para ENA: 0.4866
+2025-07-22 23:02:59,352 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para ENA, priorizando...
+2025-07-22 23:02:59,359 - core.analyzer - INFO - ✅ SINAL VALIDADO: ENA | 5m | Bullish Engulfing | Score: 5/6 (83.3%)
+2025-07-22 23:02:59,376 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: ENA 5m | Entry: 0.4965 | Stop: 0.4866 (2.0%) | T1: 0.5055 (1.8%) | T2: 0.5145 (3.6%)
+2025-07-22 23:02:59,376 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: ENA | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-22 23:02:59,377 - core.analyzer - INFO - 🎯 ENA (3/8): 1 sinais em 0.5s
+2025-07-22 23:02:59,487 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-22 23:02:59,993 - root - WARNING - Stop loss SHORT corrigido para ETH: 3810.6792
+2025-07-22 23:02:59,993 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para ETH, priorizando...
+2025-07-22 23:03:00,011 - core.analyzer - INFO - ✅ SINAL VALIDADO: ETH | 5m | Bearish Engulfing | Score: 5/6 (83.3%)
+2025-07-22 23:03:00,038 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: ETH 5m | Entry: 3735.9600 | Stop: 3810.6792 (2.0%) | T1: 3685.5200 (1.4%) | T2: 3635.0900 (2.7%)
+2025-07-22 23:03:00,038 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: ETH | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-22 23:03:00,038 - core.analyzer - INFO - 🎯 ETH (4/8): 1 sinais em 0.6s
+2025-07-22 23:03:00,149 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-22 23:03:00,686 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para NEAR, priorizando...
+2025-07-22 23:03:00,692 - core.analyzer - INFO - ✅ SINAL VALIDADO: NEAR | 5m | Bullish Engulfing | Score: 5/6 (83.3%)
+2025-07-22 23:03:00,708 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: NEAR 5m | Entry: 2.9930 | Stop: 2.9340 (2.0%) | T1: 3.0330 (1.3%) | T2: 3.0740 (2.7%)
+2025-07-22 23:03:00,709 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: NEAR | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-22 23:03:00,709 - core.analyzer - INFO - 🎯 NEAR (5/8): 1 sinais em 0.6s
+2025-07-22 23:03:00,820 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-22 23:03:01,345 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SOL, priorizando...
+2025-07-22 23:03:01,362 - core.analyzer - INFO - ✅ SINAL VALIDADO: SOL | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-22 23:03:01,379 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: SOL 5m | Entry: 203.1200 | Stop: 201.0500 (1.0%) | T1: 205.8600 (1.3%) | T2: 208.6000 (2.7%)
+2025-07-22 23:03:01,380 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SOL | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-22 23:03:01,380 - core.analyzer - INFO - 🎯 SOL (6/8): 1 sinais em 0.6s
+2025-07-22 23:03:01,491 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-22 23:03:02,130 - root - WARNING - Stop loss SHORT corrigido para SUI: 4.0669
+2025-07-22 23:03:02,131 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SUI, priorizando...
+2025-07-22 23:03:02,138 - core.analyzer - INFO - ✅ SINAL VALIDADO: SUI | 5m | Bearish Engulfing | Score: 5/6 (83.3%)
+2025-07-22 23:03:02,156 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: SUI 5m | Entry: 3.9872 | Stop: 4.0669 (2.0%) | T1: 3.9334 (1.3%) | T2: 3.8795 (2.7%)
+2025-07-22 23:03:02,156 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SUI | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-22 23:03:02,156 - core.analyzer - INFO - 🎯 SUI (7/8): 1 sinais em 0.7s
+2025-07-22 23:03:02,266 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-22 23:03:02,767 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para IMX, priorizando...
+2025-07-22 23:03:02,774 - core.analyzer - INFO - ✅ SINAL VALIDADO: IMX | 5m | Bullish Engulfing | Score: 5/6 (83.3%)
+2025-07-22 23:03:02,806 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: IMX 5m | Entry: 0.6332 | Stop: 0.6256 (1.2%) | T1: 0.6417 (1.3%) | T2: 0.6503 (2.7%)
+2025-07-22 23:03:02,806 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: IMX | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-22 23:03:02,807 - core.analyzer - INFO - 🎯 IMX (8/8): 1 sinais em 0.5s
+2025-07-22 23:03:02,907 - core.analyzer - INFO - ✅ Ciclo 1: 8 novos | 0 bloqueados | 0 erros | 5.5s
+2025-07-22 23:03:02,907 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:08:02,910 - core.analyzer - INFO - 🔄 Ciclo 2 iniciado
+2025-07-22 23:08:02,915 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-22 23:08:03,017 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-22 23:08:03,120 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-22 23:08:03,223 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-22 23:08:03,326 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-22 23:08:03,428 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-22 23:08:03,530 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-22 23:08:03,633 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-22 23:08:03,733 - core.analyzer - INFO - ✅ Ciclo 2: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-22 23:08:03,734 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:13:03,736 - core.analyzer - INFO - 🔄 Ciclo 3 iniciado
+2025-07-22 23:13:03,738 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-22 23:13:03,841 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-22 23:13:03,943 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-22 23:13:04,045 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-22 23:13:04,148 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-22 23:13:04,250 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-22 23:13:04,352 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-22 23:13:04,456 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-22 23:13:04,562 - core.analyzer - INFO - ✅ Ciclo 3: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-22 23:13:04,562 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:18:04,565 - core.analyzer - INFO - 🔄 Ciclo 4 iniciado
+2025-07-22 23:18:04,566 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-22 23:18:04,668 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-22 23:18:04,771 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-22 23:18:04,873 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-22 23:18:04,975 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-22 23:18:05,077 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-22 23:18:05,180 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-22 23:18:05,282 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-22 23:18:05,382 - core.analyzer - INFO - ✅ Ciclo 4: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-22 23:18:05,383 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:23:05,385 - core.analyzer - INFO - 🔄 Ciclo 5 iniciado
+2025-07-22 23:23:05,401 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-22 23:23:05,503 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-22 23:23:05,614 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-22 23:23:05,717 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-22 23:23:05,819 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-22 23:23:05,921 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-22 23:23:06,024 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-22 23:23:06,127 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-22 23:23:06,232 - core.analyzer - INFO - ✅ Ciclo 5: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-22 23:23:06,232 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:28:06,235 - core.analyzer - INFO - 🔄 Ciclo 6 iniciado
+2025-07-22 23:28:06,238 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-22 23:28:06,339 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-22 23:28:06,441 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-22 23:28:06,544 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-22 23:28:06,647 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-22 23:28:06,749 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-22 23:28:06,851 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-22 23:28:06,953 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-22 23:28:07,054 - core.analyzer - INFO - ✅ Ciclo 6: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-22 23:28:07,054 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:33:07,057 - core.analyzer - INFO - 🔄 Ciclo 7 iniciado
+2025-07-22 23:33:07,059 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-22 23:33:07,161 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-22 23:33:07,264 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-22 23:33:07,367 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-22 23:33:07,470 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-22 23:33:07,572 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-22 23:33:07,674 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-22 23:33:07,776 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-22 23:33:07,877 - core.analyzer - INFO - ✅ Ciclo 7: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-22 23:33:07,878 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:37:01,197 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-22 23:37:01,198 - root - INFO - Inicializando Trading Analyzer...
+2025-07-22 23:37:01,198 - core.data_reader - INFO - DataReader inicializado (OTIMIZADO para 5m/15m).
+2025-07-22 23:37:01,201 - core.signal_writer - INFO - EnhancedSignalWriter inicializado com integração técnica corrigida
+2025-07-22 23:37:01,201 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-22 23:37:01,202 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-22 23:37:01,202 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-22 23:37:01,203 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-22 23:37:01,203 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-22 23:37:01,204 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-22 23:37:01,204 - core.analyzer - INFO - MultiTimeframeAnalyzer OTIMIZADO inicializado:
+2025-07-22 23:37:01,205 - core.analyzer - INFO -   • Timeframes ativos: ['5m', '15m']
+2025-07-22 23:37:01,205 - core.analyzer - INFO -   • Preferência: 5m absoluta
+2025-07-22 23:37:01,206 - core.analyzer - INFO -   • Sinais únicos por crypto: ATIVO
+2025-07-22 23:37:01,206 - core.analyzer - INFO -   • Limpeza automática: ATIVA
+2025-07-22 23:37:01,206 - root - INFO - Trading Analyzer inicializado com sucesso
+2025-07-22 23:37:01,207 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-22 23:37:01,208 - core.analyzer - INFO - 🚀 Iniciando análise contínua OTIMIZADA
+2025-07-22 23:37:01,208 - core.analyzer - INFO - 🔍 Verificando símbolos com dados suficientes...
+2025-07-22 23:37:01,208 - core.data_reader - INFO - Verificando 8 símbolos...
+2025-07-22 23:37:01,649 - core.data_reader - INFO - ✅ Símbolos válidos: 8/8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-22 23:37:01,653 - core.analyzer - INFO - ✅ Símbolos válidos: 8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-22 23:37:01,654 - core.analyzer - INFO - ⏱️ Intervalo: 300s | Timeframes: APENAS 5m e 15m
+2025-07-22 23:37:01,654 - core.analyzer - INFO - 🔄 Ciclo 1 iniciado
+2025-07-22 23:37:01,657 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-22 23:37:01,714 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:37:01,724 - core.analyzer - ERROR - Erro na análise técnica para BNB 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:02,457 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:02,457 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:02,457 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:02,479 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-22 23:37:03,011 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:03,012 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:03,012 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:03,012 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 1.4s
+2025-07-22 23:37:03,115 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-22 23:37:03,811 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:03,811 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:03,811 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:03,839 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-22 23:37:04,327 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:04,328 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:04,328 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:04,329 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 1.2s
+2025-07-22 23:37:04,431 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-22 23:37:04,899 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:04,900 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:04,900 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:04,921 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-22 23:37:05,347 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:05,348 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:05,348 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:05,349 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 0.9s
+2025-07-22 23:37:05,451 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-22 23:37:05,977 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:05,977 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:05,978 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:05,986 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:37:05,991 - core.analyzer - ERROR - Erro na análise técnica para ETH 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:06,008 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-22 23:37:06,520 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:06,521 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:06,521 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:06,522 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 1.1s
+2025-07-22 23:37:06,624 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-22 23:37:07,268 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:07,269 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:07,269 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:07,294 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-22 23:37:07,736 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:07,736 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:07,736 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:07,737 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 1.1s
+2025-07-22 23:37:07,839 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-22 23:37:08,512 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:08,512 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:08,513 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:08,540 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-22 23:37:09,061 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:09,061 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:09,062 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:09,062 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 1.2s
+2025-07-22 23:37:09,165 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-22 23:37:09,185 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:37:09,191 - core.analyzer - ERROR - Erro na análise técnica para SUI 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:09,712 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:09,712 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:09,712 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:09,730 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-22 23:37:10,107 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:10,107 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:10,108 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:10,108 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 0.9s
+2025-07-22 23:37:10,211 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-22 23:37:10,677 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:10,677 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:10,677 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:10,695 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-22 23:37:11,057 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:37:11,057 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:37:11,057 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:37:11,058 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 0.8s
+2025-07-22 23:37:11,158 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos | 0 bloqueados | 0 erros | 9.5s
+2025-07-22 23:37:11,159 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:42:11,161 - core.analyzer - INFO - 🔄 Ciclo 2 iniciado
+2025-07-22 23:42:11,162 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-22 23:42:11,181 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:42:11,184 - core.analyzer - ERROR - Erro na análise técnica para BNB 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:11,613 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:11,614 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:11,614 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:11,627 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-22 23:42:11,932 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:11,932 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:11,932 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:11,932 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.8s
+2025-07-22 23:42:12,034 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-22 23:42:12,488 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:12,488 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:12,488 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:12,502 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-22 23:42:12,791 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:12,792 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:12,792 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:12,792 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 0.8s
+2025-07-22 23:42:12,894 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-22 23:42:13,274 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:13,274 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:13,275 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:13,289 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-22 23:42:13,594 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:13,594 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:13,595 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:13,595 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 0.7s
+2025-07-22 23:42:13,696 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-22 23:42:14,145 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:14,145 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:14,145 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:14,149 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:42:14,153 - core.analyzer - ERROR - Erro na análise técnica para ETH 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:14,165 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-22 23:42:14,471 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:14,471 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:14,471 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:14,472 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 0.8s
+2025-07-22 23:42:14,573 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-22 23:42:14,961 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:14,961 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:14,961 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:14,975 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-22 23:42:15,258 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:15,258 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:15,259 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:15,259 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 0.7s
+2025-07-22 23:42:15,360 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-22 23:42:15,788 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:15,788 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:15,788 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:15,801 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-22 23:42:16,091 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:16,092 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:16,092 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:16,092 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 0.7s
+2025-07-22 23:42:16,194 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-22 23:42:16,206 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:42:16,209 - core.analyzer - ERROR - Erro na análise técnica para SUI 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:16,661 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:16,662 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:16,662 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:16,677 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-22 23:42:17,010 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:17,011 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:17,011 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:17,011 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 0.8s
+2025-07-22 23:42:17,113 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-22 23:42:17,513 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:17,513 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:17,513 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:17,529 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-22 23:42:17,805 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:42:17,805 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:42:17,806 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:42:17,806 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 0.7s
+2025-07-22 23:42:17,906 - core.analyzer - INFO - ✅ Ciclo 2: 0 novos | 0 bloqueados | 0 erros | 6.7s
+2025-07-22 23:42:17,907 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:47:17,909 - core.analyzer - INFO - 🔄 Ciclo 3 iniciado
+2025-07-22 23:47:17,911 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-22 23:47:18,426 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:18,426 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:18,426 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:18,440 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-22 23:47:18,757 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:18,757 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:18,757 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:18,758 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.8s
+2025-07-22 23:47:18,860 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-22 23:47:19,334 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:19,335 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:19,335 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:19,350 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-22 23:47:19,655 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:19,655 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:19,655 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:19,656 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 0.8s
+2025-07-22 23:47:19,757 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-22 23:47:20,149 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:20,149 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:20,150 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:20,162 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-22 23:47:20,463 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:20,463 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:20,464 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:20,464 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 0.7s
+2025-07-22 23:47:20,565 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-22 23:47:20,985 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:20,985 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:20,985 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:20,989 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:47:20,993 - core.analyzer - ERROR - Erro na análise técnica para ETH 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:21,005 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-22 23:47:21,369 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:21,369 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:21,369 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:21,369 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 0.8s
+2025-07-22 23:47:21,471 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-22 23:47:21,966 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:21,967 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:21,967 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:21,986 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-22 23:47:22,315 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:22,315 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:22,315 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:22,315 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 0.8s
+2025-07-22 23:47:22,417 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-22 23:47:22,874 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:22,875 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:22,875 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:22,891 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-22 23:47:23,183 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:23,183 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:23,183 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:23,184 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 0.8s
+2025-07-22 23:47:23,285 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-22 23:47:23,761 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:23,761 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:23,762 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:23,785 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-22 23:47:24,103 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:24,103 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:24,103 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:24,104 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 0.8s
+2025-07-22 23:47:24,205 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-22 23:47:24,627 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:24,627 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:24,627 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:24,642 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-22 23:47:24,942 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:47:24,943 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:47:24,943 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:47:24,943 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 0.7s
+2025-07-22 23:47:25,044 - core.analyzer - INFO - ✅ Ciclo 3: 0 novos | 0 bloqueados | 0 erros | 7.1s
+2025-07-22 23:47:25,044 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:52:25,046 - core.analyzer - INFO - 🔄 Ciclo 4 iniciado
+2025-07-22 23:52:25,048 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-22 23:52:25,511 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:25,511 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:25,512 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:25,529 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-22 23:52:25,860 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:25,861 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:25,861 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:25,861 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.8s
+2025-07-22 23:52:25,962 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-22 23:52:25,973 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:52:25,976 - core.analyzer - ERROR - Erro na análise técnica para BTC 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:26,443 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:26,443 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:26,443 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:26,458 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-22 23:52:26,769 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:26,770 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:26,770 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:26,770 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 0.8s
+2025-07-22 23:52:26,872 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-22 23:52:27,305 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:27,305 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:27,306 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:27,320 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-22 23:52:27,663 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:27,664 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:27,664 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:27,665 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 0.8s
+2025-07-22 23:52:27,766 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-22 23:52:28,191 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:28,191 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:28,192 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:28,195 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:52:28,200 - core.analyzer - ERROR - Erro na análise técnica para ETH 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:28,210 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-22 23:52:28,522 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:28,522 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:28,523 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:28,523 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 0.8s
+2025-07-22 23:52:28,624 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-22 23:52:28,635 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:52:28,638 - core.analyzer - ERROR - Erro na análise técnica para NEAR 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:29,029 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:29,029 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:29,029 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:29,043 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-22 23:52:29,345 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:29,345 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:29,346 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:29,346 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 0.7s
+2025-07-22 23:52:29,448 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-22 23:52:29,459 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:52:29,464 - core.analyzer - ERROR - Erro na análise técnica para SOL 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:29,994 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:29,995 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:29,995 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:30,020 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-22 23:52:30,404 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:30,404 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:30,404 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:30,405 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 1.0s
+2025-07-22 23:52:30,507 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-22 23:52:30,529 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:52:30,533 - core.analyzer - ERROR - Erro na análise técnica para SUI 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:30,980 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:30,980 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:30,980 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:30,995 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-22 23:52:31,323 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:31,323 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:31,323 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:31,323 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 0.8s
+2025-07-22 23:52:31,425 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-22 23:52:31,872 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:31,872 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:31,872 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:31,891 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-22 23:52:32,206 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:52:32,206 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:52:32,206 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:52:32,207 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 0.8s
+2025-07-22 23:52:32,307 - core.analyzer - INFO - ✅ Ciclo 4: 0 novos | 0 bloqueados | 0 erros | 7.3s
+2025-07-22 23:52:32,307 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-22 23:57:32,309 - core.analyzer - INFO - 🔄 Ciclo 5 iniciado
+2025-07-22 23:57:32,311 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-22 23:57:32,855 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:32,855 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:32,855 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:32,860 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:57:32,864 - core.analyzer - ERROR - Erro na análise técnica para BNB 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:32,875 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-22 23:57:33,217 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:33,217 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:33,217 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:33,218 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.9s
+2025-07-22 23:57:33,319 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-22 23:57:33,814 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:33,815 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:33,815 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:33,831 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-22 23:57:34,234 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:34,234 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:34,235 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:34,235 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 0.9s
+2025-07-22 23:57:34,337 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-22 23:57:34,358 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:57:34,365 - core.analyzer - ERROR - Erro na análise técnica para ENA 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:34,768 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:34,769 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:34,769 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:34,784 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-22 23:57:35,081 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:35,082 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:35,082 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:35,082 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 0.7s
+2025-07-22 23:57:35,184 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-22 23:57:35,196 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:57:35,200 - core.analyzer - ERROR - Erro na análise técnica para ETH 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:35,615 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:35,616 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:35,616 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:35,630 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-22 23:57:35,955 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:35,956 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:35,956 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:35,956 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 0.8s
+2025-07-22 23:57:36,058 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-22 23:57:36,541 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:36,542 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:36,542 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:36,558 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-22 23:57:36,883 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:36,883 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:36,884 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:36,884 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 0.8s
+2025-07-22 23:57:36,985 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-22 23:57:37,429 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:37,429 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:37,430 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:37,444 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-22 23:57:37,731 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:37,732 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:37,732 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:37,733 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 0.7s
+2025-07-22 23:57:37,834 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-22 23:57:38,316 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:38,316 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:38,317 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:38,333 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-22 23:57:38,686 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:38,687 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:38,687 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:38,687 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 0.9s
+2025-07-22 23:57:38,789 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-22 23:57:38,799 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-22 23:57:38,802 - core.analyzer - ERROR - Erro na análise técnica para IMX 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:39,224 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:39,225 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:39,225 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:39,241 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-22 23:57:39,531 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-22 23:57:39,531 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-22 23:57:39,531 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-22 23:57:39,532 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 0.7s
+2025-07-22 23:57:39,632 - core.analyzer - INFO - ✅ Ciclo 5: 0 novos | 0 bloqueados | 0 erros | 7.3s
+2025-07-22 23:57:39,633 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:02:39,635 - core.analyzer - INFO - 🔄 Ciclo 6 iniciado
+2025-07-23 00:02:39,637 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-23 00:02:40,262 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:40,262 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:40,263 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:40,268 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:02:40,276 - core.analyzer - ERROR - Erro na análise técnica para BNB 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:40,292 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-23 00:02:40,759 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:40,759 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:40,759 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:40,760 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 1.1s
+2025-07-23 00:02:40,862 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-23 00:02:41,533 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:41,534 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:41,534 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:41,555 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-23 00:02:41,907 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:41,907 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:41,907 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:41,908 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 1.0s
+2025-07-23 00:02:42,010 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-23 00:02:42,454 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:42,455 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:42,455 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:42,469 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 00:02:42,830 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:42,830 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:42,830 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:42,830 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 0.8s
+2025-07-23 00:02:42,932 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-23 00:02:42,967 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:02:42,971 - core.analyzer - ERROR - Erro na análise técnica para ETH 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:43,521 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:43,521 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:43,521 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:43,542 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-23 00:02:44,010 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:44,011 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:44,011 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:44,011 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 1.1s
+2025-07-23 00:02:44,114 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-23 00:02:44,590 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:44,591 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:44,591 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:44,609 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-23 00:02:44,936 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:44,936 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:44,936 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:44,936 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 0.8s
+2025-07-23 00:02:45,038 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-23 00:02:45,513 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:45,514 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:45,514 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:45,531 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-23 00:02:45,845 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:45,845 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:45,846 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:45,846 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 0.8s
+2025-07-23 00:02:45,948 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-23 00:02:46,509 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:46,509 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:46,509 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:46,526 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-23 00:02:46,909 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:46,910 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:46,910 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:46,910 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 1.0s
+2025-07-23 00:02:47,012 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-23 00:02:47,483 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:47,483 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:47,483 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:47,503 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 00:02:47,819 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:02:47,819 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:02:47,819 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:02:47,820 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 0.8s
+2025-07-23 00:02:47,920 - core.analyzer - INFO - ✅ Ciclo 6: 0 novos | 0 bloqueados | 0 erros | 8.3s
+2025-07-23 00:02:47,921 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:07:47,923 - core.analyzer - INFO - 🔄 Ciclo 7 iniciado
+2025-07-23 00:07:47,924 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-23 00:07:48,463 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:48,464 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:48,464 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:48,468 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:07:48,472 - core.analyzer - ERROR - Erro na análise técnica para BNB 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:48,482 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-23 00:07:48,798 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:48,798 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:48,798 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:48,799 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.9s
+2025-07-23 00:07:48,900 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-23 00:07:48,923 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:07:48,926 - core.analyzer - ERROR - Erro na análise técnica para BTC 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:49,452 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:49,453 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:49,453 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:49,467 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-23 00:07:49,761 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:49,762 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:49,762 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:49,762 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 0.9s
+2025-07-23 00:07:49,864 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-23 00:07:50,270 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:50,270 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:50,270 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:50,284 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 00:07:50,576 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:50,576 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:50,576 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:50,577 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 0.7s
+2025-07-23 00:07:50,678 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-23 00:07:51,128 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:51,128 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:51,129 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:51,148 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-23 00:07:51,542 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:51,542 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:51,542 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:51,543 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 0.9s
+2025-07-23 00:07:51,644 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-23 00:07:52,127 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:52,128 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:52,128 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:52,142 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-23 00:07:52,433 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:52,433 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:52,433 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:52,434 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 0.8s
+2025-07-23 00:07:52,535 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-23 00:07:52,972 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:52,973 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:52,973 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:52,989 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-23 00:07:53,299 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:53,299 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:53,300 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:53,300 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 0.8s
+2025-07-23 00:07:53,402 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-23 00:07:53,873 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:53,873 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:53,873 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:53,887 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-23 00:07:54,211 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:54,211 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:54,211 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:54,212 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 0.8s
+2025-07-23 00:07:54,313 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-23 00:07:54,746 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:54,747 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:54,747 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:54,763 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 00:07:55,061 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:07:55,061 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:07:55,061 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:07:55,062 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 0.7s
+2025-07-23 00:07:55,162 - core.analyzer - INFO - ✅ Ciclo 7: 0 novos | 0 bloqueados | 0 erros | 7.2s
+2025-07-23 00:07:55,163 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:12:55,165 - core.analyzer - INFO - 🔄 Ciclo 8 iniciado
+2025-07-23 00:12:55,167 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-23 00:12:56,009 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:12:56,009 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:12:56,010 - core.analyzer - WARNING - Sinal para BNB em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:56,029 - indicators.patterns - INFO - Padrões para BNB: 0 selecionados
+2025-07-23 00:12:56,589 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:12:56,590 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:12:56,590 - core.analyzer - WARNING - Sinal para BNB em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:56,590 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 1.4s
+2025-07-23 00:12:56,692 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-23 00:12:56,713 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:12:56,718 - core.analyzer - ERROR - Erro na análise técnica para BTC 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:57,608 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:12:57,608 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:12:57,609 - core.analyzer - WARNING - Sinal para BTC em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:57,617 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:12:57,623 - core.analyzer - ERROR - Erro na análise técnica para BTC 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:57,639 - indicators.patterns - INFO - Padrões para BTC: 0 selecionados
+2025-07-23 00:12:58,216 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:12:58,217 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:12:58,217 - core.analyzer - WARNING - Sinal para BTC em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:58,217 - core.analyzer - INFO - ✓ BTC (2/8): 0 sinais em 1.5s
+2025-07-23 00:12:58,319 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-23 00:12:59,017 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:12:59,017 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:12:59,017 - core.analyzer - WARNING - Sinal para ENA em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:59,038 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 00:12:59,612 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:12:59,612 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:12:59,612 - core.analyzer - WARNING - Sinal para ENA em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:12:59,613 - core.analyzer - INFO - ✓ ENA (3/8): 0 sinais em 1.3s
+2025-07-23 00:12:59,715 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-23 00:13:00,674 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:00,675 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:00,675 - core.analyzer - WARNING - Sinal para ETH em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:00,681 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:13:00,690 - core.analyzer - ERROR - Erro na análise técnica para ETH 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:00,711 - indicators.patterns - INFO - Padrões para ETH: 0 selecionados
+2025-07-23 00:13:01,353 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:01,353 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:01,353 - core.analyzer - WARNING - Sinal para ETH em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:01,354 - core.analyzer - INFO - ✓ ETH (4/8): 0 sinais em 1.6s
+2025-07-23 00:13:01,456 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-23 00:13:01,475 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:13:01,482 - core.analyzer - ERROR - Erro na análise técnica para NEAR 5m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:02,383 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:02,383 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:02,383 - core.analyzer - WARNING - Sinal para NEAR em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:02,419 - indicators.patterns - INFO - Padrões para NEAR: 0 selecionados
+2025-07-23 00:13:03,049 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:03,050 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:03,050 - core.analyzer - WARNING - Sinal para NEAR em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:03,050 - core.analyzer - INFO - ✓ NEAR (5/8): 0 sinais em 1.6s
+2025-07-23 00:13:03,153 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-23 00:13:03,908 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:03,909 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:03,909 - core.analyzer - WARNING - Sinal para SOL em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:03,937 - indicators.patterns - INFO - Padrões para SOL: 0 selecionados
+2025-07-23 00:13:04,469 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:04,470 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:04,470 - core.analyzer - WARNING - Sinal para SOL em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:04,470 - core.analyzer - INFO - ✓ SOL (6/8): 0 sinais em 1.3s
+2025-07-23 00:13:04,573 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-23 00:13:05,340 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:05,341 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:05,341 - core.analyzer - WARNING - Sinal para SUI em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:05,365 - indicators.patterns - INFO - Padrões para SUI: 0 selecionados
+2025-07-23 00:13:05,889 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:05,889 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:05,890 - core.analyzer - WARNING - Sinal para SUI em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:05,890 - core.analyzer - INFO - ✓ SUI (7/8): 0 sinais em 1.3s
+2025-07-23 00:13:05,993 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-23 00:13:06,967 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:06,968 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:06,968 - core.analyzer - WARNING - Sinal para IMX em 5m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:06,977 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:13:06,986 - core.analyzer - ERROR - Erro na análise técnica para IMX 15m: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:07,011 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 00:13:07,619 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:13:07,619 - core.technical_targets - ERROR - Erro no cálculo de targets inteligentes: 'TechnicalTargetsCalculator' object has no attribute 'config'
+2025-07-23 00:13:07,620 - core.analyzer - WARNING - Sinal para IMX em 15m descartado: 'EnhancedTradingSignal' object has no attribute 'logger'
+2025-07-23 00:13:07,620 - core.analyzer - INFO - ✓ IMX (8/8): 0 sinais em 1.6s
+2025-07-23 00:13:07,721 - core.analyzer - INFO - ✅ Ciclo 8: 0 novos | 0 bloqueados | 0 erros | 12.6s
+2025-07-23 00:13:07,721 - core.analyzer - INFO - ⏳ Aguardando 300s...
