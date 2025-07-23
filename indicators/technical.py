@@ -128,7 +128,7 @@ class TechnicalAnalyzer:
             self.logger.error(f"Erro na análise técnica para {market_data.symbol} {timeframe}: {e}")
         return results
 
-    # _#_ALTERADO_: A função agora recebe 'timeframe' para criar o sinal corretamente.
+
     def generate_trading_signals(self, market_data, analysis_results, timeframe: str):
         from core.signal_writer import EnhancedTradingSignal
 
@@ -143,7 +143,7 @@ class TechnicalAnalyzer:
 
         best_signal = max(all_signals, key=lambda x: x.get('confidence', 0.5))
 
-        # _#_ALTERADO_: Todos os campos obrigatórios são fornecidos aqui.
+        # NOVO: Inclui market_data para cálculo técnico de stop/targets
         return [EnhancedTradingSignal(
             symbol=market_data.symbol,
             signal_type=best_signal['signal_type'],
@@ -151,5 +151,6 @@ class TechnicalAnalyzer:
             confidence=best_signal['confidence'],
             timeframe=timeframe,
             detector_type='technical',
-            detector_name=best_signal['indicator']
+            detector_name=best_signal['indicator'],
+            market_data=market_data.data  # ADICIONADO para cálculo técnico
         )]

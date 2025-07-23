@@ -6,7 +6,7 @@ Data Reader - Versão corrigida para trabalhar com a estrutura real das tabelas
 import sqlite3
 import pandas as pd
 from datetime import datetime, timedelta
-from typing import Optional, List, Any
+from typing import Dict, Optional, List, Any
 from dataclasses import dataclass
 import logging
 
@@ -69,76 +69,139 @@ class DataReader:
                 self.logger.warning(f"Nenhum dado encontrado para {symbol} {timeframe}")
                 return None
             
+            # DEBUG: Log quantidade de dados
+            self.logger.debug(f"Dados para {symbol} {timeframe}: {len(df)} registros (mín: {tf_config.min_data_points})")
+            
             df = df.drop_duplicates(subset=['timestamp'], keep='last').reset_index(drop=True)
             df['timestamp'] = pd.to_datetime(df['timestamp'])
             
             last_timestamp = df['timestamp'].iloc[-1].to_pydatetime()
 
-            return MarketData(
+            market_data = MarketData(
                 symbol=symbol,
                 timeframe=timeframe,
                 data=df,
                 last_update=last_timestamp
             )
+            
+            # DEBUG: Log se dados são suficientes
+            if not market_data.is_sufficient_data:
+                self.logger.warning(f"Dados insuficientes para {symbol} {timeframe}: {len(df)} < {tf_config.min_data_points}")
+            
+            return market_data
                 
         except Exception as e:
             self.logger.error(f"Erro ao buscar dados para {symbol} {timeframe}: {e}", exc_info=True)
             return None
     
+    
     def get_microstructure_for_validation(self, symbol: str, start_time: datetime, window_minutes: int) -> Optional[pd.DataFrame]:
-        """
-        CORRIGIDO: Busca dados da tabela de microestrutura usando kline_close_time
-        
-        Estrutura da tabela:
-        - id INTEGER PRIMARY KEY AUTOINCREMENT
-        - symbol TEXT NOT NULL
-        - kline_close_time DATETIME NOT NULL UNIQUE  ← ESTA É A COLUNA DE TEMPO
-        - open_price REAL NOT NULL
-        - high_price REAL NOT NULL
-        - low_price REAL NOT NULL
-        - close_price REAL NOT NULL
-        - volume REAL NOT NULL
-        - data_hash TEXT UNIQUE
-        """
+        """CORRIGIDO: Busca melhorada com múltiplas tentativas"""
         microstructure_table = settings.validation.microstructure_table
+        
+        # Estratégia 1: Busca na janela solicitada
         end_time = start_time + timedelta(minutes=window_minutes)
-
-        # Etapa 1: Converter a janela de tempo para o formato Unix (inteiro)
-        try:
-            start_unix = int(start_time.timestamp())
-            end_unix = int((start_time + timedelta(minutes=window_minutes)).timestamp())
-        except Exception as e:
-            self.logger.error(f"Erro ao converter tempo para timestamp Unix: {e}")
-            return None
-
-        # Etapa 2: A query SQL agora faz uma busca numérica simples e rápida
+        start_unix = int(start_time.timestamp())
+        end_unix = int(end_time.timestamp())
+        
         query = f"""
-        SELECT 
-            kline_close_time as timestamp,
-            open_price, high_price, low_price, close_price, volume
+        SELECT kline_close_time as timestamp, open_price, high_price, low_price, close_price, volume
         FROM {microstructure_table}
-        WHERE symbol = ? AND kline_close_time > ? AND kline_close_time <= ?
+        WHERE symbol = ? AND kline_close_time BETWEEN ? AND ?
         ORDER BY kline_close_time ASC
         """
-
+        
         try:
             with self._get_connection() as conn:
                 df = pd.read_sql_query(query, conn, params=[symbol, start_unix, end_unix])
-
-            if df.empty:
-                self.logger.warning(f"Microestrutura: Nenhum dado para {symbol} encontrado na janela de {start_time} a {start_time + timedelta(minutes=window_minutes)}")
-                return None
-
-            # Etapa 3: Converter a coluna de timestamp Unix de volta para um objeto datetime.
-            # Este passo é essencial para que o resto do sistema funcione corretamente.
-            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
             
-            self.logger.debug(f"Microestrutura carregada para {symbol}: {len(df)} pontos.")
-            return df
-
+            # Se não encontrou dados suficientes, tenta janela expandida
+            if df.empty or len(df) < 3:
+                # Estratégia 2: Busca em janela mais ampla (para trás)
+                extended_start = start_time - timedelta(minutes=60)  # 1 hora para trás
+                extended_end = start_time + timedelta(minutes=30)   # 30 min para frente
+                
+                start_unix_ext = int(extended_start.timestamp())
+                end_unix_ext = int(extended_end.timestamp())
+                
+                df = pd.read_sql_query(query, conn, params=[symbol, start_unix_ext, end_unix_ext])
+                
+                if not df.empty:
+                    self.logger.debug(f"Microestrutura expandida para {symbol}: {len(df)} pontos")
+            
+            if df.empty:
+                self.logger.warning(f"Nenhum dado de microestrutura encontrado para {symbol}")
+                return None
+                
+            # Converte timestamp e filtra dados próximos ao sinal
+            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
+            df['time_diff'] = abs((df['timestamp'] - start_time).dt.total_seconds())
+            
+            # Pega os dados mais próximos do tempo do sinal
+            closest_data = df.nsmallest(min(10, len(df)), 'time_diff')
+            
+            self.logger.debug(f"Microestrutura para {symbol}: {len(closest_data)} pontos próximos")
+            return closest_data
+            
         except Exception as e:
-            self.logger.error(f"Erro ao buscar dados de microestrutura (Unix) para {symbol}: {e}", exc_info=True)
+            self.logger.error(f"Erro ao buscar microestrutura para {symbol}: {e}")
             return None
+    
+    def check_symbol_data_availability(self, symbol: str, min_records: int = 50) -> Dict[str, Any]:
+        """Verifica se o símbolo tem dados suficientes em cada timeframe"""
+        enabled_timeframes = settings.get_enabled_timeframes()
+        results = {}
+        
+        for timeframe in enabled_timeframes:
+            query = f"""
+            SELECT COUNT(*) as count, 
+                MIN(timestamp) as first_record,
+                MAX(timestamp) as last_record
+            FROM {self.stream_table}
+            WHERE symbol = ? AND timeframe = ?
+            """
+            
+            try:
+                with self._get_connection() as conn:
+                    cursor = conn.cursor()
+                    cursor.execute(query, (symbol, timeframe))
+                    row = cursor.fetchone()
+                    
+                    count = row[0] if row else 0
+                    results[timeframe] = {
+                        'count': count,
+                        'sufficient': count >= min_records,
+                        'first_record': row[1] if row and row[1] else None,
+                        'last_record': row[2] if row and row[2] else None
+                    }
+                    
+            except Exception as e:
+                self.logger.error(f"Erro ao verificar dados para {symbol} {timeframe}: {e}")
+                results[timeframe] = {'count': 0, 'sufficient': False, 'error': str(e)}
+        
+        # Verifica se tem dados suficientes em pelo menos um timeframe
+        has_sufficient_data = any(tf['sufficient'] for tf in results.values())
+        
+        return {
+            'symbol': symbol,
+            'has_sufficient_data': has_sufficient_data,
+            'timeframes': results
+        }
+
+    def get_valid_symbols_for_analysis(self) -> List[str]:
+        """Retorna apenas símbolos com dados suficientes"""
+        all_symbols = settings.get_analysis_symbols()
+        valid_symbols = []
+        
+        for symbol in all_symbols:
+            check_result = self.check_symbol_data_availability(symbol)
+            if check_result['has_sufficient_data']:
+                valid_symbols.append(symbol)
+            else:
+                self.logger.warning(f"Símbolo {symbol} removido: dados insuficientes")
+        
+        self.logger.info(f"Símbolos válidos para análise: {valid_symbols}")
+        return valid_symbols
     
     def get_available_symbols(self) -> List[str]:
         query = f"SELECT DISTINCT symbol FROM {self.stream_table}"

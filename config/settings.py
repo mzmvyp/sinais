@@ -102,7 +102,7 @@ class AnalysisConfig:
 
     def __post_init__(self):
         if self.symbols is None:
-            self.symbols = ["BNB", "BTC", "ENA", "ETH", "HBAR", "NEAR", "OMNI", "SOL", "SUI", "HYPE", "PEPE", "TURBO", "IMX", "CRV"]
+            self.symbols = self.symbols = ["BNB", "BTC", "ENA", "ETH", "NEAR", "SOL", "SUI" , "IMX"]
         if self.multi_timeframe is None:
             self.multi_timeframe = MultiTimeframeConfig()
 
@@ -128,6 +128,16 @@ class IndicatorConfig:
 
 @dataclass
 class PatternConfig:
+    """Configuracoes para deteccao de padroes SIMPLIFICADAS"""
+    double_tolerance: float = 0.02
+    double_min_distance: int = 15
+    double_min_significance: float = 0.08
+    min_pattern_strength: float = 0.65
+    max_patterns_per_analysis: int = 2
+    # ADICIONADO: Configurações de habilitação
+    enable_head_shoulders: bool = False      # DESABILITADO
+    enable_cup_handle: bool = False         # DESABILITADO  
+    enable_double_patterns: bool = True     # HABILITADO
     """Configuracoes para deteccao de padroes"""
     cup_min_depth: float = 0.15
     cup_max_depth: float = 0.40
@@ -144,19 +154,26 @@ class PatternConfig:
 
 @dataclass
 class SystemConfig:
-    """Configuracoes do sistema"""
+    """Configuracoes do sistema OTIMIZADAS"""
     multi_timeframe_enabled: bool = True
     analysis_interval: int = 300
     backup_all_signals: bool = True
-    max_total_signals_per_symbol: int = 4
+    max_total_signals_per_symbol: int = 1
     log_level: str = "INFO"
-    log_file: str = "trading_analyzer_multi.log"
+    log_file: str = "trading_analyzer_optimized.log"
     parallel_analysis: bool = True
-    max_workers: int = 6
-
+    max_workers: int = 4
+    
+    # ADICIONADO: Configurações de limpeza automática
+    auto_cleanup_enabled: bool = True
+    cleanup_interval_hours: int = 24      # ADICIONADO
+    signal_lifecycle_hours: int = 48      # ADICIONADO
+    
+    
 @dataclass
 class ValidationConfig:
     """Configurações para a validação de sinais com microestrutura (Sniper)."""
+    
     enabled: bool = True
     # _#_NOVO_: Nome da tabela de microestrutura adicionado aqui.
     microstructure_table: str = "kline_microstructure_1m"

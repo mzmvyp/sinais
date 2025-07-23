@@ -1,4 +1,4 @@
-# analyzer.py - VERSÃO COM ANTI-CONFLITO INTEGRADO
+# analyzer.py - VERSÃO OTIMIZADA com SINAL ÚNICO por CRYPTO
 
 import logging
 import time
@@ -27,111 +27,103 @@ from config.settings import settings
 
 
 class SignalConflictResolver:
-    """Resolve conflitos entre sinais automaticamente"""
+    """Resolve conflitos com PREFERÊNCIA para 5m"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
     
     def resolve_conflicts(self, signals: List[EnhancedTradingSignal]) -> List[EnhancedTradingSignal]:
         """
-        Resolve conflitos garantindo apenas UM sinal por símbolo por timeframe
-        
-        Prioridades:
-        1. Maior confidence
-        2. Detector técnico > padrões > candlestick  
-        3. Mais recente
+        Resolve conflitos com PREFERÊNCIA ABSOLUTA para sinais de 5m
         """
         if not signals:
             return signals
         
-        # Agrupa por símbolo + timeframe
+        # Agrupa por símbolo
         grouped = {}
         for signal in signals:
-            key = f"{signal.symbol}_{signal.timeframe}"
-            if key not in grouped:
-                grouped[key] = []
-            grouped[key].append(signal)
+            symbol = signal.symbol
+            if symbol not in grouped:
+                grouped[symbol] = []
+            grouped[symbol].append(signal)
         
         resolved_signals = []
         conflicts_resolved = 0
         
-        for key, group_signals in grouped.items():
+        for symbol, group_signals in grouped.items():
             if len(group_signals) == 1:
                 # Sem conflito
                 resolved_signals.append(group_signals[0])
             else:
-                # CONFLITO DETECTADO - RESOLVER
+                # CONFLITO DETECTADO
                 conflicts_resolved += 1
-                symbol = group_signals[0].symbol
-                timeframe = group_signals[0].timeframe
+                self.logger.warning(f"🚨 CONFLITO: {symbol} - {len(group_signals)} sinais")
                 
-                self.logger.warning(f"🚨 CONFLITO: {symbol} {timeframe} - {len(group_signals)} sinais")
+                # PREFERÊNCIA ABSOLUTA: 5m primeiro
+                signals_5m = [s for s in group_signals if s.timeframe == "5m"]
+                if signals_5m:
+                    # Se há sinal de 5m, escolhe o melhor entre eles
+                    best_signal = self._select_best_signal_same_timeframe(signals_5m)
+                    self.logger.info(f"✅ PREFERÊNCIA 5m: {symbol} → {best_signal.detector_name} | Conf: {best_signal.confidence:.3f}")
+                else:
+                    # Se não há 5m, escolhe o melhor geral
+                    best_signal = self._select_best_signal(group_signals)
+                    self.logger.info(f"✅ RESOLVIDO (sem 5m): {symbol} → {best_signal.timeframe} {best_signal.detector_name} | Conf: {best_signal.confidence:.3f}")
                 
-                # Log detalhado do conflito
-                for signal in group_signals:
-                    self.logger.warning(f"   • {signal.signal_type} | {signal.detector_name} | Conf: {signal.confidence:.3f}")
-                
-                # Escolhe o melhor sinal
-                best_signal = self._select_best_signal(group_signals)
                 resolved_signals.append(best_signal)
-                
-                self.logger.info(f"✅ RESOLVIDO: {symbol} → {best_signal.signal_type} | {best_signal.detector_name} | Conf: {best_signal.confidence:.3f}")
         
         if conflicts_resolved > 0:
-            self.logger.warning(f"🚨 Total de conflitos resolvidos: {conflicts_resolved}")
+            self.logger.warning(f"🚨 Total de conflitos resolvidos com PREFERÊNCIA 5m: {conflicts_resolved}")
         
         return resolved_signals
     
-    def _select_best_signal(self, signals: List[EnhancedTradingSignal]) -> EnhancedTradingSignal:
-        """Seleciona o melhor sinal baseado em critérios hierárquicos"""
-        
-        # CRITÉRIO 1: Maior confidence
-        max_confidence = max(s.confidence for s in signals)
-        high_confidence_signals = [s for s in signals if s.confidence == max_confidence]
-        
-        if len(high_confidence_signals) == 1:
-            return high_confidence_signals[0]
-        
-        # CRITÉRIO 2: Prioridade por tipo de detector
+    def _select_best_signal_same_timeframe(self, signals: List[EnhancedTradingSignal]) -> EnhancedTradingSignal:
+        """Seleciona melhor sinal dentro do mesmo timeframe"""
+        # Ordena por: confidence, depois por prioridade de detector
         detector_priority = {
-            'technical': 10,     # MAIOR prioridade (RSI, MACD)
-            'pattern': 5,        # Média prioridade (padrões gráficos)
-            'candlestick': 1     # MENOR prioridade (mais propenso a conflitos)
-        }
-        
-        # Encontra a maior prioridade disponível
-        best_priority = max(detector_priority.get(s.detector_type, 0) for s in high_confidence_signals)
-        priority_signals = [s for s in high_confidence_signals 
-                          if detector_priority.get(s.detector_type, 0) == best_priority]
-        
-        if len(priority_signals) == 1:
-            return priority_signals[0]
-        
-        # CRITÉRIO 3: Detector específico (dentro do mesmo tipo)
-        specific_detector_priority = {
-            # Técnicos
             'RSI': 12,
-            'MACD': 11, 
-            # Padrões
-            'Head_and_Shoulders': 7,
+            'MACD': 11,
             'Double_Top': 6,
-            'Cup_and_Handle': 6,
-            # Candlesticks (só se chegou até aqui)
+            'Double_Bottom': 6,
             'Bullish_Engulfing': 3,
             'Bearish_Engulfing': 3,
             'Hammer': 2,
             'Shooting_Star': 2
         }
         
-        best_specific = max(specific_detector_priority.get(s.detector_name, 0) for s in priority_signals)
-        if best_specific > 0:
-            specific_signals = [s for s in priority_signals 
-                              if specific_detector_priority.get(s.detector_name, 0) == best_specific]
-            if len(specific_signals) == 1:
-                return specific_signals[0]
-            priority_signals = specific_signals
+        def signal_score(s):
+            detector_score = detector_priority.get(s.detector_name, 1)
+            return (s.confidence, detector_score, s.timestamp)
         
-        # CRITÉRIO 4: Mais recente
+        return max(signals, key=signal_score)
+    
+    def _select_best_signal(self, signals: List[EnhancedTradingSignal]) -> EnhancedTradingSignal:
+        """Seleciona o melhor sinal baseado em critérios hierárquicos"""
+        
+        # CRITÉRIO 1: Prioridade absoluta para 5m
+        signals_5m = [s for s in signals if s.timeframe == "5m"]
+        if signals_5m:
+            return self._select_best_signal_same_timeframe(signals_5m)
+        
+        # CRITÉRIO 2: Se não há 5m, usa confidence + tipo de detector
+        detector_priority = {
+            'technical': 10,
+            'pattern': 5,
+            'candlestick': 1
+        }
+        
+        max_confidence = max(s.confidence for s in signals)
+        high_confidence_signals = [s for s in signals if s.confidence == max_confidence]
+        
+        if len(high_confidence_signals) == 1:
+            return high_confidence_signals[0]
+        
+        # Prioridade por tipo de detector
+        best_priority = max(detector_priority.get(s.detector_type, 0) for s in high_confidence_signals)
+        priority_signals = [s for s in high_confidence_signals 
+                          if detector_priority.get(s.detector_type, 0) == best_priority]
+        
+        # Mais recente como tie-breaker
         return max(priority_signals, key=lambda s: s.timestamp)
 
 
@@ -140,28 +132,52 @@ class MultiTimeframeAnalyzer:
         self.logger = logging.getLogger(__name__)
         self.data_reader = DataReader()
         self.signal_writer = EnhancedSignalWriter()
-        self.technical_analyzers = {tf: TechnicalAnalyzer() for tf in settings.get_enabled_timeframes()}
+        
+        # Inicializa analisadores apenas para timeframes ativos (5m e 15m)
+        enabled_timeframes = settings.get_enabled_timeframes()
+        self.technical_analyzers = {tf: TechnicalAnalyzer() for tf in enabled_timeframes}
         if PATTERNS_AVAILABLE:
-            self.pattern_analyzers = {tf: PatternAnalyzer() for tf in settings.get_enabled_timeframes()}
+            self.pattern_analyzers = {tf: PatternAnalyzer() for tf in enabled_timeframes}
 
-        # Sistema anti-conflito
+        # Sistema anti-conflito com preferência 5m
         self.conflict_resolver = SignalConflictResolver()
 
-        # Cache para evitar buscar microestrutura desnecessariamente
+        # Cache para microestrutura
         self._microstructure_cache = {}
         self._microstructure_last_check = None
         self._microstructure_available = None
+        
+        # Contador para limpeza automática
+        self._last_cleanup = datetime.now()
 
-        self.logger.info("MultiTimeframeAnalyzer inicializado com SISTEMA ANTI-CONFLITO integrado.")
+        self.logger.info("MultiTimeframeAnalyzer OTIMIZADO inicializado:")
+        self.logger.info(f"  • Timeframes ativos: {enabled_timeframes}")
+        self.logger.info(f"  • Preferência: 5m absoluta")
+        self.logger.info(f"  • Sinais únicos por crypto: ATIVO")
+        self.logger.info(f"  • Limpeza automática: ATIVA")
 
     def analyze_symbol_all_timeframes(self, symbol: str) -> Dict[str, Any]:
-        """Análise com resolução automática de conflitos"""
+        """Análise OTIMIZADA com verificação de sinal único"""
+        
+        # VERIFICAÇÃO CRÍTICA: Bloqueia se já há sinal ativo
+        if self.signal_writer.check_existing_active_signals(symbol):
+            self.logger.info(f"🚫 ANÁLISE BLOQUEADA para {symbol}: Já existe sinal ativo")
+            return {
+                'symbol': symbol, 
+                'status': 'blocked', 
+                'reason': 'existing_active_signal',
+                'signals_detected': 0, 
+                'signals_validated': 0, 
+                'signals_saved': 0
+            }
+        
         self.logger.info(f"Análise iniciada para: {symbol}")
         enabled_timeframes = settings.get_enabled_timeframes()
         all_signals = []
 
+        # Busca dados priorizando 5m
         market_data_by_tf = {}
-        for tf in enabled_timeframes:
+        for tf in enabled_timeframes:  # 5m vem primeiro
             try:
                 market_data = self.data_reader.get_latest_data(symbol, tf)
                 market_data_by_tf[tf] = market_data
@@ -169,35 +185,47 @@ class MultiTimeframeAnalyzer:
                 self.logger.error(f"Erro ao buscar dados para {symbol} {tf}: {e}")
                 market_data_by_tf[tf] = None
 
-        for timeframe, market_data in market_data_by_tf.items():
+        # Analisa timeframes priorizando 5m
+        for timeframe in enabled_timeframes:  # 5m vem primeiro
+            market_data = market_data_by_tf[timeframe]
             if market_data and market_data.is_sufficient_data:
                 try:
                     tf_result = self._analyze_single_timeframe(symbol, timeframe, market_data)
-                    all_signals.extend(tf_result.get('signals', []))
+                    tf_signals = tf_result.get('signals', [])
+                    all_signals.extend(tf_signals)
+                    
+                    # OTIMIZAÇÃO: Se já temos sinal de 5m com boa qualidade, pode parar
+                    if timeframe == "5m" and tf_signals:
+                        high_quality_5m = [s for s in tf_signals if s.confidence >= 0.75]
+                        if high_quality_5m:
+                            self.logger.info(f"🎯 Sinal de 5m de alta qualidade encontrado para {symbol}, priorizando...")
+                            all_signals = high_quality_5m  # Mantém apenas os de 5m
+                            break
+                            
                 except Exception as e:
                     self.logger.error(f"Erro na análise de {symbol} em {timeframe}: {e}")
             else:
                 self.logger.warning(f"Análise para {symbol} em {timeframe} pulada (dados insuficientes).")
 
-        # RESOLVE CONFLITOS ANTES DA VALIDAÇÃO
+        # Resolve conflitos com preferência 5m
         if len(all_signals) > 1:
-            self.logger.debug(f"Verificando conflitos em {len(all_signals)} sinais para {symbol}")
+            self.logger.debug(f"Resolvendo conflitos em {len(all_signals)} sinais para {symbol}")
             all_signals = self.conflict_resolver.resolve_conflicts(all_signals)
-            self.logger.debug(f"Após resolução de conflitos: {len(all_signals)} sinais para {symbol}")
+            self.logger.debug(f"Após resolução: {len(all_signals)} sinais para {symbol}")
 
-        # Sistema de validação INTELIGENTE  
+        # Validação inteligente
         validated_signals = self._intelligent_signal_validation(all_signals, market_data_by_tf)
 
         signals_saved = 0
         if validated_signals:
-            validated_signals.sort(key=lambda s: s.confidence, reverse=True)
-            for signal in validated_signals[:settings.system.max_total_signals_per_symbol]:
-                try:
-                    if self.signal_writer.write_enhanced_signal(signal):
-                        signals_saved += 1
-                        self.logger.info(f"🎯 SINAL APROVADO: {symbol} | {signal.detector_name} | {signal.signal_type} | Conf: {signal.confidence:.3f}")
-                except Exception as e:
-                    self.logger.error(f"Erro ao salvar sinal para {symbol}: {e}")
+            # Salva apenas o primeiro (melhor) sinal
+            signal = validated_signals[0]
+            try:
+                if self.signal_writer.write_enhanced_signal(signal):
+                    signals_saved = 1
+                    self.logger.info(f"🎯 SINAL ÚNICO APROVADO: {symbol} | {signal.timeframe} | {signal.detector_name} | {signal.signal_type} | Conf: {signal.confidence:.3f}")
+            except Exception as e:
+                self.logger.error(f"Erro ao salvar sinal para {symbol}: {e}")
 
         return {
             'symbol': symbol, 
@@ -208,7 +236,7 @@ class MultiTimeframeAnalyzer:
         }
 
     def _analyze_single_timeframe(self, symbol: str, timeframe: str, market_data: MarketData) -> Dict[str, Any]:
-        """Análise de um único timeframe COM PROTEÇÃO ANTI-CONFLITO"""
+        """Análise otimizada de um timeframe"""
         tf_config = settings.get_timeframe_config(timeframe)
         signals = []
 
@@ -225,7 +253,8 @@ class MultiTimeframeAnalyzer:
                     'symbol': symbol, 
                     'timeframe': timeframe, 
                     'entry_price': entry_price, 
-                    'timestamp': signal_timestamp
+                    'timestamp': signal_timestamp,
+                    'market_data': market_data.data  # Para cálculo técnico de stop/targets
                 }
                 final_args = {**kwargs, **base_args}
                 allowed_keys = EnhancedTradingSignal.__annotations__.keys()
@@ -233,7 +262,7 @@ class MultiTimeframeAnalyzer:
                 
                 signal = EnhancedTradingSignal(**filtered_args)
                 signals.append(signal)
-                self.logger.debug(f"Sinal criado: {signal.detector_name} | {signal.signal_type} | {signal.confidence:.3f}")
+                self.logger.debug(f"Sinal criado: {timeframe} {signal.detector_name} | {signal.signal_type} | {signal.confidence:.3f}")
             except Exception as e:
                 self.logger.warning(f"Sinal para {symbol} em {timeframe} descartado: {e}")
 
@@ -245,11 +274,11 @@ class MultiTimeframeAnalyzer:
                 raw_signals = tech_analyzer.generate_trading_signals(market_data, technical_results, timeframe)
                 for s in raw_signals:
                     create_valid_signal(**s.__dict__)
-                self.logger.debug(f"Sinais técnicos gerados para {symbol} {timeframe}: {len(raw_signals)}")
+                self.logger.debug(f"Sinais técnicos {timeframe} para {symbol}: {len(raw_signals)}")
             except Exception as e:
                 self.logger.error(f"Erro na análise técnica para {symbol} {timeframe}: {e}")
 
-        # ANÁLISE DE PADRÕES (prioridade média)
+        # ANÁLISE DE PADRÕES (apenas Double Top/Bottom)
         if 'patterns' in tf_config.enabled_detectors and PATTERNS_AVAILABLE:
             try:
                 pattern_analyzer = self.pattern_analyzers[timeframe]
@@ -257,25 +286,24 @@ class MultiTimeframeAnalyzer:
                 raw_signals = pattern_analyzer.generate_pattern_signals(market_data, pattern_results)
                 for s in raw_signals:
                      create_valid_signal(**s.__dict__)
-                self.logger.debug(f"Sinais de padrões gerados para {symbol} {timeframe}: {len(raw_signals)}")
+                self.logger.debug(f"Sinais de padrões {timeframe} para {symbol}: {len(raw_signals)}")
             except Exception as e:
                 self.logger.error(f"Erro na análise de padrões para {symbol} {timeframe}: {e}")
 
-        # ANÁLISE DE CANDLESTICK (prioridade baixa - mais limitada)
+        # ANÁLISE DE CANDLESTICK (limitada)
         if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
             try:
                 df_for_cs = market_data.data.iloc[:-1]
                 if not df_for_cs.empty:
-                    # LIMITA CANDLESTICK para evitar excesso de sinais conflitantes
                     cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
                     
-                    # FILTRA apenas padrões de alta confiança
+                    # Filtra apenas alta confiança
                     high_quality_cs = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.8]
                     
-                    for cs in high_quality_cs[:2]:  # Máximo 2 sinais de candlestick
+                    for cs in high_quality_cs[:1]:  # Máximo 1 sinal de candlestick
                         create_valid_signal(**cs)
                     
-                    self.logger.debug(f"Sinais de candlestick gerados para {symbol} {timeframe}: {len(high_quality_cs)} (de {len(cs_signals_raw)} detectados)")
+                    self.logger.debug(f"Sinais de candlestick {timeframe} para {symbol}: {len(high_quality_cs)}")
             except Exception as e:
                 self.logger.error(f"Erro na análise de candlestick para {symbol} {timeframe}: {e}")
 
@@ -283,13 +311,13 @@ class MultiTimeframeAnalyzer:
         return {'signals': signals}
 
     def _intelligent_signal_validation(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
-        """Sistema de validação INTELIGENTE com resolução final de conflitos"""
+        """Sistema de validação otimizado"""
         if not signals:
             return []
 
         validated_signals = []
         
-        # Verifica disponibilidade de microestrutura uma vez por ciclo
+        # Verifica microestrutura uma vez
         microstructure_available = self._check_microstructure_availability()
         
         for signal in signals:
@@ -297,39 +325,35 @@ class MultiTimeframeAnalyzer:
             validation_notes = []
             max_score = 0
 
-            # 1. VALIDAÇÃO DE MICROESTRUTURA (se disponível)
+            # 1. VALIDAÇÃO DE MICROESTRUTURA CORRIGIDA
             max_score += 3
             primary_validation_passed = False
             if microstructure_available:
-                is_micro_valid, micro_note = self._validate_with_microstructure_smart(signal)
+                is_micro_valid, micro_note = self._validate_with_microstructure_corrected(signal)
                 if is_micro_valid:
                     validation_score += 3
                     validation_notes.append(f"✅ Micro: {micro_note}")
                     primary_validation_passed = True
                 else:
-                    # Anota a falha da microestrutura, o fallback será usado a seguir.
                     validation_notes.append(f"⚠️  Micro: {micro_note}")
 
-            # Use o fallback de momentum se a validação primária não passou (ou não estava disponível)
+            # Fallback técnico se microestrutura falhar
             if not primary_validation_passed:
-                is_momentum_valid, momentum_note = self._validate_with_technical_momentum(signal, market_data_by_tf)
+                is_momentum_valid, momentum_note = self._validate_with_technical_momentum_corrected(signal, market_data_by_tf)
                 if is_momentum_valid:
-                    # O fallback concede 2 pontos em vez de 3, pois é uma confirmação mais fraca.
                     validation_score += 2
-                    validation_notes.append(f"✅ Momentum Fallback: {momentum_note}")
+                    validation_notes.append(f"✅ Momentum: {momentum_note}")
                 else:
-                    # Se o fallback também falhar, anote a falha final.
-                    validation_notes.append(f"❌ Momentum Fallback: {momentum_note}")
+                    validation_notes.append(f"❌ Momentum: {momentum_note}")
 
-
-            # 2. VALIDAÇÃO DE VOLUME
+            # 2. VALIDAÇÃO DE VOLUME (relaxada)
             max_score += 2
-            is_volume_valid, volume_note = self._validate_with_volume_smart(signal, market_data_by_tf)
+            is_volume_valid, volume_note = self._validate_with_volume_relaxed(signal, market_data_by_tf)
             if is_volume_valid:
                 validation_score += 2
                 validation_notes.append(f"✅ Volume: {volume_note}")
             else:
-                validation_notes.append(f"❌ Volume: {volume_note}")
+                validation_notes.append(f"⚠️  Volume: {volume_note}")
 
             # 3. VALIDAÇÃO DE CONFIDENCE
             max_score += 1
@@ -337,18 +361,20 @@ class MultiTimeframeAnalyzer:
                 validation_score += 1
                 validation_notes.append(f"✅ Conf: {signal.confidence:.3f}")
             else:
-                validation_notes.append(f"❌ Conf: {signal.confidence:.3f}")
+                validation_notes.append(f"⚠️  Conf: {signal.confidence:.3f}")
 
-            # DECISÃO INTELIGENTE
+            # DECISÃO: Mais flexível para 5m
             success_rate = validation_score / max_score
             
-            # Critérios flexíveis baseados na disponibilidade de dados
-            if microstructure_available:
-                # Com microestrutura: mais rigoroso (70% de aprovação)
-                required_rate = 0.70
-            else:
-                # Sem microestrutura: mais flexível (60% de aprovação)
+            if signal.timeframe == "5m":
+                # 5m: mais flexível (50% de aprovação)
+                required_rate = 0.50
+            elif microstructure_available:
+                # 15m com microestrutura: 60%
                 required_rate = 0.60
+            else:
+                # 15m sem microestrutura: 55%
+                required_rate = 0.55
 
             if success_rate >= required_rate:
                 signal.market_conditions['validation_score'] = validation_score
@@ -357,22 +383,17 @@ class MultiTimeframeAnalyzer:
                 signal.market_conditions['validation_notes'] = validation_notes
                 validated_signals.append(signal)
                 
-                self.logger.info(f"✅ SINAL VALIDADO: {signal.symbol} | {signal.detector_name} | Score: {validation_score}/{max_score} | Notas: {validation_notes}")
+                self.logger.info(f"✅ SINAL VALIDADO: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Score: {validation_score}/{max_score} ({success_rate:.1%})")
             else:
-                # Log de FALHA na validação (MUITO IMPORTANTE PARA DEBUG)
-                self.logger.warning(f"❌ SINAL REJEITADO: {signal.symbol} | {signal.detector_name} | Score: {validation_score}/{max_score} < {required_rate:.2f} | Notas: {validation_notes}")
+                self.logger.warning(f"❌ SINAL REJEITADO: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Score: {validation_score}/{max_score} ({success_rate:.1%}) < {required_rate:.1%}")
 
-        # VERIFICAÇÃO FINAL DE CONFLITOS (segurança extra)
-        if len(validated_signals) > 1:
-            validated_signals = self.conflict_resolver.resolve_conflicts(validated_signals)
-        
         return validated_signals
 
     def _check_microstructure_availability(self) -> bool:
-        """Verifica se microestrutura está disponível (cache de 5 minutos)"""
+        """Verifica microestrutura com cache"""
         now = datetime.now()
         
-        # Usa cache por 5 minutos
+        # Cache de 5 minutos
         if (self._microstructure_last_check and 
             (now - self._microstructure_last_check).seconds < 300 and
             self._microstructure_available is not None):
@@ -383,12 +404,12 @@ class MultiTimeframeAnalyzer:
             self._microstructure_available = (
                 test_result.get('table_exists', False) and 
                 test_result.get('has_data', False) and
-                test_result.get('sample_data_count', 0) > 100  # Pelo menos 100 registros
+                test_result.get('sample_data_count', 0) > 50
             )
             self._microstructure_last_check = now
             
             if self._microstructure_available:
-                self.logger.debug(f"✅ Microestrutura disponível: {test_result.get('sample_data_count', 0)} registros")
+                self.logger.debug(f"✅ Microestrutura: {test_result.get('sample_data_count', 0)} registros")
             else:
                 self.logger.debug("⚠️ Microestrutura indisponível - usando validação técnica")
                 
@@ -399,109 +420,114 @@ class MultiTimeframeAnalyzer:
         
         return self._microstructure_available
 
-    def _validate_with_microstructure_smart(self, signal: EnhancedTradingSignal) -> Tuple[bool, str]:
-        """Validação de microestrutura INTELIGENTE"""
+    def _validate_with_microstructure_corrected(self, signal: EnhancedTradingSignal) -> Tuple[bool, str]:
+        """Validação de microestrutura CORRIGIDA - busca mais ampla"""
         try:
             conf = settings.validation
             
-            # Busca dados com janela mais ampla (últimos 3 minutos em vez de futuros)
-            search_start = signal.timestamp - timedelta(minutes=3)
-            search_end = signal.timestamp + timedelta(minutes=2)
+            # Busca em janela AMPLA - vai para trás primeiro, depois para frente
+            search_start = signal.timestamp - timedelta(minutes=conf.search_window_extend_minutes)
             
             micro_df = self.data_reader.get_microstructure_for_validation(
                 signal.symbol,
                 search_start,
-                5  # 5 minutos de janela
+                conf.search_window_extend_minutes + conf.validation_window_minutes
             )
 
-            if micro_df is None or micro_df.empty:
-                # Tenta busca mais ampla
-                search_start = signal.timestamp - timedelta(minutes=10)
-                micro_df = self.data_reader.get_microstructure_for_validation(
-                    signal.symbol,
-                    search_start,
-                    15  # 15 minutos de janela
-                )
-                
-                if micro_df is None or micro_df.empty:
-                    return False, "Sem dados de microestrutura na janela estendida"
+            if micro_df is None or len(micro_df) < conf.min_data_points_required:
+                return False, f"Poucos dados de microestrutura ({len(micro_df) if micro_df is not None else 0} < {conf.min_data_points_required})"
 
+            # Calcula RSI com dados disponíveis
             rsi_analyzer = RSIAnalyzer()
             micro_rsi = rsi_analyzer.calculate_rsi(micro_df['close_price'])
 
-            if micro_rsi.empty or len(micro_rsi) < 5:
+            if micro_rsi.empty or len(micro_rsi) < 3:
                 return False, "RSI de microestrutura insuficiente"
 
-            # Análise de momentum mais sofisticada
-            recent_rsi = micro_rsi.tail(3).mean()  # Média dos últimos 3 pontos
-            rsi_trend = micro_rsi.tail(3).iloc[-1] - micro_rsi.tail(3).iloc[0]  # Tendência
-
+            # Análise de momentum CORRIGIDA - usa dados mais próximos do sinal
+            signal_time = signal.timestamp
+            
+            # Encontra dados mais próximos do tempo do sinal
+            micro_df['time_diff'] = abs((micro_df['timestamp'] - signal_time).dt.total_seconds())
+            closest_data = micro_df.nsmallest(min(5, len(micro_df)), 'time_diff')
+            
+            if len(closest_data) < 2:
+                return False, "Dados de microestrutura muito distantes do sinal"
+            
+            # RSI dos dados mais próximos
+            closest_rsi = rsi_analyzer.calculate_rsi(closest_data['close_price'])
+            if closest_rsi.empty:
+                return False, "Não foi possível calcular RSI próximo ao sinal"
+            
+            current_rsi = closest_rsi.iloc[-1]
+            
+            # Lógica CORRIGIDA de validação
             if 'BUY' in signal.signal_type:
-                momentum_ok = recent_rsi > conf.buy_momentum_threshold
-                trend_ok = rsi_trend > -5  # Não deve estar caindo muito
-                if momentum_ok and trend_ok:
-                    return True, f"Momentum BUY confirmado (RSI: {recent_rsi:.1f}, Trend: {rsi_trend:+.1f})"
-                return False, f"Momentum BUY fraco (RSI: {recent_rsi:.1f}, Trend: {rsi_trend:+.1f})"
+                # Para compra: RSI deve indicar momentum de alta (flexível)
+                if current_rsi > conf.buy_momentum_threshold:
+                    return True, f"Momentum BUY confirmado (RSI: {current_rsi:.1f})"
+                else:
+                    return False, f"Momentum BUY fraco (RSI: {current_rsi:.1f} <= {conf.buy_momentum_threshold})"
             
             elif 'SELL' in signal.signal_type:
-                momentum_ok = recent_rsi < conf.sell_momentum_threshold
-                trend_ok = rsi_trend < 5  # Não deve estar subindo muito
-                if momentum_ok and trend_ok:
-                    return True, f"Momentum SELL confirmado (RSI: {recent_rsi:.1f}, Trend: {rsi_trend:+.1f})"
-                return False, f"Momentum SELL fraco (RSI: {recent_rsi:.1f}, Trend: {rsi_trend:+.1f})"
+                # Para venda: RSI deve indicar momentum de baixa (flexível)
+                if current_rsi < conf.sell_momentum_threshold:
+                    return True, f"Momentum SELL confirmado (RSI: {current_rsi:.1f})"
+                else:
+                    return False, f"Momentum SELL fraco (RSI: {current_rsi:.1f} >= {conf.sell_momentum_threshold})"
             
             return False, "Tipo de sinal não reconhecido"
             
         except Exception as e:
             return False, f"Erro na validação: {str(e)[:50]}"
 
-    # Substitua a função inteira por esta versão corrigida
-    def _validate_with_technical_momentum(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
-        """Validação por momentum técnico quando microestrutura não disponível (LÓGICA CORRIGIDA)"""
+    def _validate_with_technical_momentum_corrected(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
+        """Validação técnica CORRIGIDA"""
         try:
             market_data = market_data_by_tf.get(signal.timeframe)
-            if not market_data or len(market_data.data) < 20:
-                return True, "Dados insuficientes para momentum - aprovado por padrão"
+            if not market_data or len(market_data.data) < 15:
+                return True, "Dados insuficientes - aprovado por padrão"
 
             rsi_analyzer = RSIAnalyzer()
             rsi = rsi_analyzer.calculate_rsi(market_data.data['close_price'])
             
-            if rsi.empty or len(rsi) < 5:
-                return True, "RSI insuficiente para momentum - aprovado por padrão"
+            if rsi.empty or len(rsi) < 3:
+                return True, "RSI insuficiente - aprovado por padrão"
 
             current_rsi = rsi.iloc[-1]
-            rsi_trend = rsi.iloc[-1] - rsi.iloc[-3] if len(rsi) >= 3 else 0
 
+            # Lógica RELAXADA para momentum técnico
             if 'BUY' in signal.signal_type:
-                # Para COMPRA: momentum deve ser de alta ou neutro (RSI > 45) e sem forte queda recente.
-                if current_rsi > 45 and rsi_trend > -5:
-                    return True, f"Momentum técnico OK (RSI: {current_rsi:.1f}, Trend: {rsi_trend:+.1f})"
-                return False, f"Momentum técnico contrário (RSI: {current_rsi:.1f}, Trend: {rsi_trend:+.1f})"
+                # Para compra: RSI deve estar em região favorável
+                if current_rsi > 40:  # Relaxado de 45 para 40
+                    return True, f"Momentum técnico BUY OK (RSI: {current_rsi:.1f})"
+                else:
+                    return False, f"Momentum técnico BUY fraco (RSI: {current_rsi:.1f})"
             
             elif 'SELL' in signal.signal_type:
-                # Para VENDA: momentum deve ser de baixa ou neutro (RSI < 55) e sem forte alta recente.
-                if current_rsi < 55 and rsi_trend < 5:
-                    return True, f"Momentum técnico OK (RSI: {current_rsi:.1f}, Trend: {rsi_trend:+.1f})"
-                return False, f"Momentum técnico contrário (RSI: {current_rsi:.1f}, Trend: {rsi_trend:+.1f})"
+                # Para venda: RSI deve estar em região favorável
+                if current_rsi < 60:  # Relaxado de 55 para 60
+                    return True, f"Momentum técnico SELL OK (RSI: {current_rsi:.1f})"
+                else:
+                    return False, f"Momentum técnico SELL fraco (RSI: {current_rsi:.1f})"
             
             return True, "Tipo de sinal indefinido - aprovado"
             
         except Exception as e:
-            self.logger.warning(f"Erro na validação de momentum, aprovando por segurança: {e}")
             return True, f"Erro no momentum - aprovado: {str(e)[:30]}"
     
-    
-    def _validate_with_volume_smart(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
-        """Validação de volume FLEXÍVEL"""
+    def _validate_with_volume_relaxed(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
+        """Validação de volume RELAXADA"""
         try:
             market_data = market_data_by_tf.get(signal.timeframe)
-            if not market_data or len(market_data.data) < 22:
+            if not market_data or len(market_data.data) < 15:
                 return True, "Volume: dados insuficientes - aprovado"
 
-            volume_ma_period = min(20, len(market_data.data) - 2)
+            volume_ma_period = min(15, len(market_data.data) - 2)
             signal_candle_index = -2
             
-            avg_volume = market_data.data['volume'].iloc[signal_candle_index - volume_ma_period : signal_candle_index].mean()
+            recent_volumes = market_data.data['volume'].iloc[signal_candle_index - volume_ma_period : signal_candle_index]
+            avg_volume = recent_volumes.mean()
             signal_candle_volume = market_data.data['volume'].iloc[signal_candle_index]
 
             if avg_volume <= 0:
@@ -509,38 +535,42 @@ class MultiTimeframeAnalyzer:
 
             volume_ratio = signal_candle_volume / avg_volume
             
-            # Thresholds flexíveis baseados no timeframe e confidence
-            base_threshold = settings.get_timeframe_config(signal.timeframe).volume_threshold_multiplier
+            # Threshold MUITO RELAXADO
+            base_threshold = 1.2  # Era muito mais alto
             
-            # Ajusta threshold baseado na confidence do sinal
-            if signal.confidence >= 0.8:
-                # Sinais de alta confidence: threshold mais baixo
-                adjusted_threshold = base_threshold * 0.8
-            elif signal.confidence >= 0.7:
-                adjusted_threshold = base_threshold * 0.9
+            # Ainda mais relaxado para 5m
+            if signal.timeframe == "5m":
+                threshold = base_threshold * 0.8  # 5m: 0.96x
             else:
-                adjusted_threshold = base_threshold
+                threshold = base_threshold  # 15m: 1.2x
 
-            if volume_ratio >= adjusted_threshold:
-                return True, f"Volume confirmado ({volume_ratio:.2f} >= {adjusted_threshold:.2f})"
-            
-            # Segunda chance: se o volume está pelo menos 50% do threshold
-            if volume_ratio >= adjusted_threshold * 0.5:
-                return True, f"Volume aceitável ({volume_ratio:.2f} >= {adjusted_threshold*0.5:.2f})"
-            
-            return False, f"Volume insuficiente ({volume_ratio:.2f} < {adjusted_threshold:.2f})"
+            if volume_ratio >= threshold:
+                return True, f"Volume confirmado ({volume_ratio:.2f} >= {threshold:.2f})"
+            elif volume_ratio >= threshold * 0.6:  # 60% do threshold
+                return True, f"Volume aceitável ({volume_ratio:.2f} >= {threshold*0.6:.2f})"
+            else:
+                return False, f"Volume insuficiente ({volume_ratio:.2f} < {threshold:.2f})"
             
         except Exception as e:
             return True, f"Volume: erro - aprovado: {str(e)[:30]}"
 
     def run_continuous_multi_timeframe_analysis(self, base_interval: int = None):
-        """Execução contínua com sistema anti-conflito"""
+        """Execução contínua com verificação automática de símbolos válidos"""
         if base_interval is None: 
             base_interval = settings.system.analysis_interval
-        symbols_to_analyze = settings.get_analysis_symbols()
         
-        self.logger.info(f"🚀 Iniciando análise contínua COM SISTEMA ANTI-CONFLITO")
-        self.logger.info(f"⏱️ Intervalo: {base_interval}s | Símbolos: {len(symbols_to_analyze)} | Anti-conflito: ATIVO")
+        self.logger.info("🚀 Iniciando análise contínua OTIMIZADA")
+        self.logger.info("🔍 Verificando símbolos com dados suficientes...")
+        
+        # Verifica símbolos válidos na primeira execução
+        valid_symbols = self.data_reader.get_valid_symbols_for_analysis()
+        
+        if not valid_symbols:
+            self.logger.error("❌ Nenhum símbolo com dados suficientes encontrado!")
+            return
+        
+        self.logger.info(f"✅ Símbolos válidos: {len(valid_symbols)} - {valid_symbols}")
+        self.logger.info(f"⏱️ Intervalo: {base_interval}s | Preferência: 5m")
         
         cycle_count = 0
         while True:
@@ -548,28 +578,40 @@ class MultiTimeframeAnalyzer:
                 cycle_count += 1
                 cycle_start = time.time()
                 total_signals = 0
+                blocked_count = 0
                 
                 self.logger.info(f"🔄 Ciclo {cycle_count} iniciado")
                 
-                for i, symbol in enumerate(symbols_to_analyze, 1):
+                # Limpeza automática
+                self._perform_automatic_cleanup()
+                
+                # Re-verifica símbolos válidos a cada 10 ciclos
+                if cycle_count % 10 == 1 and cycle_count > 1:
+                    self.logger.info("🔍 Re-verificando símbolos válidos...")
+                    valid_symbols = self.data_reader.get_valid_symbols_for_analysis()
+                
+                for i, symbol in enumerate(valid_symbols, 1):
                     try:
                         symbol_start = time.time()
                         result = self.analyze_symbol_all_timeframes(symbol)
                         symbol_time = time.time() - symbol_start
                         
-                        signals_saved = result.get('signals_saved', 0)
-                        total_signals += signals_saved
+                        if result.get('status') == 'blocked':
+                            blocked_count += 1
+                            self.logger.debug(f"🚫 {symbol} ({i}/{len(valid_symbols)}): BLOQUEADO em {symbol_time:.1f}s")
+                        else:
+                            signals_saved = result.get('signals_saved', 0)
+                            total_signals += signals_saved
+                            status_icon = "🎯" if signals_saved > 0 else "✓"
+                            self.logger.info(f"{status_icon} {symbol} ({i}/{len(valid_symbols)}): {signals_saved} sinais em {symbol_time:.1f}s")
                         
-                        status_icon = "🎯" if signals_saved > 0 else "✓"
-                        self.logger.info(f"{status_icon} {symbol} ({i}/{len(symbols_to_analyze)}): {signals_saved} sinais em {symbol_time:.1f}s")
-                        
-                        time.sleep(0.5)  # Pequena pausa entre símbolos
+                        time.sleep(0.3)  # Pausa entre símbolos
                     except Exception as e:
                         self.logger.error(f"❌ Erro em {symbol}: {e}")
                         continue
                 
                 cycle_time = time.time() - cycle_start
-                self.logger.info(f"✅ Ciclo {cycle_count} concluído: {total_signals} sinais em {cycle_time:.1f}s | Sistema anti-conflito: ATIVO")
+                self.logger.info(f"✅ Ciclo {cycle_count}: {total_signals} novos | {blocked_count} bloqueados | {cycle_time:.1f}s")
                 
             except KeyboardInterrupt:
                 self.logger.info("🛑 Análise interrompida pelo usuário")
@@ -577,41 +619,79 @@ class MultiTimeframeAnalyzer:
             except Exception as e:
                 self.logger.error(f"❌ Erro no ciclo: {e}", exc_info=True)
             
-            self.logger.info(f"⏳ Aguardando {base_interval}s para próximo ciclo...")
+            self.logger.info(f"⏳ Aguardando {base_interval}s...")
             time.sleep(base_interval)
-
-    # Métodos de compatibilidade (mantidos do código anterior)
+    
+    def _perform_automatic_cleanup(self):
+        """Limpeza automática COMPLETA com lifecycle"""
+        now = datetime.now()
+        hours_since_cleanup = (now - self._last_cleanup).total_seconds() / 3600
+        
+        if hours_since_cleanup >= settings.system.cleanup_interval_hours:
+            self.logger.info("🧹 Iniciando limpeza automática completa...")
+            
+            try:
+                # 1. Marca sinais antigos como KILLED
+                killed_count = self.signal_writer.mark_expired_signals_as_killed()
+                
+                # 2. Move sinais inativos para backup
+                moved_counts = self.signal_writer.move_inactive_signals_to_backup()
+                total_moved = sum(moved_counts.values())
+                
+                if killed_count > 0 or total_moved > 0:
+                    self.logger.info(f"✅ Limpeza: {killed_count} killed + {total_moved} movidos")
+                else:
+                    self.logger.debug("🧹 Limpeza: Sistema limpo")
+                    
+                self._last_cleanup = now
+                
+            except Exception as e:
+                self.logger.error(f"❌ Erro na limpeza: {e}")
+    
+    # Métodos de compatibilidade mantidos
     def get_system_status(self) -> Dict[str, Any]:
-        """Retorna status do sistema"""
+        """Status do sistema otimizado"""
         try:
             symbols = settings.get_analysis_symbols()
             enabled_timeframes = settings.get_enabled_timeframes()
-            
-            # Verifica microestrutura
             microstructure_status = self._check_microstructure_availability()
+            
+            # Conta sinais ativos
+            total_active_signals = 0
+            for symbol in symbols[:5]:  # Testa apenas primeiros 5
+                try:
+                    total_active_signals += self.signal_writer.get_active_signals_count(symbol)
+                except:
+                    pass
             
             components = {
                 'database': 'OK' if self._test_database_connection() else 'ERROR',
                 'technical_analyzer': 'OK',
-                'patterns_analyzer': 'OK' if PATTERNS_AVAILABLE else 'NOT_AVAILABLE',
+                'patterns_analyzer': 'SIMPLIFIED' if PATTERNS_AVAILABLE else 'NOT_AVAILABLE',
                 'candlestick_analyzer': 'OK' if CANDLESTICK_AVAILABLE else 'NOT_AVAILABLE',
                 'microstructure_validation': 'OK' if microstructure_status else 'FALLBACK_MODE',
-                'anti_conflict_system': 'ACTIVE'  # NOVO STATUS
+                'single_signal_control': 'ACTIVE',
+                'timeframe_5m_priority': 'ACTIVE'
             }
             
             return {
-                'status': 'OK' if all(c in ['OK', 'NOT_AVAILABLE', 'FALLBACK_MODE', 'ACTIVE'] for c in components.values()) else 'ERROR',
-                'system_type': 'Intelligent Multi-Timeframe Trading Analyzer with Anti-Conflict System',
+                'status': 'OK',
+                'system_type': 'Optimized Trading Analyzer - Single Signal per Crypto',
                 'timestamp': datetime.now().isoformat(),
                 'components': components,
                 'symbols_available': len(symbols),
                 'enabled_timeframes': enabled_timeframes,
+                'priority_timeframe': '5m',
                 'microstructure_available': microstructure_status,
+                'active_signals_sample': total_active_signals,
                 'configuration': {
-                    'multi_timeframe_enabled': settings.system.multi_timeframe_enabled,
-                    'analysis_interval': settings.system.analysis_interval,
-                    'intelligent_validation': True,
-                    'anti_conflict_system': True  # NOVO
+                    'multi_timeframe_enabled': True,
+                    'timeframes_active': enabled_timeframes,
+                    'single_signal_per_crypto': True,
+                    'timeframe_5m_priority': True,
+                    'patterns_simplified': True,
+                    'automatic_cleanup': settings.system.auto_cleanup_enabled,
+                    'technical_stop_loss': True
                 }
             }
         except Exception as e:
@@ -622,25 +702,25 @@ class MultiTimeframeAnalyzer:
             }
 
     def _test_database_connection(self) -> bool:
-        """Testa conexão com banco de dados"""
+        """Testa conexão com banco"""
         try:
-            test_data = self.data_reader.get_latest_data('BTC', '1h')
+            test_data = self.data_reader.get_latest_data('BTC', '5m')
             return test_data is not None
         except Exception:
             return False
 
+    # Métodos de compatibilidade simplificados
     def analyze_symbol(self, symbol: str, timeframe: str = None) -> Dict[str, Any]:
-        """Análise de um símbolo específico"""
         return self.analyze_symbol_all_timeframes(symbol)
 
     def analyze_multiple_symbols(self, symbols: List[str] = None, timeframe: str = None) -> Dict[str, Any]:
-        """Análise de múltiplos símbolos"""
         if symbols is None:
             symbols = settings.get_analysis_symbols()
         
         results = {}
         successful_analyses = 0
         total_signals = 0
+        blocked_analyses = 0
         start_time = time.time()
         
         for symbol in symbols:
@@ -650,12 +730,15 @@ class MultiTimeframeAnalyzer:
                 if result.get('status') == 'success':
                     successful_analyses += 1
                     total_signals += result.get('signals_saved', 0)
+                elif result.get('status') == 'blocked':
+                    blocked_analyses += 1
             except Exception as e:
                 results[symbol] = {'status': 'error', 'message': str(e)}
         
         results['_summary'] = {
             'symbols_analyzed': len(symbols),
             'successful_analyses': successful_analyses,
+            'blocked_analyses': blocked_analyses,
             'total_signals_generated': total_signals,
             'total_execution_time': time.time() - start_time
         }
@@ -663,7 +746,7 @@ class MultiTimeframeAnalyzer:
         return results
 
     def get_signals_comparison(self, days: int) -> Dict[str, Any]:
-        """Comparação de sinais (implementação básica)"""
+        """Comparação simplificada"""
         try:
             return {
                 'comparison_period_days': days,
@@ -674,22 +757,31 @@ class MultiTimeframeAnalyzer:
                     'avg_confidence': 0.75,
                     'by_type': {'BUY_LONG': 0, 'SELL_SHORT': 0}
                 },
-                'note': 'Implementação básica - requer histórico de performance'
+                'optimization_info': {
+                    'single_signal_per_crypto': True,
+                    'timeframe_5m_priority': True,
+                    'technical_stop_loss': True,
+                    'simplified_patterns': True
+                },
+                'note': 'Sistema otimizado - apenas 1 sinal ativo por crypto'
             }
         except Exception as e:
             return {'error': str(e)}
 
     def cleanup_old_data(self, days: int) -> Dict[str, Any]:
-        """Limpeza de dados antigos"""
+        """Limpeza manual"""
         try:
+            moved_counts = self.signal_writer.move_inactive_signals_to_backup()
+            total_moved = sum(moved_counts.values())
+            
             return {
                 'status': 'success',
-                'removed_signals': 0,
-                'message': f'Limpeza simulada para sinais com mais de {days} dias'
+                'removed_signals': total_moved,
+                'details': moved_counts,
+                'message': f'Limpeza concluída: {total_moved} sinais movidos para backup'
             }
         except Exception as e:
             return {'status': 'error', 'message': str(e)}
 
-
-# Alias para manter compatibilidade
+# Alias para compatibilidade
 TradingAnalyzer = MultiTimeframeAnalyzer

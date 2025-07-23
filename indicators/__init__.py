@@ -20,8 +20,8 @@ try:
         CupAndHandleDetector,
         PatternResult
     )
-    PATTERNS_AVAILABLE = False
-    print("✅ Padrões gráficos carregados: Head&Shoulders, Double Top/Bottom, Cup&Handle")
+    PATTERNS_AVAILABLE = True
+    print("✅ Padrões SIMPLIFICADOS carregados: Apenas Double Top/Bottom")
 except ImportError as e:
     PATTERNS_AVAILABLE = False
     print(f"⚠️ Padrões gráficos não disponíveis: {e}")
@@ -83,35 +83,34 @@ AVAILABLE_COMPONENTS = {
 }
 
 def get_available_detectors():
-    """Retorna lista de detectores disponíveis"""
-    detectors = ['Technical Indicators (RSI, MACD)']
+    """Retorna lista de detectores OTIMIZADOS"""
+    detectors = ['Technical Indicators (RSI, MACD) - Timeframes: 5m, 15m']
     
     if PATTERNS_AVAILABLE:
-        detectors.append('Chart Patterns (H&S, Double Top/Bottom, Cup&Handle)')
+        detectors.append('Chart Patterns (APENAS Double Top/Bottom)')
     
     if CANDLESTICK_AVAILABLE:
-        detectors.append('Candlestick Patterns (43 patterns)')
+        detectors.append('Candlestick Patterns (43 patterns - filtrados)')
     
     return detectors
 
+
 def get_system_status():
-    """Retorna status completo do sistema de indicadores"""
+    """Status do sistema OTIMIZADO - CORRIGIDO"""
     return {
-        'technical_indicators': 'OK',
-        'chart_patterns': 'OK' if PATTERNS_AVAILABLE else 'NOT_AVAILABLE',
-        'candlestick_patterns': 'OK' if CANDLESTICK_AVAILABLE else 'NOT_AVAILABLE',
-        'total_pattern_types': sum([
-            1,  # Technical sempre disponível
-            1 if PATTERNS_AVAILABLE else 0,
-            1 if CANDLESTICK_AVAILABLE else 0
-        ]),
-        'candlestick_patterns_count': 43 if CANDLESTICK_AVAILABLE else 0
+        'technical_indicators': 'OK - 5m/15m only',
+        'chart_patterns': 'SIMPLIFIED - Double Top/Bottom only',
+        'candlestick_patterns': 'OK - High confidence only',
+        'total_pattern_types': 2,  # ADICIONADO: technical + candlestick (patterns simplificado)
+        'candlestick_patterns_count': 43 if CANDLESTICK_AVAILABLE else 0,
+        'disabled_patterns': ['Head&Shoulders', 'Cup&Handle', '1h timeframe'],
+        'optimization': 'Single signal per crypto + 5m priority'
     }
 
 __version__ = "2.0.0"
 __author__ = "Trading Analyzer System - COMPLETE EDITION"
 
-# Informações de inicialização
+# Informações de inicialização CORRIGIDAS
 print(f"\n📊 TRADING ANALYZER INDICATORS v{__version__}")
 print("=" * 50)
 print("Componentes carregados:")
@@ -119,7 +118,11 @@ for detector in get_available_detectors():
     print(f"  ✅ {detector}")
 
 status = get_system_status()
-print(f"\nTotal de tipos de análise: {status['total_pattern_types']}/3")
-if status['candlestick_patterns_count'] > 0:
-    print(f"Padrões de candlestick: {status['candlestick_patterns_count']}")
+print(f"\nSistema OTIMIZADO:")
+print(f"  • Timeframes ativos: 5m, 15m (preferência 5m)")
+print(f"  • Padrões: Apenas Double Top/Bottom")
+print(f"  • Candlesticks: {status['candlestick_patterns_count']} padrões (filtrados)")
+print(f"  • Otimização: {status['optimization']}")
+if status.get('disabled_patterns'):
+    print(f"  • Desabilitados: {', '.join(status['disabled_patterns'])}")
 print("=" * 50)
