@@ -248,6 +248,49 @@ class CandlestickQualityFilter:
             'signal_coverage': 'Only Bullish/Bearish Engulfing with 0.92+ confidence'
         }
 
+    def backup_all_43_patterns_for_statistics(self, symbol: str, timeframe: str, df: pd.DataFrame) -> int:
+        """
+        🕯️ PROCESSA E SALVA TODOS OS 43 CANDLESTICK PATTERNS PARA ESTATÍSTICA
+        (Separado dos sinais ativos)
+        """
+        try:
+            from indicators.candlestick_patterns_detector import CandlestickDetector
+            
+            detector = CandlestickDetector()
+            
+            # Detecta TODOS os 43 patterns (sem filtro de qualidade)
+            all_43_patterns = detector.detect_all_patterns(df)
+            
+            # Prepara dados para backup estatístico
+            backup_data = []
+            for i, pattern in enumerate(all_43_patterns):
+                pattern_data = {
+                    'pattern_name': pattern.name,
+                    'pattern_type': pattern.pattern_type,
+                    'reliability_score': pattern.reliability_score,
+                    'entry_price': pattern.entry_price,
+                    'stop_loss': pattern.stop_loss,
+                    'target_price': pattern.target_price,
+                    'position_index': pattern.position_index,
+                    'symbol': symbol,
+                    'timeframe': timeframe,
+                    'timestamp': datetime.now().isoformat(),
+                    'is_for_statistics': True,  # Marca como estatística
+                    'would_be_signal': pattern.name in ['Bullish Engulfing', 'Bearish Engulfing'] and pattern.reliability_score >= 0.92
+                }
+                backup_data.append(pattern_data)
+            
+            # Salva no backup específico para estatística
+            self._save_patterns_for_statistics(backup_data)
+            
+            self.logger.debug(f"🕯️ {len(all_43_patterns)} patterns salvos para estatística: {symbol} {timeframe}")
+            return len(all_43_patterns)
+            
+        except Exception as e:
+            self.logger.error(f"Erro ao processar 43 patterns para estatística: {e}")
+            return 0
+
+
 # ================================
 # INTEGRAÇÃO COM generate_candlestick_signals
 # ================================

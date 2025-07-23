@@ -324,7 +324,8 @@ class DataReader:
                     return result
                 
                 # Verifica se há dados (com LIMIT para evitar lentidão)
-                cursor.execute(f"SELECT COUNT(*) as count FROM {microstructure_table} LIMIT 1")
+                recent_time_filter = int((datetime.utcnow() - timedelta(hours=24)).timestamp())
+                cursor.execute(f"SELECT 1 FROM {microstructure_table} WHERE kline_close_time >= ? LIMIT 1", (recent_time_filter,))
                 count = cursor.fetchone()[0]
                 result['has_data'] = count > 0
                 result['sample_data_count'] = min(count, 10000)  # Limita para não sobrecarregar

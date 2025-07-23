@@ -423,19 +423,19 @@ class RigorousQualityFilter:
     
     def filter_signals_with_rigorous_quality(self, all_signals: List, symbol: str) -> tuple[List, Dict]:
         """
-        🎯 FILTRA SINAIS COM QUALIDADE RIGOROSA
-        
-        Retorna: (sinais_aprovados, detalhes_eliminacao)
+        🎯 FILTRA SINAIS COM QUALIDADE RIGOROSA + BACKUP COMPLETO
         """
         if not all_signals:
-            return [], {}
+            return [], {'eliminated_indices': [], 'reason': 'no_signals', 'total_original': 0}
         
-        # 1. BACKUP COMPLETO - grava TODOS os sinais antes de filtrar
-        elimination_details = {'eliminated_indices': [], 'reason': 'quality_filter'}
-        self.backup_system.backup_all_generated_signals(all_signals, symbol, elimination_details)
+        # 🚨 CORREÇÃO 1: BACKUP COMPLETO ANTES de qualquer filtragem
+        self.logger.info(f"💾 Salvando {len(all_signals)} sinais no backup para {symbol}")
+        backup_count = self.backup_system.backup_all_generated_signals(all_signals, symbol)
+        self.logger.debug(f"✅ {backup_count} sinais salvos no backup")
         
-        # 2. FILTRA POR QUALIDADE RIGOROSA
+        # 🚨 CORREÇÃO 2: Aplicar filtro de qualidade mais inteligente
         high_quality_signals = []
+        medium_quality_signals = []
         eliminated_indices = []
         
         for i, signal in enumerate(all_signals):
@@ -450,14 +450,19 @@ class RigorousQualityFilter:
                     self.logger.debug(f"❌ {detector_name}: detector não permitido para sinais")
                     continue
                 
-                # Verifica qualidade rigorosa
+                # 🚨 NOVA LÓGICA: Categoriza por qualidade em vez de eliminar
                 min_confidence = self._get_min_confidence_for_signal(detector_name, symbol, timeframe)
                 
                 if confidence >= min_confidence:
                     # Verifica condições específicas do detector
                     if self._validate_detector_specific_conditions(signal, detector_name):
-                        high_quality_signals.append(signal)
-                        self.logger.debug(f"✅ {detector_name}: aprovado (conf: {confidence:.3f} >= {min_confidence:.3f})")
+                        # Categoriza por qualidade
+                        if confidence >= 0.85:  # Alta qualidade
+                            high_quality_signals.append(signal)
+                            self.logger.debug(f"🟢 {detector_name}: ALTA qualidade (conf: {confidence:.3f})")
+                        else:  # Qualidade média
+                            medium_quality_signals.append(signal)
+                            self.logger.debug(f"🟡 {detector_name}: MÉDIA qualidade (conf: {confidence:.3f})")
                     else:
                         eliminated_indices.append(i)
                         self.logger.debug(f"❌ {detector_name}: condições específicas não atendidas")
@@ -469,33 +474,40 @@ class RigorousQualityFilter:
                 self.logger.error(f"Erro ao filtrar sinal {i}: {e}")
                 eliminated_indices.append(i)
         
-        # 3. RASTREIA ELIMINAÇÕES
+        # 🚨 CORREÇÃO 3: Combina sinais de alta e média qualidade para competição
+        qualified_signals = high_quality_signals + medium_quality_signals
+        
+        # Rastreia eliminações para estatística
         eliminated_signals = [all_signals[i] for i in eliminated_indices]
         if eliminated_signals:
             self.backup_system.track_signal_elimination(
                 eliminated_signals, 
-                high_quality_signals[0] if high_quality_signals else None,
+                qualified_signals[0] if qualified_signals else None,
                 symbol, 
                 'rigorous_quality_filter'
             )
         
-        # 4. APLICA REGRAS DE PRIORIDADE 5m vs 15m
-        final_signals = self._apply_timeframe_priority_rules(high_quality_signals)
+        # Aplica regras de prioridade com a nova lógica
+        final_signals = self._apply_timeframe_priority_rules(qualified_signals)
         
         elimination_details = {
             'eliminated_indices': eliminated_indices,
-            'reason': 'rigorous_quality_filter',
+            'reason': 'rigorous_quality_filter_improved',
             'total_original': len(all_signals),
             'high_quality_count': len(high_quality_signals),
-            'final_count': len(final_signals)
+            'medium_quality_count': len(medium_quality_signals),
+            'final_count': len(final_signals),
+            'backup_saved': backup_count
         }
         
         self.logger.info(
-            f"🎯 Filtro rigoroso {symbol}: {len(all_signals)} → {len(high_quality_signals)} → {len(final_signals)} sinais"
+            f"🎯 Filtro aprimorado {symbol}: {len(all_signals)} → "
+            f"Alta({len(high_quality_signals)}) + Média({len(medium_quality_signals)}) → {len(final_signals)} final"
         )
         
         return final_signals, elimination_details
-    
+
+
     def process_all_candlestick_patterns_for_backup(self, symbol: str, timeframe: str, 
                                                    df: pd.DataFrame) -> int:
         """
@@ -610,7 +622,10 @@ class RigorousQualityFilter:
     
     def _apply_timeframe_priority_rules(self, signals: List) -> List:
         """
-        ⚖️ APLICA REGRAS DE PRIORIDADE: 5m absoluto, 15m apenas se não há 5m
+        ⚖️ APLICA REGRAS DE PRIORIDADE CORRIGIDAS: 
+        - 5m com qualidade boa = prioridade absoluta
+        - 5m com qualidade baixa = permite 15m competir
+        - 15m apenas se não há 5m bom
         """
         if not signals:
             return []
@@ -619,64 +634,96 @@ class RigorousQualityFilter:
         signals_5m = [s for s in signals if getattr(s, 'timeframe', '') == '5m']
         signals_15m = [s for s in signals if getattr(s, 'timeframe', '') == '15m']
         
-        # REGRA 1: Se há sinal de 5m, usa apenas ele (prioridade absoluta)
-        if signals_5m:
-            best_5m = max(signals_5m, key=lambda s: getattr(s, 'confidence', 0.0))
-            self.logger.info(f"🥇 Prioridade 5m: {best_5m.detector_name} (conf: {best_5m.confidence:.3f})")
+        # 🚨 NOVA LÓGICA: Verifica qualidade dos sinais de 5m
+        high_quality_5m = []
+        low_quality_5m = []
+        
+        for signal in signals_5m:
+            confidence = getattr(signal, 'confidence', 0.0)
+            # Define threshold de qualidade alta para 5m
+            if confidence >= 0.85:  # Alta qualidade
+                high_quality_5m.append(signal)
+            else:  # Qualidade baixa/média
+                low_quality_5m.append(signal)
+        
+        # REGRA 1: Se há sinal de 5m com ALTA qualidade, usa apenas ele
+        if high_quality_5m:
+            best_5m = max(high_quality_5m, key=lambda s: getattr(s, 'confidence', 0.0))
+            self.logger.info(f"🥇 5m ALTA QUALIDADE: {best_5m.detector_name} (conf: {best_5m.confidence:.3f})")
             return [best_5m]
         
-        # REGRA 2: Se não há 5m, pode usar 15m
+        # REGRA 2: Se há sinal de 15m e 5m só tem qualidade baixa, COMPARA
+        if signals_15m and low_quality_5m:
+            best_15m = max(signals_15m, key=lambda s: getattr(s, 'confidence', 0.0))
+            best_5m_low = max(low_quality_5m, key=lambda s: getattr(s, 'confidence', 0.0))
+            
+            # Se 15m tem qualidade significativamente melhor, usa 15m
+            if best_15m.confidence > best_5m_low.confidence + 0.05:  # 5% de vantagem
+                self.logger.info(f"🥈 15m VENCE 5m: 15m({best_15m.confidence:.3f}) > 5m({best_5m_low.confidence:.3f})")
+                return [best_15m]
+            else:
+                # 5m ainda tem preferência por ser mais rápido
+                self.logger.info(f"🥉 5m por desempate: {best_5m_low.detector_name} (conf: {best_5m_low.confidence:.3f})")
+                return [best_5m_low]
+        
+        # REGRA 3: Se só há 5m (qualidade baixa), usa ele
+        elif low_quality_5m:
+            best_5m = max(low_quality_5m, key=lambda s: getattr(s, 'confidence', 0.0))
+            self.logger.info(f"🥉 5m único disponível: {best_5m.detector_name} (conf: {best_5m.confidence:.3f})")
+            return [best_5m]
+        
+        # REGRA 4: Se só há 15m, usa ele
         elif signals_15m:
             best_15m = max(signals_15m, key=lambda s: getattr(s, 'confidence', 0.0))
-            self.logger.info(f"🥈 15m liberado (sem 5m): {best_15m.detector_name} (conf: {best_15m.confidence:.3f})")
+            self.logger.info(f"🥈 15m único disponível: {best_15m.detector_name} (conf: {best_15m.confidence:.3f})")
             return [best_15m]
         
-        # REGRA 3: Nenhum sinal de qualidade suficiente
+        # REGRA 5: Nenhum sinal
         else:
             self.logger.info("❌ Nenhum sinal de qualidade suficiente")
             return []
 
-# ================================
-# INTEGRAÇÃO COM O SISTEMA ATUAL
-# ================================
+    # ================================
+    # INTEGRAÇÃO COM O SISTEMA ATUAL
+    # ================================
 
-def create_rigorous_quality_system():
-    """
-    🎯 Cria sistema rigoroso para integração no analyzer.py
-    """
-    
-    quality_filter = RigorousQualityFilter()
-    
-    def enhanced_signal_processing(all_raw_signals: List, symbol: str) -> tuple[List, Dict]:
+    def create_rigorous_quality_system():
         """
-        Função para substituir o processamento de sinais no analyzer.py
-        
-        Uso no MultiTimeframeAnalyzer.analyze_symbol_all_timeframes():
-        
-        # Substitui:
-        # if len(all_signals) > 1:
-        #     all_signals = self.conflict_resolver.resolve_conflicts(all_signals)
-        
-        # Por:
-        # all_signals, elimination_details = enhanced_signal_processing(all_signals, symbol)
+        🎯 Cria sistema rigoroso para integração no analyzer.py
         """
         
-        return quality_filter.filter_signals_with_rigorous_quality(all_raw_signals, symbol)
-    
-    def process_candlesticks_for_backup(symbol: str, timeframe: str, df: pd.DataFrame) -> int:
-        """
-        Função para processar todos os 43 candlesticks no backup
+        quality_filter = RigorousQualityFilter()
         
-        Uso no MultiTimeframeAnalyzer._analyze_single_timeframe():
+        def enhanced_signal_processing(all_raw_signals: List, symbol: str) -> tuple[List, Dict]:
+            """
+            Função para substituir o processamento de sinais no analyzer.py
+            
+            Uso no MultiTimeframeAnalyzer.analyze_symbol_all_timeframes():
+            
+            # Substitui:
+            # if len(all_signals) > 1:
+            #     all_signals = self.conflict_resolver.resolve_conflicts(all_signals)
+            
+            # Por:
+            # all_signals, elimination_details = enhanced_signal_processing(all_signals, symbol)
+            """
+            
+            return quality_filter.filter_signals_with_rigorous_quality(all_raw_signals, symbol)
         
-        # Adiciona no final da função:
-        # if timeframe in ['5m', '15m']:  # ou apenas '5m' se preferir
-        #     process_candlesticks_for_backup(symbol, timeframe, market_data.data)
-        """
+        def process_candlesticks_for_backup(symbol: str, timeframe: str, df: pd.DataFrame) -> int:
+            """
+            Função para processar todos os 43 candlesticks no backup
+            
+            Uso no MultiTimeframeAnalyzer._analyze_single_timeframe():
+            
+            # Adiciona no final da função:
+            # if timeframe in ['5m', '15m']:  # ou apenas '5m' se preferir
+            #     process_candlesticks_for_backup(symbol, timeframe, market_data.data)
+            """
+            
+            return quality_filter.process_all_candlestick_patterns_for_backup(symbol, timeframe, df)
         
-        return quality_filter.process_all_candlestick_patterns_for_backup(symbol, timeframe, df)
-    
-    return enhanced_signal_processing, process_candlesticks_for_backup
+        return enhanced_signal_processing, process_candlesticks_for_backup
 
 # ================================
 # SISTEMA DE ESTATÍSTICAS

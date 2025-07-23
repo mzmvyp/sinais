@@ -145,7 +145,6 @@ class SignalConflictResolver:
         # Mais recente como tie-breaker
         return max(priority_signals, key=lambda s: s.timestamp)
 
-
 class MultiTimeframeAnalyzer:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -334,6 +333,7 @@ class MultiTimeframeAnalyzer:
                 self.logger.debug(f"Sinais técnicos {timeframe} para {symbol}: {len(raw_signals)}")
             except Exception as e:
                 self.logger.error(f"Erro na análise técnica para {symbol} {timeframe}: {e}")
+                return {'signals': []}  # 🚨 ADICIONAR ESTA LINHA
 
         # ANÁLISE DE PADRÕES (apenas Double Top/Bottom)
         if 'patterns' in tf_config.enabled_detectors and PATTERNS_AVAILABLE:
@@ -345,36 +345,39 @@ class MultiTimeframeAnalyzer:
                      create_valid_signal(**s.__dict__)
                 self.logger.debug(f"Sinais de padrões {timeframe} para {symbol}: {len(raw_signals)}")
             except Exception as e:
-                self.logger.error(f"Erro na análise de padrões para {symbol} {timeframe}: {e}")
-
-        # 🚨 NOVO: ANÁLISE DE CANDLESTICK COM BACKUP COMPLETO
-        if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
-            try:
-                df_for_cs = market_data.data.iloc[:-1]
-                if not df_for_cs.empty:
-                    # Gera sinais de candlestick (apenas engolfo para sinais ativos)
-                    cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
-                    
-                    # Filtra apenas alta confiança para sinais ativos
-                    high_quality_cs = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.90]
-                    
-                    for cs in high_quality_cs[:1]:  # Máximo 1 sinal de candlestick
-                        create_valid_signal(**cs)
-                    
-                    self.logger.debug(f"Sinais de candlestick {timeframe} para {symbol}: {len(high_quality_cs)}")
-                    
-                    # 🚨 NOVO: BACKUP COMPLETO DOS 43 CANDLESTICK PATTERNS
-                    if (self.quality_mode == "rigorous" and 
-                        hasattr(self, 'process_candlesticks_for_backup')):
+                            self.logger.error(f"Erro na análise de padrões para {symbol} {timeframe}: {e}")
+                            return {'signals': []}  # 🚨 ADICIONAR ESTA LINHA
                         
-                        backup_count = self.process_candlesticks_for_backup(symbol, timeframe, df_for_cs)
-                        self.logger.debug(f"🕯️ {backup_count} candlestick patterns salvos no backup: {symbol} {timeframe}")
+                        
+            # 🚨 NOVO: ANÁLISE DE CANDLESTICK COM BACKUP COMPLETO
+            if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
+                try:
+                    df_for_cs = market_data.data.iloc[:-1]
+                    if not df_for_cs.empty:
+                        # 1. Gera sinais de candlestick (filtrados para sinais ativos)
+                        cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
+                        
+                        # 2. Aplica filtro rigoroso apenas para sinais ativos
+                        high_quality_cs = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.90]
+                        
+                        for cs in high_quality_cs[:1]:  # Máximo 1 sinal ativo
+                            create_valid_signal(**cs)
+                        
+                        self.logger.debug(f"Sinais de candlestick {timeframe} para {symbol}: {len(high_quality_cs)}")
+                        
+                        # 🚨 NOVO: BACKUP COMPLETO DOS 43 PATTERNS (independente dos sinais ativos)
+                        if (self.quality_mode == "rigorous" and 
+                            hasattr(self, 'process_candlesticks_for_backup')):
+                            
+                            # Processa TODOS os 43 patterns para backup/estatística
+                            backup_count = self.process_candlesticks_for_backup(symbol, timeframe, df_for_cs)
+                            self.logger.debug(f"🕯️ {backup_count} candlestick patterns (TODOS) salvos no backup: {symbol} {timeframe}")
                 
-            except Exception as e:
-                self.logger.error(f"Erro na análise de candlestick para {symbol} {timeframe}: {e}")
+                except Exception as e:
+                            self.logger.error(f"Erro na análise de candlestick para {symbol} {timeframe}: {e}")
+                            return {'signals': []}  # 🚨 ADICIONAR ESTA LINHA
 
-        self.logger.debug(f"Timeframe {timeframe} gerou {len(signals)} sinais para {symbol}")
-        return {'signals': signals}   
+        return {'signals': signals}
    
 
     def _intelligent_signal_validation_robust(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
@@ -756,7 +759,7 @@ class MultiTimeframeAnalyzer:
     def run_continuous_multi_timeframe_analysis(self, base_interval: int = None):
         """Execução contínua com verificação automática de símbolos válidos - ROBUSTA"""
         if base_interval is None: 
-            base_interval = settings.system.analysis_interval
+           base_interval = settings.system.analysis_interval
         
         self.logger.info("🚀 Iniciando análise contínua OTIMIZADA")
         self.logger.info("🔍 Verificando símbolos com dados suficientes...")
