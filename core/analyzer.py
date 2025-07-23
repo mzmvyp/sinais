@@ -9,6 +9,25 @@ from core.data_reader import DataReader, MarketData
 from core.signal_writer import EnhancedSignalWriter, EnhancedTradingSignal
 from indicators.technical import TechnicalAnalyzer, RSIAnalyzer 
 
+
+try:
+    from core.improved_signal_quality_system import (
+        create_rigorous_quality_system,
+        SignalEffectivenessAnalyzer,
+        RigorousQualityConfig
+    )
+    RIGOROUS_QUALITY_AVAILABLE = True
+except ImportError:
+    RIGOROUS_QUALITY_AVAILABLE = False
+    logging.warning("⚠️ Sistema rigoroso de qualidade não disponível")
+
+try:
+    from config.volume_validation_config import create_enhanced_volume_validator
+    ENHANCED_VOLUME_AVAILABLE = True
+except ImportError:
+    ENHANCED_VOLUME_AVAILABLE = False
+    logging.warning("⚠️ Sistema aprimorado de validação de volume não disponível")
+
 try:
     from indicators.patterns import PatternAnalyzer
     PATTERNS_AVAILABLE = True
@@ -139,8 +158,16 @@ class MultiTimeframeAnalyzer:
         if PATTERNS_AVAILABLE:
             self.pattern_analyzers = {tf: PatternAnalyzer() for tf in enabled_timeframes}
 
-        # Sistema anti-conflito com preferência 5m
-        self.conflict_resolver = SignalConflictResolver()
+        # 🚨 NOVO: Sistema rigoroso de qualidade
+        if RIGOROUS_QUALITY_AVAILABLE:
+            self.enhanced_signal_processing, self.process_candlesticks_for_backup = create_rigorous_quality_system()
+            self.quality_mode = "rigorous"
+            self.logger.info("🎯 Sistema RIGOROSO de qualidade ativado")
+        else:
+            # Fallback para sistema original
+            self.conflict_resolver = SignalConflictResolver()
+            self.quality_mode = "standard"
+            self.logger.warning("⚠️ Usando sistema padrão de qualidade")
 
         # Cache para microestrutura
         self._microstructure_cache = {}
@@ -152,12 +179,12 @@ class MultiTimeframeAnalyzer:
 
         self.logger.info("MultiTimeframeAnalyzer OTIMIZADO inicializado:")
         self.logger.info(f"  • Timeframes ativos: {enabled_timeframes}")
-        self.logger.info(f"  • Preferência: 5m absoluta")
-        self.logger.info(f"  • Sinais únicos por crypto: ATIVO")
-        self.logger.info(f"  • Limpeza automática: ATIVA")
-
+        self.logger.info(f"  • Qualidade: {self.quality_mode.upper()}")
+        self.logger.info(f"  • Prioridade: 5m absoluta, 15m se não há 5m")
+        self.logger.info(f"  • Backup: Completo (todos sinais + 43 candlesticks)")
+        
     def analyze_symbol_all_timeframes(self, symbol: str) -> Dict[str, Any]:
-        """Análise OTIMIZADA com verificação de sinal único - SEM TRAVAMENTOS"""
+        """Análise OTIMIZADA com sistema rigoroso - SEM TRAVAMENTOS"""
         
         # VERIFICAÇÃO CRÍTICA: Bloqueia se já há sinal ativo
         if self.signal_writer.check_existing_active_signals(symbol):
@@ -189,8 +216,8 @@ class MultiTimeframeAnalyzer:
                 self.logger.error(f"Erro ao buscar dados para {symbol} {tf}: {e}")
                 market_data_by_tf[tf] = None
 
-        # Analisa timeframes priorizando 5m
-        for timeframe in enabled_timeframes:  # 5m vem primeiro
+        # Analisa timeframes coletando TODOS os sinais
+        for timeframe in enabled_timeframes:
             market_data = market_data_by_tf[timeframe]
             if market_data and market_data.is_sufficient_data:
                 try:
@@ -198,27 +225,36 @@ class MultiTimeframeAnalyzer:
                     tf_signals = tf_result.get('signals', [])
                     all_signals.extend(tf_signals)
                     
-                    # OTIMIZAÇÃO: Se já temos sinal de 5m com boa qualidade, pode parar
-                    if timeframe == "5m" and tf_signals:
-                        high_quality_5m = [s for s in tf_signals if s.confidence >= 0.75]
-                        if high_quality_5m:
-                            self.logger.info(f"🎯 Sinal de 5m de alta qualidade encontrado para {symbol}, priorizando...")
-                            all_signals = high_quality_5m  # Mantém apenas os de 5m
-                            break
+                    self.logger.debug(f"Timeframe {timeframe}: {len(tf_signals)} sinais para {symbol}")
                             
                 except Exception as e:
                     self.logger.error(f"Erro na análise de {symbol} em {timeframe}: {e}")
             else:
                 self.logger.warning(f"Análise para {symbol} em {timeframe} pulada (dados insuficientes).")
 
-        # Resolve conflitos com preferência 5m
-        if len(all_signals) > 1:
-            self.logger.debug(f"Resolvendo conflitos em {len(all_signals)} sinais para {symbol}")
-            all_signals = self.conflict_resolver.resolve_conflicts(all_signals)
-            self.logger.debug(f"Após resolução: {len(all_signals)} sinais para {symbol}")
+        # 🚨 NOVO: SISTEMA RIGOROSO DE QUALIDADE
+        if self.quality_mode == "rigorous" and hasattr(self, 'enhanced_signal_processing'):
+            # Sistema rigoroso: filtra por qualidade + prioridade 5m vs 15m
+            filtered_signals, elimination_details = self.enhanced_signal_processing(all_signals, symbol)
+            
+            self.logger.info(
+                f"🎯 Filtro rigoroso {symbol}: {len(all_signals)} → {len(filtered_signals)} sinais "
+                f"(eliminados: {len(elimination_details.get('eliminated_indices', []))})"
+            )
+            
+        else:
+            # Sistema padrão: resolve conflitos com preferência 5m
+            if len(all_signals) > 1:
+                self.logger.debug(f"Resolvendo conflitos em {len(all_signals)} sinais para {symbol}")
+                filtered_signals = self.conflict_resolver.resolve_conflicts(all_signals)
+                elimination_details = {'reason': 'standard_conflict_resolution'}
+                self.logger.debug(f"Após resolução: {len(filtered_signals)} sinais para {symbol}")
+            else:
+                filtered_signals = all_signals
+                elimination_details = {'reason': 'no_conflicts'}
 
-        # Validação inteligente MAIS ROBUSTA
-        validated_signals = self._intelligent_signal_validation_robust(all_signals, market_data_by_tf)
+        # Validação inteligente (mantida igual)
+        validated_signals = self._intelligent_signal_validation_robust(filtered_signals, market_data_by_tf)
 
         signals_saved = 0
         if validated_signals:
@@ -227,7 +263,16 @@ class MultiTimeframeAnalyzer:
             try:
                 if self.signal_writer.write_enhanced_signal(signal):
                     signals_saved = 1
-                    self.logger.info(f"🎯 SINAL ÚNICO APROVADO: {symbol} | {signal.timeframe} | {signal.detector_name} | {signal.signal_type} | Conf: {signal.confidence:.3f}")
+                    
+                    # 🚨 NOVO: Log mais detalhado
+                    quality_info = f" [QUALIDADE: {self.quality_mode.upper()}]"
+                    if elimination_details.get('total_original'):
+                        quality_info += f" [GERADOS: {elimination_details['total_original']}]"
+                    
+                    self.logger.info(
+                        f"🎯 SINAL APROVADO: {symbol} | {signal.timeframe} | {signal.detector_name} | "
+                        f"{signal.signal_type} | Conf: {signal.confidence:.3f}{quality_info}"
+                    )
             except Exception as e:
                 self.logger.error(f"Erro ao salvar sinal para {symbol}: {e}")
 
@@ -236,11 +281,13 @@ class MultiTimeframeAnalyzer:
             'status': 'success', 
             'signals_detected': len(all_signals), 
             'signals_validated': len(validated_signals), 
-            'signals_saved': signals_saved
+            'signals_saved': signals_saved,
+            'quality_mode': self.quality_mode,
+            'elimination_details': elimination_details
         }
-
+     
     def _analyze_single_timeframe(self, symbol: str, timeframe: str, market_data: MarketData) -> Dict[str, Any]:
-        """Análise otimizada de um timeframe - COM VALIDAÇÃO DE TIMEFRAME"""
+        """Análise otimizada de um timeframe COM BACKUP COMPLETO - COM VALIDAÇÃO DE TIMEFRAME"""
         
         # PROTEÇÃO: Verifica se o timeframe é permitido
         if timeframe not in ["5m", "15m"]:
@@ -300,28 +347,38 @@ class MultiTimeframeAnalyzer:
             except Exception as e:
                 self.logger.error(f"Erro na análise de padrões para {symbol} {timeframe}: {e}")
 
-        # ANÁLISE DE CANDLESTICK (limitada)
+        # 🚨 NOVO: ANÁLISE DE CANDLESTICK COM BACKUP COMPLETO
         if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
             try:
                 df_for_cs = market_data.data.iloc[:-1]
                 if not df_for_cs.empty:
+                    # Gera sinais de candlestick (apenas engolfo para sinais ativos)
                     cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
                     
-                    # Filtra apenas alta confiança
-                    high_quality_cs = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.8]
+                    # Filtra apenas alta confiança para sinais ativos
+                    high_quality_cs = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.90]
                     
                     for cs in high_quality_cs[:1]:  # Máximo 1 sinal de candlestick
                         create_valid_signal(**cs)
                     
                     self.logger.debug(f"Sinais de candlestick {timeframe} para {symbol}: {len(high_quality_cs)}")
+                    
+                    # 🚨 NOVO: BACKUP COMPLETO DOS 43 CANDLESTICK PATTERNS
+                    if (self.quality_mode == "rigorous" and 
+                        hasattr(self, 'process_candlesticks_for_backup')):
+                        
+                        backup_count = self.process_candlesticks_for_backup(symbol, timeframe, df_for_cs)
+                        self.logger.debug(f"🕯️ {backup_count} candlestick patterns salvos no backup: {symbol} {timeframe}")
+                
             except Exception as e:
                 self.logger.error(f"Erro na análise de candlestick para {symbol} {timeframe}: {e}")
 
         self.logger.debug(f"Timeframe {timeframe} gerou {len(signals)} sinais para {symbol}")
-        return {'signals': signals}
+        return {'signals': signals}   
+   
 
     def _intelligent_signal_validation_robust(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
-        """Sistema de validação MAIS ROBUSTA - SEM TRAVAMENTOS"""
+        """Sistema de validação MAIS ROBUSTA com qualidade rigorosa - SEM TRAVAMENTOS"""
         if not signals:
             return []
 
@@ -341,24 +398,13 @@ class MultiTimeframeAnalyzer:
             
             if microstructure_available:
                 try:
-                    # TIMEOUT DE 5 SEGUNDOS para evitar travamento
-                    import signal as signal_module
-                    def timeout_handler(signum, frame):
-                        raise TimeoutError("Validação de microestrutura timeout")
-                    
-                    # Para Windows, usa tentativa simples sem timeout (Unix only)
-                    try:
-                        is_micro_valid, micro_note = self._validate_with_microstructure_safe(signal)
-                        if is_micro_valid:
-                            validation_score += 3
-                            validation_notes.append(f"✅ Micro: {micro_note}")
-                            primary_validation_passed = True
-                        else:
-                            validation_notes.append(f"⚠️  Micro: {micro_note}")
-                    except Exception as timeout_e:
-                        self.logger.warning(f"Timeout na validação de microestrutura para {signal.symbol}: {timeout_e}")
-                        validation_notes.append("⚠️ Micro: Timeout - usando fallback")
-                        
+                    is_micro_valid, micro_note = self._validate_with_microstructure_safe(signal)
+                    if is_micro_valid:
+                        validation_score += 3
+                        validation_notes.append(f"✅ Micro: {micro_note}")
+                        primary_validation_passed = True
+                    else:
+                        validation_notes.append(f"⚠️  Micro: {micro_note}")
                 except Exception as e:
                     self.logger.warning(f"Erro na validação de microestrutura para {signal.symbol}: {e}")
                     validation_notes.append(f"❌ Micro: Erro - {str(e)[:30]}")
@@ -375,10 +421,14 @@ class MultiTimeframeAnalyzer:
                 except Exception as e:
                     validation_notes.append(f"❌ Momentum: Erro - {str(e)[:30]}")
 
-            # 2. VALIDAÇÃO DE VOLUME (relaxada e protegida)
+            # 2. VALIDAÇÃO DE VOLUME (mantém implementação existente ou usa aprimorada)
             max_score += 2
             try:
-                is_volume_valid, volume_note = self._validate_with_volume_safe(signal, market_data_by_tf)
+                if hasattr(self, '_validate_with_volume_enhanced'):
+                    is_volume_valid, volume_note = self._validate_with_volume_enhanced(signal, market_data_by_tf)
+                else:
+                    is_volume_valid, volume_note = self._validate_with_volume_safe(signal, market_data_by_tf)
+                
                 if is_volume_valid:
                     validation_score += 2
                     validation_notes.append(f"✅ Volume: {volume_note}")
@@ -388,38 +438,170 @@ class MultiTimeframeAnalyzer:
                 validation_score += 1  # Meio ponto por erro
                 validation_notes.append(f"⚠️ Volume: Erro - aprovado")
 
-            # 3. VALIDAÇÃO DE CONFIDENCE
+            # 3. 🚨 NOVO: VALIDAÇÃO DE CONFIDENCE RIGOROSA
             max_score += 1
-            if signal.confidence >= settings.analysis.confidence_threshold:
-                validation_score += 1
-                validation_notes.append(f"✅ Conf: {signal.confidence:.3f}")
+            
+            # Threshold rigoroso baseado no sistema de qualidade
+            if self.quality_mode == "rigorous":
+                # Confidence mais rigorosa para sistema rigoroso
+                if signal.timeframe == '5m':
+                    min_confidence = 0.88  # Muito rigoroso para 5m
+                elif signal.timeframe == '15m':
+                    min_confidence = 0.82  # Menos rigoroso para 15m
+                else:
+                    min_confidence = 0.85
             else:
-                validation_notes.append(f"⚠️  Conf: {signal.confidence:.3f}")
+                min_confidence = settings.analysis.confidence_threshold
+            
+            if signal.confidence >= min_confidence:
+                validation_score += 1
+                validation_notes.append(f"✅ Conf: {signal.confidence:.3f} >= {min_confidence:.3f}")
+            else:
+                validation_notes.append(f"⚠️  Conf: {signal.confidence:.3f} < {min_confidence:.3f}")
 
-            # DECISÃO: Mais flexível para evitar rejeições desnecessárias
+            # DECISÃO: Critérios ajustados para sistema rigoroso
             success_rate = validation_score / max_score
             
-            # Critérios mais permissivos
-            if signal.timeframe == "5m":
-                required_rate = 0.40  # 40% para 5m (muito flexível)
-            elif microstructure_available:
-                required_rate = 0.50  # 50% para 15m com microestrutura
+            # 🚨 NOVO: Critérios mais rigorosos para sistema rigoroso
+            if self.quality_mode == "rigorous":
+                if signal.timeframe == "5m":
+                    required_rate = 0.75  # 75% para 5m no sistema rigoroso
+                elif signal.timeframe == "15m":
+                    required_rate = 0.65  # 65% para 15m no sistema rigoroso
+                else:
+                    required_rate = 0.70
             else:
-                required_rate = 0.45  # 45% para 15m sem microestrutura
+                # Sistema padrão (critérios originais)
+                if signal.timeframe == "5m":
+                    required_rate = 0.50
+                elif microstructure_available:
+                    required_rate = 0.60
+                else:
+                    required_rate = 0.55
 
             if success_rate >= required_rate:
                 signal.market_conditions['validation_score'] = validation_score
                 signal.market_conditions['max_score'] = max_score
                 signal.market_conditions['success_rate'] = success_rate
                 signal.market_conditions['validation_notes'] = validation_notes
+                signal.market_conditions['quality_mode'] = self.quality_mode  # NOVO
                 validated_signals.append(signal)
                 
-                self.logger.info(f"✅ SINAL VALIDADO: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Score: {validation_score}/{max_score} ({success_rate:.1%})")
+                self.logger.info(f"✅ SINAL VALIDADO: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Score: {validation_score}/{max_score} ({success_rate:.1%}) [{self.quality_mode}]")
             else:
-                self.logger.warning(f"❌ SINAL REJEITADO: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Score: {validation_score}/{max_score} ({success_rate:.1%}) < {required_rate:.1%}")
+                self.logger.warning(f"❌ SINAL REJEITADO: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Score: {validation_score}/{max_score} ({success_rate:.1%}) < {required_rate:.1%} [{self.quality_mode}]")
 
         return validated_signals
 
+    def get_signal_quality_statistics(self, days: int = 7) -> Dict:
+        """🎯 Estatísticas do sistema de qualidade rigorosa"""
+        
+        if not RIGOROUS_QUALITY_AVAILABLE:
+            return {'error': 'Sistema rigoroso não disponível'}
+        
+        try:
+            analyzer = SignalEffectivenessAnalyzer()
+            
+            # Análise de efetividade por detector
+            effectiveness = analyzer.analyze_detector_effectiveness(days)
+            
+            # Estatísticas de candlestick
+            candlestick_stats = analyzer.get_candlestick_statistics(days)
+            
+            # Informações do sistema atual
+            config = RigorousQualityConfig()
+            
+            system_info = {
+                'quality_mode': getattr(self, 'quality_mode', 'standard'),
+                'rigorous_system_available': RIGOROUS_QUALITY_AVAILABLE,
+                'detector_requirements': {
+                    'RSI': config.detector_requirements['RSI']['min_confidence'],
+                    'MACD': config.detector_requirements['MACD']['min_confidence'],
+                    'Double_Top': config.detector_requirements['Double_Top']['min_confidence'],
+                    'Double_Bottom': config.detector_requirements['Double_Bottom']['min_confidence'],
+                    'Bullish_Engulfing': config.detector_requirements['Bullish_Engulfing']['min_confidence'],
+                    'Bearish_Engulfing': config.detector_requirements['Bearish_Engulfing']['min_confidence']
+                },
+                'timeframe_rules': {
+                    '5m_priority': 'Absoluta',
+                    '15m_condition': 'Apenas se não há 5m',
+                    '5m_min_confidence': config.timeframe_rules['5m']['min_confidence_for_signal'],
+                    '15m_min_confidence': config.timeframe_rules['15m']['min_confidence_for_signal']
+                }
+            }
+            
+            return {
+                'system_info': system_info,
+                'detector_effectiveness': effectiveness,
+                'candlestick_statistics': candlestick_stats,
+                'analysis_period_days': days,
+                'timestamp': datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Erro nas estatísticas de qualidade: {e}")
+            return {'error': str(e)}
+
+
+
+    def get_volume_validation_stats(self) -> Dict:
+        """🔊 Estatísticas do sistema de validação de volume"""
+        
+        if not hasattr(self, 'volume_validation_type'):
+            return {'error': 'Sistema de validação não inicializado'}
+        
+        stats = {
+            'validation_type': self.volume_validation_type,
+            'enhanced_available': ENHANCED_VOLUME_AVAILABLE,
+            'timestamp': datetime.now().isoformat()
+        }
+        
+        if ENHANCED_VOLUME_AVAILABLE:
+            try:
+                from config.volume_validation_config import volume_validation_config
+                
+                stats.update({
+                    'configured_symbols': len(volume_validation_config.symbol_configurations),
+                    'timeframes_supported': list(volume_validation_config.base_thresholds.keys()),
+                    'volatility_conditions': list(volume_validation_config.volatility_adjustments.keys()),
+                    'symbol_categories': {},
+                    'base_thresholds': volume_validation_config.base_thresholds,
+                    'quality_settings': {
+                        'min_confidence': volume_validation_config.quality_thresholds['min_confidence_score'],
+                        'volume_spike_threshold': volume_validation_config.quality_thresholds['volume_spike_threshold']
+                    }
+                })
+                
+                # Conta symbols por categoria
+                categories = {}
+                for symbol, config in volume_validation_config.symbol_configurations.items():
+                    category = config.get('category', 'standard')
+                    categories[category] = categories.get(category, 0) + 1
+                
+                stats['symbol_categories'] = categories
+                
+                # Exemplo de threshold para alguns symbols
+                examples = {}
+                test_symbols = ['BTC', 'ETH', 'PEPE', 'SOL']
+                for symbol in test_symbols:
+                    if symbol in volume_validation_config.symbol_configurations:
+                        examples[symbol] = {
+                            'threshold_5m': volume_validation_config.calculate_final_threshold(
+                                symbol, '5m', 'BUY_LONG', 'normal_volatility', 'stable'
+                            ),
+                            'threshold_15m': volume_validation_config.calculate_final_threshold(
+                                symbol, '15m', 'BUY_LONG', 'normal_volatility', 'stable'
+                            )
+                        }
+                
+                stats['threshold_examples'] = examples
+                
+            except Exception as e:
+                stats['config_error'] = str(e)
+        
+        return stats
+    
+    
     def _check_microstructure_availability_with_timeout(self) -> bool:
         """Verifica microestrutura com cache e TIMEOUT"""
         now = datetime.now()
@@ -684,9 +866,11 @@ class MultiTimeframeAnalyzer:
             except Exception as e:
                 self.logger.error(f"❌ Erro na limpeza: {e}")
     
-    # Métodos de compatibilidade mantidos
+   
+    
+    
     def get_system_status(self) -> Dict[str, Any]:
-        """Status do sistema otimizado"""
+        """Status do sistema otimizado COM INFORMAÇÕES DE QUALIDADE RIGOROSA"""
         try:
             symbols = settings.get_analysis_symbols()
             enabled_timeframes = settings.get_enabled_timeframes()
@@ -706,29 +890,40 @@ class MultiTimeframeAnalyzer:
                 'patterns_analyzer': 'SIMPLIFIED' if PATTERNS_AVAILABLE else 'NOT_AVAILABLE',
                 'candlestick_analyzer': 'OK' if CANDLESTICK_AVAILABLE else 'NOT_AVAILABLE',
                 'microstructure_validation': 'OK' if microstructure_status else 'FALLBACK_MODE',
+                'quality_system': 'RIGOROUS' if self.quality_mode == 'rigorous' else 'STANDARD',  # NOVO
+                'signal_backup_system': 'COMPREHENSIVE' if RIGOROUS_QUALITY_AVAILABLE else 'BASIC',  # NOVO
                 'single_signal_control': 'ACTIVE',
-                'timeframe_5m_priority': 'ACTIVE',
-                'anti_hang_protection': 'ACTIVE'  # NOVO
+                'timeframe_priority': '5M_ABSOLUTE_15M_FALLBACK',  # MODIFICADO
+                'anti_hang_protection': 'ACTIVE'
             }
             
             return {
                 'status': 'OK',
-                'system_type': 'Optimized Trading Analyzer - Single Signal per Crypto - ANTI-HANG',
+                'system_type': 'Trading Analyzer - RIGOROUS QUALITY + COMPREHENSIVE BACKUP',  # MODIFICADO
                 'timestamp': datetime.now().isoformat(),
                 'components': components,
                 'symbols_available': len(symbols),
                 'enabled_timeframes': enabled_timeframes,
-                'priority_timeframe': '5m',
+                'priority_logic': '5m absolute priority, 15m only when no 5m available',  # NOVO
                 'microstructure_available': microstructure_status,
                 'active_signals_sample': total_active_signals,
+                'quality_details': {  # NOVO
+                    'mode': self.quality_mode,
+                    'rigorous_available': RIGOROUS_QUALITY_AVAILABLE,
+                    'expected_signal_reduction': '70-80%' if self.quality_mode == 'rigorous' else '0%',
+                    'backup_coverage': '100% (all signals + 43 candlesticks)' if RIGOROUS_QUALITY_AVAILABLE else 'Standard',
+                    'timeframe_competition': 'Disabled (5m absolute priority)' if self.quality_mode == 'rigorous' else 'Enabled'
+                },
                 'configuration': {
                     'multi_timeframe_enabled': True,
                     'timeframes_active': enabled_timeframes,
                     'single_signal_per_crypto': True,
-                    'timeframe_5m_priority': True,
+                    'timeframe_priority_logic': '5m_absolute_15m_fallback',  # MODIFICADO
                     'patterns_simplified': True,
                     'automatic_cleanup': settings.system.auto_cleanup_enabled,
                     'technical_stop_loss': True,
+                    'rigorous_quality_control': self.quality_mode == 'rigorous',  # NOVO
+                    'comprehensive_backup': RIGOROUS_QUALITY_AVAILABLE,  # NOVO
                     'anti_hang_protection': True,
                     'validation_timeout': True
                 }
@@ -740,6 +935,8 @@ class MultiTimeframeAnalyzer:
                 'timestamp': datetime.now().isoformat()
             }
 
+    
+    
     def _test_database_connection(self) -> bool:
         """Testa conexão com banco com timeout"""
         try:

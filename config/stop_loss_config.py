@@ -16,8 +16,8 @@ class StopLossConfig:
     timeframe_configs: Dict[str, Dict] = field(default_factory=lambda: {
         '5m': {
             'atr_period': 14,
-            'atr_multiplier': 1.5,
-            'max_risk_pct': 2.0,
+            'atr_multiplier': 1.0,
+            'max_risk_pct': 1.5,
             'min_risk_pct': 0.8,
             'support_resistance_lookback': 20,
             'swing_lookback': 10,

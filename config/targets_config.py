@@ -24,7 +24,7 @@ class TargetsConfig:
             'resistance_lookback': 20,
             'support_lookback': 20,
             'structure_lookback': 15,
-            'atr_multipliers': [2.0, 3.5],
+            'atr_multipliers': [1.5, 3.5],
             'preferred_methods': ['Resistance_Levels', 'Support_Levels', 'Market_Structure', 'Fibonacci_Projection'],
             'enable_fibonacci': True,
             'enable_structure_analysis': True

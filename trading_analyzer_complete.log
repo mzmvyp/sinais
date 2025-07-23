@@ -422,3 +422,469 @@
 2025-07-23 00:32:37,644 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
 2025-07-23 00:32:37,745 - core.analyzer - INFO - ✅ Ciclo 3: 2 novos | 6 bloqueados | 0 erros | 2.4s
 2025-07-23 00:32:37,745 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:37:37,748 - core.analyzer - INFO - 🔄 Ciclo 4 iniciado
+2025-07-23 00:37:37,750 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 00:37:37,852 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 00:37:37,954 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 00:37:38,057 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 00:37:38,159 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 00:37:38,261 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-23 00:37:39,032 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:37:39,039 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SOL, priorizando...
+2025-07-23 00:37:39,046 - core.analyzer - INFO - ✅ SINAL VALIDADO: SOL | 5m | Bearish Engulfing | Score: 5/6 (83.3%)
+2025-07-23 00:37:39,063 - core.signal_writer - INFO - ✅ SINAL TÉCNICO INTEGRADO: SOL 5m | Entry: 202.0300 | Stop: 202.9400 (0.5%) [Unknown] | T1: 201.8800 (0.1%) | T2: 201.6800 (0.2%) [Support_Levels]
+2025-07-23 00:37:39,063 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SOL | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 00:37:39,063 - core.analyzer - INFO - 🎯 SOL (6/8): 1 sinais em 0.8s
+2025-07-23 00:37:39,174 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 00:37:39,276 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 00:37:39,377 - core.analyzer - INFO - ✅ Ciclo 4: 1 novos | 7 bloqueados | 0 erros | 1.6s
+2025-07-23 00:37:39,377 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:42:39,380 - core.analyzer - INFO - 🔄 Ciclo 5 iniciado
+2025-07-23 00:42:39,382 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 00:42:39,484 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 00:42:39,586 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 00:42:39,688 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 00:42:39,791 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 00:42:39,893 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 00:42:39,995 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 00:42:40,098 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 00:42:40,199 - core.analyzer - INFO - ✅ Ciclo 5: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-23 00:42:40,199 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:47:40,201 - core.analyzer - INFO - 🔄 Ciclo 6 iniciado
+2025-07-23 00:47:40,203 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 00:47:40,305 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 00:47:40,407 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 00:47:40,509 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 00:47:40,611 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 00:47:40,713 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 00:47:40,815 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 00:47:40,918 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 00:47:41,019 - core.analyzer - INFO - ✅ Ciclo 6: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-23 00:47:41,019 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:52:41,022 - core.analyzer - INFO - 🔄 Ciclo 7 iniciado
+2025-07-23 00:52:41,024 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-23 00:52:41,587 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:52:41,594 - core.signal_writer - WARNING - Stop loss SHORT corrigido para BNB: 811.2570
+2025-07-23 00:52:41,594 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BNB, priorizando...
+2025-07-23 00:52:41,610 - core.analyzer - INFO - ✅ SINAL VALIDADO: BNB | 5m | Bearish Engulfing | Score: 5/6 (83.3%)
+2025-07-23 00:52:41,631 - core.signal_writer - INFO - ✅ SINAL TÉCNICO INTEGRADO: BNB 5m | Entry: 795.3500 | Stop: 811.2570 (2.0%) [Unknown] | T1: 791.1600 (0.5%) | T2: 791.0700 (0.5%) [Support_Levels]
+2025-07-23 00:52:41,632 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: BNB | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 00:52:41,632 - core.analyzer - INFO - 🎯 BNB (1/8): 1 sinais em 0.6s
+2025-07-23 00:52:41,742 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 00:52:41,844 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 00:52:41,946 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 00:52:42,048 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 00:52:42,150 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 00:52:42,252 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 00:52:42,363 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 00:52:42,464 - core.analyzer - INFO - ✅ Ciclo 7: 1 novos | 7 bloqueados | 0 erros | 1.4s
+2025-07-23 00:52:42,464 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:57:42,467 - core.analyzer - INFO - 🔄 Ciclo 8 iniciado
+2025-07-23 00:57:42,469 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 00:57:42,572 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 00:57:42,674 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 00:57:42,776 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-23 00:57:42,805 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:57:42,810 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:57:43,317 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:57:43,324 - core.signal_writer - WARNING - Stop loss SHORT corrigido para ETH: 3809.3022
+2025-07-23 00:57:43,325 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para ETH, priorizando...
+2025-07-23 00:57:43,325 - core.analyzer - WARNING - 🚨 CONFLITO: ETH - 2 sinais
+2025-07-23 00:57:43,325 - core.analyzer - INFO - ✅ PREFERÊNCIA 5m: ETH → Bearish Engulfing | Conf: 0.850
+2025-07-23 00:57:43,326 - core.analyzer - WARNING - 🚨 Total de conflitos resolvidos com PREFERÊNCIA 5m: 1
+2025-07-23 00:57:43,334 - core.analyzer - INFO - ✅ SINAL VALIDADO: ETH | 5m | Bearish Engulfing | Score: 5/6 (83.3%)
+2025-07-23 00:57:43,362 - core.signal_writer - INFO - ✅ SINAL TÉCNICO INTEGRADO: ETH 5m | Entry: 3734.6100 | Stop: 3809.3022 (2.0%) [Unknown] | T1: 3730.0000 (0.1%) | T2: 3721.6500 (0.3%) [Support_Levels]
+2025-07-23 00:57:43,363 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: ETH | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 00:57:43,364 - core.analyzer - INFO - 🎯 ETH (4/8): 1 sinais em 0.6s
+2025-07-23 00:57:43,474 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 00:57:43,577 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-23 00:57:43,594 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 00:57:43,601 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:57:44,259 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:57:44,267 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SOL, priorizando...
+2025-07-23 00:57:44,267 - core.analyzer - WARNING - 🚨 CONFLITO: SOL - 2 sinais
+2025-07-23 00:57:44,268 - core.analyzer - INFO - ✅ PREFERÊNCIA 5m: SOL → Bullish Engulfing | Conf: 0.850
+2025-07-23 00:57:44,268 - core.analyzer - WARNING - 🚨 Total de conflitos resolvidos com PREFERÊNCIA 5m: 1
+2025-07-23 00:57:44,286 - core.analyzer - INFO - ✅ SINAL VALIDADO: SOL | 5m | Bullish Engulfing | Score: 5/6 (83.3%)
+2025-07-23 00:57:44,307 - core.signal_writer - INFO - ✅ SINAL TÉCNICO INTEGRADO: SOL 5m | Entry: 201.5100 | Stop: 199.1600 (1.2%) [Unknown] | T1: 202.8300 (0.7%) | T2: 203.2700 (0.9%) [Resistance_Levels]
+2025-07-23 00:57:44,307 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SOL | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-23 00:57:44,308 - core.analyzer - INFO - 🎯 SOL (6/8): 1 sinais em 0.7s
+2025-07-23 00:57:44,420 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-23 00:57:45,109 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:57:45,117 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SUI, priorizando...
+2025-07-23 00:57:45,124 - core.analyzer - INFO - ✅ SINAL VALIDADO: SUI | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 00:57:45,145 - core.signal_writer - INFO - ✅ SINAL TÉCNICO INTEGRADO: SUI 5m | Entry: 3.9435 | Stop: 3.9397 (0.1%) [Unknown] | T1: 3.9733 (0.8%) | T2: 3.9890 (1.2%) [Resistance_Levels]
+2025-07-23 00:57:45,145 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SUI | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-23 00:57:45,146 - core.analyzer - INFO - 🎯 SUI (7/8): 1 sinais em 0.7s
+2025-07-23 00:57:45,258 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 00:57:45,359 - core.analyzer - INFO - ✅ Ciclo 8: 3 novos | 5 bloqueados | 0 erros | 2.9s
+2025-07-23 00:57:45,359 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 00:59:15,442 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-23 00:59:15,443 - root - INFO - Inicializando Trading Analyzer...
+2025-07-23 00:59:15,443 - core.data_reader - INFO - DataReader inicializado (OTIMIZADO para 5m/15m).
+2025-07-23 00:59:15,447 - core.signal_writer - INFO - EnhancedSignalWriter LÓGICA CORRIGIDA - 2 targets apenas
+2025-07-23 00:59:15,447 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 00:59:15,448 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 00:59:15,448 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 00:59:15,448 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 00:59:15,448 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 00:59:15,449 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 00:59:15,449 - core.analyzer - INFO - MultiTimeframeAnalyzer OTIMIZADO inicializado:
+2025-07-23 00:59:15,449 - core.analyzer - INFO -   • Timeframes ativos: ['5m', '15m']
+2025-07-23 00:59:15,450 - core.analyzer - INFO -   • Preferência: 5m absoluta
+2025-07-23 00:59:15,450 - core.analyzer - INFO -   • Sinais únicos por crypto: ATIVO
+2025-07-23 00:59:15,450 - core.analyzer - INFO -   • Limpeza automática: ATIVA
+2025-07-23 00:59:15,451 - root - INFO - Trading Analyzer inicializado com sucesso
+2025-07-23 00:59:15,451 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-23 00:59:15,452 - core.analyzer - INFO - 🚀 Iniciando análise contínua OTIMIZADA
+2025-07-23 00:59:15,452 - core.analyzer - INFO - 🔍 Verificando símbolos com dados suficientes...
+2025-07-23 00:59:15,452 - core.data_reader - INFO - Verificando 8 símbolos...
+2025-07-23 00:59:15,911 - core.data_reader - INFO - ✅ Símbolos válidos: 8/8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-23 00:59:15,911 - core.analyzer - INFO - ✅ Símbolos válidos: 8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-23 00:59:15,912 - core.analyzer - INFO - ⏱️ Intervalo: 300s | Timeframes: APENAS 5m e 15m
+2025-07-23 00:59:15,912 - core.analyzer - INFO - 🔄 Ciclo 1 iniciado
+2025-07-23 00:59:15,915 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_SELL_SHORT_1753241999999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 00:59:15,916 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_BUY_LONG_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 00:59:15,916 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 00:59:16,020 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 00:59:16,020 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 00:59:16,122 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753240799999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 00:59:16,123 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 00:59:16,225 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753242599999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 00:59:16,226 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 00:59:16,226 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 00:59:16,328 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 00:59:16,329 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 00:59:16,430 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753242599999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 00:59:16,431 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240799999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 00:59:16,431 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 00:59:16,431 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 00:59:16,534 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-23 00:59:17,135 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 00:59:17,143 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SUI, priorizando...
+2025-07-23 00:59:17,181 - core.analyzer - INFO - ✅ SINAL VALIDADO: SUI | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 00:59:17,200 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: SUI 5m | Entry: 3.9435 | Stop: 3.9397 (0.1%) [Unknown] | T1: 3.9733 (0.8%) | T2: 3.9890 (1.2%) [Resistance_Levels]
+2025-07-23 00:59:17,200 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SUI | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-23 00:59:17,201 - core.analyzer - INFO - 🎯 SUI (7/8): 1 sinais em 0.7s
+2025-07-23 00:59:17,312 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 00:59:17,313 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 00:59:17,414 - core.analyzer - INFO - ✅ Ciclo 1: 1 novos | 7 bloqueados | 0 erros | 1.5s
+2025-07-23 00:59:17,414 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:04:17,417 - core.analyzer - INFO - 🔄 Ciclo 2 iniciado
+2025-07-23 01:04:17,419 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_SELL_SHORT_1753241999999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:04:17,419 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_BUY_LONG_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:04:17,420 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 01:04:17,522 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:04:17,522 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:04:17,624 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753240799999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:04:17,624 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:04:17,728 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753242599999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:04:17,730 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:04:17,732 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:04:17,836 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:04:17,837 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:04:17,939 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753242599999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:04:17,939 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240799999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:04:17,940 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:04:17,940 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:04:18,042 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-23 01:04:18,697 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:04:18,704 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SUI, priorizando...
+2025-07-23 01:04:18,712 - core.analyzer - INFO - ✅ SINAL VALIDADO: SUI | 5m | Bearish Engulfing | Score: 5/6 (83.3%)
+2025-07-23 01:04:18,730 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: SUI 5m | Entry: 3.9387 | Stop: 3.9922 (1.4%) [Unknown] | T1: 3.9384 (0.0%) | T2: 3.9364 (0.1%) [Market_Structure]
+2025-07-23 01:04:18,730 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SUI | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 01:04:18,731 - core.analyzer - INFO - 🎯 SUI (7/8): 1 sinais em 0.7s
+2025-07-23 01:04:18,841 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:04:18,841 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:04:18,942 - core.analyzer - INFO - ✅ Ciclo 2: 1 novos | 7 bloqueados | 0 erros | 1.5s
+2025-07-23 01:04:18,942 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:07:33,571 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-23 01:07:33,571 - root - INFO - Inicializando Trading Analyzer...
+2025-07-23 01:07:33,572 - core.data_reader - INFO - DataReader inicializado (OTIMIZADO para 5m/15m).
+2025-07-23 01:07:33,575 - core.signal_writer - INFO - EnhancedSignalWriter LÓGICA CORRIGIDA - 2 targets apenas
+2025-07-23 01:07:33,575 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 01:07:33,576 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 01:07:33,576 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 01:07:33,577 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 01:07:33,577 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 01:07:33,578 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 01:07:33,578 - core.analyzer - INFO - MultiTimeframeAnalyzer OTIMIZADO inicializado:
+2025-07-23 01:07:33,579 - core.analyzer - INFO -   • Timeframes ativos: ['5m', '15m']
+2025-07-23 01:07:33,579 - core.analyzer - INFO -   • Preferência: 5m absoluta
+2025-07-23 01:07:33,580 - core.analyzer - INFO -   • Sinais únicos por crypto: ATIVO
+2025-07-23 01:07:33,580 - core.analyzer - INFO -   • Limpeza automática: ATIVA
+2025-07-23 01:07:33,580 - root - INFO - Trading Analyzer inicializado com sucesso
+2025-07-23 01:07:33,581 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-23 01:07:33,581 - core.analyzer - INFO - 🚀 Iniciando análise contínua OTIMIZADA
+2025-07-23 01:07:33,581 - core.analyzer - INFO - 🔍 Verificando símbolos com dados suficientes...
+2025-07-23 01:07:33,582 - core.data_reader - INFO - Verificando 8 símbolos...
+2025-07-23 01:07:34,012 - core.data_reader - INFO - ✅ Símbolos válidos: 8/8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-23 01:07:34,013 - core.analyzer - INFO - ✅ Símbolos válidos: 8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-23 01:07:34,013 - core.analyzer - INFO - ⏱️ Intervalo: 300s | Timeframes: APENAS 5m e 15m
+2025-07-23 01:07:34,013 - core.analyzer - INFO - 🔄 Ciclo 1 iniciado
+2025-07-23 01:07:34,015 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_SELL_SHORT_1753241999999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:07:34,016 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_BUY_LONG_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:07:34,016 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 01:07:34,119 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:07:34,119 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:07:34,221 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753240799999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:07:34,221 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:07:34,324 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753242599999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:07:34,324 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:07:34,324 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:07:34,427 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:07:34,428 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:07:34,530 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753242599999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:07:34,530 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240799999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:07:34,530 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:07:34,531 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:07:34,633 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SUI: SUI_SELL_SHORT_1753242899999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:07:34,633 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 01:07:34,735 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:07:34,735 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:07:34,836 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-23 01:07:34,837 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:12:34,839 - core.analyzer - INFO - 🔄 Ciclo 2 iniciado
+2025-07-23 01:12:34,840 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_SELL_SHORT_1753241999999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:12:34,841 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_BUY_LONG_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:12:34,841 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 01:12:34,942 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:12:34,943 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:12:35,044 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753240799999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:12:35,045 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:12:35,147 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753242599999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:12:35,147 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:12:35,147 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:12:35,249 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:12:35,250 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:12:35,351 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753242599999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:12:35,351 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240799999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:12:35,352 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:12:35,352 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:12:35,454 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SUI: SUI_SELL_SHORT_1753242899999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:12:35,454 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 01:12:35,556 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:12:35,556 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:12:35,657 - core.analyzer - INFO - ✅ Ciclo 2: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-23 01:12:35,657 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:17:35,660 - core.analyzer - INFO - 🔄 Ciclo 3 iniciado
+2025-07-23 01:17:35,675 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_SELL_SHORT_1753241999999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:17:35,676 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_BUY_LONG_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:17:35,676 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 01:17:35,778 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:17:35,778 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:17:35,880 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753240799999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:17:35,880 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:17:35,982 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753242599999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:17:35,982 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:17:35,982 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:17:36,084 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:17:36,084 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:17:36,186 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753242599999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:17:36,186 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240799999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:17:36,186 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:17:36,186 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:17:36,288 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SUI: SUI_SELL_SHORT_1753242899999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:17:36,288 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 01:17:36,390 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:17:36,391 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:17:36,491 - core.analyzer - INFO - ✅ Ciclo 3: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-23 01:17:36,491 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:22:36,493 - core.analyzer - INFO - 🔄 Ciclo 4 iniciado
+2025-07-23 01:22:36,496 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_SELL_SHORT_1753241999999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:22:36,500 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_BUY_LONG_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:22:36,501 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 01:22:36,604 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:22:36,605 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:22:36,707 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753240799999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:22:36,708 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:22:36,810 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753242599999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:22:36,810 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:22:36,810 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:22:36,912 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:22:36,913 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:22:37,015 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753242599999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:22:37,016 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240799999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:22:37,016 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:22:37,016 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:22:37,118 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SUI: SUI_SELL_SHORT_1753242899999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:22:37,118 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 01:22:37,220 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:22:37,220 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:22:37,321 - core.analyzer - INFO - ✅ Ciclo 4: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-23 01:22:37,321 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:23:17,553 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-23 01:23:17,554 - root - INFO - Inicializando Trading Analyzer...
+2025-07-23 01:23:17,554 - core.data_reader - INFO - DataReader inicializado (OTIMIZADO para 5m/15m).
+2025-07-23 01:23:17,556 - core.signal_writer - INFO - EnhancedSignalWriter LÓGICA CORRIGIDA - 2 targets apenas
+2025-07-23 01:23:17,556 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 01:23:17,557 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 01:23:17,557 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 01:23:17,557 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 01:23:17,557 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 01:23:17,558 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 01:23:17,558 - core.analyzer - INFO - 🔊 Sistema APRIMORADO de validação de volume ativado
+2025-07-23 01:23:17,558 - core.analyzer - INFO - MultiTimeframeAnalyzer OTIMIZADO inicializado:
+2025-07-23 01:23:17,558 - core.analyzer - INFO -   • Timeframes ativos: ['5m', '15m']
+2025-07-23 01:23:17,558 - core.analyzer - INFO -   • Preferência: 5m absoluta
+2025-07-23 01:23:17,559 - core.analyzer - INFO -   • Sinais únicos por crypto: ATIVO
+2025-07-23 01:23:17,559 - core.analyzer - INFO -   • Validação de volume: ENHANCED
+2025-07-23 01:23:17,559 - core.analyzer - INFO -   • Limpeza automática: ATIVA
+2025-07-23 01:23:17,560 - root - INFO - Trading Analyzer inicializado com sucesso
+2025-07-23 01:23:17,560 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-23 01:23:17,560 - core.analyzer - INFO - 🚀 Iniciando análise contínua OTIMIZADA
+2025-07-23 01:23:17,561 - core.analyzer - INFO - 🔍 Verificando símbolos com dados suficientes...
+2025-07-23 01:23:17,561 - core.data_reader - INFO - Verificando 8 símbolos...
+2025-07-23 01:23:17,987 - core.data_reader - INFO - ✅ Símbolos válidos: 8/8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-23 01:23:17,987 - core.analyzer - INFO - ✅ Símbolos válidos: 8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-23 01:23:17,987 - core.analyzer - INFO - ⏱️ Intervalo: 300s | Timeframes: APENAS 5m e 15m
+2025-07-23 01:23:17,988 - core.analyzer - INFO - 🔄 Ciclo 1 iniciado
+2025-07-23 01:23:17,990 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_SELL_SHORT_1753241999999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:23:17,991 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BNB: BNB_BUY_LONG_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:23:17,991 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BNB: Já existe sinal ativo
+2025-07-23 01:23:18,093 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:23:18,093 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:23:18,195 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753240799999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:23:18,195 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:23:18,298 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753242599999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:23:18,298 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:23:18,299 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:23:18,400 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:23:18,401 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:23:18,502 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753242599999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:23:18,503 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240799999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:23:18,503 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_SELL_SHORT_1753240499999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:23:18,503 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:23:18,605 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SUI: SUI_SELL_SHORT_1753242899999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:23:18,605 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 01:23:18,707 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753240499999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:23:18,708 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:23:18,808 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos | 8 bloqueados | 0 erros | 0.8s
+2025-07-23 01:23:18,809 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:28:18,811 - core.analyzer - INFO - 🔄 Ciclo 2 iniciado
+2025-07-23 01:28:18,813 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-23 01:28:19,326 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:19,332 - core.signal_writer - WARNING - Stop loss SHORT corrigido para BNB: 813.0726
+2025-07-23 01:28:19,332 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BNB, priorizando...
+2025-07-23 01:28:19,348 - config.volume_validation_config - INFO - 🔊 VOLUME BNB 5m: ❌ REJEITADO | Ratio: 0.94 (thresh: 1.39) | Conf: 95.0% | Vol: low_volatility | Trend: increasing
+2025-07-23 01:28:19,349 - core.analyzer - WARNING - ❌ SINAL REJEITADO: BNB | 5m | Bearish Engulfing | Score: 1/6 (16.7%) < 50.0%
+2025-07-23 01:28:19,350 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.5s
+2025-07-23 01:28:19,452 - core.analyzer - INFO - Análise iniciada para: BTC
+2025-07-23 01:28:19,967 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:19,977 - core.signal_writer - WARNING - Stop loss LONG corrigido para BTC: 116468.5900
+2025-07-23 01:28:19,977 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BTC, priorizando...
+2025-07-23 01:28:19,988 - config.volume_validation_config - INFO - 🔊 VOLUME BTC 5m: ❌ REJEITADO | Ratio: 1.03 (thresh: 1.14) | Conf: 100.0% | Vol: low_volatility | Trend: increasing
+2025-07-23 01:28:19,988 - core.analyzer - INFO - ✅ SINAL VALIDADO: BTC | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 01:28:20,029 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: BTC 5m | Entry: 118845.5000 | Stop: 116468.5900 (2.0%) [Unknown] | T1: 118970.9000 (0.1%) | T2: 119168.3000 (0.3%) [Resistance_Levels]
+2025-07-23 01:28:20,029 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: BTC | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-23 01:28:20,029 - core.analyzer - INFO - 🎯 BTC (2/8): 1 sinais em 0.6s
+2025-07-23 01:28:20,139 - core.analyzer - INFO - Análise iniciada para: ENA
+2025-07-23 01:28:20,621 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:20,627 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para ENA, priorizando...
+2025-07-23 01:28:20,637 - config.volume_validation_config - INFO - 🔊 VOLUME ENA 5m: ❌ REJEITADO | Ratio: 0.51 (thresh: 2.22) | Conf: 51.7% | Vol: low_volatility | Trend: decreasing
+2025-07-23 01:28:20,637 - core.analyzer - INFO - ✅ SINAL VALIDADO: ENA | 5m | Bearish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 01:28:20,678 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: ENA 5m | Entry: 0.4887 | Stop: 0.4994 (2.2%) [Unknown] | T1: 0.4850 (0.8%) | T2: 0.4836 (1.0%) [Support_Levels]
+2025-07-23 01:28:20,678 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: ENA | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 01:28:20,679 - core.analyzer - INFO - 🎯 ENA (3/8): 1 sinais em 0.5s
+2025-07-23 01:28:20,795 - core.analyzer - INFO - Análise iniciada para: ETH
+2025-07-23 01:28:21,490 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:21,499 - core.signal_writer - WARNING - Stop loss SHORT corrigido para ETH: 3799.2960
+2025-07-23 01:28:21,499 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para ETH, priorizando...
+2025-07-23 01:28:21,510 - config.volume_validation_config - INFO - 🔊 VOLUME ETH 5m: ❌ REJEITADO | Ratio: 0.58 (thresh: 1.76) | Conf: 66.7% | Vol: low_volatility | Trend: decreasing
+2025-07-23 01:28:21,510 - core.analyzer - INFO - ✅ SINAL VALIDADO: ETH | 5m | Bearish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 01:28:21,546 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: ETH 5m | Entry: 3724.8000 | Stop: 3799.2960 (2.0%) [Unknown] | T1: 3724.1300 (0.0%) | T2: 3723.5700 (0.0%) [Market_Structure]
+2025-07-23 01:28:21,547 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: ETH | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 01:28:21,548 - core.analyzer - INFO - 🎯 ETH (4/8): 1 sinais em 0.8s
+2025-07-23 01:28:21,658 - core.analyzer - INFO - Análise iniciada para: NEAR
+2025-07-23 01:28:22,403 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:22,412 - core.signal_writer - WARNING - Stop loss SHORT corrigido para NEAR: 3.0610
+2025-07-23 01:28:22,413 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para NEAR, priorizando...
+2025-07-23 01:28:22,424 - config.volume_validation_config - INFO - 🔊 VOLUME NEAR 5m: ❌ REJEITADO | Ratio: 0.65 (thresh: 2.04) | Conf: 56.7% | Vol: low_volatility | Trend: decreasing
+2025-07-23 01:28:22,424 - core.analyzer - INFO - ✅ SINAL VALIDADO: NEAR | 5m | Bearish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 01:28:22,440 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: NEAR 5m | Entry: 3.0010 | Stop: 3.0610 (2.0%) [Unknown] | T1: 2.9840 (0.6%) | T2: 2.9790 (0.7%) [Support_Levels]
+2025-07-23 01:28:22,441 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: NEAR | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 01:28:22,441 - core.analyzer - INFO - 🎯 NEAR (5/8): 1 sinais em 0.8s
+2025-07-23 01:28:22,551 - core.analyzer - INFO - Análise iniciada para: SOL
+2025-07-23 01:28:22,999 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:23,005 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SOL, priorizando...
+2025-07-23 01:28:23,012 - config.volume_validation_config - INFO - 🔊 VOLUME SOL 5m: ❌ REJEITADO | Ratio: 0.68 (thresh: 1.47) | Conf: 78.3% | Vol: low_volatility | Trend: stable
+2025-07-23 01:28:23,013 - core.analyzer - INFO - ✅ SINAL VALIDADO: SOL | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 01:28:23,026 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: SOL 5m | Entry: 201.9400 | Stop: 199.1600 (1.4%) [Unknown] | T1: 202.6100 (0.3%) | T2: 202.8300 (0.4%) [Resistance_Levels]
+2025-07-23 01:28:23,026 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SOL | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-23 01:28:23,027 - core.analyzer - INFO - 🎯 SOL (6/8): 1 sinais em 0.5s
+2025-07-23 01:28:23,137 - core.analyzer - INFO - Análise iniciada para: SUI
+2025-07-23 01:28:23,601 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:23,607 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para SUI, priorizando...
+2025-07-23 01:28:23,615 - config.volume_validation_config - INFO - 🔊 VOLUME SUI 5m: ❌ REJEITADO | Ratio: 0.63 (thresh: 2.13) | Conf: 56.7% | Vol: low_volatility | Trend: decreasing
+2025-07-23 01:28:23,615 - core.analyzer - INFO - ✅ SINAL VALIDADO: SUI | 5m | Bearish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 01:28:23,630 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: SUI 5m | Entry: 3.9601 | Stop: 3.9950 (0.9%) [Unknown] | T1: 3.9515 (0.2%) | T2: 3.9508 (0.2%) [Support_Levels]
+2025-07-23 01:28:23,630 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: SUI | 5m | Bearish Engulfing | SELL_SHORT | Conf: 0.850
+2025-07-23 01:28:23,631 - core.analyzer - INFO - 🎯 SUI (7/8): 1 sinais em 0.5s
+2025-07-23 01:28:23,740 - core.analyzer - INFO - Análise iniciada para: IMX
+2025-07-23 01:28:23,755 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 01:28:23,759 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:24,226 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:28:24,233 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para IMX, priorizando...
+2025-07-23 01:28:24,233 - core.analyzer - WARNING - 🚨 CONFLITO: IMX - 2 sinais
+2025-07-23 01:28:24,233 - core.analyzer - INFO - ✅ PREFERÊNCIA 5m: IMX → Bullish Engulfing | Conf: 0.850
+2025-07-23 01:28:24,234 - core.analyzer - WARNING - 🚨 Total de conflitos resolvidos com PREFERÊNCIA 5m: 1
+2025-07-23 01:28:24,240 - config.volume_validation_config - INFO - 🔊 VOLUME IMX 5m: ❌ REJEITADO | Ratio: 0.60 (thresh: 1.45) | Conf: 90.0% | Vol: low_volatility | Trend: increasing
+2025-07-23 01:28:24,240 - core.analyzer - INFO - ✅ SINAL VALIDADO: IMX | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-23 01:28:24,254 - core.signal_writer - INFO - ✅ SINAL 2-TARGETS: IMX 5m | Entry: 0.6315 | Stop: 0.6255 (1.0%) [Unknown] | T1: 0.6317 (0.0%) | T2: 0.6367 (0.8%) [Resistance_Levels]
+2025-07-23 01:28:24,254 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: IMX | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-23 01:28:24,255 - core.analyzer - INFO - 🎯 IMX (8/8): 1 sinais em 0.5s
+2025-07-23 01:28:24,355 - core.analyzer - INFO - ✅ Ciclo 2: 7 novos | 0 bloqueados | 0 erros | 5.5s
+2025-07-23 01:28:24,355 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:33:24,357 - core.analyzer - INFO - 🔄 Ciclo 3 iniciado
+2025-07-23 01:33:24,359 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-23 01:33:24,941 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:33:24,950 - core.signal_writer - WARNING - Stop loss SHORT corrigido para BNB: 812.6748
+2025-07-23 01:33:24,951 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BNB, priorizando...
+2025-07-23 01:33:24,962 - config.volume_validation_config - INFO - 🔊 VOLUME BNB 5m: ❌ REJEITADO | Ratio: 1.06 (thresh: 1.54) | Conf: 78.3% | Vol: low_volatility | Trend: stable
+2025-07-23 01:33:24,962 - core.analyzer - WARNING - ❌ SINAL REJEITADO: BNB | 5m | Bearish Engulfing | Score: 1/6 (16.7%) < 50.0%
+2025-07-23 01:33:24,962 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.6s
+2025-07-23 01:33:25,066 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:33:25,066 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:33:25,168 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:33:25,168 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:33:25,270 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:33:25,270 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:33:25,372 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:33:25,372 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:33:25,474 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:33:25,475 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:33:25,576 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SUI: SUI_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:33:25,576 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 01:33:25,678 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753244399999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:33:25,678 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:33:25,779 - core.analyzer - INFO - ✅ Ciclo 3: 0 novos | 7 bloqueados | 0 erros | 1.4s
+2025-07-23 01:33:25,779 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 01:38:25,782 - core.analyzer - INFO - 🔄 Ciclo 4 iniciado
+2025-07-23 01:38:25,795 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-23 01:38:25,817 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 01:38:25,821 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:38:26,316 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 01:38:26,322 - core.signal_writer - WARNING - Stop loss SHORT corrigido para BNB: 812.7258
+2025-07-23 01:38:26,322 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BNB, priorizando...
+2025-07-23 01:38:26,322 - core.analyzer - WARNING - 🚨 CONFLITO: BNB - 2 sinais
+2025-07-23 01:38:26,323 - core.analyzer - INFO - ✅ PREFERÊNCIA 5m: BNB → Bearish Engulfing | Conf: 0.850
+2025-07-23 01:38:26,323 - core.analyzer - WARNING - 🚨 Total de conflitos resolvidos com PREFERÊNCIA 5m: 1
+2025-07-23 01:38:26,339 - config.volume_validation_config - INFO - 🔊 VOLUME BNB 5m: ❌ REJEITADO | Ratio: 0.70 (thresh: 1.54) | Conf: 78.3% | Vol: low_volatility | Trend: stable
+2025-07-23 01:38:26,340 - core.analyzer - WARNING - ❌ SINAL REJEITADO: BNB | 5m | Bearish Engulfing | Score: 1/6 (16.7%) < 50.0%
+2025-07-23 01:38:26,340 - core.analyzer - INFO - ✓ BNB (1/8): 0 sinais em 0.6s
+2025-07-23 01:38:26,442 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para BTC: BTC_BUY_LONG_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:38:26,442 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-23 01:38:26,544 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ENA: ENA_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:38:26,544 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-23 01:38:26,646 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para ETH: ETH_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:38:26,646 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-23 01:38:26,748 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para NEAR: NEAR_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:38:26,749 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-23 01:38:26,850 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SOL: SOL_BUY_LONG_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:38:26,851 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-23 01:38:26,952 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para SUI: SUI_SELL_SHORT_1753244399999 | Status: ACTIVE | Targets: [False, False] | Motivo: ACTIVE (nenhum target atingido)
+2025-07-23 01:38:26,952 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-23 01:38:27,054 - core.signal_writer - INFO - 🚫 SINAL BLOQUEADOR para IMX: IMX_BUY_LONG_1753244399999 | Status: TARGET_HIT | Targets: [True, False] | Motivo: TARGET_HIT parcial [true, false]
+2025-07-23 01:38:27,054 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-23 01:38:27,155 - core.analyzer - INFO - ✅ Ciclo 4: 0 novos | 7 bloqueados | 0 erros | 1.4s
+2025-07-23 01:38:27,155 - core.analyzer - INFO - ⏳ Aguardando 300s...

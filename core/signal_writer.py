@@ -1,7 +1,9 @@
-# signal_writer.py - INTEGRAÇÃO CORRIGIDA COM TECHNICAL_STOP_LOSS
+# signal_writer.py - LÓGICA CORRIGIDA - 2 TARGETS APENAS
 
 """
-Signal Writer - INTEGRAÇÃO CORRETA COM SISTEMAS TÉCNICOS
+Signal Writer - CORREÇÃO DA LÓGICA: 2 targets apenas
+- BLOQUEAR: ACTIVE ou TARGET_HIT com targets_hit=[true,false]  
+- PERMITIR: STOP_HIT ou TARGET_HIT com targets_hit=[true,true]
 """
 import sqlite3
 import json
@@ -77,7 +79,7 @@ class EnhancedTradingSignal:
         if self.indicators_used is None: 
             self.indicators_used = [f"{self.detector_name.lower()}_analyze"]
         if self.targets_hit is None: 
-            self.targets_hit = [False] * len(self.targets)
+            self.targets_hit = [False, False]  # 🚨 CORRIGIDO: Apenas 2 targets
         
         self._apply_precisions()
         self._validate_stop_and_targets()
@@ -147,7 +149,7 @@ class EnhancedTradingSignal:
             }
     
     def _calculate_technical_targets_integrated(self) -> tuple[List[float], Dict]:
-        """🚨 INTEGRAÇÃO COM SISTEMA TÉCNICO DE TARGETS"""
+        """🚨 INTEGRAÇÃO COM SISTEMA TÉCNICO DE TARGETS - 2 TARGETS"""
         try:
             from core.technical_targets import TechnicalTargetsCalculator
             from core.data_reader import MarketData
@@ -181,19 +183,24 @@ class EnhancedTradingSignal:
                 self.timeframe
             )
             
+            # 🚨 GARANTE APENAS 2 TARGETS
+            final_targets = targets_result.targets[:2] if len(targets_result.targets) >= 2 else targets_result.targets
+            if len(final_targets) < 2:
+                final_targets = self._calculate_fallback_targets()
+            
             # 🚨 CONVERTE TargetsAnalysis PARA DICT (compatível com JSON)
             analysis_dict = {
                 'method_used': targets_result.method_used,
                 'confidence': targets_result.confidence,
-                'target_levels': targets_result.target_levels,
+                'target_levels': targets_result.target_levels[:2] if targets_result.target_levels else [],
                 'resistance_levels': targets_result.resistance_levels,
                 'support_levels': targets_result.support_levels,
-                'risk_reward_ratios': targets_result.risk_reward_ratios,
+                'risk_reward_ratios': targets_result.risk_reward_ratios[:2] if targets_result.risk_reward_ratios else [],
                 'analysis_details': targets_result.analysis_details
             }
             
-            self.logger.debug(f"Targets técnicos calculados: {targets_result.method_used} para {self.symbol}")
-            return targets_result.targets, analysis_dict
+            self.logger.debug(f"Targets técnicos calculados: {targets_result.method_used} para {self.symbol} (2 targets)")
+            return final_targets, analysis_dict
             
         except ImportError:
             # Fallback se o sistema de targets não existe ainda
@@ -213,7 +220,7 @@ class EnhancedTradingSignal:
             }
 
     def _calculate_simple_technical_targets(self) -> List[float]:
-        """Targets técnicos simples baseados em ATR e estrutura"""
+        """Targets técnicos simples baseados em ATR e estrutura - 2 TARGETS"""
         try:
             if self.market_data is None or len(self.market_data) < 20:
                 return self._calculate_fallback_targets()
@@ -232,7 +239,7 @@ class EnhancedTradingSignal:
                 else:
                     targets = [
                         self.entry_price + atr * 2.0,  # Target 1: 2x ATR
-                        self.entry_price + atr * 4.0   # Target 2: 4x ATR
+                        self.entry_price + atr * 3.5   # Target 2: 3.5x ATR
                     ]
             else:
                 # Para SHORT: busca suportes abaixo como targets
@@ -242,7 +249,7 @@ class EnhancedTradingSignal:
                 else:
                     targets = [
                         self.entry_price - atr * 2.0,  # Target 1: 2x ATR
-                        self.entry_price - atr * 4.0   # Target 2: 4x ATR
+                        self.entry_price - atr * 3.5   # Target 2: 3.5x ATR
                     ]
             
             return targets
@@ -321,16 +328,16 @@ class EnhancedTradingSignal:
             return self.entry_price * (1 + stop_percentage)
 
     def _calculate_fallback_targets(self) -> List[float]:
-        """Targets de emergência"""
+        """Targets de emergência - APENAS 2"""
         if 'BUY' in self.signal_type:
             return [
-                self.entry_price * 1.02,  # +2%
-                self.entry_price * 1.04   # +4%
+                self.entry_price * 1.02,  # Target 1: +2%
+                self.entry_price * 1.04   # Target 2: +4%
             ]
         else:
             return [
-                self.entry_price * 0.98,  # -2%
-                self.entry_price * 0.96   # -4%
+                self.entry_price * 0.98,  # Target 1: -2%
+                self.entry_price * 0.96   # Target 2: -4%
             ]
 
     def _apply_precisions(self):
@@ -341,7 +348,7 @@ class EnhancedTradingSignal:
         self.targets = [round(t, precision) for t in self.targets]
 
     def _validate_stop_and_targets(self):
-        """Valida stop loss e targets"""
+        """Valida stop loss e targets - APENAS 2 TARGETS"""
         try:
             # Valida stop loss
             if 'BUY' in self.signal_type and self.stop_loss >= self.entry_price:
@@ -351,6 +358,14 @@ class EnhancedTradingSignal:
             elif 'SELL' in self.signal_type and self.stop_loss <= self.entry_price:
                 self.stop_loss = self.entry_price * 1.02
                 self.logger.warning(f"Stop loss SHORT corrigido para {self.symbol}: {self.stop_loss:.4f}")
+            
+            # 🚨 GARANTE APENAS 2 TARGETS
+            if len(self.targets) > 2:
+                self.targets = self.targets[:2]
+                self.logger.debug(f"Limitado a 2 targets para {self.symbol}")
+            elif len(self.targets) < 2:
+                self.targets = self._calculate_fallback_targets()
+                self.logger.warning(f"Targets insuficientes para {self.symbol}, usando fallback")
             
             # Valida targets
             for i, target in enumerate(self.targets):
@@ -373,7 +388,7 @@ class EnhancedTradingSignal:
 
 
 class EnhancedSignalWriter:
-    """Signal Writer com integração técnica corrigida"""
+    """Signal Writer LÓGICA CORRIGIDA - 2 targets apenas"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -381,7 +396,7 @@ class EnhancedSignalWriter:
         self.signals_table = settings.database.signals_table
         self.backup_table = settings.database.backup_table
         self._ensure_tables_exist()
-        self.logger.info("EnhancedSignalWriter inicializado com integração técnica corrigida")
+        self.logger.info("EnhancedSignalWriter LÓGICA CORRIGIDA - 2 targets apenas")
         
     def _get_connection(self):
         return sqlite3.connect(self.db_path, timeout=10)
@@ -459,28 +474,92 @@ class EnhancedSignalWriter:
             self.logger.error(f"Erro ao criar tabelas: {e}")
     
     def check_existing_active_signals(self, symbol: str) -> bool:
-        """Verifica se já existe sinal ativo para o símbolo"""
-        query = f"""
-        SELECT COUNT(*) as count 
-        FROM {self.signals_table} 
-        WHERE symbol = ? AND status = 'ACTIVE'
         """
+        LÓGICA CORRIGIDA: Verifica se há sinal que bloqueia novos sinais
+        
+        BLOQUEAR quando:
+        - Status = ACTIVE (nenhum target atingido)
+        - Status = TARGET_HIT + targets_hit = [true, false] (só primeiro target)
+        
+        PERMITIR quando:
+        - Status = STOP_HIT (stop loss atingido)
+        - Status = TARGET_HIT + targets_hit = [true, true] (ambos targets)
+        - Status = EXPIRED ou MANUALLY_CLOSED
+        """
+        query = f"""
+        SELECT id, status, targets_hit, created_at 
+        FROM {self.signals_table} 
+        WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_HIT')
+        ORDER BY created_at DESC
+        """
+        
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(query, (symbol,))
-                count = cursor.fetchone()[0]
-                return count > 0
+                signals = cursor.fetchall()
+                
+                blocking_signals = []
+                
+                for signal in signals:
+                    signal_id, status, targets_hit_str, created_at = signal
+                    
+                    # Parse targets_hit
+                    try:
+                        targets_hit = json.loads(targets_hit_str) if targets_hit_str else [False, False]
+                    except:
+                        targets_hit = [False, False]
+                    
+                    # 🚨 LÓGICA CORRIGIDA:
+                    should_block = False
+                    
+                    if status == 'ACTIVE':
+                        # ACTIVE sempre bloqueia
+                        should_block = True
+                        reason = "ACTIVE (nenhum target atingido)"
+                        
+                    elif status == 'TARGET_HIT':
+                        # TARGET_HIT bloqueia apenas se targets_hit = [true, false]
+                        if len(targets_hit) >= 2:
+                            if targets_hit[0] and not targets_hit[1]:
+                                should_block = True
+                                reason = "TARGET_HIT parcial [true, false]"
+                            elif targets_hit[0] and targets_hit[1]:
+                                should_block = False
+                                reason = "TARGET_HIT completo [true, true] - LIBERA"
+                            else:
+                                should_block = True  # [false, false] ou outras combinações
+                                reason = f"TARGET_HIT ambíguo {targets_hit}"
+                        else:
+                            should_block = True
+                            reason = "TARGET_HIT sem targets_hit válido"
+                    
+                    if should_block:
+                        blocking_signals.append((signal_id, status, targets_hit, reason))
+                        self.logger.info(f"🚫 SINAL BLOQUEADOR para {symbol}: {signal_id} | Status: {status} | Targets: {targets_hit} | Motivo: {reason}")
+                
+                return len(blocking_signals) > 0
+                
         except Exception as e:
-            self.logger.error(f"Erro ao verificar sinais ativos para {symbol}: {e}")
+            self.logger.error(f"Erro ao verificar sinais bloqueadores para {symbol}: {e}")
             return False
 
     def write_enhanced_signal(self, signal: EnhancedTradingSignal) -> bool:
-        """Escreve sinal no banco com integração técnica correta"""
+        """Escreve sinal no banco com LÓGICA CORRIGIDA"""
         
-        # VERIFICAÇÃO CRÍTICA: Bloqueia se já há sinal ativo
+        # 🚨 NOVO: Verificação de Sinal Obsoleto
+        if signal.signal_type == 'BUY_LONG' and signal.entry_price >= signal.targets[0]:
+            self.logger.warning(f"🚫 Sinal OBsoleto para {signal.symbol}: Preço de entrada ({signal.entry_price}) maior ou igual ao alvo 1 ({signal.targets[0]})")
+            self._backup_signal(signal, "blocked_stale_signal_entry_too_high")
+            return False
+        elif signal.signal_type == 'SELL_SHORT' and signal.entry_price <= signal.targets[0]:
+            self.logger.warning(f"🚫 Sinal OBsoleto para {signal.symbol}: Preço de entrada ({signal.entry_price}) menor ou igual ao alvo 1 ({signal.targets[0]})")
+            self._backup_signal(signal, "blocked_stale_signal_entry_too_low")
+            return False
+        
+        # VERIFICAÇÃO CRÍTICA COM LÓGICA CORRIGIDA
         if self.check_existing_active_signals(signal.symbol):
-            self.logger.info(f"🚫 Sinal BLOQUEADO para {signal.symbol}: Já existe sinal ativo")
+            self.logger.info(f"🚫 SINAL BLOQUEADO para {signal.symbol}: Existe sinal ativo ou TARGET_HIT parcial")
             self._backup_signal(signal, "blocked_existing_active_signal")
             return False
         
@@ -510,13 +589,13 @@ class EnhancedSignalWriter:
                     json.dumps(signal.market_conditions),
                     json.dumps(signal.pattern_data),
                     json.dumps(signal.technical_data),
-                    json.dumps(signal.stop_loss_analysis),  # 🚨 INTEGRAÇÃO CORRIGIDA
-                    json.dumps(signal.targets_analysis)     # 🚨 INTEGRAÇÃO CORRIGIDA
+                    json.dumps(signal.stop_loss_analysis),
+                    json.dumps(signal.targets_analysis)
                 )
                 conn.execute(sql, values)
                 conn.commit()
             
-            # Log com informações técnicas detalhadas
+            # Log com informações técnicas detalhadas - 2 TARGETS
             risk_pct = abs(signal.stop_loss - signal.entry_price) / signal.entry_price * 100
             target1_pct = abs(signal.targets[0] - signal.entry_price) / signal.entry_price * 100
             target2_pct = abs(signal.targets[1] - signal.entry_price) / signal.entry_price * 100
@@ -525,7 +604,7 @@ class EnhancedSignalWriter:
             targets_method = signal.targets_analysis.get('method_used', 'Unknown') if signal.targets_analysis else 'Unknown'
             
             self.logger.info(
-                f"✅ SINAL TÉCNICO INTEGRADO: {signal.symbol} {signal.timeframe} | "
+                f"✅ SINAL 2-TARGETS: {signal.symbol} {signal.timeframe} | "
                 f"Entry: {signal.entry_price:.4f} | "
                 f"Stop: {signal.stop_loss:.4f} ({risk_pct:.1f}%) [{stop_method}] | "
                 f"T1: {signal.targets[0]:.4f} ({target1_pct:.1f}%) | "
@@ -534,37 +613,59 @@ class EnhancedSignalWriter:
             return True
             
         except Exception as e:
-            self.logger.error(f"❌ Erro ao gravar sinal técnico integrado: {e}")
+            self.logger.error(f"❌ Erro ao gravar sinal: {e}")
             self._backup_signal(signal, f"insert_error: {e}")
             return False
 
     def get_active_signals_count(self, symbol: str) -> int:
-        """Retorna quantidade de sinais ativos para o símbolo"""
+        """
+        LÓGICA CORRIGIDA: Conta sinais que REALMENTE bloqueiam novos sinais
+        """
         query = f"""
-        SELECT COUNT(*) as count 
+        SELECT status, targets_hit 
         FROM {self.signals_table} 
-        WHERE symbol = ? AND status = 'ACTIVE'
+        WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_HIT')
         """
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(query, (symbol,))
-                return cursor.fetchone()[0]
+                signals = cursor.fetchall()
+                
+                blocking_count = 0
+                
+                for status, targets_hit_str in signals:
+                    try:
+                        targets_hit = json.loads(targets_hit_str) if targets_hit_str else [False, False]
+                    except:
+                        targets_hit = [False, False]
+                    
+                    # Aplica a mesma lógica de bloqueio
+                    if status == 'ACTIVE':
+                        blocking_count += 1
+                    elif status == 'TARGET_HIT':
+                        if len(targets_hit) >= 2 and targets_hit[0] and not targets_hit[1]:
+                            blocking_count += 1  # Apenas primeiro target atingido - ainda bloqueia
+                        # Se targets_hit = [true, true], não conta (sinal finalizado)
+                
+                return blocking_count
+                
         except Exception as e:
-            self.logger.error(f"Erro ao contar sinais ativos para {symbol}: {e}")
+            self.logger.error(f"Erro ao contar sinais bloqueadores para {symbol}: {e}")
             return 0
 
     def move_inactive_signals_to_backup(self) -> Dict[str, int]:
-        """Move sinais inativos para backup"""
-        moved_counts = {'STOPPED': 0, 'TARGET_2_HIT': 0, 'KILLED': 0, 'EXPIRED': 0}
-        
-        inactive_statuses = ['STOPPED', 'TARGET_2_HIT', 'KILLED', 'EXPIRED']
+        """Move sinais REALMENTE finalizados para backup"""
+        moved_counts = {'STOP_HIT': 0, 'TARGET_2_COMPLETE': 0, 'EXPIRED': 0, 'MANUALLY_CLOSED': 0}
         
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 
-                for status in inactive_statuses:
+                # 1. Move sinais com STOP_HIT (sempre finalizados)
+                final_statuses = ['STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']
+                
+                for status in final_statuses:
                     select_query = f"""
                     SELECT * FROM {self.signals_table} 
                     WHERE status = ?
@@ -585,15 +686,43 @@ class EnhancedSignalWriter:
                         moved_counts[status] = len(signals_to_move)
                         self.logger.info(f"Movidos {len(signals_to_move)} sinais {status} para backup")
                 
+                # 2. Move sinais TARGET_HIT com ambos targets atingidos
+                cursor.execute(f"""
+                    SELECT * FROM {self.signals_table} 
+                    WHERE status = 'TARGET_HIT'
+                """)
+                target_hit_signals = cursor.fetchall()
+                
+                target_2_complete_count = 0
+                
+                for signal in target_hit_signals:
+                    try:
+                        targets_hit_str = signal[17]  # índice da coluna targets_hit
+                        targets_hit = json.loads(targets_hit_str) if targets_hit_str else [False, False]
+                        
+                        # Se ambos targets foram atingidos, move para backup
+                        if len(targets_hit) >= 2 and targets_hit[0] and targets_hit[1]:
+                            self._backup_signal_from_row(signal, "moved_to_backup_target_2_complete")
+                            
+                            cursor.execute(f"DELETE FROM {self.signals_table} WHERE id = ?", (signal[0],))
+                            target_2_complete_count += 1
+                            
+                    except Exception as e:
+                        self.logger.warning(f"Erro ao processar sinal TARGET_HIT {signal[0]}: {e}")
+                
+                if target_2_complete_count > 0:
+                    moved_counts['TARGET_2_COMPLETE'] = target_2_complete_count
+                    self.logger.info(f"Movidos {target_2_complete_count} sinais TARGET_HIT completos para backup")
+                
                 conn.commit()
                 
         except Exception as e:
-            self.logger.error(f"Erro ao mover sinais inativos para backup: {e}")
+            self.logger.error(f"Erro ao mover sinais finalizados para backup: {e}")
         
         return moved_counts
     
     def mark_expired_signals_as_killed(self) -> int:
-        """Marca sinais antigos como KILLED"""
+        """Marca apenas sinais ACTIVE antigos como expirados"""
         hours_limit = settings.system.signal_lifecycle_hours
         cutoff_time = datetime.now() - timedelta(hours=hours_limit)
         
@@ -601,23 +730,25 @@ class EnhancedSignalWriter:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 
+                # Apenas marca sinais ACTIVE como expirados
+                # TARGET_HIT pode demorar mais para finalizar
                 update_query = f"""
                 UPDATE {self.signals_table} 
-                SET status = 'KILLED', updated_at = ?
+                SET status = 'EXPIRED', updated_at = ?
                 WHERE status = 'ACTIVE' AND created_at < ?
                 """
                 
                 cursor.execute(update_query, (datetime.now().isoformat(), cutoff_time.isoformat()))
-                killed_count = cursor.rowcount
+                expired_count = cursor.rowcount
                 conn.commit()
                 
-                if killed_count > 0:
-                    self.logger.info(f"🔪 {killed_count} sinais marcados como KILLED (lifecycle: {hours_limit}h)")
+                if expired_count > 0:
+                    self.logger.info(f"⏰ {expired_count} sinais ACTIVE marcados como EXPIRED (lifecycle: {hours_limit}h)")
                 
-                return killed_count
+                return expired_count
                 
         except Exception as e:
-            self.logger.error(f"Erro ao marcar sinais como KILLED: {e}")
+            self.logger.error(f"Erro ao marcar sinais como EXPIRED: {e}")
             return 0
     
     def _backup_signal_from_row(self, signal_row: tuple, reason: str):
@@ -689,8 +820,8 @@ class EnhancedSignalWriter:
                     json.dumps(signal.market_conditions),
                     json.dumps(signal.pattern_data),
                     json.dumps(signal.technical_data),
-                    json.dumps(signal.stop_loss_analysis),  # 🚨 INTEGRAÇÃO CORRIGIDA
-                    json.dumps(signal.targets_analysis),    # 🚨 INTEGRAÇÃO CORRIGIDA
+                    json.dumps(signal.stop_loss_analysis),
+                    json.dumps(signal.targets_analysis),
                     datetime.now().isoformat()
                 )
                 conn.execute(sql, values)
