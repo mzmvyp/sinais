@@ -263,15 +263,16 @@ class MultiTimeframeAnalyzer:
                 if self.signal_writer.write_enhanced_signal(signal):
                     signals_saved = 1
                     
-                    # 🚨 NOVO: Log mais detalhado
-                    quality_info = f" [QUALIDADE: {self.quality_mode.upper()}]"
-                    if elimination_details.get('total_original'):
-                        quality_info += f" [GERADOS: {elimination_details['total_original']}]"
-                    
+                    # 🚨 LOG MELHORADO
                     self.logger.info(
-                        f"🎯 SINAL APROVADO: {symbol} | {signal.timeframe} | {signal.detector_name} | "
-                        f"{signal.signal_type} | Conf: {signal.confidence:.3f}{quality_info}"
+                        f"💾 SINAL GRAVADO: {symbol} | TF: {signal.timeframe} | "
+                        f"Detector: {signal.detector_name} | Tipo: {signal.signal_type} | "
+                        f"Entry: ${signal.entry_price:.4f} | Stop: ${signal.stop_loss:.4f} | "
+                        f"T1: ${signal.targets[0]:.4f} | T2: ${signal.targets[1]:.4f} | "
+                        f"Conf: {signal.confidence:.3f}"
                     )
+                else:
+                    self.logger.warning(f"❌ FALHA AO GRAVAR: {symbol} {signal.timeframe} {signal.detector_name}")
             except Exception as e:
                 self.logger.error(f"Erro ao salvar sinal para {symbol}: {e}")
 
@@ -294,6 +295,8 @@ class MultiTimeframeAnalyzer:
             return {'signals': []}
         
         tf_config = settings.get_timeframe_config(timeframe)
+        self.logger.setLevel(logging.DEBUG)  # Force DEBUG level
+        self.logger.info(f"🔍 INICIANDO análise {symbol} {timeframe}")
         signals = []
 
         if len(market_data.data) < 2:
@@ -310,73 +313,92 @@ class MultiTimeframeAnalyzer:
                     'timeframe': timeframe, 
                     'entry_price': entry_price, 
                     'timestamp': signal_timestamp,
-                    'market_data': market_data.data  # Para cálculo técnico de stop/targets
+                    'market_data': market_data.data
                 }
                 final_args = {**kwargs, **base_args}
                 allowed_keys = EnhancedTradingSignal.__annotations__.keys()
                 filtered_args = {k: v for k, v in final_args.items() if k in allowed_keys}
                 
                 signal = EnhancedTradingSignal(**filtered_args)
-                signals.append(signal)
-                self.logger.debug(f"Sinal criado: {timeframe} {signal.detector_name} | {signal.signal_type} | {signal.confidence:.3f}")
+                
+                # 🚨 EVITA DUPLICADOS - verifica se já existe detector similar
+                existing_detectors = [s.detector_name for s in signals]
+                if signal.detector_name not in existing_detectors:
+                    signals.append(signal)
+                    self.logger.info(f"➕ SINAL CRIADO: {timeframe} {signal.detector_name} | {signal.signal_type} | Conf: {signal.confidence:.3f} | Entry: ${signal.entry_price:.4f}")
+                else:
+                    self.logger.debug(f"⏭️ SINAL DUPLICADO IGNORADO: {signal.detector_name}")
+                    
             except Exception as e:
-                self.logger.warning(f"Sinal para {symbol} em {timeframe} descartado: {e}")
-
-        # ANÁLISE TÉCNICA (prioridade máxima)
+                self.logger.warning(f"❌ Sinal descartado para {symbol} {timeframe}: {e}")
+        
+        # ANÁLISE TÉCNICA - LOGS FORÇADOS
         if 'technical' in tf_config.enabled_detectors:
             try:
+                print(f"🔬 EXECUTANDO análise técnica para {symbol} {timeframe}")  # Print forçado
                 tech_analyzer = self.technical_analyzers[timeframe]
                 technical_results = tech_analyzer.analyze_all(market_data, timeframe)
                 raw_signals = tech_analyzer.generate_trading_signals(market_data, technical_results, timeframe)
-                for s in raw_signals:
+                
+                print(f"🔬 TÉCNICO {symbol} {timeframe}: {len(raw_signals)} sinais gerados")
+                for i, s in enumerate(raw_signals):
+                    print(f"  [{i+1}] Detector: {s.detector_name} | Tipo: {s.signal_type} | Conf: {s.confidence:.3f}")
                     create_valid_signal(**s.__dict__)
-                self.logger.debug(f"Sinais técnicos {timeframe} para {symbol}: {len(raw_signals)}")
+                    
+                self.logger.info(f"🔬 TÉCNICO COMPLETO: {len(raw_signals)} sinais para {symbol} {timeframe}")
             except Exception as e:
-                self.logger.error(f"Erro na análise técnica para {symbol} {timeframe}: {e}")
-                return {'signals': []}  # 🚨 ADICIONAR ESTA LINHA
-
-        # ANÁLISE DE PADRÕES (apenas Double Top/Bottom)
+                print(f"❌ ERRO técnico {symbol} {timeframe}: {e}")
+                self.logger.error(f"❌ ERRO técnico {symbol} {timeframe}: {e}")
+        # ANÁLISE DE PADRÕES (adicione após a seção patterns)
         if 'patterns' in tf_config.enabled_detectors and PATTERNS_AVAILABLE:
             try:
                 pattern_analyzer = self.pattern_analyzers[timeframe]
                 pattern_results = pattern_analyzer.analyze_all_patterns(market_data)
                 raw_signals = pattern_analyzer.generate_pattern_signals(market_data, pattern_results)
-                for s in raw_signals:
-                     create_valid_signal(**s.__dict__)
-                self.logger.debug(f"Sinais de padrões {timeframe} para {symbol}: {len(raw_signals)}")
-            except Exception as e:
-                            self.logger.error(f"Erro na análise de padrões para {symbol} {timeframe}: {e}")
-                            return {'signals': []}  # 🚨 ADICIONAR ESTA LINHA
-                        
-                        
-            # 🚨 NOVO: ANÁLISE DE CANDLESTICK COM BACKUP COMPLETO
-            if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
-                try:
-                    df_for_cs = market_data.data.iloc[:-1]
-                    if not df_for_cs.empty:
-                        # 1. Gera sinais de candlestick (filtrados para sinais ativos)
-                        cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
-                        
-                        # 2. Aplica filtro rigoroso apenas para sinais ativos
-                        high_quality_cs = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.90]
-                        
-                        for cs in high_quality_cs[:1]:  # Máximo 1 sinal ativo
-                            create_valid_signal(**cs)
-                        
-                        self.logger.debug(f"Sinais de candlestick {timeframe} para {symbol}: {len(high_quality_cs)}")
-                        
-                        # 🚨 NOVO: BACKUP COMPLETO DOS 43 PATTERNS (independente dos sinais ativos)
-                        if (self.quality_mode == "rigorous" and 
-                            hasattr(self, 'process_candlesticks_for_backup')):
-                            
-                            # Processa TODOS os 43 patterns para backup/estatística
-                            backup_count = self.process_candlesticks_for_backup(symbol, timeframe, df_for_cs)
-                            self.logger.debug(f"🕯️ {backup_count} candlestick patterns (TODOS) salvos no backup: {symbol} {timeframe}")
                 
-                except Exception as e:
-                            self.logger.error(f"Erro na análise de candlestick para {symbol} {timeframe}: {e}")
-                            return {'signals': []}  # 🚨 ADICIONAR ESTA LINHA
+                self.logger.info(f"📊 PADRÕES {symbol} {timeframe}: {len(raw_signals)} sinais")
+                for i, s in enumerate(raw_signals):
+                    create_valid_signal(**s.__dict__)
+                    self.logger.debug(f"  [{i+1}] {s.detector_name}: {s.signal_type} conf={s.confidence:.3f}")
+            except Exception as e:
+                self.logger.error(f"❌ ERRO padrões {symbol} {timeframe}: {e}")
 
+                # CANDLESTICK PATTERNS - FORÇADO A EXECUTAR
+        if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
+            try:
+                print(f"🕯️ EXECUTANDO candlestick para {symbol} {timeframe}")  # Print forçado
+                df_for_cs = market_data.data.iloc[:-1]
+                print(f"🕯️ Dados para candlestick: {len(df_for_cs)} barras")
+                
+                if len(df_for_cs) >= 10:
+                    cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
+                    print(f"🕯️ CANDLESTICK {symbol} {timeframe}: {len(cs_signals_raw)} patterns brutos")
+                    
+                    # Mostra TODOS os patterns detectados
+                    for i, cs in enumerate(cs_signals_raw):
+                        pattern_name = cs.get('detector_name', 'unknown')
+                        confidence = cs.get('confidence', 0)
+                        signal_type = cs.get('signal_type', 'unknown')
+                        print(f"  [{i+1}] {pattern_name}: {signal_type} conf={confidence:.3f}")
+                    
+                    # Filtra por qualidade
+                    high_quality_cs = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.85]
+                    print(f"🕯️ QUALIDADE alta (>=0.85): {len(high_quality_cs)} patterns")
+                    
+                    # Adiciona sinais de alta qualidade
+                    for cs in high_quality_cs[:2]:  # Máximo 2
+                        create_valid_signal(**cs)
+                        print(f"  ✅ ADICIONADO: {cs.get('detector_name')} conf={cs.get('confidence', 0):.3f}")
+                        
+                    self.logger.info(f"🕯️ CANDLESTICK {symbol} {timeframe}: {len(cs_signals_raw)} → {len(high_quality_cs)} → {min(2, len(high_quality_cs))} finais")
+                else:
+                    print(f"🕯️ CANDLESTICK {symbol} {timeframe}: dados insuficientes ({len(df_for_cs)} < 10)")
+                    
+            except Exception as e:
+                print(f"❌ ERRO candlestick {symbol} {timeframe}: {e}")
+                import traceback
+                traceback.print_exc()
+                self.logger.error(f"❌ ERRO candlestick {symbol} {timeframe}: {e}")
         return {'signals': signals}
    
 

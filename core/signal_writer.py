@@ -289,15 +289,19 @@ class EnhancedTradingSignal:
             return [], []
 
     def _calculate_atr(self, data: pd.DataFrame, period: int = 14) -> float:
-        """Calcula ATR (Average True Range)"""
+        """Calcula ATR (Average True Range) - COM DEBUG"""
         try:
             if data is None or len(data) < period + 2:
-                return self.entry_price * 0.015
+                fallback_atr = self.entry_price * 0.015
+                print(f"🔧 ATR fallback usado: {fallback_atr:.4f} (dados insuficientes)")
+                return fallback_atr
             
             df = data.iloc[:-1].copy() if len(data) > 1 else data.copy()
             
             if len(df) < period:
-                return self.entry_price * 0.015
+                fallback_atr = self.entry_price * 0.015
+                print(f"🔧 ATR fallback usado: {fallback_atr:.4f} (período insuficiente)")
+                return fallback_atr
             
             # Calcula True Range
             df['prev_close'] = df['close_price'].shift(1)
@@ -311,21 +315,26 @@ class EnhancedTradingSignal:
             # Validação
             min_atr = self.entry_price * 0.005
             max_atr = self.entry_price * 0.03
-            atr = max(min_atr, min(max_atr, atr))
+            atr_final = max(min_atr, min(max_atr, atr)) if pd.notna(atr) and atr > 0 else self.entry_price * 0.015
             
-            return float(atr)
+            print(f"🔧 ATR calculado: {atr_final:.4f} para {self.symbol} (entry: {self.entry_price:.4f})")
+            return float(atr_final)
             
         except Exception as e:
-            return self.entry_price * 0.015
-
+            fallback_atr = self.entry_price * 0.015
+            print(f"🔧 ATR ERRO, usando fallback: {fallback_atr:.4f} - {e}")
+            return fallback_atr
+    
     def _calculate_fallback_stop_loss(self) -> float:
-        """Stop loss de emergência"""
+        """Stop loss de emergência - CORRIGIDO"""
         stop_percentage = 0.02  # 2% conservador
         
         if 'BUY' in self.signal_type:
-            return self.entry_price * (1 - stop_percentage)
+            # Para LONG: stop deve ser MENOR que entry (subtrai)
+            return self.entry_price * (1 - stop_percentage)  # entry * 0.98
         else:
-            return self.entry_price * (1 + stop_percentage)
+            # Para SHORT: stop deve ser MAIOR que entry (soma)
+            return self.entry_price * (1 + stop_percentage)  # entry * 1.02
 
     def _calculate_fallback_targets(self) -> List[float]:
         """Targets de emergência - APENAS 2"""
@@ -348,44 +357,48 @@ class EnhancedTradingSignal:
         self.targets = [round(t, precision) for t in self.targets]
 
     def _validate_stop_and_targets(self):
-        """Valida stop loss e targets - APENAS 2 TARGETS"""
+        """Valida stop loss e targets - CORRIGIDO"""
         try:
-            # Valida stop loss
-            if 'BUY' in self.signal_type and self.stop_loss >= self.entry_price:
-                self.stop_loss = self.entry_price * 0.98
-                self.logger.warning(f"Stop loss LONG corrigido para {self.symbol}: {self.stop_loss:.4f}")
-                
-            elif 'SELL' in self.signal_type and self.stop_loss <= self.entry_price:
-                self.stop_loss = self.entry_price * 1.02
-                self.logger.warning(f"Stop loss SHORT corrigido para {self.symbol}: {self.stop_loss:.4f}")
+            # VALIDAÇÃO 1: Direção correta do stop loss
+            if 'BUY' in self.signal_type:
+                if self.stop_loss >= self.entry_price:
+                    # Para LONG: stop deve ser MENOR que entry
+                    self.stop_loss = self.entry_price * 0.985  # 1.5% abaixo
+                    self.logger.warning(f"🔧 Stop loss LONG corrigido para {self.symbol}: {self.stop_loss:.4f} (era >= entry)")
             
-            # 🚨 GARANTE APENAS 2 TARGETS
+            elif 'SELL' in self.signal_type:
+                if self.stop_loss <= self.entry_price:
+                    # Para SHORT: stop deve ser MAIOR que entry  
+                    self.stop_loss = self.entry_price * 1.015  # 1.5% acima
+                    self.logger.warning(f"🔧 Stop loss SHORT corrigido para {self.symbol}: {self.stop_loss:.4f} (era <= entry)")
+            
+            # VALIDAÇÃO 2: Garante apenas 2 targets
             if len(self.targets) > 2:
                 self.targets = self.targets[:2]
-                self.logger.debug(f"Limitado a 2 targets para {self.symbol}")
+                self.logger.debug(f"🎯 Limitado a 2 targets para {self.symbol}")
             elif len(self.targets) < 2:
                 self.targets = self._calculate_fallback_targets()
-                self.logger.warning(f"Targets insuficientes para {self.symbol}, usando fallback")
+                self.logger.warning(f"🎯 Targets insuficientes para {self.symbol}, calculados automaticamente")
             
-            # Valida targets
+            # VALIDAÇÃO 3: Targets na direção correta
             for i, target in enumerate(self.targets):
-                if 'BUY' in self.signal_type and target <= self.entry_price:
-                    self.targets[i] = self.entry_price * (1.02 + i * 0.02)
-                    self.logger.warning(f"Target {i+1} LONG corrigido para {self.symbol}: {self.targets[i]:.4f}")
-                    
-                elif 'SELL' in self.signal_type and target >= self.entry_price:
-                    self.targets[i] = self.entry_price * (0.98 - i * 0.02)
-                    self.logger.warning(f"Target {i+1} SHORT corrigido para {self.symbol}: {self.targets[i]:.4f}")
+                if 'BUY' in self.signal_type:
+                    if target <= self.entry_price:
+                        self.targets[i] = self.entry_price * (1.02 + i * 0.02)  # 2%, 4%
+                        self.logger.warning(f"🎯 Target {i+1} LONG corrigido: {self.targets[i]:.4f}")
+                else:  # SELL
+                    if target >= self.entry_price:
+                        self.targets[i] = self.entry_price * (0.98 - i * 0.02)  # -2%, -4%
+                        self.logger.warning(f"🎯 Target {i+1} SHORT corrigido: {self.targets[i]:.4f}")
             
-            # Verifica se targets estão em ordem crescente/decrescente
+            # VALIDAÇÃO 4: Ordem dos targets
             if 'BUY' in self.signal_type:
                 self.targets.sort()  # Crescente para LONG
             else:
                 self.targets.sort(reverse=True)  # Decrescente para SHORT
                 
         except Exception as e:
-            self.logger.error(f"Erro na validação de stop/targets para {self.symbol}: {e}")
-
+            self.logger.error(f"❌ Erro na validação de stop/targets para {self.symbol}: {e}")
 
 class EnhancedSignalWriter:
     """Signal Writer LÓGICA CORRIGIDA - 2 targets apenas"""
@@ -473,23 +486,24 @@ class EnhancedSignalWriter:
         except Exception as e:
             self.logger.error(f"Erro ao criar tabelas: {e}")
     
+   
     def check_existing_active_signals(self, symbol: str) -> bool:
         """
-        LÓGICA CORRIGIDA: Verifica se há sinal que bloqueia novos sinais
+        CORRIGIDO: Verifica se há sinal que bloqueia novos sinais
         
         BLOQUEAR quando:
         - Status = ACTIVE (nenhum target atingido)
-        - Status = TARGET_HIT + targets_hit = [true, false] (só primeiro target)
+        - Status = TARGET_1_HIT (só primeiro target)
         
         PERMITIR quando:
+        - Status = TARGET_2_HIT (ambos targets atingidos)
         - Status = STOP_HIT (stop loss atingido)
-        - Status = TARGET_HIT + targets_hit = [true, true] (ambos targets)
         - Status = EXPIRED ou MANUALLY_CLOSED
         """
         query = f"""
         SELECT id, status, targets_hit, created_at 
         FROM {self.signals_table} 
-        WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_HIT')
+        WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_1_HIT')
         ORDER BY created_at DESC
         """
         
@@ -510,40 +524,32 @@ class EnhancedSignalWriter:
                     except:
                         targets_hit = [False, False]
                     
-                    # 🚨 LÓGICA CORRIGIDA:
+                    # LÓGICA CORRIGIDA:
                     should_block = False
                     
                     if status == 'ACTIVE':
-                        # ACTIVE sempre bloqueia
                         should_block = True
-                        reason = "ACTIVE (nenhum target atingido)"
+                        reason = "ACTIVE (aguardando resultado)"
                         
-                    elif status == 'TARGET_HIT':
-                        # TARGET_HIT bloqueia apenas se targets_hit = [true, false]
-                        if len(targets_hit) >= 2:
-                            if targets_hit[0] and not targets_hit[1]:
-                                should_block = True
-                                reason = "TARGET_HIT parcial [true, false]"
-                            elif targets_hit[0] and targets_hit[1]:
-                                should_block = False
-                                reason = "TARGET_HIT completo [true, true] - LIBERA"
-                            else:
-                                should_block = True  # [false, false] ou outras combinações
-                                reason = f"TARGET_HIT ambíguo {targets_hit}"
-                        else:
-                            should_block = True
-                            reason = "TARGET_HIT sem targets_hit válido"
+                    elif status == 'TARGET_1_HIT':
+                        should_block = True  # TARGET_1_HIT ainda bloqueia
+                        reason = "TARGET_1_HIT (ainda ativo)"
                     
                     if should_block:
                         blocking_signals.append((signal_id, status, targets_hit, reason))
-                        self.logger.info(f"🚫 SINAL BLOQUEADOR para {symbol}: {signal_id} | Status: {status} | Targets: {targets_hit} | Motivo: {reason}")
+                        self.logger.debug(f"🚫 BLOQUEIO para {symbol}: {signal_id} | Status: {status} | Motivo: {reason}")
                 
-                return len(blocking_signals) > 0
+                has_blocking = len(blocking_signals) > 0
+                if has_blocking:
+                    self.logger.info(f"🚫 {symbol} BLOQUEADO: {len(blocking_signals)} sinal(s) ativo(s)")
                 
+                return has_blocking
+                    
         except Exception as e:
             self.logger.error(f"Erro ao verificar sinais bloqueadores para {symbol}: {e}")
             return False
-
+   
+   
     def write_enhanced_signal(self, signal: EnhancedTradingSignal) -> bool:
         """Escreve sinal no banco com LÓGICA CORRIGIDA"""
         
@@ -563,6 +569,14 @@ class EnhancedSignalWriter:
             self._backup_signal(signal, "blocked_existing_active_signal")
             return False
         
+        # 🚨 LOG DE DEBUG PARA ENTENDER O QUE ESTÁ ACONTECENDO
+        self.logger.info(f"🔍 TENTANDO GRAVAR: {signal.symbol} | Status será: {signal.status}")
+
+        # Verifica se já existe sinal ativo (log detalhado)
+        existing_check = self.check_existing_active_signals(signal.symbol)
+        if existing_check:
+            self.logger.warning(f"⚠️ ATENÇÃO: {signal.symbol} tem sinal ativo, mas prosseguindo com gravação")
+                
         sql = f"""
         INSERT OR REPLACE INTO {self.signals_table} (
             id, symbol, signal_type, timeframe, detector_type, detector_name,
