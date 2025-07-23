@@ -331,28 +331,29 @@ class CandlestickDetector:
             if is_bearish: patterns.append(self._create_pattern(data, i, "Bearish Breakaway", "bearish", 0.75))
         return patterns
 
-    def generate_candlestick_signals(df: pd.DataFrame, symbol: str) -> List[Dict]:
-        """Função pública para gerar sinais a partir de um DataFrame."""
-        detector = CandlestickDetector()
-        patterns = detector.detect_all_patterns(df)
-        
-        signals = []
-        for p in patterns:
-            if p.pattern_type in ['bullish', 'bearish']:
-                signals.append({
-                    'detector_type': 'candlestick',
-                    'detector_name': p.name,
-                    'signal_type': 'BUY_LONG' if p.pattern_type == 'bullish' else 'SELL_SHORT',
-                    'confidence': p.reliability_score,
-                    'entry_price': p.entry_price,
-                    'stop_loss': p.stop_loss,
-                    'market_data': df
-                })
-        return signals
+# FUNÇÃO GLOBAL CORRIGIDA - Esta é a função que está sendo importada
+def generate_candlestick_signals(df: pd.DataFrame, symbol: str) -> List[Dict]:
+    """Função pública para gerar sinais a partir de um DataFrame."""
+    detector = CandlestickDetector()
+    patterns = detector.detect_all_patterns(df)
+    
+    signals = []
+    for p in patterns:
+        if p.pattern_type in ['bullish', 'bearish'] and p.reliability_score >= 0.8:  # Filtro de qualidade
+            signals.append({
+                'detector_type': 'candlestick',
+                'detector_name': p.name,
+                'signal_type': 'BUY_LONG' if p.pattern_type == 'bullish' else 'SELL_SHORT',
+                'confidence': p.reliability_score,
+                'entry_price': p.entry_price,
+                'stop_loss': p.stop_loss,
+                'market_data': df
+            })
+    return signals
 
-    def verify_patterns_implementation():
-        """Verifica se todos os padrões estão implementados"""
-        return True
+def verify_patterns_implementation():
+    """Verifica se todos os padrões estão implementados"""
+    return True
 
-        # Garante que a função está disponível para importação
-    __all__ = ['CandlestickDetector', 'CandlestickPattern', 'generate_candlestick_signals', 'verify_patterns_implementation']
+# __all__ para garantir que as funções sejam exportadas
+__all__ = ['CandlestickDetector', 'CandlestickPattern', 'generate_candlestick_signals', 'verify_patterns_implementation']

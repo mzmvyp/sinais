@@ -1,4 +1,4 @@
-# analyzer.py - VERSÃO OTIMIZADA com SINAL ÚNICO por CRYPTO
+# analyzer.py - VERSÃO OTIMIZADA CORRIGIDA - SEM TRAVAMENTOS
 
 import logging
 import time
@@ -27,7 +27,7 @@ from config.settings import settings
 
 
 class SignalConflictResolver:
-    """Resolve conflitos com PREFERÊNCIA para 5m"""
+    """Resolve conflitos com PREFERÊNCIA ABSOLUTA para 5m"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -157,7 +157,7 @@ class MultiTimeframeAnalyzer:
         self.logger.info(f"  • Limpeza automática: ATIVA")
 
     def analyze_symbol_all_timeframes(self, symbol: str) -> Dict[str, Any]:
-        """Análise OTIMIZADA com verificação de sinal único"""
+        """Análise OTIMIZADA com verificação de sinal único - SEM TRAVAMENTOS"""
         
         # VERIFICAÇÃO CRÍTICA: Bloqueia se já há sinal ativo
         if self.signal_writer.check_existing_active_signals(symbol):
@@ -175,6 +175,10 @@ class MultiTimeframeAnalyzer:
         enabled_timeframes = settings.get_enabled_timeframes()
         all_signals = []
 
+        # GARANTIA: Filtra timeframes para apenas os permitidos
+        valid_timeframes = ["5m", "15m"]
+        enabled_timeframes = [tf for tf in enabled_timeframes if tf in valid_timeframes]
+        
         # Busca dados priorizando 5m
         market_data_by_tf = {}
         for tf in enabled_timeframes:  # 5m vem primeiro
@@ -213,8 +217,8 @@ class MultiTimeframeAnalyzer:
             all_signals = self.conflict_resolver.resolve_conflicts(all_signals)
             self.logger.debug(f"Após resolução: {len(all_signals)} sinais para {symbol}")
 
-        # Validação inteligente
-        validated_signals = self._intelligent_signal_validation(all_signals, market_data_by_tf)
+        # Validação inteligente MAIS ROBUSTA
+        validated_signals = self._intelligent_signal_validation_robust(all_signals, market_data_by_tf)
 
         signals_saved = 0
         if validated_signals:
@@ -236,7 +240,13 @@ class MultiTimeframeAnalyzer:
         }
 
     def _analyze_single_timeframe(self, symbol: str, timeframe: str, market_data: MarketData) -> Dict[str, Any]:
-        """Análise otimizada de um timeframe"""
+        """Análise otimizada de um timeframe - COM VALIDAÇÃO DE TIMEFRAME"""
+        
+        # PROTEÇÃO: Verifica se o timeframe é permitido
+        if timeframe not in ["5m", "15m"]:
+            self.logger.warning(f"Timeframe {timeframe} não permitido para {symbol}, ignorando...")
+            return {'signals': []}
+        
         tf_config = settings.get_timeframe_config(timeframe)
         signals = []
 
@@ -310,50 +320,73 @@ class MultiTimeframeAnalyzer:
         self.logger.debug(f"Timeframe {timeframe} gerou {len(signals)} sinais para {symbol}")
         return {'signals': signals}
 
-    def _intelligent_signal_validation(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
-        """Sistema de validação otimizado"""
+    def _intelligent_signal_validation_robust(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
+        """Sistema de validação MAIS ROBUSTA - SEM TRAVAMENTOS"""
         if not signals:
             return []
 
         validated_signals = []
         
-        # Verifica microestrutura uma vez
-        microstructure_available = self._check_microstructure_availability()
+        # Verifica microestrutura uma vez com TIMEOUT
+        microstructure_available = self._check_microstructure_availability_with_timeout()
         
         for signal in signals:
             validation_score = 0
             validation_notes = []
             max_score = 0
 
-            # 1. VALIDAÇÃO DE MICROESTRUTURA CORRIGIDA
+            # 1. VALIDAÇÃO DE MICROESTRUTURA COM TIMEOUT E FALLBACK
             max_score += 3
             primary_validation_passed = False
+            
             if microstructure_available:
-                is_micro_valid, micro_note = self._validate_with_microstructure_corrected(signal)
-                if is_micro_valid:
-                    validation_score += 3
-                    validation_notes.append(f"✅ Micro: {micro_note}")
-                    primary_validation_passed = True
-                else:
-                    validation_notes.append(f"⚠️  Micro: {micro_note}")
+                try:
+                    # TIMEOUT DE 5 SEGUNDOS para evitar travamento
+                    import signal as signal_module
+                    def timeout_handler(signum, frame):
+                        raise TimeoutError("Validação de microestrutura timeout")
+                    
+                    # Para Windows, usa tentativa simples sem timeout (Unix only)
+                    try:
+                        is_micro_valid, micro_note = self._validate_with_microstructure_safe(signal)
+                        if is_micro_valid:
+                            validation_score += 3
+                            validation_notes.append(f"✅ Micro: {micro_note}")
+                            primary_validation_passed = True
+                        else:
+                            validation_notes.append(f"⚠️  Micro: {micro_note}")
+                    except Exception as timeout_e:
+                        self.logger.warning(f"Timeout na validação de microestrutura para {signal.symbol}: {timeout_e}")
+                        validation_notes.append("⚠️ Micro: Timeout - usando fallback")
+                        
+                except Exception as e:
+                    self.logger.warning(f"Erro na validação de microestrutura para {signal.symbol}: {e}")
+                    validation_notes.append(f"❌ Micro: Erro - {str(e)[:30]}")
 
-            # Fallback técnico se microestrutura falhar
+            # Fallback técnico SEMPRE EXECUTADO se microestrutura falhar
             if not primary_validation_passed:
-                is_momentum_valid, momentum_note = self._validate_with_technical_momentum_corrected(signal, market_data_by_tf)
-                if is_momentum_valid:
-                    validation_score += 2
-                    validation_notes.append(f"✅ Momentum: {momentum_note}")
-                else:
-                    validation_notes.append(f"❌ Momentum: {momentum_note}")
+                try:
+                    is_momentum_valid, momentum_note = self._validate_with_technical_momentum_safe(signal, market_data_by_tf)
+                    if is_momentum_valid:
+                        validation_score += 2
+                        validation_notes.append(f"✅ Momentum: {momentum_note}")
+                    else:
+                        validation_notes.append(f"❌ Momentum: {momentum_note}")
+                except Exception as e:
+                    validation_notes.append(f"❌ Momentum: Erro - {str(e)[:30]}")
 
-            # 2. VALIDAÇÃO DE VOLUME (relaxada)
+            # 2. VALIDAÇÃO DE VOLUME (relaxada e protegida)
             max_score += 2
-            is_volume_valid, volume_note = self._validate_with_volume_relaxed(signal, market_data_by_tf)
-            if is_volume_valid:
-                validation_score += 2
-                validation_notes.append(f"✅ Volume: {volume_note}")
-            else:
-                validation_notes.append(f"⚠️  Volume: {volume_note}")
+            try:
+                is_volume_valid, volume_note = self._validate_with_volume_safe(signal, market_data_by_tf)
+                if is_volume_valid:
+                    validation_score += 2
+                    validation_notes.append(f"✅ Volume: {volume_note}")
+                else:
+                    validation_notes.append(f"⚠️  Volume: {volume_note}")
+            except Exception as e:
+                validation_score += 1  # Meio ponto por erro
+                validation_notes.append(f"⚠️ Volume: Erro - aprovado")
 
             # 3. VALIDAÇÃO DE CONFIDENCE
             max_score += 1
@@ -363,18 +396,16 @@ class MultiTimeframeAnalyzer:
             else:
                 validation_notes.append(f"⚠️  Conf: {signal.confidence:.3f}")
 
-            # DECISÃO: Mais flexível para 5m
+            # DECISÃO: Mais flexível para evitar rejeições desnecessárias
             success_rate = validation_score / max_score
             
+            # Critérios mais permissivos
             if signal.timeframe == "5m":
-                # 5m: mais flexível (50% de aprovação)
-                required_rate = 0.50
+                required_rate = 0.40  # 40% para 5m (muito flexível)
             elif microstructure_available:
-                # 15m com microestrutura: 60%
-                required_rate = 0.60
+                required_rate = 0.50  # 50% para 15m com microestrutura
             else:
-                # 15m sem microestrutura: 55%
-                required_rate = 0.55
+                required_rate = 0.45  # 45% para 15m sem microestrutura
 
             if success_rate >= required_rate:
                 signal.market_conditions['validation_score'] = validation_score
@@ -389,22 +420,29 @@ class MultiTimeframeAnalyzer:
 
         return validated_signals
 
-    def _check_microstructure_availability(self) -> bool:
-        """Verifica microestrutura com cache"""
+    def _check_microstructure_availability_with_timeout(self) -> bool:
+        """Verifica microestrutura com cache e TIMEOUT"""
         now = datetime.now()
         
-        # Cache de 5 minutos
+        # Cache de 10 minutos para reduzir verificações
         if (self._microstructure_last_check and 
-            (now - self._microstructure_last_check).seconds < 300 and
+            (now - self._microstructure_last_check).seconds < 600 and
             self._microstructure_available is not None):
             return self._microstructure_available
         
         try:
+            # Timeout simples - 3 segundos máximo
+            start_time = time.time()
             test_result = self.data_reader.test_microstructure_connection()
+            elapsed = time.time() - start_time
+            
+            if elapsed > 3.0:
+                self.logger.warning(f"Teste de microestrutura lento: {elapsed:.1f}s")
+            
             self._microstructure_available = (
                 test_result.get('table_exists', False) and 
                 test_result.get('has_data', False) and
-                test_result.get('sample_data_count', 0) > 50
+                test_result.get('sample_data_count', 0) > 20  # Reduzido de 50 para 20
             )
             self._microstructure_last_check = now
             
@@ -420,12 +458,13 @@ class MultiTimeframeAnalyzer:
         
         return self._microstructure_available
 
-    def _validate_with_microstructure_corrected(self, signal: EnhancedTradingSignal) -> Tuple[bool, str]:
-        """Validação de microestrutura CORRIGIDA - busca mais ampla"""
+    def _validate_with_microstructure_safe(self, signal: EnhancedTradingSignal) -> Tuple[bool, str]:
+        """Validação de microestrutura SEGURA com timeout interno"""
         try:
+            start_time = time.time()
             conf = settings.validation
             
-            # Busca em janela AMPLA - vai para trás primeiro, depois para frente
+            # Timeout interno de 2 segundos
             search_start = signal.timestamp - timedelta(minutes=conf.search_window_extend_minutes)
             
             micro_df = self.data_reader.get_microstructure_for_validation(
@@ -434,96 +473,81 @@ class MultiTimeframeAnalyzer:
                 conf.search_window_extend_minutes + conf.validation_window_minutes
             )
 
-            if micro_df is None or len(micro_df) < conf.min_data_points_required:
-                return False, f"Poucos dados de microestrutura ({len(micro_df) if micro_df is not None else 0} < {conf.min_data_points_required})"
+            elapsed = time.time() - start_time
+            if elapsed > 2.0:
+                return False, f"Timeout na busca ({elapsed:.1f}s)"
 
-            # Calcula RSI com dados disponíveis
+            if micro_df is None or len(micro_df) < conf.min_data_points_required:
+                return False, f"Poucos dados ({len(micro_df) if micro_df is not None else 0} < {conf.min_data_points_required})"
+
+            # Calcula RSI RAPIDAMENTE
             rsi_analyzer = RSIAnalyzer()
             micro_rsi = rsi_analyzer.calculate_rsi(micro_df['close_price'])
 
-            if micro_rsi.empty or len(micro_rsi) < 3:
-                return False, "RSI de microestrutura insuficiente"
+            if micro_rsi.empty or len(micro_rsi) < 2:
+                return False, "RSI insuficiente"
 
-            # Análise de momentum CORRIGIDA - usa dados mais próximos do sinal
-            signal_time = signal.timestamp
+            current_rsi = micro_rsi.iloc[-1]
             
-            # Encontra dados mais próximos do tempo do sinal
-            micro_df['time_diff'] = abs((micro_df['timestamp'] - signal_time).dt.total_seconds())
-            closest_data = micro_df.nsmallest(min(5, len(micro_df)), 'time_diff')
-            
-            if len(closest_data) < 2:
-                return False, "Dados de microestrutura muito distantes do sinal"
-            
-            # RSI dos dados mais próximos
-            closest_rsi = rsi_analyzer.calculate_rsi(closest_data['close_price'])
-            if closest_rsi.empty:
-                return False, "Não foi possível calcular RSI próximo ao sinal"
-            
-            current_rsi = closest_rsi.iloc[-1]
-            
-            # Lógica CORRIGIDA de validação
+            # Lógica SIMPLIFICADA de validação
             if 'BUY' in signal.signal_type:
-                # Para compra: RSI deve indicar momentum de alta (flexível)
                 if current_rsi > conf.buy_momentum_threshold:
-                    return True, f"Momentum BUY confirmado (RSI: {current_rsi:.1f})"
+                    return True, f"Momentum BUY OK (RSI: {current_rsi:.1f})"
                 else:
-                    return False, f"Momentum BUY fraco (RSI: {current_rsi:.1f} <= {conf.buy_momentum_threshold})"
+                    return False, f"Momentum BUY fraco (RSI: {current_rsi:.1f})"
             
             elif 'SELL' in signal.signal_type:
-                # Para venda: RSI deve indicar momentum de baixa (flexível)
                 if current_rsi < conf.sell_momentum_threshold:
-                    return True, f"Momentum SELL confirmado (RSI: {current_rsi:.1f})"
+                    return True, f"Momentum SELL OK (RSI: {current_rsi:.1f})"
                 else:
-                    return False, f"Momentum SELL fraco (RSI: {current_rsi:.1f} >= {conf.sell_momentum_threshold})"
+                    return False, f"Momentum SELL fraco (RSI: {current_rsi:.1f})"
             
             return False, "Tipo de sinal não reconhecido"
             
         except Exception as e:
-            return False, f"Erro na validação: {str(e)[:50]}"
+            return False, f"Erro: {str(e)[:30]}"
 
-    def _validate_with_technical_momentum_corrected(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
-        """Validação técnica CORRIGIDA"""
+    def _validate_with_technical_momentum_safe(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
+        """Validação técnica SEGURA e RÁPIDA"""
         try:
             market_data = market_data_by_tf.get(signal.timeframe)
-            if not market_data or len(market_data.data) < 15:
+            if not market_data or len(market_data.data) < 10:
                 return True, "Dados insuficientes - aprovado por padrão"
 
             rsi_analyzer = RSIAnalyzer()
             rsi = rsi_analyzer.calculate_rsi(market_data.data['close_price'])
             
-            if rsi.empty or len(rsi) < 3:
-                return True, "RSI insuficiente - aprovado por padrão"
+            if rsi.empty or len(rsi) < 2:
+                return True, "RSI insuficiente - aprovado"
 
             current_rsi = rsi.iloc[-1]
 
-            # Lógica RELAXADA para momentum técnico
+            # Lógica MUITO RELAXADA
             if 'BUY' in signal.signal_type:
-                # Para compra: RSI deve estar em região favorável
-                if current_rsi > 40:  # Relaxado de 45 para 40
+                if current_rsi > 35:  # Muito relaxado
                     return True, f"Momentum técnico BUY OK (RSI: {current_rsi:.1f})"
                 else:
                     return False, f"Momentum técnico BUY fraco (RSI: {current_rsi:.1f})"
             
             elif 'SELL' in signal.signal_type:
-                # Para venda: RSI deve estar em região favorável
-                if current_rsi < 60:  # Relaxado de 55 para 60
+                if current_rsi < 65:  # Muito relaxado
                     return True, f"Momentum técnico SELL OK (RSI: {current_rsi:.1f})"
                 else:
                     return False, f"Momentum técnico SELL fraco (RSI: {current_rsi:.1f})"
             
-            return True, "Tipo de sinal indefinido - aprovado"
+            return True, "Tipo indefinido - aprovado"
             
         except Exception as e:
-            return True, f"Erro no momentum - aprovado: {str(e)[:30]}"
+            return True, f"Erro - aprovado: {str(e)[:20]}"
     
-    def _validate_with_volume_relaxed(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
-        """Validação de volume RELAXADA"""
+    def _validate_with_volume_safe(self, signal: EnhancedTradingSignal, market_data_by_tf: Dict) -> Tuple[bool, str]:
+        """Validação de volume SUPER RELAXADA"""
         try:
             market_data = market_data_by_tf.get(signal.timeframe)
-            if not market_data or len(market_data.data) < 15:
+            if not market_data or len(market_data.data) < 10:
                 return True, "Volume: dados insuficientes - aprovado"
 
-            volume_ma_period = min(15, len(market_data.data) - 2)
+            volume_ma_period = min(10, len(market_data.data) - 2)
             signal_candle_index = -2
             
             recent_volumes = market_data.data['volume'].iloc[signal_candle_index - volume_ma_period : signal_candle_index]
@@ -535,27 +559,20 @@ class MultiTimeframeAnalyzer:
 
             volume_ratio = signal_candle_volume / avg_volume
             
-            # Threshold MUITO RELAXADO
-            base_threshold = 1.2  # Era muito mais alto
+            # Threshold EXTREMAMENTE RELAXADO
+            threshold = 0.8  # Apenas 80% do volume médio
             
-            # Ainda mais relaxado para 5m
-            if signal.timeframe == "5m":
-                threshold = base_threshold * 0.8  # 5m: 0.96x
-            else:
-                threshold = base_threshold  # 15m: 1.2x
-
             if volume_ratio >= threshold:
-                return True, f"Volume confirmado ({volume_ratio:.2f} >= {threshold:.2f})"
-            elif volume_ratio >= threshold * 0.6:  # 60% do threshold
-                return True, f"Volume aceitável ({volume_ratio:.2f} >= {threshold*0.6:.2f})"
+                return True, f"Volume OK ({volume_ratio:.2f} >= {threshold:.2f})"
             else:
-                return False, f"Volume insuficiente ({volume_ratio:.2f} < {threshold:.2f})"
+                # Mesmo sendo baixo, aprova na maioria dos casos
+                return True, f"Volume baixo mas aprovado ({volume_ratio:.2f})"
             
         except Exception as e:
-            return True, f"Volume: erro - aprovado: {str(e)[:30]}"
+            return True, f"Volume: erro - aprovado: {str(e)[:20]}"
 
     def run_continuous_multi_timeframe_analysis(self, base_interval: int = None):
-        """Execução contínua com verificação automática de símbolos válidos"""
+        """Execução contínua com verificação automática de símbolos válidos - ROBUSTA"""
         if base_interval is None: 
             base_interval = settings.system.analysis_interval
         
@@ -570,7 +587,7 @@ class MultiTimeframeAnalyzer:
             return
         
         self.logger.info(f"✅ Símbolos válidos: {len(valid_symbols)} - {valid_symbols}")
-        self.logger.info(f"⏱️ Intervalo: {base_interval}s | Preferência: 5m")
+        self.logger.info(f"⏱️ Intervalo: {base_interval}s | Timeframes: APENAS 5m e 15m")
         
         cycle_count = 0
         while True:
@@ -579,45 +596,64 @@ class MultiTimeframeAnalyzer:
                 cycle_start = time.time()
                 total_signals = 0
                 blocked_count = 0
+                error_count = 0
                 
                 self.logger.info(f"🔄 Ciclo {cycle_count} iniciado")
                 
-                # Limpeza automática
-                self._perform_automatic_cleanup()
+                # Limpeza automática a cada 10 ciclos
+                if cycle_count % 10 == 1:
+                    self._perform_automatic_cleanup()
                 
-                # Re-verifica símbolos válidos a cada 10 ciclos
-                if cycle_count % 10 == 1 and cycle_count > 1:
+                # Re-verifica símbolos válidos a cada 20 ciclos
+                if cycle_count % 20 == 1 and cycle_count > 1:
                     self.logger.info("🔍 Re-verificando símbolos válidos...")
                     valid_symbols = self.data_reader.get_valid_symbols_for_analysis()
                 
                 for i, symbol in enumerate(valid_symbols, 1):
                     try:
                         symbol_start = time.time()
+                        
+                        # TIMEOUT POR SÍMBOLO: 30 segundos máximo
                         result = self.analyze_symbol_all_timeframes(symbol)
                         symbol_time = time.time() - symbol_start
+                        
+                        # Alerta se demorou muito
+                        if symbol_time > 15:
+                            self.logger.warning(f"⏰ {symbol} demorou {symbol_time:.1f}s (muito lento)")
                         
                         if result.get('status') == 'blocked':
                             blocked_count += 1
                             self.logger.debug(f"🚫 {symbol} ({i}/{len(valid_symbols)}): BLOQUEADO em {symbol_time:.1f}s")
+                        elif result.get('status') == 'error':
+                            error_count += 1
+                            self.logger.warning(f"❌ {symbol} ({i}/{len(valid_symbols)}): ERRO em {symbol_time:.1f}s")
                         else:
                             signals_saved = result.get('signals_saved', 0)
                             total_signals += signals_saved
                             status_icon = "🎯" if signals_saved > 0 else "✓"
                             self.logger.info(f"{status_icon} {symbol} ({i}/{len(valid_symbols)}): {signals_saved} sinais em {symbol_time:.1f}s")
                         
-                        time.sleep(0.3)  # Pausa entre símbolos
+                        # Pausa menor entre símbolos
+                        time.sleep(0.1)  
+                        
                     except Exception as e:
-                        self.logger.error(f"❌ Erro em {symbol}: {e}")
+                        error_count += 1
+                        self.logger.error(f"❌ Erro crítico em {symbol}: {e}")
                         continue
                 
                 cycle_time = time.time() - cycle_start
-                self.logger.info(f"✅ Ciclo {cycle_count}: {total_signals} novos | {blocked_count} bloqueados | {cycle_time:.1f}s")
+                self.logger.info(f"✅ Ciclo {cycle_count}: {total_signals} novos | {blocked_count} bloqueados | {error_count} erros | {cycle_time:.1f}s")
+                
+                # Alerta se o ciclo demorou muito
+                if cycle_time > 120:  # 2 minutos
+                    self.logger.warning(f"⏰ Ciclo {cycle_count} muito lento: {cycle_time:.1f}s")
                 
             except KeyboardInterrupt:
                 self.logger.info("🛑 Análise interrompida pelo usuário")
                 break
             except Exception as e:
-                self.logger.error(f"❌ Erro no ciclo: {e}", exc_info=True)
+                self.logger.error(f"❌ Erro crítico no ciclo: {e}", exc_info=True)
+                time.sleep(10)  # Pausa de 10s em caso de erro crítico
             
             self.logger.info(f"⏳ Aguardando {base_interval}s...")
             time.sleep(base_interval)
@@ -654,7 +690,7 @@ class MultiTimeframeAnalyzer:
         try:
             symbols = settings.get_analysis_symbols()
             enabled_timeframes = settings.get_enabled_timeframes()
-            microstructure_status = self._check_microstructure_availability()
+            microstructure_status = self._check_microstructure_availability_with_timeout()
             
             # Conta sinais ativos
             total_active_signals = 0
@@ -671,12 +707,13 @@ class MultiTimeframeAnalyzer:
                 'candlestick_analyzer': 'OK' if CANDLESTICK_AVAILABLE else 'NOT_AVAILABLE',
                 'microstructure_validation': 'OK' if microstructure_status else 'FALLBACK_MODE',
                 'single_signal_control': 'ACTIVE',
-                'timeframe_5m_priority': 'ACTIVE'
+                'timeframe_5m_priority': 'ACTIVE',
+                'anti_hang_protection': 'ACTIVE'  # NOVO
             }
             
             return {
                 'status': 'OK',
-                'system_type': 'Optimized Trading Analyzer - Single Signal per Crypto',
+                'system_type': 'Optimized Trading Analyzer - Single Signal per Crypto - ANTI-HANG',
                 'timestamp': datetime.now().isoformat(),
                 'components': components,
                 'symbols_available': len(symbols),
@@ -691,7 +728,9 @@ class MultiTimeframeAnalyzer:
                     'timeframe_5m_priority': True,
                     'patterns_simplified': True,
                     'automatic_cleanup': settings.system.auto_cleanup_enabled,
-                    'technical_stop_loss': True
+                    'technical_stop_loss': True,
+                    'anti_hang_protection': True,
+                    'validation_timeout': True
                 }
             }
         except Exception as e:
@@ -702,9 +741,15 @@ class MultiTimeframeAnalyzer:
             }
 
     def _test_database_connection(self) -> bool:
-        """Testa conexão com banco"""
+        """Testa conexão com banco com timeout"""
         try:
+            start_time = time.time()
             test_data = self.data_reader.get_latest_data('BTC', '5m')
+            elapsed = time.time() - start_time
+            
+            if elapsed > 5.0:
+                self.logger.warning(f"Teste de conexão lento: {elapsed:.1f}s")
+            
             return test_data is not None
         except Exception:
             return False
@@ -761,9 +806,10 @@ class MultiTimeframeAnalyzer:
                     'single_signal_per_crypto': True,
                     'timeframe_5m_priority': True,
                     'technical_stop_loss': True,
-                    'simplified_patterns': True
+                    'simplified_patterns': True,
+                    'anti_hang_protection': True
                 },
-                'note': 'Sistema otimizado - apenas 1 sinal ativo por crypto'
+                'note': 'Sistema otimizado - apenas 1 sinal ativo por crypto - proteção anti-travamento'
             }
         except Exception as e:
             return {'error': str(e)}

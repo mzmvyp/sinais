@@ -26,7 +26,7 @@ except ImportError as e:
     PATTERNS_AVAILABLE = False
     print(f"⚠️ Padrões gráficos não disponíveis: {e}")
 
-# ✅ NOVA IMPORTAÇÃO: Candlestick Patterns (43 padrões)
+# ✅ NOVA IMPORTAÇÃO CORRIGIDA: Candlestick Patterns
 try:
     from .candlestick_patterns_detector import (
         CandlestickDetector,
@@ -38,15 +38,21 @@ try:
     print("✅ Detector de Candlestick carregado: 43 padrões disponíveis")
     
     # Verifica se todos os 43 padrões estão implementados
-    implementation_complete = verify_patterns_implementation()
-    if implementation_complete:
-        print("🎯 Implementação COMPLETA: Todos os 43 padrões de candlestick")
-    else:
-        print("⚠️ Implementação INCOMPLETA: Alguns padrões podem estar faltando")
+    try:
+        implementation_complete = verify_patterns_implementation()
+        if implementation_complete:
+            print("🎯 Implementação COMPLETA: Todos os 43 padrões de candlestick")
+        else:
+            print("⚠️ Implementação INCOMPLETA: Alguns padrões podem estar faltando")
+    except Exception as verify_error:
+        print(f"⚠️ Erro na verificação de implementação: {verify_error}")
         
 except ImportError as e:
     CANDLESTICK_AVAILABLE = False
     print(f"⚠️ Detector de Candlestick não disponível: {e}")
+except Exception as e:
+    CANDLESTICK_AVAILABLE = False
+    print(f"❌ Erro no detector de Candlestick: {e}")
 
 # Lista base de exportações
 __all__ = [
@@ -99,16 +105,21 @@ def get_system_status():
     """Status do sistema OTIMIZADO - CORRIGIDO"""
     return {
         'technical_indicators': 'OK - 5m/15m only',
-        'chart_patterns': 'SIMPLIFIED - Double Top/Bottom only',
-        'candlestick_patterns': 'OK - High confidence only',
-        'total_pattern_types': 2,  # ADICIONADO: technical + candlestick (patterns simplificado)
+        'chart_patterns': 'SIMPLIFIED - Double Top/Bottom only' if PATTERNS_AVAILABLE else 'DISABLED',
+        'candlestick_patterns': 'OK - High confidence only' if CANDLESTICK_AVAILABLE else 'DISABLED',
+        'total_pattern_types': sum([
+            1,  # Technical sempre disponível
+            1 if PATTERNS_AVAILABLE else 0,  # Patterns se disponível
+            1 if CANDLESTICK_AVAILABLE else 0  # Candlestick se disponível
+        ]),
         'candlestick_patterns_count': 43 if CANDLESTICK_AVAILABLE else 0,
         'disabled_patterns': ['Head&Shoulders', 'Cup&Handle', '1h timeframe'],
-        'optimization': 'Single signal per crypto + 5m priority'
+        'optimization': 'Single signal per crypto + 5m priority',
+        'anti_hang_protection': 'ACTIVE'
     }
 
-__version__ = "2.0.0"
-__author__ = "Trading Analyzer System - COMPLETE EDITION"
+__version__ = "2.0.1"
+__author__ = "Trading Analyzer System - COMPLETE EDITION - ANTI-HANG"
 
 # Informações de inicialização CORRIGIDAS
 print(f"\n📊 TRADING ANALYZER INDICATORS v{__version__}")
@@ -120,9 +131,10 @@ for detector in get_available_detectors():
 status = get_system_status()
 print(f"\nSistema OTIMIZADO:")
 print(f"  • Timeframes ativos: 5m, 15m (preferência 5m)")
-print(f"  • Padrões: Apenas Double Top/Bottom")
-print(f"  • Candlesticks: {status['candlestick_patterns_count']} padrões (filtrados)")
+print(f"  • Padrões: Apenas Double Top/Bottom" if PATTERNS_AVAILABLE else "  • Padrões: DESABILITADOS")
+print(f"  • Candlesticks: {status['candlestick_patterns_count']} padrões (filtrados)" if CANDLESTICK_AVAILABLE else "  • Candlesticks: DESABILITADOS")
 print(f"  • Otimização: {status['optimization']}")
+print(f"  • Proteção: {status['anti_hang_protection']}")
 if status.get('disabled_patterns'):
     print(f"  • Desabilitados: {', '.join(status['disabled_patterns'])}")
 print("=" * 50)

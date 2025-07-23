@@ -1,0 +1,43 @@
+2025-07-22 22:58:47,634 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-22 22:58:47,635 - root - INFO - Inicializando Trading Analyzer...
+2025-07-22 22:58:47,635 - core.data_reader - INFO - DataReader inicializado (OTIMIZADO para 5m/15m).
+2025-07-22 22:58:47,635 - core.signal_writer - INFO - EnhancedSignalWriter inicializado com stop loss técnico (ATR)
+2025-07-22 22:58:47,635 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-22 22:58:47,636 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-22 22:58:47,636 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-22 22:58:47,637 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-22 22:58:47,637 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-22 22:58:47,637 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-22 22:58:47,637 - core.analyzer - INFO - MultiTimeframeAnalyzer OTIMIZADO inicializado:
+2025-07-22 22:58:47,637 - core.analyzer - INFO -   • Timeframes ativos: ['5m', '15m']
+2025-07-22 22:58:47,638 - core.analyzer - INFO -   • Preferência: 5m absoluta
+2025-07-22 22:58:47,638 - core.analyzer - INFO -   • Sinais únicos por crypto: ATIVO
+2025-07-22 22:58:47,638 - core.analyzer - INFO -   • Limpeza automática: ATIVA
+2025-07-22 22:58:47,638 - root - INFO - Trading Analyzer inicializado com sucesso
+2025-07-22 22:58:47,638 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-22 22:58:47,639 - core.analyzer - INFO - 🚀 Iniciando análise contínua OTIMIZADA
+2025-07-22 22:58:47,639 - core.analyzer - INFO - 🔍 Verificando símbolos com dados suficientes...
+2025-07-22 22:58:47,639 - core.data_reader - INFO - Verificando 8 símbolos...
+2025-07-22 22:58:48,082 - core.data_reader - INFO - ✅ Símbolos válidos: 8/8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-22 22:58:48,082 - core.analyzer - INFO - ✅ Símbolos válidos: 8 - ['BNB', 'BTC', 'ENA', 'ETH', 'NEAR', 'SOL', 'SUI', 'IMX']
+2025-07-22 22:58:48,083 - core.analyzer - INFO - ⏱️ Intervalo: 300s | Timeframes: APENAS 5m e 15m
+2025-07-22 22:58:48,083 - core.analyzer - INFO - 🔄 Ciclo 1 iniciado
+2025-07-22 22:58:48,086 - core.analyzer - INFO - Análise iniciada para: BNB
+2025-07-22 22:58:48,753 - root - WARNING - Stop loss muito distante corrigido para BNB: 765.2448
+2025-07-22 22:58:48,753 - core.analyzer - INFO - 🎯 Sinal de 5m de alta qualidade encontrado para BNB, priorizando...
+2025-07-22 22:58:48,754 - core.analyzer - WARNING - 🚨 CONFLITO: BNB - 2 sinais
+2025-07-22 22:58:48,754 - core.analyzer - INFO - ✅ PREFERÊNCIA 5m: BNB → Bullish Engulfing | Conf: 0.850
+2025-07-22 22:58:48,754 - core.analyzer - WARNING - 🚨 Total de conflitos resolvidos com PREFERÊNCIA 5m: 1
+2025-07-22 22:58:48,773 - core.analyzer - INFO - ✅ SINAL VALIDADO: BNB | 5m | Bullish Engulfing | Score: 3/6 (50.0%)
+2025-07-22 22:58:48,796 - core.signal_writer - INFO - ✅ SINAL TÉCNICO SALVO: BNB 5m | Entry: 797.1300 | Stop: 765.2448 (4.0%) | T1: 807.8900 (1.3%) | T2: 818.6500 (2.7%)
+2025-07-22 22:58:48,796 - core.analyzer - INFO - 🎯 SINAL ÚNICO APROVADO: BNB | 5m | Bullish Engulfing | BUY_LONG | Conf: 0.850
+2025-07-22 22:58:48,796 - core.analyzer - INFO - 🎯 BNB (1/8): 1 sinais em 0.7s
+2025-07-22 22:58:48,907 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para BTC: Já existe sinal ativo
+2025-07-22 22:58:49,009 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ENA: Já existe sinal ativo
+2025-07-22 22:58:49,111 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para ETH: Já existe sinal ativo
+2025-07-22 22:58:49,213 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para NEAR: Já existe sinal ativo
+2025-07-22 22:58:49,315 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SOL: Já existe sinal ativo
+2025-07-22 22:58:49,417 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para SUI: Já existe sinal ativo
+2025-07-22 22:58:49,519 - core.analyzer - INFO - 🚫 ANÁLISE BLOQUEADA para IMX: Já existe sinal ativo
+2025-07-22 22:58:49,620 - core.analyzer - INFO - ✅ Ciclo 1: 1 novos | 7 bloqueados | 0 erros | 1.5s
+2025-07-22 22:58:49,620 - core.analyzer - INFO - ⏳ Aguardando 300s...

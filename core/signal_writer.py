@@ -117,46 +117,19 @@ class EnhancedTradingSignal:
             # Em caso de erro, usa 1.5% do preço
             return self.entry_price * 0.015
 
-    def _calculate_technical_stop_loss(self) -> float:
-        """Calcula stop loss técnico baseado em ATR"""
-        try:
-            # Obtém configurações do timeframe
-            config = settings.get_stop_target_config(self.timeframe)
-            atr_multiplier = config['stop_atr_multiplier']
-            
-            # Calcula ATR
-            atr = self._calculate_atr(self.market_data, config['atr_period'])
-            
-            # Aplica multiplicador com limites
-            atr_multiplier = max(config['min_atr_mult'], 
-                               min(config['max_atr_mult'], atr_multiplier))
-            
-            stop_distance = atr * atr_multiplier
-            
-            if 'BUY' in self.signal_type:
-                # Para LONG: stop abaixo do preço de entrada
-                stop_loss = self.entry_price - stop_distance
-            else:
-                # Para SHORT: stop acima do preço de entrada
-                stop_loss = self.entry_price + stop_distance
-            
-            # Validação adicional: stop não pode ser muito próximo ou muito distante
-            max_stop_distance = self.entry_price * 0.04  # Máximo 4%
-            min_stop_distance = self.entry_price * 0.008  # Mínimo 0.8%
-            
-            if 'BUY' in self.signal_type:
-                stop_loss = max(stop_loss, self.entry_price - max_stop_distance)
-                stop_loss = min(stop_loss, self.entry_price - min_stop_distance)
-            else:
-                stop_loss = min(stop_loss, self.entry_price + max_stop_distance)
-                stop_loss = max(stop_loss, self.entry_price + min_stop_distance)
-            
-            return float(stop_loss)
-            
-        except Exception as e:
-            # Fallback: stop loss conservador
-            return self._calculate_fallback_stop_loss()
-
+    
+    def _calculate_technical_stop_loss(self):
+        from core.technical_stop_loss import TechnicalStopLossCalculator
+        
+        calculator = TechnicalStopLossCalculator()
+        result = calculator.calculate_intelligent_stop_loss(
+            self.market_data, 
+            self.signal_type, 
+            self.entry_price, 
+            self.timeframe
+        )
+        return result.recommended_stop
+    
     def _calculate_fallback_stop_loss(self) -> float:
         """Stop loss de emergência se ATR falhar"""
         stop_percentage = 0.02  # 2% conservador
