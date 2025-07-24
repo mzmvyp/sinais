@@ -375,16 +375,29 @@ def main():
     
     args = parser.parse_args()
     
-    # Configura logging
+    # Configura logging - CORREÇÃO APLICADA AQUI
     logging.basicConfig(
         level=getattr(logging, args.log_level),
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.StreamHandler(),
-            logging.FileHandler('real_time_monitor.log')
-        ]
+            # Adiciona encoding='utf-8' para o arquivo de log
+            logging.FileHandler('real_time_monitor.log', encoding='utf-8'),
+            # Adiciona encoding='utf-8' para a saída do console
+            logging.StreamHandler()
+        ],
+        # Em Python 3.9+, você pode adicionar 'encoding' aqui para simplificar
+        # encoding='utf-8' 
     )
-    
+
+    # Adiciona encoding para o StreamHandler (console) explicitamente para maior compatibilidade
+    # Esta é uma forma mais robusta para garantir que o console também use UTF-8
+    for handler in logging.getLogger().handlers:
+        if isinstance(handler, logging.StreamHandler):
+            handler.setFormatter(logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            ))
+
+
     print(f"🚀 INICIANDO MONITOR EM TEMPO REAL")
     print(f"⏱️ Intervalo: {args.interval} segundos")
     print(f"📊 Log level: {args.log_level}")

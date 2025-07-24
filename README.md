@@ -1,256 +1,431 @@
-# Trading Analyzer 🚀
-
-Sistema modular de análise técnica para criptomoedas com detecção de padrões e geração automática de sinais.
-
-## ✨ Características
-
-- **RSI com Detecção de Divergências**: Identifica divergências bullish/bearish automaticamente
-- **MACD com Cruzamentos**: Detecta cruzamentos da linha de sinal
-- **Sistema Modular**: Facilmente extensível para novos indicadores
-- **Análise Paralela**: Processa múltiplos symbols simultaneamente
-- **Banco de Dados SQLite**: Armazenamento eficiente de sinais
-- **Configuração Flexível**: Parâmetros ajustáveis por arquivo
-
-## 📁 Estrutura do Projeto
-
-```
-trading_analyzer/
-├── main.py                 # Ponto de entrada principal
-├── config/
-│   └── settings.py         # Configurações do sistema
-├── core/
-│   ├── analyzer.py         # Orquestrador principal
-│   ├── data_reader.py      # Leitura de dados
-│   └── signal_writer.py    # Escrita de sinais
-├── indicators/
-│   └── technical.py        # Indicadores técnicos (RSI, MACD)
-├── requirements.txt        # Dependências
-└── README.md              # Este arquivo
-```
-
-## 🚀 Instalação
-
-### 1. Pré-requisitos
-
-- Python 3.9+ (testado com 3.13.5)
-- Windows 10/11
-
-### 2. Instalar Dependências
-
-```bash
-# Criar ambiente virtual (recomendado)
-python -m venv trading_env
-trading_env\Scripts\activate
-
-# Instalar dependências
-pip install pandas numpy sqlalchemy schedule python-dotenv
-
-# Instalar TA-Lib (escolha uma opção):
-
-# Opção A: Pip direto (pode funcionar)
-pip install TA-Lib
-
-# Opção B: Se der erro, baixe do site do Christoph Gohlke
-# 1. Vá em: https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib
-# 2. Baixe o arquivo .whl para sua versão do Python
-# 3. pip install arquivo_baixado.whl
-
-# Opção C: Alternativa mais simples
-pip install pandas-ta
-```
-
-### 3. Configurar Caminhos
-
-Edite o arquivo `config/settings.py` e ajuste os caminhos dos bancos:
-
-```python
-@dataclass
-class DatabaseConfig:
-    stream_db_path: str = r"SEU_CAMINHO\crypto_stream.db"
-    signals_db_path: str = r"SEU_CAMINHO\trading_analyzer_v2.db"
-```
-
-## 🎯 Uso
-
-### Comandos Básicos
-
-```bash
-# Ver status do sistema
-python main.py --status
-
-# Analisar um symbol específico
-python main.py --analyze BTCUSDT
-
-# Analisar todos os symbols configurados
-python main.py --analyze-all
-
-# Análise contínua (executa em loop)
-python main.py --continuous
-
-# Análise contínua com intervalo personalizado (5 minutos)
-python main.py --continuous --interval 300
-```
-
-### Comandos Avançados
-
-```bash
-# Analisar symbols específicos
-python main.py --analyze-all --symbols BTCUSDT ETHUSDT BNBUSDT
-
-# Usar timeframe diferente
-python main.py --analyze BTCUSDT --timeframe 15m
-
-# Saída em JSON
-python main.py --analyze BTCUSDT --output json
-
-# Modo silencioso (apenas erros)
-python main.py --analyze-all --quiet
-
-# Limpar sinais antigos (7 dias)
-python main.py --cleanup 7
-```
-
-## ⚙️ Configuração
-
-### Principais Configurações
-
-```python
-# config/settings.py
-
-# Symbols para análise
-symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "ADAUSDT", "XRPUSDT"]
-
-# RSI
-rsi_period = 14
-rsi_overbought = 70
-rsi_oversold = 30
-
-# MACD
-macd_fast = 12
-macd_slow = 26
-macd_signal = 9
-
-# Sistema
-analysis_interval = 300  # 5 minutos
-confidence_threshold = 0.6
-parallel_analysis = True
-```
-
-### Ajustar Lista de Symbols
-
-```python
-# Em config/settings.py, modifique:
-symbols: List[str] = ["BTCUSDT", "ETHUSDT", "SEUS_SYMBOLS_AQUI"]
-```
-
-## 📊 Sinais Gerados
-
-O sistema gera sinais baseados em:
-
-### RSI
-- **Sobrecompra/Sobrevenda**: RSI > 70 (SELL) ou RSI < 30 (BUY)
-- **Divergência Bullish**: Preço faz vale mais baixo, RSI faz vale mais alto → BUY
-- **Divergência Bearish**: Preço faz pico mais alto, RSI faz pico mais baixo → SELL
-
-### MACD
-- **Cruzamento Bullish**: MACD cruza acima da linha de sinal → BUY
-- **Cruzamento Bearish**: MACD cruza abaixo da linha de sinal → SELL
-
-## 🗄️ Estrutura dos Sinais
-
-Os sinais são salvos na tabela `traiding_signals_v2` com:
-
-```sql
-- symbol (TEXT): Symbol da crypto
-- signal_type (TEXT): 'BUY', 'SELL', 'NEUTRAL'
-- strategy (TEXT): Nome da estratégia (ex: 'RSI_bullish_divergence')
-- confidence (REAL): Confiança do sinal (0.0 a 1.0)
-- strength (REAL): Força do sinal (0.0 a 1.0)
-- entry_price (REAL): Preço de entrada sugerido
-- timestamp (DATETIME): Momento do sinal
-- indicators_used (TEXT): JSON com dados dos indicadores
-```
-
-## 🔧 Extensibilidade
-
-### Adicionar Novo Indicador
-
-1. **Criar nova classe em `indicators/technical.py`:**
-
-```python
-class NovoIndicadorAnalyzer:
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
-    
-    def analyze(self, market_data: MarketData) -> IndicatorResult:
-        # Sua lógica aqui
-        pass
-```
-
-2. **Integrar no `TechnicalAnalyzer`:**
-
-```python
-def __init__(self):
-    self.novo_indicador = NovoIndicadorAnalyzer()
-
-def analyze_all(self, market_data: MarketData):
-    results['NovoIndicador'] = self.novo_indicador.analyze(market_data)
-```
-
-### Adicionar Padrões Gráficos
-
-Crie `indicators/patterns.py` para detectar:
-- Cup & Handle
-- Head & Shoulders
-- Double Top/Bottom
-- Triangles, Flags, etc.
-
-## 📝 Logs
-
-O sistema gera logs em:
-- **Console**: Informações em tempo real
-- **Arquivo**: `trading_analyzer.log`
-
-Níveis de log: DEBUG, INFO, WARNING, ERROR
-
-## 🚨 Troubleshooting
-
-### TA-Lib não instala
-```bash
-# Use pandas-ta como alternativa
-pip install pandas-ta
-
-# Em indicators/technical.py, substitua:
-import talib
-# por:
-import pandas_ta as ta
-```
-
-### Banco não encontrado
-- Verifique os caminhos em `config/settings.py`
-- Certifique-se de que os arquivos `.db` existem
-
-### Poucos dados
-- O sistema precisa de pelo menos 100 pontos de dados
-- Verifique se há dados suficientes no banco de stream
-
-### Erro de permissão
-- Execute como administrador
-- Verifique permissões das pastas
-
-## 🎯 Próximos Passos
-
-- [ ] Adicionar Bollinger Bands
-- [ ] Implementar padrões gráficos (Cup & Handle, Head & Shoulders)
-- [ ] Adicionar análise de volume
-- [ ] Criar estratégias de scalping
-- [ ] Interface web para monitoramento
-- [ ] Backtesting automatizado
-
-## 📄 Licença
-
-Este projeto é para uso pessoal e educacional.
+# 🔄 FLUXOGRAMA COMPLETO - GERAÇÃO DE SINAIS
+## Trading Analyzer v2.1.0 - Sistema Completo
 
 ---
 
-**⚠️ Aviso**: Este sistema é para fins educacionais. Sempre faça sua própria análise antes de tomar decisões de investimento.
+## 🚀 **PONTO DE ENTRADA**
+```
+main.py
+├── setup_logging()
+├── print_banner()
+├── safe_execute()
+└── initialize_analyzer_safe()
+    └── MultiTimeframeAnalyzer()
+```
+
+---
+
+## 📊 **FLUXO PRINCIPAL DE ANÁLISE**
+
+### 1. **INICIALIZAÇÃO DO SISTEMA**
+```
+MultiTimeframeAnalyzer.__init__()
+├── DataReader()
+├── EnhancedSignalWriter()
+├── TechnicalAnalyzer() por timeframe
+├── PatternAnalyzer() por timeframe (se disponível)
+├── PrioritySignalResolver()
+└── quality_mode = "15m_priority_5m_rigorous"
+```
+
+### 2. **ANÁLISE DE UM SYMBOL**
+```
+analyze_symbol_all_timeframes(symbol)
+├── 🔍 check_existing_active_signals(symbol)
+│   └── Se bloqueado → PARA (return blocked)
+├── 📊 Loop por timeframes ["15m", "5m"] (ORDEM PRIORITÁRIA)
+│   └── _analyze_single_timeframe_fast()
+├── 🔧 conflict_resolver.resolve_conflicts()
+├── ✅ _simple_validation_no_locks()
+└── 💾 signal_writer.write_enhanced_signal()
+```
+
+### 3. **ANÁLISE DE TIMEFRAME INDIVIDUAL**
+```
+_analyze_single_timeframe_fast(symbol, timeframe, market_data)
+├── 📈 ANÁLISE TÉCNICA (se habilitado)
+│   ├── technical_analyzer.analyze_all()
+│   │   ├── RSIAnalyzer.analyze()
+│   │   ├── MACDAnalyzer.analyze()
+│   │   ├── BollingerBandsAnalyzer.analyze() ⭐ NOVO
+│   │   └── VWAPAnalyzer.analyze() ⭐ NOVO
+│   └── generate_trading_signals()
+│       └── 🎯 AdvancedTechnicalAnalyzer.analyze_confluence_for_signal() ⭐
+├── 🔺 PADRÕES GRÁFICOS (se habilitado)
+│   ├── pattern_analyzer.analyze_all_patterns()
+│   │   └── DoubleTopBottomDetector.detect_double_patterns()
+│   └── generate_pattern_signals()
+├── 🕯️ CANDLESTICK PATTERNS (se habilitado)
+│   ├── generate_candlestick_signals()
+│   │   └── CandlestickDetector.detect_all_patterns()
+│   └── 🚨 FILTRO QUALIDADE RIGOROSA (disponível mas não integrado)
+└── create_signal_fast() para cada sinal detectado
+```
+
+---
+
+## 🛡️ **SISTEMA DE VALIDAÇÃO**
+
+### 4. **VALIDAÇÃO SIMPLIFICADA**
+```
+_simple_validation_no_locks(signals)
+├── Loop por cada sinal:
+│   ├── Validação de confidence por timeframe
+│   │   ├── 15m: min_confidence = 0.70
+│   │   └── 5m: min_confidence = 0.85
+│   └── 🚨 VALIDAÇÃO AVANÇADA (disponível mas não integrada)
+│       ├── enhanced_volume_validator.py
+│       ├── microstructure validation (DESABILITADA)
+│       └── rigorous_quality_system.py
+└── Retorna sinais validados
+```
+
+### 5. **RESOLUÇÃO DE CONFLITOS**
+```
+PrioritySignalResolver.resolve_conflicts()
+├── Separa por timeframe: 15m vs 5m
+├── NOVA LÓGICA DE PRIORIDADE:
+│   ├── 15m: Prioridade por padrão
+│   ├── 5m: Só ganha se score >= 90 E 10+ pontos maior
+│   └── MIN_5M_SCORE = 90.0
+└── Retorna 1 sinal por symbol
+```
+
+---
+
+## 💾 **CRIAÇÃO E GRAVAÇÃO DO SINAL**
+
+### 6. **CRIAÇÃO DO SINAL ENHANCED**
+```
+EnhancedTradingSignal.__post_init__()
+├── _normalize_signal_type()
+├── 🎯 _calculate_technical_stop_loss_safe()
+│   └── TechnicalStopLossCalculator (SISTEMA INTELIGENTE)
+│       ├── stop_loss_config.py (configurações avançadas)
+│       ├── _calculate_atr_stop()
+│       ├── _calculate_support_resistance_stop()
+│       ├── _calculate_swing_stop()
+│       └── _calculate_structure_stop()
+├── 🎯 _calculate_technical_targets_safe()
+│   └── TechnicalTargetsCalculator (SISTEMA INTELIGENTE)
+│       ├── targets_config.py (configurações avançadas)
+│       ├── _calculate_fibonacci_targets()
+│       ├── _find_resistance_support_levels()
+│       └── _find_market_structure_targets()
+├── _apply_precisions()
+├── _validate_stop_and_targets()
+└── _prepare_for_serialization()
+```
+
+### 7. **GRAVAÇÃO FINAL**
+```
+EnhancedSignalWriter.write_enhanced_signal()
+├── _validate_signal_freshness()
+├── check_existing_active_signals() (dupla verificação)
+├── 💾 INSERT INTO signals_table
+├── _backup_signal() (backup completo)
+├── _verify_signal_saved_correctly()
+└── Log detalhado do sinal gravado
+```
+
+---
+
+## 🔄 **EXECUÇÃO CONTÍNUA**
+
+### 8. **LOOP CONTÍNUO**
+```
+run_continuous_multi_timeframe_analysis()
+├── Loop infinito com heartbeat
+├── get_valid_symbols_for_analysis()
+├── Para cada symbol: analyze_symbol_all_timeframes()
+├── _perform_quick_cleanup() (limpeza automática)
+├── Sleep com heartbeat (logs a cada 60s)
+└── Estatísticas de ciclo
+```
+
+---
+
+## 📊 **SISTEMAS AUXILIARES INTEGRADOS**
+
+### 🔍 **Monitoramento (INTEGRADO)**
+```
+SignalStatusMonitor (signal_monitor.py)
+├── check_active_signals()
+├── _process_signal_row()
+├── _get_current_price_fast()
+├── _calculate_new_status()
+└── _batch_update_signals()
+```
+
+### 🛠️ **Gerenciamento (INTEGRADO)**
+```
+SignalManager (signal_manager.py)
+├── get_active_signals_overview()
+├── deactivate_signal_by_id()
+├── deactivate_signals_by_symbol()
+└── force_clear_all_blocking_signals()
+```
+
+---
+
+## ⚠️ **SISTEMAS DISPONÍVEIS MAS NÃO INTEGRADOS**
+
+### 🚨 **SISTEMAS DE QUALIDADE AVANÇADA**
+
+#### 1. **Sistema Rigoroso de Qualidade**
+```
+📁 core/improved_signal_quality_system.py
+├── RigorousQualityConfig
+├── ComprehensiveSignalBackup
+├── RigorousQualityFilter
+└── SignalEffectivenessAnalyzer
+
+🔧 INTEGRAÇÃO NECESSÁRIA:
+└── Substituir conflict resolver no analyzer.py
+```
+
+#### 2. **Filtro de Candlestick Rigoroso**
+```
+📁 candlestick_quality_filter.py
+├── CandlestickQualityFilter
+├── Apenas Engolfo com confidence >= 0.92
+├── Backup de TODOS os 43 patterns
+└── create_enhanced_candlestick_signal_generator()
+
+🔧 INTEGRAÇÃO NECESSÁRIA:
+└── Substituir generate_candlestick_signals()
+```
+
+#### 3. **Validação de Volume Avançada**
+```
+📁 indicators/enhanced_volume_validator.py
+├── EnhancedVolumeValidator
+├── VolumeAnalysis detalhada
+├── Ajustes por volatilidade/symbol
+└── integrate_enhanced_volume_validation()
+
+🔧 INTEGRAÇÃO NECESSÁRIA:
+└── Substituir _validate_with_volume_safe()
+```
+
+### 🎯 **SISTEMAS DE CONFIGURAÇÃO AVANÇADA**
+
+#### 4. **Configurações de Stop Loss**
+```
+📁 config/stop_loss_config.py
+├── StopLossConfig (configurações granulares)
+├── Ajustes por symbol/timeframe
+├── Prioridades de métodos
+└── Condições de mercado
+
+✅ PARCIALMENTE INTEGRADO:
+└── technical_stop_loss.py usa se disponível
+```
+
+#### 5. **Configurações de Targets**
+```
+📁 config/targets_config.py
+├── TargetsConfig (configurações granulares)
+├── Risk/Reward ratios por symbol
+├── Fibonacci levels customizados
+└── Market condition adjustments
+
+✅ PARCIALMENTE INTEGRADO:
+└── technical_targets.py usa se disponível
+```
+
+#### 6. **Validação de Volume Configurável**
+```
+📁 config/volume_validation_config.py
+├── VolumeValidationConfig
+├── Thresholds dinâmicos
+├── Ajustes por volatilidade
+└── create_enhanced_volume_validator()
+
+❌ NÃO INTEGRADO
+```
+
+### 📊 **ANALISADORES DE QUALIDADE**
+
+#### 7. **Analisador de Stop Loss**
+```
+📁 core/stop_loss_analyzer.py
+├── StopLossQualityAnalyzer
+├── get_stop_loss_quality_report()
+├── Análise de efetividade por método
+└── print_stop_loss_quality_report()
+
+✅ INTEGRADO via main.py --analyze-stops
+```
+
+#### 8. **Analisador de Targets**
+```
+📁 core/targets_analyzer.py
+├── TargetsQualityAnalyzer
+├── get_targets_quality_report()
+├── Performance por método
+└── print_targets_quality_report()
+
+✅ INTEGRADO via main.py --analyze-targets
+```
+
+### 🔄 **MONITOR EM TEMPO REAL**
+```
+📁 real_time_signal_monitor.py
+├── RealTimeSignalMonitor
+├── RealTimeMonitorService
+├── Execução como serviço
+└── Transições ACTIVE → TARGET_1_HIT → TARGET_2_HIT
+
+❌ NÃO INTEGRADO (standalone)
+```
+
+---
+
+## 🎯 **SISTEMA DE CONFLUÊNCIA (INTEGRADO)**
+
+### Bollinger + VWAP
+```
+📁 indicators/advanced_technical.py
+├── BollingerBandsAnalyzer
+├── VWAPAnalyzer  
+├── ConfluenceAnalyzer
+└── AdvancedTechnicalAnalyzer
+
+✅ INTEGRADO no TechnicalAnalyzer
+├── Aumenta confidence dos sinais
+├── Detecta extremos de volatilidade
+└── Suporte/Resistência dinâmico
+```
+
+---
+
+## 📋 **PADRÕES DISPONÍVEIS**
+
+### 🕯️ **Candlestick (43 patterns)**
+```
+📁 indicators/candlestick_patterns_detector.py
+├── ✅ TODOS os 43 patterns implementados
+├── ✅ Detecção funcional
+├── ⚠️ Filtro rigoroso não integrado
+└── 🚨 Qualidade baixa sem filtro
+```
+
+### 🔺 **Padrões Gráficos (SIMPLIFICADO)**
+```
+📁 indicators/patterns.py
+├── ✅ Double Top/Bottom (ÚNICO ATIVO)
+├── ❌ Head & Shoulders (DESABILITADO)
+├── ❌ Cup & Handle (DESABILITADO)  
+└── 🎯 Apenas 2 padrões para performance
+```
+
+---
+
+## ⚙️ **CONFIGURAÇÕES DO SISTEMA**
+
+### Configuração Principal
+```
+📁 config/settings.py
+├── ✅ Timeframes: ["5m", "15m"] apenas
+├── ✅ Símbolos configuráveis
+├── ✅ Thresholds por timeframe
+├── ✅ Precisões por symbol
+└── ✅ Multi-timeframe config
+```
+
+### Configurações Avançadas (Parcialmente Integradas)
+```
+📁 config/stop_loss_config.py     ➜ ✅ Usado por technical_stop_loss.py
+📁 config/targets_config.py       ➜ ✅ Usado por technical_targets.py  
+📁 config/volume_validation_config.py ➜ ❌ NÃO INTEGRADO
+```
+
+---
+
+## 🚨 **PONTOS DE MELHORIA**
+
+### 1. **Integrações Pendentes**
+- [ ] Sistema rigoroso de qualidade
+- [ ] Filtro de candlestick rigoroso  
+- [ ] Validação de volume avançada
+- [ ] Monitor em tempo real
+- [ ] Configuração de volume
+
+### 2. **Sistemas Redundantes**
+- [ ] Dois sistemas de resolução de conflitos
+- [ ] Validação simples + avançada
+- [ ] Configurações básicas + avançadas
+
+### 3. **Performance**
+- [ ] Candlesticks sem filtro (baixa qualidade)
+- [ ] Validação simplificada (menos rigorosa)
+- [ ] Microestrutura desabilitada
+
+### 4. **Monitoramento**
+- [ ] Monitor tempo real separado
+- [ ] Dois sistemas de monitoramento
+
+---
+
+## 🎯 **FLUXO DE DADOS COMPLETO**
+
+```
+DB (crypto_stream.db)
+    ↓
+DataReader (anti-lock otimizado)
+    ↓  
+MarketData (estrutura padronizada)
+    ↓
+MultiTimeframeAnalyzer
+    ├── TechnicalAnalyzer (RSI+MACD+Bollinger+VWAP)
+    ├── PatternAnalyzer (Double Top/Bottom apenas)
+    └── CandlestickDetector (43 patterns, baixa qualidade)
+    ↓
+PrioritySignalResolver (15m prioritário, 5m rigoroso)
+    ↓
+SimpleValidation (sem microestrutura)
+    ↓
+EnhancedTradingSignal
+    ├── TechnicalStopLossCalculator (inteligente)
+    └── TechnicalTargetsCalculator (inteligente)
+    ↓
+EnhancedSignalWriter 
+    ├── Validações de duplicação
+    ├── Status = ACTIVE (sempre)
+    └── 2 targets exatos
+    ↓
+DB (trading_analyzer_v2.db)
+    ├── signals_table (sinais ativos)
+    └── backup_table (backup completo)
+```
+
+---
+
+## ✅ **CHECKLIST DE MANUTENÇÃO**
+
+### **O que está funcionando:**
+- ✅ Análise multi-timeframe (5m + 15m)
+- ✅ Prioridade 15m com score rigoroso 5m
+- ✅ Sistema técnico de stop/targets
+- ✅ Confluência Bollinger + VWAP
+- ✅ Gravação corrigida (ACTIVE → TARGET_1_HIT → TARGET_2_HIT)
+- ✅ Resolução de conflitos
+- ✅ Monitoramento básico
+- ✅ Gerenciamento de sinais
+
+### **O que precisa de integração:**
+- 🔄 Sistema rigoroso de qualidade
+- 🔄 Filtro candlestick rigoroso
+- 🔄 Validação volume avançada  
+- 🔄 Monitor tempo real
+- 🔄 Configurações volume
+
+### **O que pode ser removido:**
+- 🗑️ Sistemas redundantes de validação
+- 🗑️ Configurações duplicadas
+- 🗑️ Padrões desabilitados (H&S, Cup&Handle)
+
+---
+
+*Sistema completo mapeado - Pronto para manutenção direcionada* 🎯

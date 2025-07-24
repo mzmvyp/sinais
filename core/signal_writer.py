@@ -75,6 +75,7 @@ def safe_float_conversion(value, fallback: float = 0.0) -> float:
     except:
         return fallback
 
+
 def safe_json_serialize(obj):
     """Serializa objetos de forma segura para JSON"""
     if obj is None:
@@ -719,6 +720,45 @@ class EnhancedSignalWriter:
         except Exception as e:
             self.logger.error(f"❌ Erro ao criar tabelas: {e}")
     
+    def validate_signal_pricing(self, signal):
+        """Valida preço do sinal antes de salvar"""
+        try:
+            # Buscar preço atual do banco
+            current_price = self.get_current_price_from_db(signal.symbol)
+            if not current_price:
+                return True, "Sem preço atual para validar"
+            
+            price_diff_pct = abs(current_price - signal.entry_price) / signal.entry_price * 100
+            
+            if price_diff_pct > 0.5:
+                return False, f"DIVERGÊNCIA: {price_diff_pct:.2f}%"
+            
+            return True, f"OK (diff: {price_diff_pct:.2f}%)"
+            
+        except Exception as e:
+            return True, f"Erro na validação: {e}"
+
+    def get_current_price_from_db(self, symbol):
+        """Busca preço mais atual do banco"""
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                SELECT close_price FROM crypto_ohlc 
+                WHERE symbol = ? AND timeframe = '5m' 
+                ORDER BY timestamp DESC LIMIT 1
+            """, (symbol,))
+            
+            result = cursor.fetchone()
+            conn.close()
+            
+            return float(result[0]) if result else None
+            
+        except Exception as e:
+            return None
+
+    
     def check_existing_active_signals(self, symbol: str) -> bool:
         """
         Verifica sinais que BLOQUEIAM novos sinais (ACTIVE, TARGET_1_HIT)
@@ -749,6 +789,46 @@ class EnhancedSignalWriter:
             self.logger.error(f"❌ Erro ao verificar sinais bloqueadores para {symbol}: {e}")
             return False
    
+    def _check_duplicate_signal(self, signal):
+        """Verifica se já existe sinal muito similar (anti-duplicação)"""
+        try:
+            # Busca sinais dos últimos 30 minutos
+            time_threshold = datetime.now() - timedelta(minutes=30)
+            
+            query = f"""
+            SELECT entry_price, detector_name, created_at 
+            FROM {self.signals_table} 
+            WHERE symbol = ? 
+            AND timeframe = ? 
+            AND datetime(created_at) > ? 
+            ORDER BY created_at DESC
+            """
+            
+            with self._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(query, (
+                    signal.symbol, 
+                    signal.timeframe, 
+                    time_threshold.isoformat()
+                ))
+                
+                recent_signals = cursor.fetchall()
+                
+                for entry_price, detector_name, created_at in recent_signals:
+                    # Mesmo detector e preço muito similar = duplicado
+                    if (detector_name == signal.detector_name and
+                        abs(float(entry_price) - signal.entry_price) / signal.entry_price < 0.005):  # 0.5% tolerância
+                        
+                        self.logger.debug(f"Sinal duplicado detectado: {detector_name} preço similar {entry_price}")
+                        return True
+                
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Erro na verificação de duplicação: {e}")
+            return False
+    
+    
     def write_enhanced_signal(self, signal: EnhancedTradingSignal) -> bool:
         """GRAVAÇÃO CORRIGIDA com validação robusta"""
         
@@ -761,6 +841,16 @@ class EnhancedSignalWriter:
         if self.check_existing_active_signals(signal.symbol):
             self.logger.info(f"🚫 SINAL BLOQUEADO: {signal.symbol} tem sinal ativo/TARGET_1_HIT")
             self._backup_signal(signal, "blocked_existing_active_signal")
+            return False
+        # VALIDAÇÃO ANTI-DUPLICAÇÃO: Verifica se já existe sinal muito similar
+        if self._check_duplicate_signal(signal):
+            self.logger.warning(f"🚫 SINAL DUPLICADO: {signal.symbol} {signal.detector_name} muito similar ao existente")
+            self._backup_signal(signal, "blocked_duplicate_signal")
+            return False
+        # ADICIONAR validação antes de INSERT
+        is_valid, validation_msg = self.validate_signal_pricing(signal)
+        if not is_valid:
+            self.logger.warning(f"❌ Sinal rejeitado: {signal.symbol} - {validation_msg}")
             return False
         
         # FORÇA STATUS ACTIVE

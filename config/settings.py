@@ -82,7 +82,7 @@ class MultiTimeframeConfig:
                 "15m": TimeframeConfig(
                     timeframe="15m", min_data_points=80, lookback_hours=24,  # REDUZIDO de 100 para 80
                     confidence_threshold=0.70, max_signals_per_symbol=1, analysis_priority=2,  # PRIORIDADE 2
-                    enabled_detectors=['technical', 'patterns', 'candlestick'], rsi_sensitivity=1.0,
+                    enabled_detectors=['technical', 'candlestick'], rsi_sensitivity=1.0,
                     volume_threshold_multiplier=1.3, pattern_min_strength=0.6  # RELAXADO
                 )
                 # 1h REMOVIDO COMPLETAMENTE
@@ -154,6 +154,16 @@ class SystemConfig:
     auto_cleanup_enabled: bool = True
     cleanup_interval_hours: int = 24      # ADICIONADO
     signal_lifecycle_hours: int = 48      # ADICIONADO
+    
+    live_data_timeframes: List[str] = field(default_factory=lambda: ["5m", "15m"])  
+    live_data_enabled: bool = True
+    
+    def get_live_data_timeframes(self) -> List[str]:
+        """Retorna timeframes que usam dados live"""
+        if self.live_data_enabled:
+            return self.live_data_timeframes
+        else:
+            return []
 
 @dataclass
 class ValidationConfig:
@@ -179,6 +189,8 @@ class Settings:
         self.system = SystemConfig()
         self.precisions = PrecisionConfig()
         self.validation = ValidationConfig()
+        # 🔧 CORREÇÃO: Linha comentada para evitar erro
+        # self.candlestick = CandlestickConfig()  # COMENTADO - classe não definida
 
     def get_timeframe_config(self, timeframe: str) -> TimeframeConfig:
         """CORRIGIDO: Fallback para 5m se timeframe não encontrado"""

@@ -1,4 +1,4 @@
-# analyzer.py - PRIORIDADE 15m + SCORE RIGOROSO PARA 5m + SEM LOCKS
+# analyzer.py - PRIORIDADE 15m + SCORE RIGOROSO PARA 5m + SEM LOCKS + FILTRO CANDLESTICK
 
 import logging
 import time
@@ -20,13 +20,8 @@ except ImportError:
     RIGOROUS_QUALITY_AVAILABLE = False
     logging.warning("⚠️ Sistema rigoroso de qualidade não disponível")
 
-try:
-    from indicators.patterns import PatternAnalyzer
-    PATTERNS_AVAILABLE = True
-except ImportError as e:
-    PATTERNS_AVAILABLE = False
-    logging.warning(f"Padrões gráficos não disponíveis: {e}")
 
+# 🔧 CORREÇÃO 1: Adicionar imports de candlestick
 try:
     from indicators.candlestick_patterns_detector import generate_candlestick_signals
     CANDLESTICK_AVAILABLE = True
@@ -143,8 +138,6 @@ class MultiTimeframeAnalyzer:
         
         enabled_timeframes = settings.get_enabled_timeframes()
         self.technical_analyzers = {tf: TechnicalAnalyzer() for tf in enabled_timeframes}
-        if PATTERNS_AVAILABLE:
-            self.pattern_analyzers = {tf: PatternAnalyzer() for tf in enabled_timeframes}
 
         # NOVA LÓGICA: Prioridade 15m + Score rigoroso para 5m
         self.conflict_resolver = PrioritySignalResolver()
@@ -157,16 +150,88 @@ class MultiTimeframeAnalyzer:
         self.monitoring_enabled = False
 
         # CONFIGURAÇÕES OTIMIZADAS - sem locks
-        self.MAX_SYMBOL_TIME = 8  # Reduzido para 10s
-        self.MAX_VALIDATION_TIME = 2  # Reduzido para 3s
+        self.MAX_SYMBOL_TIME = 8  # Reduzido para 8s
+        self.MAX_VALIDATION_TIME = 2  # Reduzido para 2s
         self.DISABLE_MICROSTRUCTURE = True  # Desabilita microestrutura
         
-        self.logger.info("MultiTimeframeAnalyzer com PRIORIDADE 15m inicializado:")
+        self.logger.info("MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:")
         self.logger.info(f"  • Timeframes: {enabled_timeframes} (PRIORIDADE: 15m)")
         self.logger.info(f"  • Score mínimo 5m: {self.conflict_resolver.MIN_5M_SCORE}")
         self.logger.info(f"  • Vantagem necessária 5m: +{self.conflict_resolver.SCORE_ADVANTAGE_REQUIRED} pontos")
         self.logger.info(f"  • Microestrutura: DESABILITADA (evita locks)")
         self.logger.info(f"  • Monitoramento tempo real: DESABILITADO (evita locks)")
+        # 🔧 CORREÇÃO 3: Logs do filtro candlestick
+        
+    def validate_signal_before_saving(self, signal, market_data_by_tf):
+        """Valida sinal RIGOROSAMENTE antes de salvar"""
+        try:
+            market_data = market_data_by_tf.get(signal.timeframe)
+            if not market_data or len(market_data.data) == 0:
+                return False, "Sem dados para validar"
+            
+            # Preço atual (último candle disponível)
+            current_price = float(market_data.data.iloc[-1]['close_price'])
+            
+            # VALIDAÇÃO 1: Divergência de preço
+            price_diff_pct = abs(current_price - signal.entry_price) / signal.entry_price * 100
+            if price_diff_pct > 1.0:  # Máximo 1% de divergência
+                return False, f"PREÇO DIVERGIU: {price_diff_pct:.2f}% (atual: ${current_price:.4f}, entrada: ${signal.entry_price:.4f})"
+            
+            # VALIDAÇÃO 2: Sinal não pode estar "pré-executado"
+            if signal.signal_type == 'BUY_LONG':
+                # Para BUY, preço atual não pode estar acima do target 1
+                if current_price >= signal.targets[0]:
+                    return False, f"SINAL PRÉ-EXECUTADO: Preço atual ${current_price:.4f} >= Target1 ${signal.targets[0]:.4f}"
+                # Preço atual não pode estar abaixo do stop
+                if current_price <= signal.stop_loss:
+                    return False, f"SINAL JÁ STOPADO: Preço atual ${current_price:.4f} <= Stop ${signal.stop_loss:.4f}"
+            
+            elif signal.signal_type == 'SELL_SHORT':
+                # Para SELL, preço atual não pode estar abaixo do target 1
+                if current_price <= signal.targets[0]:
+                    return False, f"SINAL PRÉ-EXECUTADO: Preço atual ${current_price:.4f} <= Target1 ${signal.targets[0]:.4f}"
+                # Preço atual não pode estar acima do stop
+                if current_price >= signal.stop_loss:
+                    return False, f"SINAL JÁ STOPADO: Preço atual ${current_price:.4f} >= Stop ${signal.stop_loss:.4f}"
+            
+            # VALIDAÇÃO 3: Timeout do sinal
+            signal_age_minutes = (datetime.now() - signal.timestamp).total_seconds() / 60
+            max_age = 2 if signal.timeframe == "5m" else 5  # Máximo 2min para 5m, 5min para 15m
+            
+            if signal_age_minutes > max_age:
+                return False, f"SINAL EXPIRADO: {signal_age_minutes:.1f}min > {max_age}min"
+            
+            return True, f"VÁLIDO (diff: {price_diff_pct:.2f}%, age: {signal_age_minutes:.1f}min)"
+            
+        except Exception as e:
+            return False, f"Erro na validação: {e}"    
+    
+      
+    # 🔧 CORREÇÃO 4: Adicionar método de backup
+    def process_candlesticks_for_backup(self, backup_patterns: List[Dict], symbol: str, timeframe: str):
+        """
+        🗄️ PROCESSA BACKUP DE TODOS OS 43 CANDLESTICK PATTERNS
+        """
+        if not backup_patterns:
+            return
+        
+        try:
+            # Log detalhado do backup
+            pattern_names = [p.get('pattern_name', 'unknown') for p in backup_patterns]
+            unique_patterns = len(set(pattern_names))
+            
+            self.logger.debug(f"🗄️ Backup {symbol} {timeframe}: {len(backup_patterns)} detecções de {unique_patterns} patterns únicos")
+            
+            # Estatísticas rápidas
+            high_quality = [p for p in backup_patterns if p.get('would_be_signal', False)]
+            if high_quality:
+                self.logger.debug(f"🎯 {len(high_quality)} patterns com qualidade para sinal")
+            
+            # TODO: Implementar salvamento no banco se necessário
+            # Por enquanto, dados estão sendo salvos automaticamente pelo filtro
+            
+        except Exception as e:
+            self.logger.error(f"❌ Erro ao processar backup de patterns: {e}")
         
     def analyze_symbol_all_timeframes(self, symbol: str) -> Dict[str, Any]:
         """Análise com PRIORIDADE 15m e proteção anti-lock"""
@@ -196,8 +261,16 @@ class MultiTimeframeAnalyzer:
         for tf in timeframes_prioritized:
             try:
                 data_start = time.time()
-                market_data = self.data_reader.get_latest_data(symbol, tf)
-                data_time = time.time() - data_start
+                
+                # USAR DADOS LIVE PARA 5m E 15m
+                if tf in ["5m", "15m"]:
+                    market_data = self.data_reader.get_enhanced_data(symbol, tf)
+                    self.logger.debug(f"🔴 {symbol} {tf}: Dados LIVE requisitados")
+                else:
+                    market_data = self.data_reader.get_latest_data(symbol, tf)
+                    
+                data_time = time.time() - data_start            
+                
                 
                 if data_time > 2:  # Se demorou mais que 2s
                     self.logger.warning(f"⏰ {symbol} {tf}: Dados lentos ({data_time:.1f}s)")
@@ -247,6 +320,21 @@ class MultiTimeframeAnalyzer:
         if validated_signals:
             signal = validated_signals[0]
             try:
+                # VALIDAÇÃO ANTES DE SALVAR
+                is_valid, validation_msg = self.validate_signal_before_saving(signal, market_data_by_tf)
+                
+                if not is_valid:
+                    self.logger.warning(f"❌ {symbol}: SINAL REJEITADO - {validation_msg}")
+                    return {
+                        'symbol': symbol, 
+                        'status': 'rejected', 
+                        'reason': validation_msg,
+                        'signals_detected': len(all_signals), 
+                        'signals_validated': len(validated_signals), 
+                        'signals_saved': 0,
+                        'execution_time': time.time() - symbol_start_time
+                    }
+                
                 signal.status = "ACTIVE"
                 
                 if self.signal_writer.write_enhanced_signal(signal):
@@ -258,7 +346,7 @@ class MultiTimeframeAnalyzer:
                         f"💾 {symbol}: GRAVADO | {signal.timeframe} | {signal.detector_name} | "
                         f"Score: {score:.1f} | Entry: ${signal.entry_price:.4f} | "
                         f"Stop: ${signal.stop_loss:.4f} | T1: ${signal.targets[0]:.4f} | "
-                        f"T2: ${signal.targets[1]:.4f} | {total_time:.1f}s"
+                        f"T2: ${signal.targets[1]:.4f} | {validation_msg} | {total_time:.1f}s"
                     )
                         
                 else:
@@ -286,11 +374,35 @@ class MultiTimeframeAnalyzer:
 
         if len(market_data.data) < 2:
             return {'signals': []}
-            
-        closed_candle = market_data.data.iloc[-2]
-        entry_price = float(closed_candle['close_price'])
-        signal_timestamp = closed_candle['timestamp'].to_pydatetime()
 
+        # CORREÇÃO: Verificar dados antes de usar
+        # CORREÇÃO: SEMPRE usar candle FECHADO para sinais
+        try:
+            # SEMPRE usa penúltimo candle (fechado e confirmado)
+            if len(market_data.data) >= 2:
+                closed_candle = market_data.data.iloc[-2]
+                entry_price = float(closed_candle['close_price'])
+                signal_timestamp = closed_candle['timestamp'].to_pydatetime()
+                
+                # VALIDAÇÃO: Verifica se preço não está muito desatualizado
+                current_candle = market_data.data.iloc[-1]
+                current_price = float(current_candle['close_price'])
+                price_diff_pct = abs(current_price - entry_price) / entry_price * 100
+                
+                if price_diff_pct > 2.0:  # Mais de 2% de diferença = sinal obsoleto
+                    self.logger.warning(f"⚠️ {symbol} {timeframe}: Sinal obsoleto - diff {price_diff_pct:.2f}%")
+                    return {'signals': []}
+                
+                self.logger.debug(f"✅ {symbol} {timeframe}: Entry ${entry_price:.4f} | Current ${current_price:.4f} | Diff: {price_diff_pct:.2f}%")
+            else:
+                self.logger.warning(f"❌ {symbol} {timeframe}: Dados insuficientes")
+                return {'signals': []}
+                
+        except Exception as e:
+            self.logger.error(f"Erro ao obter preço de entrada para {symbol} {timeframe}: {e}")
+            return {'signals': []}
+        
+        # 🔧 CORREÇÃO 5: Definir create_signal_fast no local correto
         def create_signal_fast(**kwargs):
             try:
                 base_args = {
@@ -336,46 +448,36 @@ class MultiTimeframeAnalyzer:
             except Exception as e:
                 self.logger.warning(f"❌ Erro técnico {symbol} {timeframe}: {e}")
 
-        # PADRÕES LIMITADOS (só se for rápido)
-        if 'patterns' in tf_config.enabled_detectors and PATTERNS_AVAILABLE:
-            try:
-                pattern_start = time.time()
-                pattern_analyzer = self.pattern_analyzers[timeframe]
-                pattern_results = pattern_analyzer.analyze_all_patterns(market_data)
-                raw_signals = pattern_analyzer.generate_pattern_signals(market_data, pattern_results)
-                pattern_time = time.time() - pattern_start
-                
-                if pattern_time < 2:  # Só usa se for rápido
-                    for s in raw_signals[:1]:  # Máximo 1 padrão
-                        create_signal_fast(**s.__dict__)
-                else:
-                    self.logger.debug(f"⏰ {symbol} {timeframe}: Padrões lentos, pulando")
-                    
-            except Exception as e:
-                self.logger.warning(f"❌ Erro padrões {symbol} {timeframe}: {e}")
-
-        # CANDLESTICK MUITO LIMITADO
+        # 🔧 CORREÇÃO 6: CANDLESTICK COM FILTRO RIGOROSO
+        # CANDLESTICK SIMPLIFICADO - apenas engolfo de alta performance
         if 'candlestick' in tf_config.enabled_detectors and CANDLESTICK_AVAILABLE:
             try:
                 cs_start = time.time()
-                df_for_cs = market_data.data.iloc[:-1]
+                # USA dados fechados sempre
+                if timeframe in ["5m", "15m"] and len(market_data.data) > 2:
+                    df_for_cs = market_data.data.iloc[:-2]
+                else:
+                    df_for_cs = market_data.data.iloc[:-1]
                 
                 if len(df_for_cs) >= 10:
+                    # SEM FILTRO - usa detector direto
                     cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
                     cs_time = time.time() - cs_start
                     
-                    if cs_time < 1:  # Só usa se for muito rápido
-                        # Score muito alto para candlesticks
-                        ultra_high_quality = [cs for cs in cs_signals_raw if cs.get('confidence', 0) >= 0.95]
+                    # FILTRA apenas engolfo (os únicos que funcionam)
+                    quality_signals = []
+                    for cs in cs_signals_raw:
+                        detector_name = cs.get('detector_name', '')
+                        if 'Engulfing' in detector_name and cs.get('confidence', 0) >= 0.75:
+                            quality_signals.append(cs)
+                    
+                    for cs in quality_signals[:2]:  # Máximo 2
+                        create_signal_fast(**cs)
                         
-                        for cs in ultra_high_quality[:1]:  # Máximo 1
-                            create_signal_fast(**cs)
-                    else:
-                        self.logger.debug(f"⏰ {symbol} {timeframe}: Candlesticks lentos, pulando")
-                        
+                    self.logger.debug(f"🕯️ Candlestick {symbol} {timeframe}: {len(quality_signals)} engolfos em {cs_time:.2f}s")
+                                
             except Exception as e:
                 self.logger.warning(f"❌ Erro candlestick {symbol} {timeframe}: {e}")
-
         return {'signals': signals}
    
     def _simple_validation_no_locks(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
@@ -427,7 +529,7 @@ class MultiTimeframeAnalyzer:
         if base_interval is None: 
            base_interval = getattr(settings.system, 'analysis_interval', 300)
         
-        self.logger.info("🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m")
+        self.logger.info("🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m + FILTRO CANDLESTICK")
         self.logger.info(f"⏱️ Intervalo entre ciclos: {base_interval}s")
         
         valid_symbols = self.data_reader.get_valid_symbols_for_analysis()
@@ -448,7 +550,7 @@ class MultiTimeframeAnalyzer:
                 blocked_count = 0
                 error_count = 0
                 
-                self.logger.info(f"🔄 Ciclo {cycle_count} - Prioridade 15m")
+                self.logger.info(f"🔄 Ciclo {cycle_count} - Prioridade 15m + Filtro Candlestick")
                 
                 for i, symbol in enumerate(valid_symbols, 1):
                     try:
@@ -553,8 +655,6 @@ class MultiTimeframeAnalyzer:
             components = {
                 'database': 'OK_NO_LOCKS',
                 'technical_analyzer': 'OPTIMIZED',
-                'patterns_analyzer': 'LIMITED' if PATTERNS_AVAILABLE else 'DISABLED',
-                'candlestick_analyzer': 'LIMITED' if CANDLESTICK_AVAILABLE else 'DISABLED',
                 'microstructure_validation': 'DISABLED_NO_LOCKS',
                 'quality_system': '15M_PRIORITY_5M_RIGOROUS',
                 'signal_status_logic': 'CORRECTED_2_TARGETS',
@@ -567,7 +667,7 @@ class MultiTimeframeAnalyzer:
             
             return {
                 'status': 'OK',
-                'system_type': 'Trading Analyzer - PRIORIDADE 15m + SEM LOCKS',
+                'system_type': 'Trading Analyzer - PRIORIDADE 15m + FILTRO CANDLESTICK + SEM LOCKS',
                 'timestamp': datetime.now().isoformat(),
                 'components': components,
                 'symbols_available': len(symbols),
@@ -581,6 +681,7 @@ class MultiTimeframeAnalyzer:
                     'advantage_required': self.conflict_resolver.SCORE_ADVANTAGE_REQUIRED,
                     'description': '15m tem prioridade, 5m precisa score >= 90 e superar 15m em +10 pontos'
                 },
+                
                 'anti_lock_settings': {
                     'microstructure_disabled': self.DISABLE_MICROSTRUCTURE,
                     'monitoring_disabled': True,
@@ -599,6 +700,7 @@ class MultiTimeframeAnalyzer:
                     'rigorous_5m_scoring': True,
                     'anti_lock_protection': True,
                     'no_database_locks': True
+                    
                 }
             }
         except Exception as e:
@@ -659,7 +761,7 @@ class MultiTimeframeAnalyzer:
                 'details': moved_counts,
                 'message': f'Limpeza concluída: {total_moved} sinais finalizados movidos para backup',
                 'signal_status_info': 'Apenas TARGET_2_HIT, STOP_HIT, EXPIRED, MANUALLY_CLOSED são considerados finalizados',
-                'priority_logic': '15M_PREFERRED_5M_RIGOROUS'
+                'priority_logic': '15M_PREFERRED_5M_RIGOROUS',
             }
         except Exception as e:
             return {'status': 'error', 'message': str(e)}

@@ -33,11 +33,11 @@ class RigorousQualityConfig:
             self.detector_requirements = {
                 # 📈 INDICADORES TÉCNICOS - MUITO RIGOROSOS
                 'RSI': {
-                    'min_confidence': 0.90,  # Era 0.75, agora 0.90
+                    'min_confidence': 0.75,  # Era 0.75, agora 0.90
                     'min_rsi_extreme': 78,   # RSI > 78 para overbought
                     'max_rsi_extreme': 22,   # RSI < 22 para oversold
                     'require_divergence': True,  # NOVO: precisa de divergência
-                    'max_signals_per_day': 1,
+                    'max_signals_per_day': 0,
                     'description': 'RSI apenas extremo + divergência'
                 },
                 'MACD': {
@@ -45,7 +45,7 @@ class RigorousQualityConfig:
                     'min_histogram_strength': 0.025,  # Histograma mais forte
                     'require_momentum_confirmation': True,  # NOVO
                     'min_crossover_angle': 15,  # Ângulo mínimo do crossover
-                    'max_signals_per_day': 1,
+                    'max_signals_per_day': 0,
                     'description': 'MACD apenas crossovers fortes'
                 },
                 

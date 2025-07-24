@@ -1,6 +1,8 @@
+# main.py - ATUALIZADO COM TIMING CONTROLLER
+
 """
-Trading Analyzer - SISTEMA COMPLETO CORRIGIDO
-Máximo 1 sinal ativo por symbol + Lógica de Status Corrigida
+Trading Analyzer - SISTEMA COMPLETO COM TIMING CONTROLLER
+Elimina atrasos de 5-30 minutos nos sinais + Lógica de Status Corrigida
 """
 import argparse
 import sys
@@ -60,6 +62,15 @@ except ImportError as e:
     print(f"❌ Erro crítico ao importar analyzer: {e}")
     ANALYZER_AVAILABLE = False
 
+# NOVO: Import do timing controller
+try:
+    from core.timing_controller import SignalTimingController
+    TIMING_CONTROLLER_AVAILABLE = True
+    print("✅ Timing Controller disponível")
+except ImportError as e:
+    print(f"⚠️ Timing Controller não disponível: {e}")
+    TIMING_CONTROLLER_AVAILABLE = False
+
 try:
     from config.settings import settings
     SETTINGS_AVAILABLE = True
@@ -113,24 +124,30 @@ def setup_logging(log_level: str):
             handlers=[
                 logging.StreamHandler(sys.stdout),
                 logging.FileHandler("trading_analyzer_complete.log", encoding='utf-8')
-            ]
+            ],
+            force= True
         )
     else:
         logging.basicConfig(
             level=getattr(logging, log_level),
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             handlers=[
+                
                 logging.StreamHandler(),
                 logging.FileHandler("trading_analyzer_complete.log")
             ]
         )
 
 def print_banner():
-    """Exibe banner do sistema CORRIGIDO"""
-    banner = """
+    """Exibe banner do sistema COM TIMING CONTROLLER"""
+    timing_status = "🕒 TIMING CONTROLLER ATIVO" if TIMING_CONTROLLER_AVAILABLE else "⚠️ SEM TIMING CONTROLLER"
+    
+    banner = f"""
 +=================================================================+
-|                    TRADING ANALYZER v2.1.0                     |
-|              Sistema COMPLETO - LÓGICA CORRIGIDA               |
+|                    TRADING ANALYZER v2.2.0                     |
+|           Sistema COMPLETO + TIMING CONTROLLER                 |
+|                                                                 |
+|  {timing_status:<63} |
 |                                                                 |
 |  🚨 CORREÇÕES APLICADAS:                                        |
 |  ✅ Novos sinais → SEMPRE ACTIVE                               |
@@ -139,11 +156,18 @@ def print_banner():
 |  ✅ Fluxo → ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT      |
 |  ✅ Targets → Exatamente 2 targets por sinal                   |
 |                                                                 |
+|  🕒 TIMING CONTROLLER (NOVO):                                   |
+|  ✅ Elimina atrasos de 5-30 minutos nos sinais                 |
+|  ✅ 5m: máximo 1 minuto após fechamento do candle              |
+|  ✅ 15m: máximo 3 minutos após fechamento do candle            |
+|  ✅ Validação com dados de 1m para precisão máxima             |
+|  ✅ Controle inteligente de janelas de geração                 |
+|                                                                 |
 |  🎯 CARACTERÍSTICAS:                                            |
 |  • Máx 1 sinal ativo por crypto                                |
 |  • Timeframes: 5m (prioritário) + 15m                          |
 |  • Stop Loss e Targets técnicos                                |
-|  • Validação robusta com proteção anti-travamento              |
+|  • Sinais sempre frescos e precisos                            |
 |  • Monitoramento e gerenciamento de sinais                     |
 +=================================================================+
     """
@@ -201,7 +225,12 @@ def format_output_safe(data: dict, output_format: str) -> str:
                 symbol = data['symbol']
                 status = data.get('status', 'unknown')
                 signals_saved = data.get('signals_saved', 0)
-                return f"{symbol}: {status} - {signals_saved} sinais salvos"
+                timing_info = ""
+                if data.get('timing_controller') == 'enabled':
+                    timing_info = " [Timing OK]"
+                elif data.get('status') == 'timing_invalid':
+                    timing_info = " [Timing Inválido]"
+                return f"{symbol}: {status} - {signals_saved} sinais salvos{timing_info}"
             
             return str(data)
         
@@ -212,7 +241,12 @@ def format_output_safe(data: dict, output_format: str) -> str:
             if 'symbol' in data:
                 symbol = data['symbol']
                 signals_saved = data.get('signals_saved', 0)
-                return f"{symbol}: {signals_saved} sinais"
+                timing_status = ""
+                if data.get('timing_controller') == 'enabled':
+                    timing_status = " (Timing Controller)"
+                elif data.get('status') == 'timing_invalid':
+                    timing_status = " (Timing Inválido)"
+                return f"{symbol}: {signals_saved} sinais{timing_status}"
             
             return "Operação concluída"
             
@@ -220,32 +254,94 @@ def format_output_safe(data: dict, output_format: str) -> str:
         return f"Erro na formatação: {e}"
 
 def initialize_analyzer_safe():
-    """🚨 CORRIGIDO: Inicializa MultiTimeframeAnalyzer"""
+    """🚨 CORRIGIDO: Inicializa MultiTimeframeAnalyzer com Timing Controller"""
     if not ANALYZER_AVAILABLE:
         return None
     
     try:
-        logging.info("Inicializando MultiTimeframeAnalyzer...")
-        analyzer = MultiTimeframeAnalyzer()  # 🚨 CORRIGIDO
+        logging.info("Inicializando MultiTimeframeAnalyzer com Timing Controller...")
+        analyzer = MultiTimeframeAnalyzer()  # Já inclui timing controller internamente
+        
+        # Verifica se timing controller foi inicializado
+        if hasattr(analyzer, 'timing_enabled') and analyzer.timing_enabled:
+            logging.info("✅ Timing Controller ATIVO - sinais precisos garantidos")
+        else:
+            logging.warning("⚠️ Timing Controller INATIVO - possíveis atrasos nos sinais")
+        
         logging.info("MultiTimeframeAnalyzer inicializado com sucesso")
         return analyzer
     except Exception as e:
         logging.error(f"Erro ao inicializar analyzer: {e}")
         return None
 
-def main():
-    """Função principal CORRIGIDA"""
-    parser = argparse.ArgumentParser(
-        description="Trading Analyzer v2.1.0 - Sistema Completo CORRIGIDO",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Exemplos de uso CORRIGIDOS:
+# NOVA FUNÇÃO: Teste específico do timing controller
+def test_timing_controller():
+    """Testa o timing controller de forma isolada"""
+    if not TIMING_CONTROLLER_AVAILABLE:
+        print("❌ Timing Controller não disponível para teste")
+        return {'status': 'error', 'message': 'Timing Controller não disponível'}
+    
+    try:
+        print("🧪 Testando Timing Controller...")
+        
+        # Inicializa timing controller
+        controller = SignalTimingController()
+        data_reader = DataReader()
+        
+        # Testa símbolos disponíveis
+        symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT"][:2]  # Máximo 2 para teste rápido
+        timeframes = ["5m", "15m"]
+        
+        print(f"\n📊 Testando timing para {len(symbols)} símbolos x {len(timeframes)} timeframes:")
+        
+        summary = controller.get_timing_summary(symbols, timeframes, data_reader)
+        
+        print(f"✅ Total combinações: {summary['total_combinations']}")
+        print(f"✅ Válidas para sinais: {summary['valid_for_signals']}")
+        print(f"❌ Inválidas: {summary['invalid_combinations']}")
+        
+        print(f"\n🕒 Próximas janelas válidas:")
+        for tf, next_window in summary['next_windows'].items():
+            next_dt = datetime.fromisoformat(next_window)
+            time_until = next_dt - datetime.now()
+            minutes_until = time_until.total_seconds() / 60
+            print(f"   {tf}: {next_dt.strftime('%H:%M:%S')} (em {minutes_until:.1f} min)")
+        
+        print(f"\n📈 Detalhes por símbolo:")
+        for symbol, details in summary['details_by_symbol'].items():
+            print(f"\n   {symbol}:")
+            for tf, tf_details in details.items():
+                can_generate = "✅ PODE" if tf_details['can_generate'] else "❌ NÃO PODE"
+                print(f"     {tf}: {can_generate} - {tf_details['reason']}")
+        
+        return {
+            'status': 'success',
+            'timing_controller': 'active',
+            'valid_combinations': summary['valid_for_signals'],
+            'total_combinations': summary['total_combinations'],
+            'summary': summary
+        }
+        
+    except Exception as e:
+        return {'status': 'error', 'message': str(e)}
 
-🔍 ANÁLISE:
-  python main.py --status                    # Status do sistema (timeout: 10s)
-  python main.py --analyze BTCUSDT           # Análise de um symbol (timeout: 30s)
-  python main.py --analyze-all               # Análise de todos (timeout: 300s)
-  python main.py --continuous                # Execução contínua robusta
+def main():
+    """Função principal COM TIMING CONTROLLER"""
+    parser = argparse.ArgumentParser(
+        description="Trading Analyzer v2.2.0 - Sistema Completo COM TIMING CONTROLLER",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=f"""
+Exemplos de uso COM TIMING CONTROLLER:
+
+🔍 ANÁLISE COM TIMING PRECISO:
+  python main.py --status                    # Status do sistema + timing controller
+  python main.py --analyze BTCUSDT           # Análise com validação de timing
+  python main.py --analyze-all               # Análise de todos (só gera se timing OK)
+  python main.py --continuous                # Execução contínua com timing inteligente
+
+🕒 TIMING CONTROLLER:
+  python main.py --test-timing               # Testa timing controller
+  python main.py --timing-status             # Status atual do timing para todos os símbolos
 
 📊 GERENCIAMENTO DE SINAIS CORRIGIDO:
   python main.py --check-signals             # Lista sinais BLOQUEADORES
@@ -269,21 +365,34 @@ Exemplos de uso CORRIGIDOS:
   python main.py --timeout 60 --analyze BTC  # Define timeout customizado
   python main.py --output json --status      # Saída em JSON
   python main.py --safe-mode --analyze-all   # Modo seguro
+
+🆕 TIMING CONTROLLER - {('DISPONÍVEL' if TIMING_CONTROLLER_AVAILABLE else 'INDISPONÍVEL')}:
+  • Elimina atrasos de 5-30 minutos nos sinais
+  • 5m: máximo 1 minuto após fechamento do candle
+  • 15m: máximo 3 minutos após fechamento do candle
+  • Validação com dados de 1m para precisão máxima
         """
     )
     
     # Comandos principais
     parser.add_argument('--status', action='store_true',
-                       help='Status do sistema')
+                       help='Status do sistema + timing controller')
     
     parser.add_argument('--analyze', type=str, metavar='SYMBOL',
-                       help='Análise de um symbol')
+                       help='Análise de um symbol com timing controller')
     
     parser.add_argument('--analyze-all', action='store_true',
-                       help='Análise de todos os symbols')
+                       help='Análise de todos os symbols (só gera se timing OK)')
     
     parser.add_argument('--continuous', action='store_true',
-                       help='Execução contínua')
+                       help='Execução contínua com timing inteligente')
+    
+    # NOVOS COMANDOS DE TIMING
+    parser.add_argument('--test-timing', action='store_true',
+                       help='Testa o timing controller')
+    
+    parser.add_argument('--timing-status', action='store_true',
+                       help='Status atual do timing para todos os símbolos')
     
     parser.add_argument('--check-signals', nargs='?', const='ALL', metavar='SYMBOL',
                        help='Lista sinais bloqueadores')
@@ -347,8 +456,53 @@ Exemplos de uso CORRIGIDOS:
         print_banner()
     
     try:
+        # NOVOS COMANDOS DE TIMING CONTROLLER
+        if args.test_timing:
+            result = safe_execute(test_timing_controller, timeout=10, operation_name="Teste do Timing Controller")
+            print(format_output_safe(result, args.output))
+            return
+        
+        elif args.timing_status:
+            if not TIMING_CONTROLLER_AVAILABLE:
+                print("❌ Timing Controller não disponível")
+                sys.exit(1)
+            
+            def run_timing_status():
+                controller = SignalTimingController()
+                data_reader = DataReader()
+                symbols = settings.get_analysis_symbols()[:5]  # Máximo 5 para não sobrecarregar
+                timeframes = ["5m", "15m"]
+                
+                summary = controller.get_timing_summary(symbols, timeframes, data_reader)
+                
+                print(f"\n🕒 STATUS DO TIMING CONTROLLER")
+                print("=" * 60)
+                print(f"📊 Combinações válidas: {summary['valid_for_signals']}/{summary['total_combinations']}")
+                print(f"⏰ Timestamp: {summary['timestamp']}")
+                
+                print(f"\n🔄 PRÓXIMAS JANELAS:")
+                for tf, next_window in summary['next_windows'].items():
+                    next_dt = datetime.fromisoformat(next_window)
+                    time_until = next_dt - datetime.now()
+                    minutes_until = time_until.total_seconds() / 60
+                    print(f"   {tf}: {next_dt.strftime('%H:%M:%S')} (em {minutes_until:.1f} min)")
+                
+                print(f"\n📈 STATUS POR SÍMBOLO:")
+                for symbol, details in summary['details_by_symbol'].items():
+                    print(f"\n   {symbol}:")
+                    for tf, tf_details in details.items():
+                        status = "✅" if tf_details['can_generate'] else "❌"
+                        print(f"     {tf}: {status} {tf_details['reason']}")
+                
+                return summary
+            
+            result = safe_execute(run_timing_status, timeout=15, operation_name="Status do timing")
+            if args.output == 'json':
+                print(format_output_safe(result, args.output))
+            return
+        
         # COMANDOS DE CONFIGURAÇÃO (sem analyzer)
-        if args.show_stop_config:
+        elif args.show_stop_config:
             if not ADVANCED_CONFIG_AVAILABLE:
                 print("❌ Configurações avançadas não disponíveis")
                 sys.exit(1)
@@ -513,9 +667,17 @@ Exemplos de uso CORRIGIDOS:
             print(format_output_safe(result, args.output))
         
         elif args.continuous:
+            timing_status = "COM Timing Controller" if TIMING_CONTROLLER_AVAILABLE else "SEM Timing Controller"
             if not args.quiet:
-                print(f"Iniciando análise contínua CORRIGIDA (timeout por ciclo: {args.timeout}s)")
+                print(f"Iniciando análise contínua {timing_status} (timeout por ciclo: {args.timeout}s)")
                 print("Estados: ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT")
+                if TIMING_CONTROLLER_AVAILABLE:
+                    print("🕒 Timing Controller ATIVO:")
+                    print("   • 5m: máximo 1 minuto após fechamento")
+                    print("   • 15m: máximo 3 minutos após fechamento")
+                    print("   • Validação com dados de 1m")
+                else:
+                    print("⚠️ SEM Timing Controller - possíveis atrasos nos sinais")
                 print("Pressione Ctrl+C para parar\n")
             
             try:

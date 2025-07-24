@@ -13,15 +13,7 @@ import logging
 from typing import Dict, List, Tuple, Any
 from dataclasses import dataclass
 from config.settings import settings
-
-# 🚨 NOVA IMPORTAÇÃO: Sistema de confluência
-try:
-    from .advanced_technical import AdvancedTechnicalAnalyzer, create_advanced_technical_analyzer
-    ADVANCED_CONFLUENCE_AVAILABLE = True
-    print("✅ Sistema de Confluência carregado: Bollinger + VWAP")
-except ImportError as e:
-    ADVANCED_CONFLUENCE_AVAILABLE = False
-    print(f"⚠️ Sistema de Confluência não disponível: {e}")
+from core.data_reader import MarketData
 
 try:
     import talib
@@ -274,61 +266,44 @@ class VWAPAnalyzer:
 
 class TechnicalAnalyzer:
     """Analisador Técnico APRIMORADO com Sistema de Confluência"""
-    
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.rsi_analyzer = RSIAnalyzer()
         self.macd_analyzer = MACDAnalyzer()
-        
-        # 🚨 NOVOS ANALISADORES
         self.bollinger_analyzer = BollingerBandsAnalyzer()
-        self.vwap_analyzer = VWAPAnalyzer()
+        # VWAP removido - não adiciona valor significativo
         
-        # 🚨 SISTEMA DE CONFLUÊNCIA
-        if ADVANCED_CONFLUENCE_AVAILABLE:
-            self.confluence_analyzer = create_advanced_technical_analyzer()
-            self.use_confluence = True
-            self.logger.info("🎯 TechnicalAnalyzer COM sistema de confluência ativado")
-        else:
-            self.confluence_analyzer = None
-            self.use_confluence = False
-            self.logger.warning("⚠️ TechnicalAnalyzer SEM sistema de confluência")
-
+        self.logger.info("🎯 TechnicalAnalyzer SIMPLIFICADO - RSI + MACD + Bollinger") 
+   
+    def should_use_live_data(self, indicator_name: str) -> bool:
+        """Define quais indicadores usam dados live"""
+        
+        LIVE_DATA_INDICATORS = [
+            'RSI', 'MACD', 'BollingerBands', 'VWAP'
+        ]
+        
+        return indicator_name in LIVE_DATA_INDICATORS
+    
+    
     def analyze_all(self, market_data, timeframe: str):
-        """Análise completa com TODOS os indicadores"""
+        """Análise simplificada com indicadores efetivos"""
         results = {}
         try:
-            # Indicadores principais
+            # Apenas indicadores com boa performance
             results['RSI'] = self.rsi_analyzer.analyze(market_data, timeframe)
             results['MACD'] = self.macd_analyzer.analyze(market_data, timeframe)
-            
-            # 🚨 NOVOS INDICADORES
             results['BollingerBands'] = self.bollinger_analyzer.analyze(market_data, timeframe)
-            results['VWAP'] = self.vwap_analyzer.analyze(market_data, timeframe)
-            
-            # 🚨 CONTEXTO DO MERCADO para logs
-            if self.use_confluence:
-                try:
-                    market_context = self.confluence_analyzer.get_market_context(market_data)
-                    self.logger.debug(
-                        f"📊 Contexto {market_data.symbol} {timeframe}: "
-                        f"BB:{market_context.get('bollinger_position', 'unknown')} | "
-                        f"VWAP:{market_context.get('vwap_position', 'unknown')} | "
-                        f"Trend:{market_context.get('vwap_trend', 'unknown')}"
-                    )
-                except Exception as e:
-                    self.logger.warning(f"Erro no contexto do mercado: {e}")
             
         except Exception as e:
             self.logger.error(f"Erro na análise técnica para {market_data.symbol} {timeframe}: {e}")
         
         return results
-
+   
     def generate_trading_signals(self, market_data, analysis_results, timeframe: str):
-        """Geração de sinais COM SISTEMA DE CONFLUÊNCIA"""
+        """Geração de sinais SIMPLIFICADA - sem confluência complexa"""
         from core.signal_writer import EnhancedTradingSignal
 
-        # 1. COLETA TODOS OS SINAIS DOS INDICADORES
+        # Coleta sinais de indicadores efetivos
         all_signals = []
         for indicator_name, result in analysis_results.items():
             for signal_data in result.signals:
@@ -338,79 +313,47 @@ class TechnicalAnalyzer:
         if not all_signals:
             return []
 
-        # 2. SELECIONA O MELHOR SINAL (prioritiza extremos e crossovers)
+        # Prioriza por performance histórica
         def signal_priority_score(signal):
-            priority_scores = {
-                'extreme': 100,    # Bollinger extremos = prioridade máxima
-                'crossover': 90,   # MACD crossovers
-                'high': 80,        # RSI overbought/oversold
-                'support': 70,     # VWAP suporte/resistência  
-                'resistance': 70
-            }
-            
-            base_score = priority_scores.get(signal.get('priority', 'normal'), 50)
-            confidence_score = signal.get('confidence', 0.5) * 100
-            
-            return base_score + confidence_score
+            # BollingerBands extremos = prioridade máxima (62% sucesso)
+            if signal.get('priority') == 'extreme':
+                return 100 + signal.get('confidence', 0.5) * 100
+            # RSI overbought/oversold (61% sucesso)  
+            elif signal.get('priority') == 'high':
+                return 90 + signal.get('confidence', 0.5) * 100
+            # MACD crossovers (54% sucesso)
+            elif signal.get('priority') == 'crossover':
+                return 80 + signal.get('confidence', 0.5) * 100
+            else:
+                return 50 + signal.get('confidence', 0.5) * 100
 
         best_signal = max(all_signals, key=signal_priority_score)
 
-        # 3. CRIA SINAL BASE
-        signal_dict = {
-            'symbol': market_data.symbol,
-            'signal_type': best_signal['signal_type'],
-            'entry_price': market_data.latest_price,
-            'confidence': best_signal['confidence'],
-            'timeframe': timeframe,
-            'detector_type': 'technical',
-            'detector_name': best_signal['indicator'],
-            'market_data': market_data.data,
-            'technical_data': {
+        # Cria sinal sem confluência complexa
+        enhanced_signal = EnhancedTradingSignal(
+            symbol=market_data.symbol,
+            signal_type=best_signal['signal_type'],
+            entry_price=market_data.latest_price,
+            confidence=best_signal['confidence'],
+            timeframe=timeframe,
+            detector_type='technical',
+            detector_name=best_signal['indicator'],
+            market_data=market_data.data,
+            technical_data={
                 'primary_signal': best_signal,
                 'all_signals': all_signals,
-                'analysis_results': analysis_results
             }
-        }
-
-        # 4. 🚨 APLICA SISTEMA DE CONFLUÊNCIA
-        if self.use_confluence:
-            try:
-                # Analisa confluência e ajusta confidence
-                enhanced_signal_dict = self.confluence_analyzer.analyze_confluence_for_signal(
-                    signal_dict, market_data
-                )
-                
-                # Usa dados aprimorados pela confluência
-                signal_dict = enhanced_signal_dict
-                
-            except Exception as e:
-                self.logger.error(f"Erro no sistema de confluência: {e}")
-                # Continua com sinal original se houver erro
-
-        # 5. CRIA SINAL FINAL
-        enhanced_signal = EnhancedTradingSignal(**{
-            k: v for k, v in signal_dict.items() 
-            if k in EnhancedTradingSignal.__annotations__
-        })
-
-        # 6. LOG DO SINAL GERADO
-        confluence_info = ""
-        if 'confluence_data' in signal_dict:
-            confluence_data = signal_dict['confluence_data']
-            original_conf = confluence_data.get('original_confidence', 0)
-            boost = confluence_data.get('confidence_boost', 1.0)
-            if boost > 1.05:  # Se houve boost significativo
-                confluence_info = f" | 🎯 Confluência: +{((boost-1)*100):.0f}% ({confluence_data.get('bollinger_signal', 'none')}/{confluence_data.get('vwap_signal', 'none')})"
+        )
 
         self.logger.info(
             f"📊 SINAL TÉCNICO: {market_data.symbol} {timeframe} | "
             f"{best_signal['indicator']} → {best_signal['signal_type']} | "
-            f"Conf: {enhanced_signal.confidence:.3f} | "
-            f"Entry: ${enhanced_signal.entry_price:.4f}{confluence_info}"
+            f"Conf: {enhanced_signal.confidence:.3f}"
         )
 
         return [enhanced_signal]
-
+    
+    
     def get_confluence_statistics(self, market_data) -> Dict:
         """Retorna estatísticas do sistema de confluência para debug"""
         if not self.use_confluence:
@@ -425,20 +368,3 @@ class TechnicalAnalyzer:
             }
         except Exception as e:
             return {'confluence_available': True, 'error': str(e)}
-
-# Função de conveniência para verificar se confluência está disponível
-def is_confluence_available() -> bool:
-    """Verifica se o sistema de confluência está disponível"""
-    return ADVANCED_CONFLUENCE_AVAILABLE
-
-def get_confluence_info() -> Dict:
-    """Retorna informações sobre o sistema de confluência"""
-    return {
-        'available': ADVANCED_CONFLUENCE_AVAILABLE,
-        'features': {
-            'bollinger_bands': 'Filtro de volatilidade - extremos confirmam reversões',
-            'vwap': 'Referência dinâmica - suporte/resistência institucional',
-            'confluence_scoring': 'Sistema que aumenta confidence baseado na confluência',
-            'context_aware': 'Sinais são analisados no contexto de volatilidade e momentum'
-        } if ADVANCED_CONFLUENCE_AVAILABLE else {}
-    }

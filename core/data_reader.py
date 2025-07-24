@@ -1,17 +1,18 @@
-# data_reader.py - CORRIGIDO PARA CONFIGURAÇÃO EXISTENTE + SEM LOCKS
+# data_reader.py - CORRIGIDO PARA EVITAR TRAVAMENTOS
 
 """
-Data Reader otimizado para evitar locks de banco:
-1. Compatível com configuração existente
-2. Conexões sem locks longos
-3. Timeouts agressivos
-4. READ UNCOMMITTED para evitar blocking
+Data Reader otimizado ANTI-TRAVAMENTO:
+1. Timeouts muito agressivos
+2. Validação prévia do banco
+3. Fallback robusto
+4. Debug detalhado
 """
 
 import sqlite3
 import pandas as pd
 import logging
 import time
+import os
 from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass
@@ -44,61 +45,240 @@ class MarketData:
         return self.latest_price
 
 class DataReader:
-    """Data Reader otimizado sem locks - COMPATÍVEL COM CONFIGURAÇÃO EXISTENTE"""
+    """Data Reader ANTI-TRAVAMENTO - SUPER ROBUSTO"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         
         # CONFIGURAÇÃO COMPATÍVEL - detecta automaticamente a configuração correta
+        self.db_path, self.table_name = self._detect_database_config()
+        
+        # CONFIGURAÇÕES ANTI-TRAVAMENTO
+        self.CONNECTION_TIMEOUT = 1  # Máximo 1s para conectar
+        self.QUERY_TIMEOUT = 2       # Máximo 2s para query
+        self.MAX_RETRIES = 1         # Máximo 1 tentativa (rápido)
+        
+        # Valida banco ANTES de usar
+        self.database_validated = self._validate_database_setup()
+        
+        self.logger.info(f"DataReader ANTI-TRAVAMENTO inicializado:")
+        self.logger.info(f"  • DB: {self.db_path}")
+        self.logger.info(f"  • Tabela: {self.table_name}")
+        self.logger.info(f"  • Validado: {self.database_validated}")
+        self.logger.info(f"  • Timeouts: {self.CONNECTION_TIMEOUT}s conexão, {self.QUERY_TIMEOUT}s query")
+    
+    # ADICIONAR método genérico que funciona para ambos:
+    
+    def get_live_candle(self, symbol: str, timeframe: str) -> Dict:
+        """Versão SIMPLIFICADA mais confiável"""
+        
         try:
-            # Primeira prioridade: stream_db_path (configuração atual detectada)
+            timeout = getattr(self, 'CONNECTION_TIMEOUT', 1.0)
+            
+            with sqlite3.connect(self.db_path, timeout=timeout) as conn:
+                cursor = conn.cursor()
+                
+                # Query SIMPLIFICADA (sem subqueries complexas que podem dar erro)
+                live_candle_query = """
+                SELECT 
+                    symbol,
+                    max(kline_close_time) as close_time,
+                    min(open_price) as open_price,
+                    max(high_price) as high_price,
+                    min(low_price) as low_price,
+                    max(close_price) as close_price,
+                    sum(volume) as volume
+                FROM kline_microstructure_1m 
+                WHERE symbol = ?
+                AND kline_close_time > (
+                    SELECT max(kline_close_time) 
+                    FROM crypto_ohlc 
+                    WHERE symbol = ? AND timeframe = ?
+                )
+                GROUP BY symbol
+                """
+                
+                cursor.execute(live_candle_query, [symbol, symbol, timeframe])
+                result = cursor.fetchone()
+                
+                if result:
+                    columns = [desc[0] for desc in cursor.description]
+                    live_data = dict(zip(columns, result))
+                    self.logger.debug(f"📡 {symbol} {timeframe}: Candle live encontrado (${live_data.get('close_price', 0):.4f})")
+                    return live_data
+                else:
+                    self.logger.debug(f"📭 {symbol} {timeframe}: Nenhum candle live")
+                    return None
+                    
+        except Exception as e:
+            self.logger.error(f"Erro na busca de candle live {symbol} {timeframe}: {e}")
+            return None
+    
+    def get_enhanced_data(self, symbol: str, timeframe: str) -> MarketData:
+        """Dados históricos + candle atual em formação - VERSÃO DEFINITIVA CORRIGIDA"""
+        
+        try:
+            # 1. Busca dados históricos normais
+            historical_data = self.get_latest_data(symbol, timeframe)
+            
+            if not historical_data or not historical_data.is_sufficient_data:
+                self.logger.debug(f"❌ {symbol} {timeframe}: Dados históricos insuficientes")
+                return historical_data
+            
+            # 2. Apenas para 5m e 15m
+            if timeframe not in ["5m", "15m"]:
+                self.logger.debug(f"⚪ {symbol} {timeframe}: Não usa dados live, retornando históricos")
+                return historical_data
+            
+            # 3. Busca candle em formação
+            live_candle = self.get_live_candle(symbol, timeframe)
+            
+            if live_candle and all(live_candle.get(k) is not None for k in ['open_price', 'high_price', 'low_price', 'close_price']):
+                try:
+                    # Cria linha do candle live
+                    live_row = pd.DataFrame([{
+                        'timestamp': pd.to_datetime(live_candle['close_time']),
+                        'open_price': float(live_candle['open_price']),
+                        'high_price': float(live_candle['high_price']),
+                        'low_price': float(live_candle['low_price']),
+                        'close_price': float(live_candle['close_price']),
+                        'volume': float(live_candle['volume']) if live_candle.get('volume') else 0.0
+                    }])
+                    
+                    # Combina dados históricos + candle live
+                    combined_data = pd.concat([historical_data.data, live_row], ignore_index=True)
+                    
+                    # CORREÇÃO: Usa apenas parâmetros aceitos pelo construtor
+                    enhanced_data = MarketData(
+                        symbol=symbol,
+                        timeframe=timeframe,
+                        data=combined_data,
+                        last_update=datetime.now()
+                    )
+                    
+                    self.logger.debug(f"📡 {symbol} {timeframe}: Candle LIVE adicionado (${live_candle['close_price']:.4f}, vol: {live_candle.get('volume', 0):.0f})")
+                    return enhanced_data
+                    
+                except Exception as parse_error:
+                    self.logger.warning(f"⚠️ {symbol} {timeframe}: Erro ao processar candle live: {parse_error}")
+                    return historical_data
+            else:
+                # Se não conseguiu dados live válidos, retorna dados históricos
+                self.logger.debug(f"⚪ {symbol} {timeframe}: Sem dados live válidos, usando históricos")
+                return historical_data
+                
+        except Exception as e:
+            self.logger.error(f"Erro na busca de dados enhanced {symbol} {timeframe}: {e}")
+            # Em caso de erro, retorna dados históricos normais
+            return self.get_latest_data(symbol, timeframe)
+    
+    def _detect_database_config(self) -> tuple[str, str]:
+        """Detecta configuração do banco COM DEBUG"""
+        try:
+            # Primeira prioridade: stream_db_path
             if hasattr(settings.database, 'stream_db_path'):
-                self.db_path = settings.database.stream_db_path
-                self.table_name = getattr(settings.database, 'stream_table', 'crypto_ohlc')
-                self.logger.info(f"✅ Usando configuração STREAM: {self.db_path}")
+                db_path = settings.database.stream_db_path
+                table_name = getattr(settings.database, 'stream_table', 'crypto_ohlc')
+                self.logger.info(f"✅ Configuração STREAM detectada: {db_path}")
+                return db_path, table_name
             
             # Segunda prioridade: market_data_db_path
             elif hasattr(settings.database, 'market_data_db_path'):
-                self.db_path = settings.database.market_data_db_path
-                self.table_name = settings.database.market_data_table
-                self.logger.info(f"✅ Usando configuração MARKET_DATA: {self.db_path}")
+                db_path = settings.database.market_data_db_path
+                table_name = settings.database.market_data_table
+                self.logger.info(f"✅ Configuração MARKET_DATA detectada: {db_path}")
+                return db_path, table_name
             
             # Terceira prioridade: configuração alternativa
             elif hasattr(settings.database, 'market_data_path'):
-                self.db_path = settings.database.market_data_path
-                self.table_name = getattr(settings.database, 'market_data_table', 'market_data')
-                self.logger.info(f"✅ Usando configuração ALT: {self.db_path}")
+                db_path = settings.database.market_data_path
+                table_name = getattr(settings.database, 'market_data_table', 'market_data')
+                self.logger.info(f"✅ Configuração ALT detectada: {db_path}")
+                return db_path, table_name
             
             # Quarta prioridade: configuração básica
             elif hasattr(settings.database, 'path'):
-                self.db_path = settings.database.path
-                self.table_name = getattr(settings.database, 'table', 'market_data')
-                self.logger.info(f"✅ Usando configuração BÁSICA: {self.db_path}")
+                db_path = settings.database.path
+                table_name = getattr(settings.database, 'table', 'market_data')
+                self.logger.info(f"✅ Configuração BÁSICA detectada: {db_path}")
+                return db_path, table_name
             
             # Fallback para configuração padrão
             else:
-                self.db_path = "data/market_data.db"
-                self.table_name = "market_data"
-                self.logger.warning(f"⚠️ Usando configuração padrão: {self.db_path}")
+                db_path = "data/market_data.db"
+                table_name = "market_data"
+                self.logger.warning(f"⚠️ Usando configuração PADRÃO: {db_path}")
+                return db_path, table_name
                 
         except Exception as e:
             # Fallback absoluto
-            self.db_path = "data/market_data.db" 
-            self.table_name = "market_data"
-            self.logger.error(f"❌ Erro na configuração DB, usando padrão: {e}")
-        
-        # CONFIGURAÇÕES ANTI-LOCK
-        self.CONNECTION_TIMEOUT = 3  # Máximo 3s para conectar
-        self.QUERY_TIMEOUT = 5       # Máximo 5s para query
-        self.MAX_RETRIES = 2         # Máximo 2 tentativas
-        
-        self.logger.info(f"DataReader OTIMIZADO inicializado:")
-        self.logger.info(f"  • DB: {self.db_path}")
-        self.logger.info(f"  • Tabela: {self.table_name}")
-        self.logger.info(f"  • Anti-locks: ATIVO")
+            db_path = "data/market_data.db" 
+            table_name = "market_data"
+            self.logger.error(f"❌ Erro na detecção de configuração DB, usando padrão: {e}")
+            return db_path, table_name
+    
+    def _validate_database_setup(self) -> bool:
+        """Valida se o banco existe e está acessível COM TIMEOUT AGRESSIVO"""
+        try:
+            self.logger.info(f"🔍 Validando banco: {self.db_path}")
+            
+            # Verifica se arquivo existe
+            if not os.path.exists(self.db_path):
+                self.logger.error(f"❌ Arquivo do banco não existe: {self.db_path}")
+                return False
+            
+            # Verifica se é acessível
+            if not os.access(self.db_path, os.R_OK):
+                self.logger.error(f"❌ Sem permissão de leitura: {self.db_path}")
+                return False
+            
+            # Testa conexão RÁPIDA
+            start_time = time.time()
+            try:
+                conn = sqlite3.connect(
+                    self.db_path, 
+                    timeout=0.5,  # TIMEOUT SUPER AGRESSIVO
+                    check_same_thread=False
+                )
+                
+                conn.execute("PRAGMA busy_timeout = 200")  # 0.2s
+                cursor = conn.cursor()
+                
+                # Verifica se tabela existe
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?", (self.table_name,))
+                table_exists = cursor.fetchone() is not None
+                
+                if not table_exists:
+                    self.logger.error(f"❌ Tabela '{self.table_name}' não existe")
+                    conn.close()
+                    return False
+                
+                # Testa uma query simples
+                cursor.execute(f"SELECT COUNT(*) FROM {self.table_name} LIMIT 1")
+                count = cursor.fetchone()[0]
+                
+                conn.close()
+                
+                validation_time = time.time() - start_time
+                self.logger.info(f"✅ Banco validado: {count} registros, {validation_time:.2f}s")
+                
+                if count == 0:
+                    self.logger.warning(f"⚠️ Banco vazio: {count} registros")
+                    return False
+                
+                return True
+                
+            except sqlite3.OperationalError as e:
+                validation_time = time.time() - start_time
+                self.logger.error(f"❌ Erro de acesso ao banco em {validation_time:.2f}s: {e}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"❌ Erro na validação do banco: {e}")
+            return False
     
     def _get_optimized_connection(self):
-        """Conexão otimizada sem locks longos"""
+        """Conexão SUPER otimizada anti-travamento"""
         try:
             conn = sqlite3.connect(
                 self.db_path, 
@@ -107,27 +287,137 @@ class DataReader:
                 isolation_level=None  # Autocommit mode
             )
             
-            # CONFIGURAÇÕES ANTI-LOCK
+            # CONFIGURAÇÕES ANTI-TRAVAMENTO
             conn.execute("PRAGMA read_uncommitted = true")  # Não bloqueia leituras
             conn.execute("PRAGMA journal_mode = WAL")       # Write-Ahead Logging
-            conn.execute("PRAGMA synchronous = NORMAL")     # Menos sincronização
-            conn.execute("PRAGMA cache_size = 10000")       # Cache maior
+            conn.execute("PRAGMA synchronous = OFF")        # Sem sincronização (mais rápido)
+            conn.execute("PRAGMA cache_size = 2000")        # Cache menor
             conn.execute("PRAGMA temp_store = memory")      # Temp em memória
+            conn.execute(f"PRAGMA busy_timeout = {self.QUERY_TIMEOUT * 1000}")  # Timeout global
             
             return conn
             
         except Exception as e:
-            self.logger.error(f"Erro na conexão otimizada: {e}")
+            self.logger.error(f"❌ Erro na conexão otimizada: {e}")
             raise
     
-    def get_latest_data(self, symbol: str, timeframe: str, limit: int = 200) -> Optional[MarketData]:
+    def get_valid_symbols_for_analysis(self) -> List[str]:
         """
-        Busca dados mais recentes SEM LOCK
+        Retorna símbolos válidos COM PROTEÇÃO ANTI-TRAVAMENTO
         """
+        self.logger.info("🔍 Iniciando busca de símbolos válidos...")
+        
+        # Se banco não foi validado, usa fallback
+        if not self.database_validated:
+            self.logger.warning("❌ Banco não validado, usando símbolos fallback")
+            return self._get_fallback_symbols()
+        
         start_time = time.time()
         
         try:
-            # Query otimizada com LIMIT para ser rápida
+            # Query SUPER rápida com LIMIT baixo
+            query = f"""
+            SELECT DISTINCT symbol
+            FROM {self.table_name}
+            WHERE timeframe = '5m'
+            AND timestamp > datetime('now', '-2 days')
+            LIMIT 8
+            """
+            
+            self.logger.debug(f"Query: {query}")
+            
+            symbols = []
+            try:
+                with self._get_optimized_connection() as conn:
+                    cursor = conn.cursor()
+                    cursor.execute(query)
+                    results = cursor.fetchall()
+                    symbols = [row[0] for row in results]
+                    
+            except sqlite3.OperationalError as e:
+                query_time = time.time() - start_time
+                self.logger.error(f"❌ Query falhou em {query_time:.2f}s: {e}")
+                return self._get_fallback_symbols()
+            
+            query_time = time.time() - start_time
+            self.logger.info(f"✅ Query executada em {query_time:.2f}s, {len(symbols)} símbolos encontrados")
+            
+            # Se não achou símbolos, usa fallback
+            if not symbols:
+                self.logger.warning("⚠️ Nenhum símbolo encontrado no banco, usando fallback")
+                return self._get_fallback_symbols()
+            
+            # Validação RÁPIDA (apenas 3 símbolos para ser rápido)
+            valid_symbols = []
+            for symbol in symbols[:8]:  # Limita a 3 para ser rápido
+                if self._quick_symbol_validation(symbol):
+                    valid_symbols.append(symbol)
+                
+                # Se já tem 3 válidos, para
+                if len(valid_symbols) >= 8:
+                    break
+            
+            total_time = time.time() - start_time
+            
+            if valid_symbols:
+                self.logger.info(f"✅ {len(valid_symbols)} símbolos válidos em {total_time:.2f}s: {valid_symbols}")
+                return valid_symbols
+            else:
+                self.logger.warning(f"⚠️ Nenhum símbolo válido em {total_time:.2f}s, usando fallback")
+                return self._get_fallback_symbols()
+            
+        except Exception as e:
+            total_time = time.time() - start_time
+            self.logger.error(f"❌ Erro na busca de símbolos em {total_time:.2f}s: {e}")
+            return self._get_fallback_symbols()
+    
+    def _quick_symbol_validation(self, symbol: str) -> bool:
+        """Validação SUPER rápida de um símbolo"""
+        try:
+            start_time = time.time()
+            
+            quick_check = f"""
+            SELECT COUNT(*) 
+            FROM {self.table_name} 
+            WHERE symbol = ? AND timeframe = '5m' 
+            AND timestamp > datetime('now', '-1 days')
+            LIMIT 1
+            """
+            
+            with self._get_optimized_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(quick_check, (symbol,))
+                count = cursor.fetchone()[0]
+            
+            validation_time = time.time() - start_time
+            is_valid = count >= 50  # Pelo menos 50 registros recentes
+            
+            self.logger.debug(f"  {symbol}: {count} registros, válido: {is_valid}, {validation_time:.2f}s")
+            return is_valid
+                
+        except Exception as e:
+            validation_time = time.time() - start_time
+            self.logger.debug(f"  {symbol}: Erro na validação em {validation_time:.2f}s: {e}")
+            return False
+    
+    def _get_fallback_symbols(self) -> List[str]:
+        """Símbolos de fallback quando banco não está disponível"""
+        fallback_symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT"]
+        self.logger.info(f"📋 Usando símbolos fallback: {fallback_symbols}")
+        return fallback_symbols
+    
+    def get_latest_data(self, symbol: str, timeframe: str, limit: int = 200) -> Optional[MarketData]:
+        """
+        Busca dados mais recentes COM TIMEOUT AGRESSIVO
+        """
+        if not self.database_validated:
+            self.logger.warning(f"❌ Banco não validado, não é possível buscar dados para {symbol}")
+            return None
+        
+        start_time = time.time()
+        
+        try:
+            # Query otimizada com LIMIT baixo
             query = f"""
             SELECT timestamp, open_price, high_price, low_price, close_price, volume
             FROM {self.table_name}
@@ -136,38 +426,26 @@ class DataReader:
             LIMIT ?
             """
             
-            for attempt in range(self.MAX_RETRIES):
-                try:
-                    with self._get_optimized_connection() as conn:
-                        # Timeout na query
-                        conn.execute("PRAGMA busy_timeout = 1000")  # 1s timeout
-                        
-                        df = pd.read_sql_query(
-                            query, 
-                            conn, 
-                            params=(symbol, timeframe, limit)
-                        )
-                    
-                    break  # Sucesso
-                    
-                except sqlite3.OperationalError as e:
-                    if "database is locked" in str(e).lower() and attempt < self.MAX_RETRIES - 1:
-                        self.logger.warning(f"DB locked, tentativa {attempt + 1}/{self.MAX_RETRIES}")
-                        time.sleep(0.1 * (attempt + 1))  # Backoff exponencial
-                        continue
-                    else:
-                        raise
+            df = None
+            try:
+                with self._get_optimized_connection() as conn:
+                    df = pd.read_sql_query(
+                        query, 
+                        conn, 
+                        params=(symbol, timeframe, limit)
+                    )
+            except sqlite3.OperationalError as e:
+                execution_time = time.time() - start_time
+                self.logger.error(f"❌ Query de dados falhou para {symbol} {timeframe} em {execution_time:.2f}s: {e}")
+                return None
             
             execution_time = time.time() - start_time
             
-            if execution_time > self.QUERY_TIMEOUT:
-                self.logger.warning(f"Query lenta para {symbol} {timeframe}: {execution_time:.2f}s")
-            
             if df.empty:
-                self.logger.warning(f"Nenhum dado encontrado para {symbol} {timeframe}")
+                self.logger.warning(f"⚠️ Nenhum dado para {symbol} {timeframe} em {execution_time:.2f}s")
                 return None
             
-            # Converte timestamp e ordena corretamente
+            # Processamento rápido
             df['timestamp'] = pd.to_datetime(df['timestamp'])
             df = df.sort_values('timestamp').reset_index(drop=True)
             
@@ -193,140 +471,15 @@ class DataReader:
             self.logger.error(f"❌ Erro ao buscar {symbol} {timeframe} em {execution_time:.2f}s: {e}")
             return None
     
-    def get_valid_symbols_for_analysis(self) -> List[str]:
-        """
-        Retorna símbolos válidos SEM LOCK
-        """
-        try:
-            # Query rápida para símbolos únicos
-            query = f"""
-            SELECT DISTINCT symbol
-            FROM {self.table_name}
-            WHERE timeframe IN ('5m', '15m')
-            AND timestamp > datetime('now', '-7 days')
-            LIMIT 50
-            """
-            
-            with self._get_optimized_connection() as conn:
-                conn.execute("PRAGMA busy_timeout = 500")  # 0.5s timeout
-                
-                cursor = conn.cursor()
-                cursor.execute(query)
-                results = cursor.fetchall()
-            
-            symbols = [row[0] for row in results]
-            
-            # Filtra símbolos que têm dados suficientes
-            valid_symbols = []
-            for symbol in symbols:
-                try:
-                    # Verifica rapidamente se tem dados recentes
-                    quick_check = f"""
-                    SELECT COUNT(*) 
-                    FROM {self.table_name} 
-                    WHERE symbol = ? AND timeframe = '5m' 
-                    AND timestamp > datetime('now', '-2 days')
-                    """
-                    
-                    with self._get_optimized_connection() as conn:
-                        cursor = conn.cursor()
-                        cursor.execute(quick_check, (symbol,))
-                        count = cursor.fetchone()[0]
-                    
-                    if count >= 100:  # Pelo menos 100 registros recentes
-                        valid_symbols.append(symbol)
-                        
-                except Exception as e:
-                    self.logger.debug(f"Erro na verificação de {symbol}: {e}")
-                    continue
-            
-            # Limita a 8 símbolos para evitar sobrecarga
-            valid_symbols = valid_symbols[:8]
-            
-            self.logger.info(f"✅ Símbolos válidos encontrados: {valid_symbols}")
-            return valid_symbols
-            
-        except Exception as e:
-            self.logger.error(f"❌ Erro ao buscar símbolos válidos: {e}")
-            
-            # FALLBACK: usa símbolos do settings se disponível
-            try:
-                fallback_symbols = settings.get_analysis_symbols()[:8]
-                self.logger.info(f"📋 Usando símbolos do settings: {fallback_symbols}")
-                return fallback_symbols
-            except:
-                # FALLBACK ABSOLUTO: símbolos hardcoded
-                fallback_symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT", "SOLUSDT", "ADAUSDT", "DOGEUSDT", "MATICUSDT", "LTCUSDT"]
-                self.logger.warning(f"⚠️ Usando símbolos hardcoded: {fallback_symbols}")
-                return fallback_symbols
-    
-    def get_microstructure_for_validation(self, symbol: str, start_time: datetime, duration_minutes: int) -> Optional[pd.DataFrame]:
-        """
-        DESABILITADO: Microestrutura pode causar locks
-        """
-        self.logger.debug(f"Microestrutura desabilitada para {symbol} (evita locks)")
-        return None
-    
-    def test_microstructure_connection(self) -> Dict[str, Any]:
-        """
-        Testa conexão de microestrutura SEM LOCK
-        """
-        try:
-            # Testa apenas a existência da tabela, sem buscar dados
-            query = f"SELECT name FROM sqlite_master WHERE type='table' AND name LIKE '%1m%' OR name LIKE '%minute%'"
-            
-            with self._get_optimized_connection() as conn:
-                conn.execute("PRAGMA busy_timeout = 200")  # 0.2s timeout
-                cursor = conn.cursor()
-                cursor.execute(query)
-                tables = cursor.fetchall()
-            
-            has_microstructure = len(tables) > 0
-            
-            return {
-                'table_exists': has_microstructure,
-                'has_data': False,  # Não verifica dados para evitar locks
-                'sample_data_count': 0,
-                'status': 'disabled_to_avoid_locks'
-            }
-            
-        except Exception as e:
-            self.logger.debug(f"Teste de microestrutura falhou: {e}")
-            return {
-                'table_exists': False,
-                'has_data': False,
-                'sample_data_count': 0,
-                'error': str(e)
-            }
-    
     def get_current_price(self, symbol: str) -> Optional[float]:
         """
-        Busca preço atual SEM LOCK para monitoramento
+        Busca preço atual COM TIMEOUT SUPER AGRESSIVO
         """
+        if not self.database_validated:
+            return None
+        
         try:
-            # Query super rápida para preço atual - tenta 1m primeiro
-            query_1m = f"""
-            SELECT close_price
-            FROM {self.table_name}
-            WHERE symbol = ? AND timeframe = '1m'
-            ORDER BY timestamp DESC
-            LIMIT 1
-            """
-            
-            try:
-                with self._get_optimized_connection() as conn:
-                    conn.execute("PRAGMA busy_timeout = 100")  # 0.1s timeout apenas
-                    
-                    cursor = conn.cursor()
-                    cursor.execute(query_1m, (symbol,))
-                    result = cursor.fetchone()
-                
-                if result:
-                    return float(result[0])
-            except:
-                pass  # Se falhar, tenta 5m
-            
-            # Fallback para 5m se não tem 1m ou deu timeout
+            # Query super rápida
             query_5m = f"""
             SELECT close_price
             FROM {self.table_name}
@@ -336,7 +489,6 @@ class DataReader:
             """
             
             with self._get_optimized_connection() as conn:
-                conn.execute("PRAGMA busy_timeout = 100")
                 cursor = conn.cursor()
                 cursor.execute(query_5m, (symbol,))
                 result = cursor.fetchone()
@@ -344,44 +496,22 @@ class DataReader:
             return float(result[0]) if result else None
                 
         except Exception as e:
-            self.logger.warning(f"Erro ao buscar preço atual de {symbol}: {e}")
-            return None
-    
-    def get_price_at_time(self, symbol: str, target_time: datetime, tolerance_minutes: int = 5) -> Optional[float]:
-        """
-        Busca preço em momento específico SEM LOCK
-        """
-        try:
-            start_time = target_time - timedelta(minutes=tolerance_minutes)
-            end_time = target_time + timedelta(minutes=tolerance_minutes)
-            
-            # Usa 5m para evitar locks na tabela de 1m
-            query = f"""
-            SELECT close_price, timestamp
-            FROM {self.table_name}
-            WHERE symbol = ? AND timeframe = '5m'
-            AND timestamp BETWEEN ? AND ?
-            ORDER BY ABS(julianday(timestamp) - julianday(?))
-            LIMIT 1
-            """
-            
-            with self._get_optimized_connection() as conn:
-                conn.execute("PRAGMA busy_timeout = 100")
-                
-                cursor = conn.cursor()
-                cursor.execute(query, (symbol, start_time.isoformat(), end_time.isoformat(), target_time.isoformat()))
-                result = cursor.fetchone()
-            
-            return float(result[0]) if result else None
-            
-        except Exception as e:
-            self.logger.warning(f"Erro ao buscar preço histórico de {symbol}: {e}")
+            self.logger.debug(f"Erro ao buscar preço de {symbol}: {e}")
             return None
     
     def test_connection(self) -> Dict[str, Any]:
-        """Testa conexão com o banco"""
+        """Testa conexão de forma SUPER RÁPIDA"""
         try:
             start_time = time.time()
+            
+            if not self.database_validated:
+                return {
+                    'status': 'error',
+                    'database_path': self.db_path,
+                    'main_table': self.table_name,
+                    'error': 'Database validation failed during initialization',
+                    'anti_lock_enabled': True
+                }
             
             with self._get_optimized_connection() as conn:
                 cursor = conn.cursor()
@@ -390,15 +520,9 @@ class DataReader:
                 cursor.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table'")
                 table_count = cursor.fetchone()[0]
                 
-                # Testa se tabela principal existe
-                cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{self.table_name}'")
-                main_table_exists = cursor.fetchone() is not None
-                
-                # Se tabela existe, conta registros
-                record_count = 0
-                if main_table_exists:
-                    cursor.execute(f"SELECT COUNT(*) FROM {self.table_name} LIMIT 1")
-                    record_count = cursor.fetchone()[0]
+                # Conta registros rapidamente
+                cursor.execute(f"SELECT COUNT(*) FROM {self.table_name} LIMIT 1")
+                record_count = cursor.fetchone()[0]
             
             execution_time = time.time() - start_time
             
@@ -406,11 +530,12 @@ class DataReader:
                 'status': 'success',
                 'database_path': self.db_path,
                 'main_table': self.table_name,
-                'main_table_exists': main_table_exists,
+                'main_table_exists': True,
                 'total_tables': table_count,
                 'sample_record_count': record_count,
                 'connection_time': execution_time,
-                'anti_lock_enabled': True
+                'anti_lock_enabled': True,
+                'validation_passed': True
             }
             
         except Exception as e:
@@ -419,5 +544,50 @@ class DataReader:
                 'database_path': self.db_path,
                 'main_table': self.table_name,
                 'error': str(e),
-                'anti_lock_enabled': True
+                'anti_lock_enabled': True,
+                'validation_passed': False
             }
+    
+    # Métodos desabilitados para evitar travamentos
+    def get_microstructure_for_validation(self, symbol: str, start_time: datetime, duration_minutes: int) -> Optional[pd.DataFrame]:
+        """DESABILITADO: Microestrutura pode causar locks"""
+        self.logger.debug(f"Microestrutura desabilitada para {symbol} (evita travamentos)")
+        return None
+    
+    def test_microstructure_connection(self) -> Dict[str, Any]:
+        """DESABILITADO: Testa microestrutura"""
+        return {
+            'table_exists': False,
+            'has_data': False,
+            'sample_data_count': 0,
+            'status': 'disabled_to_avoid_locks'
+        }
+    
+    def get_price_at_time(self, symbol: str, target_time: datetime, tolerance_minutes: int = 5) -> Optional[float]:
+        """Busca preço histórico COM TIMEOUT"""
+        if not self.database_validated:
+            return None
+        
+        try:
+            start_time = target_time - timedelta(minutes=tolerance_minutes)
+            end_time = target_time + timedelta(minutes=tolerance_minutes)
+            
+            query = f"""
+            SELECT close_price
+            FROM {self.table_name}
+            WHERE symbol = ? AND timeframe = '5m'
+            AND timestamp BETWEEN ? AND ?
+            ORDER BY ABS(julianday(timestamp) - julianday(?))
+            LIMIT 1
+            """
+            
+            with self._get_optimized_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(query, (symbol, start_time.isoformat(), end_time.isoformat(), target_time.isoformat()))
+                result = cursor.fetchone()
+            
+            return float(result[0]) if result else None
+            
+        except Exception as e:
+            self.logger.debug(f"Erro ao buscar preço histórico de {symbol}: {e}")
+            return None

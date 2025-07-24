@@ -333,22 +333,24 @@ class CandlestickDetector:
 
 # FUNÇÃO GLOBAL CORRIGIDA - Esta é a função que está sendo importada
 def generate_candlestick_signals(df: pd.DataFrame, symbol: str) -> List[Dict]:
-    """Função pública para gerar sinais a partir de um DataFrame."""
+    """Função simplificada - APENAS ENGOLFO (96% sucesso bearish, 55% bullish)"""
     detector = CandlestickDetector()
     patterns = detector.detect_all_patterns(df)
     
     signals = []
     for p in patterns:
-        if p.pattern_type in ['bullish', 'bearish'] and p.reliability_score >= 0.8:  # Filtro de qualidade
+        # APENAS ENGOLFO - outros patterns têm performance ruim
+        if 'Engulfing' in p.name and p.reliability_score >= 0.75:
             signals.append({
                 'detector_type': 'candlestick',
-                'detector_name': p.name,
+                'detector_name': p.name.replace(' ', '_'),
                 'signal_type': 'BUY_LONG' if p.pattern_type == 'bullish' else 'SELL_SHORT',
                 'confidence': p.reliability_score,
                 'entry_price': p.entry_price,
                 'stop_loss': p.stop_loss,
                 'market_data': df
             })
+    
     return signals
 
 def verify_patterns_implementation():
