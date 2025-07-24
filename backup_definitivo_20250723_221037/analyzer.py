@@ -157,8 +157,8 @@ class MultiTimeframeAnalyzer:
         self.monitoring_enabled = False
 
         # CONFIGURAÇÕES OTIMIZADAS - sem locks
-        self.MAX_SYMBOL_TIME = 8  # Reduzido para 10s
-        self.MAX_VALIDATION_TIME = 2  # Reduzido para 3s
+        self.MAX_SYMBOL_TIME = 10  # Reduzido para 10s
+        self.MAX_VALIDATION_TIME = 3  # Reduzido para 3s
         self.DISABLE_MICROSTRUCTURE = True  # Desabilita microestrutura
         
         self.logger.info("MultiTimeframeAnalyzer com PRIORIDADE 15m inicializado:")
@@ -423,12 +423,14 @@ class MultiTimeframeAnalyzer:
         return validated_signals
 
     def run_continuous_multi_timeframe_analysis(self, base_interval: int = None):
-        """Execução contínua DEFINITIVA com logs verbosos"""
+        """Execução contínua com PRIORIDADE 15m - SEM LOCKS"""
         if base_interval is None: 
-           base_interval = getattr(settings.system, 'analysis_interval', 300)
+           base_interval = settings.system.analysis_interval
         
-        self.logger.info("🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m")
-        self.logger.info(f"⏱️ Intervalo entre ciclos: {base_interval}s")
+        self.logger.info("🚀 ANÁLISE CONTÍNUA - PRIORIDADE 15m (SEM LOCKS)")
+        self.logger.info(f"📊 Lógica: 15m preferido, 5m precisa score >= {self.conflict_resolver.MIN_5M_SCORE}")
+        self.logger.info(f"⚡ 5m só vence se superar 15m em +{self.conflict_resolver.SCORE_ADVANTAGE_REQUIRED} pontos")
+        self.logger.info("🚫 Microestrutura e monitoramento DESABILITADOS (evita locks)")
         
         valid_symbols = self.data_reader.get_valid_symbols_for_analysis()
         
@@ -436,7 +438,7 @@ class MultiTimeframeAnalyzer:
             self.logger.error("❌ Nenhum símbolo válido encontrado!")
             return
         
-        self.logger.info(f"✅ Símbolos: {valid_symbols}")
+        self.logger.info(f"✅ Símbolos: {len(valid_symbols)} | Prioridade: 15m > 5m")
         
         cycle_count = 0
         
@@ -448,79 +450,61 @@ class MultiTimeframeAnalyzer:
                 blocked_count = 0
                 error_count = 0
                 
-                self.logger.info(f"🔄 Ciclo {cycle_count} - Prioridade 15m")
+                self.logger.info(f"🔄 Ciclo {cycle_count} (15m prioridade)")
+                
+                # Limpeza automática
+                if cycle_count % 10 == 1:
+                    self._perform_quick_cleanup()
+                
+                # Re-verifica símbolos
+                if cycle_count % 20 == 1 and cycle_count > 1:
+                    valid_symbols = self.data_reader.get_valid_symbols_for_analysis()
                 
                 for i, symbol in enumerate(valid_symbols, 1):
                     try:
                         symbol_start = time.time()
+                        
                         result = self.analyze_symbol_all_timeframes(symbol)
                         symbol_time = time.time() - symbol_start
                         
                         if result.get('status') == 'blocked':
                             blocked_count += 1
+                            self.logger.debug(f"🚫 {symbol} ({i}/{len(valid_symbols)}): BLOQUEADO")
                         elif result.get('status') == 'error':
                             error_count += 1
+                            self.logger.warning(f"❌ {symbol} ({i}/{len(valid_symbols)}): ERRO")
                         else:
                             signals_saved = result.get('signals_saved', 0)
                             total_signals += signals_saved
                             if signals_saved > 0:
-                                self.logger.info(f"🎯 {symbol} ({i}/{len(valid_symbols)}): {signals_saved} ATIVO")
+                                self.logger.info(f"🎯 {symbol} ({i}/{len(valid_symbols)}): {signals_saved} ATIVO em {symbol_time:.1f}s")
                             else:
                                 self.logger.debug(f"✓ {symbol} ({i}/{len(valid_symbols)}): OK em {symbol_time:.1f}s")
                         
-                        time.sleep(0.1)
+                        time.sleep(0.1)  # Pausa para evitar sobrecarga
                         
                     except Exception as e:
                         error_count += 1
                         self.logger.error(f"❌ Erro em {symbol}: {e}")
+                        continue
                 
                 cycle_time = time.time() - cycle_start
                 
-                # RESUMO DO CICLO COM LOGS VERBOSOS
                 self.logger.info(
-                    f"✅ Ciclo {cycle_count}: {total_signals} novos ACTIVE | "
+                    f"✅ Ciclo {cycle_count}: {total_signals} novos ACTIVE (15m prioridade) | "
                     f"{blocked_count} bloqueados | {error_count} erros | {cycle_time:.1f}s"
                 )
-                
-                # LOG VERBOSE DO FINAL DO CICLO
-                self.logger.info(f"📊 Ciclo {cycle_count} finalizado com sucesso!")
-                self.logger.info(f"⏳ Iniciando aguardo de {base_interval}s...")
-                
-                # SLEEP COM HEARTBEAT
-                sleep_start = time.time()
-                heartbeat_interval = 60  # Heartbeat a cada 60s
-                next_heartbeat = heartbeat_interval
-                
-                while True:
-                    elapsed_sleep = time.time() - sleep_start
-                    
-                    if elapsed_sleep >= base_interval:
-                        break
-                    
-                    # Heartbeat
-                    if elapsed_sleep >= next_heartbeat:
-                        remaining = base_interval - elapsed_sleep
-                        self.logger.info(f"💓 Heartbeat: aguardando mais {remaining:.0f}s até próximo ciclo...")
-                        next_heartbeat += heartbeat_interval
-                    
-                    time.sleep(1)  # Sleep curto para permitir heartbeat
-                
-                self.logger.info(f"⏰ Aguardo de {base_interval}s concluído. Iniciando Ciclo {cycle_count + 1}...")
                 
             except KeyboardInterrupt:
                 self.logger.info("🛑 Análise interrompida pelo usuário")
                 break
             except Exception as e:
-                self.logger.error(f"❌ Erro crítico no ciclo {cycle_count}: {e}")
-                import traceback
-                self.logger.error(f"Stack trace: {traceback.format_exc()}")
-                
-                self.logger.info(f"🔄 Tentando recuperar em 10s...")
+                self.logger.error(f"❌ Erro crítico no ciclo: {e}")
                 time.sleep(10)
-                continue
-        
-        self.logger.info("🏁 Análise contínua finalizada")
-
+            
+            self.logger.info(f"⏳ Aguardando {base_interval}s...")
+            time.sleep(base_interval)
+    
     def _perform_quick_cleanup(self):
         """Limpeza rápida sem locks"""
         now = datetime.now()

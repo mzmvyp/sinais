@@ -1,498 +1,470 @@
-# signal_monitor.py - MONITORAMENTO CORRETO DOS SINAIS
+# signal_monitor.py - MONITORAMENTO SEM LOCKS DE BANCO
 
 """
-Sistema de monitoramento correto dos sinais ativos
-Um sinal só deixa de ser ativo quando:
-1. Atinge STOP LOSS (perdedor)
-2. Atinge TARGET 3 (completamente realizado)
+Signal Monitor otimizado para evitar locks:
+1. Queries mais rápidas com timeouts
+2. Usa dados de 5m ao invés de 1m
+3. Batch updates para reduzir conexões
+4. Sem transações longas
 """
 
 import sqlite3
 import json
+import time
 import pandas as pd
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
 import logging
 
 from config.settings import settings
-from core.data_reader import DataReader
 
 class SignalStatusMonitor:
-    """Monitor que verifica se sinais ativos atingiram stop ou target final"""
+    """Monitor de status de sinais SEM LOCKS"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.db_path = settings.database.signals_db_path
         self.signals_table = settings.database.signals_table
-        self.data_reader = DataReader()
         
-        # Estados possíveis dos sinais
-        self.SIGNAL_STATES = {
-            'ACTIVE': 'Sinal ativo aguardando resultado',
-            'TARGET_1_HIT': 'Target 1 atingido, ainda ativo',
-            'TARGET_2_HIT': 'Target 2 atingido, ainda ativo', 
-            'TARGET_3_HIT': 'Target 3 atingido - SINAL COMPLETO',
-            'STOP_HIT': 'Stop loss atingido - SINAL PERDEDOR',
-            'EXPIRED': 'Sinal expirado por tempo',
-            'MANUALLY_CLOSED': 'Fechado manualmente'
-        }
+        # Estados que BLOQUEIAM novos sinais
+        self.BLOCKING_STATES = ['ACTIVE', 'TARGET_1_HIT']
         
-        # Sinais que ainda estão "ativos" (não liberam timeframe)
-        self.ACTIVE_STATES = ['ACTIVE', 'TARGET_1_HIT', 'TARGET_2_HIT']
+        # Estados FINALIZADOS (não bloqueiam)
+        self.COMPLETED_STATES = ['TARGET_2_HIT', 'STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']
         
-        # Sinais finalizados (liberam timeframe para novos sinais)
-        self.COMPLETED_STATES = ['TARGET_3_HIT', 'STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']
+        # CONFIGURAÇÕES ANTI-LOCK
+        self.CONNECTION_TIMEOUT = 2  # Máximo 2s para conectar
+        self.QUERY_TIMEOUT = 3       # Máximo 3s para query
+        self.MAX_SIGNALS_PER_BATCH = 20  # Processa em lotes pequenos
         
-    def _get_connection(self):
-        return sqlite3.connect(self.db_path, timeout=10)
+        self.logger.info("SignalStatusMonitor SEM LOCKS inicializado")
     
-    def check_active_signals(self, update_status: bool = True) -> Dict:
-        """
-        🔍 Verifica todos os sinais ativos e seus status atuais
-        """
-        sql = f"""
-        SELECT 
-            id, symbol, timeframe, signal_type, entry_price, stop_loss, targets,
-            targets_hit, current_price, status, created_at, updated_at
-        FROM {self.signals_table}
-        WHERE status IN ('ACTIVE', 'TARGET_1_HIT', 'TARGET_2_HIT')
-        ORDER BY created_at DESC
-        """
-        
+    def _get_fast_connection(self):
+        """Conexão otimizada para monitoramento"""
         try:
-            with self._get_connection() as conn:
-                cursor = conn.cursor()
-                cursor.execute(sql)
-                results = cursor.fetchall()
-            
-            if not results:
-                return {
-                    'total_active_signals': 0,
-                    'signals_checked': 0,
-                    'signals_updated': 0,
-                    'signals': []
-                }
-            
-            signals_data = []
-            signals_updated = 0
-            
-            for row in results:
-                signal_info = self._process_signal_row(row)
-                
-                if signal_info:
-                    # Verifica preço atual e status
-                    current_status = self._check_signal_status(signal_info)
-                    signal_info['calculated_status'] = current_status
-                    
-                    # Atualiza no banco se necessário e solicitado
-                    if update_status and current_status['needs_update']:
-                        updated = self._update_signal_status(signal_info, current_status)
-                        if updated:
-                            signals_updated += 1
-                            signal_info['status_updated'] = True
-                    
-                    signals_data.append(signal_info)
-            
-            return {
-                'total_active_signals': len(signals_data),
-                'signals_checked': len(signals_data),
-                'signals_updated': signals_updated,
-                'signals': signals_data,
-                'timestamp': datetime.now().isoformat()
-            }
-            
-        except Exception as e:
-            self.logger.error(f"Erro ao verificar sinais ativos: {e}")
-            return {'error': str(e)}
-    
-    def _process_signal_row(self, row) -> Optional[Dict]:
-        """Processa uma linha do banco em estrutura de dados"""
-        try:
-            return {
-                'id': row[0],
-                'symbol': row[1],
-                'timeframe': row[2],
-                'signal_type': row[3],
-                'entry_price': float(row[4]),
-                'stop_loss': float(row[5]),
-                'targets': json.loads(row[6]) if row[6] else [],
-                'targets_hit': json.loads(row[7]) if row[7] else [False, False, False],
-                'current_price': float(row[8]) if row[8] else row[4],
-                'status': row[9],
-                'created_at': row[10],
-                'updated_at': row[11]
-            }
-        except Exception as e:
-            self.logger.warning(f"Erro ao processar linha do sinal: {e}")
-            return None
-    
-    def _check_signal_status(self, signal_info: Dict) -> Dict:
-        """
-        🎯 LÓGICA PRINCIPAL: Verifica o status correto do sinal
-        """
-        try:
-            # Busca preço atual do mercado
-            current_market_price = self._get_current_market_price(
-                signal_info['symbol'], signal_info['timeframe']
+            conn = sqlite3.connect(
+                self.db_path, 
+                timeout=self.CONNECTION_TIMEOUT,
+                check_same_thread=False,
+                isolation_level=None  # Autocommit
             )
             
-            if current_market_price is None:
-                return {
-                    'new_status': signal_info['status'],
-                    'needs_update': False,
-                    'reason': 'Preço de mercado indisponível',
-                    'current_price': signal_info['current_price']
-                }
+            # CONFIGURAÇÕES ANTI-LOCK
+            conn.execute("PRAGMA read_uncommitted = true")
+            conn.execute("PRAGMA journal_mode = WAL")
+            conn.execute("PRAGMA synchronous = NORMAL")
+            conn.execute("PRAGMA cache_size = 5000")
+            conn.execute("PRAGMA temp_store = memory")
             
-            # Verifica se stop loss foi atingido
-            stop_hit = self._check_stop_loss_hit(signal_info, current_market_price)
-            if stop_hit:
-                return {
-                    'new_status': 'STOP_HIT',
-                    'needs_update': True,
-                    'reason': f'Stop loss atingido: {current_market_price:.4f} vs {signal_info["stop_loss"]:.4f}',
-                    'current_price': current_market_price,
-                    'final_result': 'LOSS'
-                }
-            
-            # Verifica targets atingidos
-            targets_status = self._check_targets_hit(signal_info, current_market_price)
-            
-            if targets_status['target_3_hit']:
-                return {
-                    'new_status': 'TARGET_3_HIT',
-                    'needs_update': True,
-                    'reason': f'Target 3 atingido: {current_market_price:.4f} vs {signal_info["targets"][2]:.4f}',
-                    'current_price': current_market_price,
-                    'targets_hit': [True, True, True],
-                    'final_result': 'WIN_COMPLETE'
-                }
-            
-            elif targets_status['target_2_hit'] and signal_info['status'] != 'TARGET_2_HIT':
-                return {
-                    'new_status': 'TARGET_2_HIT',
-                    'needs_update': True,
-                    'reason': f'Target 2 atingido: {current_market_price:.4f} vs {signal_info["targets"][1]:.4f}',
-                    'current_price': current_market_price,
-                    'targets_hit': [True, True, False],
-                    'partial_result': 'WIN_PARTIAL_2'
-                }
-            
-            elif targets_status['target_1_hit'] and signal_info['status'] != 'TARGET_1_HIT':
-                return {
-                    'new_status': 'TARGET_1_HIT',
-                    'needs_update': True,
-                    'reason': f'Target 1 atingido: {current_market_price:.4f} vs {signal_info["targets"][0]:.4f}',
-                    'current_price': current_market_price,
-                    'targets_hit': [True, False, False],
-                    'partial_result': 'WIN_PARTIAL_1'
-                }
-            
-            # Verifica se sinal expirou (mais de 7 dias)
-            signal_age = datetime.now() - datetime.fromisoformat(signal_info['created_at'])
-            if signal_age.days > 7:
-                return {
-                    'new_status': 'EXPIRED',
-                    'needs_update': True,
-                    'reason': f'Sinal expirado após {signal_age.days} dias',
-                    'current_price': current_market_price,
-                    'final_result': 'EXPIRED'
-                }
-            
-            # Sinal ainda ativo, apenas atualiza preço
-            price_needs_update = abs(current_market_price - signal_info['current_price']) / signal_info['current_price'] > 0.001
-            
-            return {
-                'new_status': signal_info['status'],
-                'needs_update': price_needs_update,
-                'reason': 'Sinal ainda ativo, atualizando preço' if price_needs_update else 'Sinal ativo, sem mudanças',
-                'current_price': current_market_price
-            }
+            return conn
             
         except Exception as e:
-            self.logger.error(f"Erro ao verificar status do sinal {signal_info['id']}: {e}")
-            return {
-                'new_status': signal_info['status'],
-                'needs_update': False,
-                'reason': f'Erro na verificação: {e}',
-                'current_price': signal_info['current_price']
-            }
+            self.logger.error(f"Erro na conexão de monitoramento: {e}")
+            raise
     
-    def _get_current_market_price(self, symbol: str, timeframe: str) -> Optional[float]:
-        """Busca preço atual do mercado"""
+    def check_active_signals(self, update_status: bool = True) -> Dict[str, Any]:
+        """
+        Verifica sinais ativos SEM LOCK - usa dados de 5m
+        """
+        start_time = time.time()
+        
         try:
-            market_data = self.data_reader.get_latest_data(symbol, timeframe)
-            if market_data and not market_data.data.empty:
-                return float(market_data.data['close_price'].iloc[-1])
-            return None
-        except Exception as e:
-            self.logger.warning(f"Erro ao buscar preço atual de {symbol}: {e}")
-            return None
-    
-    def _check_stop_loss_hit(self, signal_info: Dict, current_price: float) -> bool:
-        """Verifica se stop loss foi atingido"""
-        stop_loss = signal_info['stop_loss']
-        signal_type = signal_info['signal_type']
-        
-        if signal_type == 'BUY_LONG':
-            # Para LONG: stop hit se preço atual <= stop loss
-            return current_price <= stop_loss
-        else:  # SELL_SHORT
-            # Para SHORT: stop hit se preço atual >= stop loss
-            return current_price >= stop_loss
-    
-    def _check_targets_hit(self, signal_info: Dict, current_price: float) -> Dict:
-        """Verifica quais targets foram atingidos"""
-        targets = signal_info['targets']
-        signal_type = signal_info['signal_type']
-        
-        if len(targets) < 3:
-            return {'target_1_hit': False, 'target_2_hit': False, 'target_3_hit': False}
-        
-        if signal_type == 'BUY_LONG':
-            # Para LONG: targets são atingidos quando preço >= target
-            target_1_hit = current_price >= targets[0]
-            target_2_hit = current_price >= targets[1]
-            target_3_hit = current_price >= targets[2]
-        else:  # SELL_SHORT
-            # Para SHORT: targets são atingidos quando preço <= target
-            target_1_hit = current_price <= targets[0]
-            target_2_hit = current_price <= targets[1]
-            target_3_hit = current_price <= targets[2]
-        
-        return {
-            'target_1_hit': target_1_hit,
-            'target_2_hit': target_2_hit,
-            'target_3_hit': target_3_hit
-        }
-    
-    def _update_signal_status(self, signal_info: Dict, status_result: Dict) -> bool:
-        """Atualiza status do sinal no banco de dados"""
-        try:
-            updates = {
-                'status': status_result['new_status'],
-                'current_price': status_result['current_price'],
-                'updated_at': datetime.now().isoformat()
-            }
-            
-            # Atualiza targets_hit se fornecido
-            if 'targets_hit' in status_result:
-                updates['targets_hit'] = json.dumps(status_result['targets_hit'])
-            
-            # Monta SQL dinâmica
-            set_clause = ', '.join([f"{key} = ?" for key in updates.keys()])
-            values = list(updates.values()) + [signal_info['id']]
-            
-            sql = f"""
-            UPDATE {self.signals_table}
-            SET {set_clause}
-            WHERE id = ?
+            # QUERY OTIMIZADA: busca apenas sinais que podem mudar
+            query = f"""
+            SELECT id, symbol, timeframe, signal_type, entry_price, stop_loss, 
+                   targets, targets_hit, status, created_at, detector_name
+            FROM {self.signals_table}
+            WHERE status IN ('ACTIVE', 'TARGET_1_HIT')
+            ORDER BY created_at DESC
+            LIMIT {self.MAX_SIGNALS_PER_BATCH}
             """
             
-            with self._get_connection() as conn:
+            with self._get_fast_connection() as conn:
+                conn.execute(f"PRAGMA busy_timeout = {self.QUERY_TIMEOUT * 1000}")
+                
                 cursor = conn.cursor()
-                cursor.execute(sql, values)
-                conn.commit()
+                cursor.execute(query)
+                signals_data = cursor.fetchall()
             
-            # Log da atualização
-            final_result = status_result.get('final_result', '')
-            if final_result:
-                result_icon = "🎯" if "WIN" in final_result else "🛑" if final_result == "LOSS" else "⏰"
-                self.logger.info(
-                    f"{result_icon} SINAL FINALIZADO: {signal_info['symbol']} {signal_info['timeframe']} | "
-                    f"Status: {status_result['new_status']} | "
-                    f"Preço: {status_result['current_price']:.4f} | "
-                    f"Resultado: {final_result}"
-                )
+            if not signals_data:
+                return {
+                    'signals_checked': 0,
+                    'signals_updated': 0,
+                    'total_active_signals': 0,
+                    'signals': [],
+                    'execution_time': time.time() - start_time
+                }
+            
+            self.logger.info(f"🔍 Verificando {len(signals_data)} sinais ativos")
+            
+            # Processa sinais em paralelo (sem DB)
+            signals_to_update = []
+            current_signals = []
+            
+            for signal_row in signals_data:
+                try:
+                    signal_info = self._process_signal_row(signal_row)
+                    current_signals.append(signal_info)
+                    
+                    if signal_info.get('needs_update') and update_status:
+                        signals_to_update.append(signal_info)
+                        
+                except Exception as e:
+                    self.logger.warning(f"Erro ao processar sinal {signal_row[0]}: {e}")
+                    continue
+            
+            # Batch update para reduzir locks
+            updates_made = 0
+            if signals_to_update:
+                updates_made = self._batch_update_signals(signals_to_update)
+            
+            execution_time = time.time() - start_time
+            
+            result = {
+                'signals_checked': len(signals_data),
+                'signals_updated': updates_made,
+                'total_active_signals': len([s for s in current_signals if s['status'] in self.BLOCKING_STATES]),
+                'signals': current_signals,
+                'execution_time': execution_time
+            }
+            
+            if updates_made > 0:
+                self.logger.info(f"✅ Monitoramento: {len(signals_data)} verificados | {updates_made} atualizados | {execution_time:.2f}s")
             else:
-                self.logger.debug(
-                    f"📊 SINAL ATUALIZADO: {signal_info['symbol']} {signal_info['timeframe']} | "
-                    f"Status: {status_result['new_status']} | "
-                    f"Preço: {status_result['current_price']:.4f}"
-                )
+                self.logger.debug(f"✅ Monitoramento: {len(signals_data)} verificados | sem mudanças | {execution_time:.2f}s")
             
-            return True
+            return result
             
         except Exception as e:
-            self.logger.error(f"Erro ao atualizar status do sinal {signal_info['id']}: {e}")
-            return False
+            execution_time = time.time() - start_time
+            self.logger.error(f"❌ Erro no monitoramento em {execution_time:.2f}s: {e}")
+            return {
+                'error': str(e),
+                'signals_checked': 0,
+                'signals_updated': 0,
+                'execution_time': execution_time
+            }
     
-    def get_truly_active_signals(self) -> Dict:
-        """
-        🎯 Retorna apenas sinais que REALMENTE estão ativos (bloqueiam timeframe)
-        """
-        # Estados que bloqueiam o timeframe para novos sinais
-        active_states_str = "', '".join(self.ACTIVE_STATES)
+    def _process_signal_row(self, signal_row: tuple) -> Dict[str, Any]:
+        """Processa uma linha de sinal SEM ACESSAR DB"""
         
-        sql = f"""
-        SELECT symbol, timeframe, COUNT(*) as count, 
-               GROUP_CONCAT(status) as statuses,
-               GROUP_CONCAT(id) as signal_ids
-        FROM {self.signals_table}
-        WHERE status IN ('{active_states_str}')
-        GROUP BY symbol, timeframe
-        ORDER BY symbol, timeframe
+        signal_id, symbol, timeframe, signal_type, entry_price, stop_loss, targets_json, targets_hit_json, current_status, created_at, detector_name = signal_row
+        
+        # Parse JSON data
+        try:
+            targets = json.loads(targets_json) if targets_json else [entry_price * 1.02, entry_price * 1.04]
+            targets_hit = json.loads(targets_hit_json) if targets_hit_json else [False, False]
+        except:
+            targets = [entry_price * 1.02, entry_price * 1.04]
+            targets_hit = [False, False]
+        
+        signal_info = {
+            'id': signal_id,
+            'symbol': symbol,
+            'timeframe': timeframe,
+            'signal_type': signal_type,
+            'entry_price': entry_price,
+            'stop_loss': stop_loss,
+            'targets': targets,
+            'targets_hit': targets_hit,
+            'status': current_status,
+            'created_at': created_at,
+            'detector_name': detector_name,
+            'needs_update': False,
+            'calculated_status': {}
+        }
+        
+        # Busca preço atual SEM LOCK (usa cache ou 5m)
+        current_price = self._get_current_price_fast(symbol)
+        
+        if current_price:
+            signal_info['current_price'] = current_price
+            
+            # Calcula novo status
+            new_status, reason = self._calculate_new_status(
+                current_price, entry_price, stop_loss, targets, 
+                targets_hit, current_status, signal_type
+            )
+            
+            signal_info['calculated_status'] = {
+                'new_status': new_status,
+                'reason': reason,
+                'price_checked': current_price
+            }
+            
+            if new_status != current_status:
+                signal_info['needs_update'] = True
+                signal_info['new_status'] = new_status
+                signal_info['update_reason'] = reason
+        else:
+            signal_info['calculated_status'] = {
+                'error': 'Could not fetch current price',
+                'new_status': current_status
+            }
+        
+        return signal_info
+    
+    def _get_current_price_fast(self, symbol: str) -> Optional[float]:
         """
+        Busca preço atual SEM LOCK - usa dados de 5m
+        """
+        try:
+            # Importa aqui para evitar circular import
+            from core.data_reader import DataReader
+            
+            data_reader = DataReader()
+            current_price = data_reader.get_current_price(symbol)
+            
+            return current_price
+            
+        except Exception as e:
+            self.logger.debug(f"Erro ao buscar preço de {symbol}: {e}")
+            return None
+    
+    def _calculate_new_status(self, current_price: float, entry_price: float, stop_loss: float, 
+                            targets: List[float], targets_hit: List[bool], current_status: str, 
+                            signal_type: str) -> Tuple[str, str]:
+        """Calcula novo status baseado no preço atual"""
         
         try:
-            with self._get_connection() as conn:
-                df = pd.read_sql_query(sql, conn)
+            # Verifica stop loss primeiro
+            if signal_type == 'BUY_LONG':
+                if current_price <= stop_loss:
+                    return 'STOP_HIT', f'Price {current_price} <= stop {stop_loss}'
+            else:  # SELL_SHORT
+                if current_price >= stop_loss:
+                    return 'STOP_HIT', f'Price {current_price} >= stop {stop_loss}'
             
-            if df.empty:
-                return {
-                    'total_blocking_signals': 0,
-                    'symbols_with_blocking_signals': 0,
-                    'by_symbol': {},
-                    'by_timeframe': {},
-                    'blocking_combinations': []
-                }
+            # Verifica targets
+            new_targets_hit = targets_hit.copy()
             
-            # Agrupa por symbol
-            by_symbol = {}
-            for symbol, group in df.groupby('symbol'):
-                by_symbol[symbol] = {
-                    'timeframes_blocked': group['timeframe'].tolist(),
-                    'total_blocking': int(group['count'].sum())
-                }
+            if signal_type == 'BUY_LONG':
+                # Target 1
+                if len(targets) > 0 and current_price >= targets[0] and not targets_hit[0]:
+                    new_targets_hit[0] = True
+                    if current_status == 'ACTIVE':
+                        return 'TARGET_1_HIT', f'Target 1 hit: {current_price} >= {targets[0]}'
+                
+                # Target 2
+                if len(targets) > 1 and current_price >= targets[1] and not targets_hit[1]:
+                    new_targets_hit[1] = True
+                    return 'TARGET_2_HIT', f'Target 2 hit: {current_price} >= {targets[1]}'
             
-            # Agrupa por timeframe
-            by_timeframe = df.groupby('timeframe')['count'].sum().to_dict()
+            else:  # SELL_SHORT
+                # Target 1
+                if len(targets) > 0 and current_price <= targets[0] and not targets_hit[0]:
+                    new_targets_hit[0] = True
+                    if current_status == 'ACTIVE':
+                        return 'TARGET_1_HIT', f'Target 1 hit: {current_price} <= {targets[0]}'
+                
+                # Target 2
+                if len(targets) > 1 and current_price <= targets[1] and not targets_hit[1]:
+                    new_targets_hit[1] = True
+                    return 'TARGET_2_HIT', f'Target 2 hit: {current_price} <= {targets[1]}'
             
-            # Lista de combinações bloqueadas
+            # Sem mudanças
+            return current_status, 'No changes detected'
+            
+        except Exception as e:
+            return current_status, f'Calculation error: {e}'
+    
+    def _batch_update_signals(self, signals_to_update: List[Dict]) -> int:
+        """Atualiza sinais em lote para reduzir locks"""
+        
+        if not signals_to_update:
+            return 0
+        
+        updated_count = 0
+        
+        try:
+            with self._get_fast_connection() as conn:
+                conn.execute(f"PRAGMA busy_timeout = {self.QUERY_TIMEOUT * 1000}")
+                
+                for signal in signals_to_update:
+                    try:
+                        update_query = f"""
+                        UPDATE {self.signals_table}
+                        SET status = ?, updated_at = ?
+                        WHERE id = ?
+                        """
+                        
+                        conn.execute(update_query, (
+                            signal['new_status'],
+                            datetime.now().isoformat(),
+                            signal['id']
+                        ))
+                        
+                        updated_count += 1
+                        
+                        # Log da transição
+                        self.logger.info(
+                            f"🔄 {signal['symbol']}: {signal['status']} → {signal['new_status']} | "
+                            f"Motivo: {signal['update_reason']}"
+                        )
+                        
+                    except Exception as e:
+                        self.logger.warning(f"Erro ao atualizar sinal {signal['id']}: {e}")
+                        continue
+                
+                # Commit em lote
+                conn.commit()
+                
+        except Exception as e:
+            self.logger.error(f"Erro no batch update: {e}")
+        
+        return updated_count
+    
+    def get_truly_active_signals(self) -> Dict[str, Any]:
+        """Retorna sinais que REALMENTE bloqueiam novos sinais"""
+        
+        try:
+            query = f"""
+            SELECT symbol, timeframe, status, COUNT(*) as count
+            FROM {self.signals_table}
+            WHERE status IN ('ACTIVE', 'TARGET_1_HIT')
+            GROUP BY symbol, timeframe, status
+            ORDER BY symbol, timeframe
+            """
+            
+            with self._get_fast_connection() as conn:
+                conn.execute("PRAGMA busy_timeout = 1000")
+                
+                cursor = conn.cursor()
+                cursor.execute(query)
+                results = cursor.fetchall()
+            
             blocking_combinations = []
-            for _, row in df.iterrows():
+            total_blocking = 0
+            
+            for symbol, timeframe, status, count in results:
                 blocking_combinations.append({
-                    'symbol': row['symbol'],
-                    'timeframe': row['timeframe'],
-                    'count': int(row['count']),
-                    'statuses': row['statuses'].split(','),
-                    'signal_ids': row['signal_ids'].split(',')
+                    'symbol': symbol,
+                    'timeframe': timeframe,
+                    'status': status,
+                    'count': count
                 })
+                total_blocking += count
             
             return {
-                'total_blocking_signals': int(df['count'].sum()),
-                'symbols_with_blocking_signals': len(by_symbol),
-                'by_symbol': by_symbol,
-                'by_timeframe': by_timeframe,
-                'blocking_combinations': blocking_combinations
+                'total_blocking_signals': total_blocking,
+                'blocking_combinations': blocking_combinations,
+                'blocking_states': self.BLOCKING_STATES,
+                'completed_states': self.COMPLETED_STATES
             }
             
         except Exception as e:
-            self.logger.error(f"Erro ao buscar sinais verdadeiramente ativos: {e}")
-            return {'error': str(e)}
+            self.logger.error(f"Erro ao buscar sinais bloqueadores: {e}")
+            return {
+                'error': str(e),
+                'total_blocking_signals': 0,
+                'blocking_combinations': []
+            }
     
-    def manually_close_signal(self, signal_id: str, reason: str = "manual_close") -> bool:
-        """Fecha um sinal manualmente"""
-        sql = f"""
-        UPDATE {self.signals_table}
-        SET status = 'MANUALLY_CLOSED', updated_at = ?
-        WHERE id = ? AND status IN ('ACTIVE', 'TARGET_1_HIT', 'TARGET_2_HIT')
-        """
+    def get_monitoring_statistics(self) -> Dict[str, Any]:
+        """Estatísticas rápidas de monitoramento"""
         
         try:
-            with self._get_connection() as conn:
-                cursor = conn.cursor()
-                cursor.execute(sql, (datetime.now().isoformat(), signal_id))
-                affected_rows = cursor.rowcount
-                conn.commit()
+            # Query simples e rápida
+            summary_query = f"""
+            SELECT status, COUNT(*) as count
+            FROM {self.signals_table}
+            GROUP BY status
+            """
             
-            if affected_rows > 0:
-                self.logger.info(f"🔴 SINAL FECHADO MANUALMENTE: {signal_id} | Motivo: {reason}")
-                return True
-            else:
-                self.logger.warning(f"⚠️ Sinal não encontrado ou já finalizado: {signal_id}")
-                return False
+            with self._get_fast_connection() as conn:
+                conn.execute("PRAGMA busy_timeout = 500")
                 
-        except Exception as e:
-            self.logger.error(f"Erro ao fechar sinal manualmente {signal_id}: {e}")
-            return False
-    
-    def cleanup_completed_signals(self, days_old: int = 30) -> int:
-        """Remove sinais completados muito antigos do banco"""
-        cutoff_date = datetime.now() - timedelta(days=days_old)
-        completed_states_str = "', '".join(self.COMPLETED_STATES)
-        
-        sql = f"""
-        DELETE FROM {self.signals_table}
-        WHERE status IN ('{completed_states_str}') 
-        AND datetime(updated_at) < ?
-        """
-        
-        try:
-            with self._get_connection() as conn:
                 cursor = conn.cursor()
-                cursor.execute(sql, (cutoff_date.isoformat(),))
-                deleted_count = cursor.rowcount
-                conn.commit()
+                cursor.execute(summary_query)
+                status_counts = cursor.fetchall()
             
-            if deleted_count > 0:
-                self.logger.info(f"🗑️ {deleted_count} sinais completados antigos removidos (>{days_old} dias)")
+            summary = {
+                'total_signals': 0,
+                'active_blocking': 0,
+                'completed': 0,
+                'status_distribution': {}
+            }
             
-            return deleted_count
+            for status, count in status_counts:
+                summary['status_distribution'][status] = count
+                summary['total_signals'] += count
+                
+                if status in self.BLOCKING_STATES:
+                    summary['active_blocking'] += count
+                elif status in self.COMPLETED_STATES:
+                    summary['completed'] += count
+            
+            # Calcula win rate simples se houver dados
+            total_finished = summary['completed']
+            if total_finished > 0:
+                wins = summary['status_distribution'].get('TARGET_2_HIT', 0)
+                summary['overall_win_rate'] = (wins / total_finished) * 100
+            else:
+                summary['overall_win_rate'] = 0
+            
+            return {
+                'summary': summary,
+                'blocking_states': self.BLOCKING_STATES,
+                'completed_states': self.COMPLETED_STATES
+            }
             
         except Exception as e:
-            self.logger.error(f"Erro ao limpar sinais completados: {e}")
-            return 0
+            self.logger.error(f"Erro nas estatísticas: {e}")
+            return {
+                'error': str(e),
+                'summary': {
+                    'total_signals': 0,
+                    'active_blocking': 0,
+                    'completed': 0
+                }
+            }
 
 def print_signal_monitoring_report():
-    """🖨️ Função utilitária para imprimir relatório de monitoramento"""
-    monitor = SignalStatusMonitor()
+    """Função utilitária para relatório de monitoramento"""
     
-    print("\n📊 RELATÓRIO DE MONITORAMENTO DE SINAIS")
-    print("=" * 70)
+    print("🔍 RELATÓRIO DE MONITORAMENTO DE SINAIS")
+    print("=" * 50)
     
-    # Verifica e atualiza status
-    print("🔍 Verificando status dos sinais ativos...")
-    results = monitor.check_active_signals(update_status=True)
-    
-    if 'error' in results:
-        print(f"❌ Erro: {results['error']}")
-        return
-    
-    print(f"✅ {results['signals_checked']} sinais verificados")
-    print(f"📝 {results['signals_updated']} sinais atualizados")
-    
-    if results['total_active_signals'] == 0:
-        print("\n🎉 Nenhum sinal ativo - todos os timeframes disponíveis!")
-        return
-    
-    # Mostra sinais por status
-    status_counts = {}
-    for signal in results['signals']:
-        status = signal.get('calculated_status', {}).get('new_status', signal['status'])
-        status_counts[status] = status_counts.get(status, 0) + 1
-    
-    print(f"\n📈 DISTRIBUIÇÃO POR STATUS:")
-    for status, count in sorted(status_counts.items()):
-        print(f"  • {status}: {count} sinais")
-    
-    # Sinais que liberam timeframes
-    blocking_info = monitor.get_truly_active_signals()
-    
-    print(f"\n🚫 TIMEFRAMES BLOQUEADOS:")
-    print(f"  Total de bloqueios: {blocking_info['total_blocking_signals']}")
-    print(f"  Symbols afetados: {blocking_info['symbols_with_blocking_signals']}")
-    
-    for combo in blocking_info['blocking_combinations'][:10]:  # Mostra primeiros 10
-        statuses_str = ', '.join(set(combo['statuses']))
-        print(f"  • {combo['symbol']} {combo['timeframe']}: {combo['count']} sinal(s) ({statuses_str})")
-    
-    # Estatísticas gerais
-    wins = len([s for s in results['signals'] if s.get('calculated_status', {}).get('final_result', '').startswith('WIN')])
-    losses = len([s for s in results['signals'] if s.get('calculated_status', {}).get('final_result') == 'LOSS'])
-    
-    if wins + losses > 0:
-        win_rate = wins / (wins + losses) * 100
-        print(f"\n🎯 PERFORMANCE:")
-        print(f"  • Wins: {wins} | Losses: {losses}")
-        print(f"  • Win Rate: {win_rate:.1f}%")
+    try:
+        monitor = SignalStatusMonitor()
+        
+        # Executa verificação
+        start_time = time.time()
+        results = monitor.check_active_signals(update_status=False)
+        execution_time = time.time() - start_time
+        
+        if 'error' in results:
+            print(f"❌ Erro: {results['error']}")
+            return
+        
+        print(f"⏱️ Tempo de execução: {execution_time:.2f}s")
+        print(f"🔍 Sinais verificados: {results['signals_checked']}")
+        print(f"📊 Total ativos (bloqueando): {results['total_active_signals']}")
+        
+        # Sinais que precisam atualização
+        signals_needing_update = [s for s in results.get('signals', []) if s.get('needs_update')]
+        if signals_needing_update:
+            print(f"\n🔄 SINAIS PRECISANDO ATUALIZAÇÃO ({len(signals_needing_update)}):")
+            for signal in signals_needing_update:
+                print(f"   🔄 {signal['symbol']}: {signal['status']} → {signal['new_status']}")
+                print(f"      Motivo: {signal['update_reason']}")
+        else:
+            print("\n✅ Todos os sinais estão atualizados")
+        
+        # Estatísticas gerais
+        stats = monitor.get_monitoring_statistics()
+        if 'error' not in stats:
+            summary = stats['summary']
+            print(f"\n📊 ESTATÍSTICAS GERAIS:")
+            print(f"   Total de sinais: {summary['total_signals']}")
+            print(f"   Ativos (bloqueando): {summary['active_blocking']}")
+            print(f"   Finalizados: {summary['completed']}")
+            
+            if summary['overall_win_rate'] > 0:
+                print(f"   Win Rate: {summary['overall_win_rate']:.1f}%")
+        
+    except Exception as e:
+        print(f"❌ Erro no relatório: {e}")
 
 if __name__ == "__main__":
-    import sys
-    
-    if len(sys.argv) > 1 and sys.argv[1] == "report":
-        print_signal_monitoring_report()
-    else:
-        monitor = SignalStatusMonitor()
-        results = monitor.check_active_signals(update_status=True)
-        print(f"Verificados: {results.get('signals_checked', 0)} | Atualizados: {results.get('signals_updated', 0)}")
+    print_signal_monitoring_report()

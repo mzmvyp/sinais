@@ -3206,3 +3206,242 @@
 2025-07-23 02:15:20,588 - core.analyzer - ERROR - ❌ Erro crítico em IMX: 'RigorousQualityFilter' object has no attribute '_apply_timeframe_priority_rules'
 2025-07-23 02:15:20,588 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos | 0 bloqueados | 2 erros | 6.9s
 2025-07-23 02:15:20,588 - core.analyzer - INFO - ⏳ Aguardando 300s...
+2025-07-23 22:12:06,381 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-23 22:12:06,382 - root - INFO - Inicializando MultiTimeframeAnalyzer...
+2025-07-23 22:12:06,382 - core.data_reader - INFO - ✅ Usando configuração STREAM: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:12:06,382 - core.data_reader - INFO - DataReader OTIMIZADO inicializado:
+2025-07-23 22:12:06,383 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:12:06,383 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-23 22:12:06,384 - core.data_reader - INFO -   • Anti-locks: ATIVO
+2025-07-23 22:12:06,387 - core.signal_writer - INFO - 🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros
+2025-07-23 22:12:06,388 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:12:06,388 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:12:06,388 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:12:06,389 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:12:06,389 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:12:06,389 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:12:06,390 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:12:06,390 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:12:06,390 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:12:06,390 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:12:06,391 - core.analyzer - INFO - MultiTimeframeAnalyzer DEFINITIVO inicializado:
+2025-07-23 22:12:06,391 - core.analyzer - INFO -   • Prioridade: 15m > 5m
+2025-07-23 22:12:06,391 - core.analyzer - INFO -   • Score mínimo 5m: 90.0
+2025-07-23 22:12:06,391 - core.analyzer - INFO -   • Vantagem necessária 5m: +10.0
+2025-07-23 22:12:06,392 - root - INFO - MultiTimeframeAnalyzer inicializado com sucesso
+2025-07-23 22:12:06,392 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-23 22:12:06,393 - core.analyzer - INFO - 🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m
+2025-07-23 22:12:06,412 - core.data_reader - INFO - ✅ Símbolos válidos encontrados: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:12:06,413 - core.analyzer - INFO - ✅ Símbolos: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:12:06,413 - core.analyzer - INFO - 🔄 Ciclo 1 - Prioridade 15m
+2025-07-23 22:12:06,415 - core.signal_writer - INFO - 🚫 BNB BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:12:06,416 - core.signal_writer - INFO -    • BNB_SELL_SHORT_1753317568241 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:12:06,519 - core.signal_writer - INFO - 🚫 BTC BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:12:06,519 - core.signal_writer - INFO -    • BTC_SELL_SHORT_1753317569161 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:12:06,621 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-23 22:12:06,706 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 22:12:07,716 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 22:12:08,564 - core.signal_writer - INFO - 🚫 ETH BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:12:08,565 - core.signal_writer - INFO -    • ETH_SELL_SHORT_1753318431748 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:12:08,668 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-23 22:12:08,716 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:12:09,536 - core.analyzer - WARNING - ❌ Erro técnico HYPE 5m: 'MarketData' object has no attribute 'latest_price'
+2025-07-23 22:12:09,565 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:12:10,737 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-23 22:12:10,781 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 22:12:11,854 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 22:12:12,990 - core.signal_writer - INFO - 🚫 NEAR BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:12:12,991 - core.signal_writer - INFO -    • NEAR_SELL_SHORT_1753318432794 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:12:13,094 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-23 22:12:13,114 - core.analyzer - WARNING - ❌ Erro técnico PEPE 15m: 'MarketData' object has no attribute 'latest_price'
+2025-07-23 22:12:13,137 - indicators.patterns - INFO - Padrões para PEPE: 0 selecionados
+2025-07-23 22:12:13,905 - indicators.patterns - INFO - Padrões para PEPE: 0 selecionados
+2025-07-23 22:12:14,803 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos ACTIVE | 4 bloqueados | 0 erros | 8.4s
+2025-07-23 22:15:42,297 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-23 22:15:42,297 - root - INFO - Inicializando MultiTimeframeAnalyzer...
+2025-07-23 22:15:42,298 - core.data_reader - INFO - ✅ Usando configuração STREAM: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:15:42,298 - core.data_reader - INFO - DataReader OTIMIZADO inicializado:
+2025-07-23 22:15:42,299 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:15:42,299 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-23 22:15:42,299 - core.data_reader - INFO -   • Anti-locks: ATIVO
+2025-07-23 22:15:42,302 - core.signal_writer - INFO - 🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros
+2025-07-23 22:15:42,303 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:15:42,303 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:15:42,303 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:15:42,303 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:15:42,304 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:15:42,304 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:15:42,304 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:15:42,305 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:15:42,305 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:15:42,305 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:15:42,306 - core.analyzer - INFO - MultiTimeframeAnalyzer DEFINITIVO inicializado:
+2025-07-23 22:15:42,306 - core.analyzer - INFO -   • Prioridade: 15m > 5m
+2025-07-23 22:15:42,306 - core.analyzer - INFO -   • Score mínimo 5m: 90.0
+2025-07-23 22:15:42,307 - core.analyzer - INFO -   • Vantagem necessária 5m: +10.0
+2025-07-23 22:15:42,307 - root - INFO - MultiTimeframeAnalyzer inicializado com sucesso
+2025-07-23 22:15:42,307 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-23 22:15:42,308 - core.analyzer - INFO - 🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m
+2025-07-23 22:15:42,327 - core.data_reader - INFO - ✅ Símbolos válidos encontrados: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:15:42,328 - core.analyzer - INFO - ✅ Símbolos: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:15:42,328 - core.analyzer - INFO - 🔄 Ciclo 1 - Prioridade 15m
+2025-07-23 22:15:42,330 - core.signal_writer - INFO - 🚫 BNB BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:15:42,331 - core.signal_writer - INFO -    • BNB_SELL_SHORT_1753317568241 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:15:42,433 - core.signal_writer - INFO - 🚫 BTC BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:15:42,434 - core.signal_writer - INFO -    • BTC_SELL_SHORT_1753317569161 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:15:42,536 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-23 22:15:42,600 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 22:15:43,384 - core.analyzer - WARNING - ❌ Erro técnico ENA 5m: 'MarketData' object has no attribute 'latest_price'
+2025-07-23 22:15:43,414 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 22:15:44,245 - core.signal_writer - INFO - 🚫 ETH BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:15:44,246 - core.signal_writer - INFO -    • ETH_SELL_SHORT_1753318431748 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:15:44,349 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-23 22:15:44,392 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:15:45,136 - core.analyzer - WARNING - ❌ Erro técnico HYPE 5m: 'MarketData' object has no attribute 'latest_price'
+2025-07-23 22:15:45,161 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:15:46,076 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-23 22:15:46,117 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 22:15:46,915 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 22:15:47,946 - core.signal_writer - INFO - 🚫 NEAR BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:15:47,947 - core.signal_writer - INFO -    • NEAR_SELL_SHORT_1753318432794 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:15:48,049 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-23 22:15:48,075 - core.analyzer - WARNING - ❌ Erro técnico PEPE 15m: 'MarketData' object has no attribute 'latest_price'
+2025-07-23 22:15:48,101 - indicators.patterns - INFO - Padrões para PEPE: 0 selecionados
+2025-07-23 22:15:48,836 - indicators.patterns - INFO - Padrões para PEPE: 0 selecionados
+2025-07-23 22:15:49,797 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos ACTIVE | 4 bloqueados | 0 erros | 7.5s
+2025-07-23 22:17:23,108 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-23 22:17:23,109 - root - INFO - Inicializando MultiTimeframeAnalyzer...
+2025-07-23 22:17:23,109 - core.data_reader - INFO - ✅ Usando configuração STREAM: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:17:23,109 - core.data_reader - INFO - DataReader OTIMIZADO inicializado:
+2025-07-23 22:17:23,110 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:17:23,110 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-23 22:17:23,110 - core.data_reader - INFO -   • Anti-locks: ATIVO
+2025-07-23 22:17:23,114 - core.signal_writer - INFO - 🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros
+2025-07-23 22:17:23,114 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:17:23,115 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:17:23,115 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:17:23,116 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:17:23,116 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:17:23,117 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:17:23,117 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:17:23,118 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:17:23,118 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:17:23,118 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:17:23,119 - core.analyzer - INFO - MultiTimeframeAnalyzer DEFINITIVO inicializado:
+2025-07-23 22:17:23,119 - core.analyzer - INFO -   • Prioridade: 15m > 5m
+2025-07-23 22:17:23,119 - core.analyzer - INFO -   • Score mínimo 5m: 90.0
+2025-07-23 22:17:23,119 - core.analyzer - INFO -   • Vantagem necessária 5m: +10.0
+2025-07-23 22:17:23,120 - root - INFO - MultiTimeframeAnalyzer inicializado com sucesso
+2025-07-23 22:17:23,120 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-23 22:17:23,121 - core.analyzer - INFO - 🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m
+2025-07-23 22:17:23,136 - core.data_reader - INFO - ✅ Símbolos válidos encontrados: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:17:23,136 - core.analyzer - INFO - ✅ Símbolos: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:17:23,137 - core.analyzer - INFO - 🔄 Ciclo 1 - Prioridade 15m
+2025-07-23 22:17:23,138 - core.signal_writer - INFO - 🚫 BNB BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:17:23,138 - core.signal_writer - INFO -    • BNB_SELL_SHORT_1753317568241 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:17:23,240 - core.signal_writer - INFO - 🚫 BTC BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:17:23,241 - core.signal_writer - INFO -    • BTC_SELL_SHORT_1753317569161 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:17:23,343 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-23 22:17:23,374 - indicators.advanced_technical - INFO - 🎯 CONFLUÊNCIA DETECTADA: RSI | Confidence: 0.750 → 0.975 (+30%) | Score: 0.65 | 🎯 PREÇO ACIMA DA BANDA SUPERIOR - Overbought extremo | ⭐ CONFLUÊNCIA PERFEITA para este tipo de sinal
+2025-07-23 22:17:23,376 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 22:17:23,393 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 22:17:23,401 - indicators.technical - INFO - 📊 SINAL TÉCNICO: ENA 15m | RSI → SELL_SHORT | Conf: 0.975 | Entry: $0.4718 | 🎯 Confluência: +30% (bearish_extreme/neutral)
+2025-07-23 22:17:23,427 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 22:17:24,253 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 22:17:24,261 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 22:17:24,271 - indicators.technical - INFO - 📊 SINAL TÉCNICO: ENA 5m | BollingerBands → SELL_SHORT | Conf: 0.892 | Entry: $0.4718
+2025-07-23 22:17:24,307 - indicators.patterns - INFO - Padrões para ENA: 0 selecionados
+2025-07-23 22:17:25,143 - core.analyzer - INFO - ✅ 15m PREFERIDO: ENA | Score 15m: 97.5 vs 5m: 89.2
+2025-07-23 22:17:25,146 - core.signal_writer - INFO - 💾 GRAVANDO NOVO SINAL: ENA | 15m | RSI | Status: ACTIVE
+2025-07-23 22:17:25,166 - core.signal_writer - INFO - ✅ SINAL GRAVADO COMO ACTIVE: ENA 15m | Entry: 0.4689 | Stop: 0.4775 (1.8% risco) [Market_Structure] | T1: 0.4627 (1.3%) | T2: 0.4523 (3.5%) [Support_Levels] | Conf: 0.975
+2025-07-23 22:17:25,176 - core.analyzer - INFO - 💾 ENA: GRAVADO | 15m | RSI | Score: 97.5 | Entry: $0.4689 | 1.8s
+2025-07-23 22:17:25,177 - core.analyzer - INFO - 🎯 ENA (3/8): 1 ATIVO
+2025-07-23 22:17:25,279 - core.signal_writer - INFO - 🚫 ETH BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:17:25,280 - core.signal_writer - INFO -    • ETH_SELL_SHORT_1753318431748 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:17:25,382 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-23 22:17:25,440 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:17:26,254 - indicators.advanced_technical - INFO - 🎯 CONFLUÊNCIA DETECTADA: VWAP | Confidence: 0.700 → 0.805 (+15%) | Score: 0.55 | 📊 Próximo aos extremos de Bollinger | 💪 VWAP atuando como SUPORTE
+2025-07-23 22:17:26,255 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 22:17:26,260 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 22:17:26,268 - indicators.technical - INFO - 📊 SINAL TÉCNICO: HYPE 5m | VWAP → BUY_LONG | Conf: 0.805 | Entry: $43.6720 | 🎯 Confluência: +15% (bullish_moderate/bullish_support)
+2025-07-23 22:17:26,293 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:17:27,396 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-23 22:17:27,430 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 22:17:27,436 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 22:17:27,442 - indicators.technical - INFO - 📊 SINAL TÉCNICO: IMX 15m | RSI → SELL_SHORT | Conf: 0.788 | Entry: $0.5749
+2025-07-23 22:17:27,474 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 22:17:28,375 - indicators.patterns - INFO - Padrões para IMX: 0 selecionados
+2025-07-23 22:17:29,326 - core.signal_writer - INFO - 💾 GRAVANDO NOVO SINAL: IMX | 15m | RSI | Status: ACTIVE
+2025-07-23 22:17:29,346 - core.signal_writer - INFO - ✅ SINAL GRAVADO COMO ACTIVE: IMX 15m | Entry: 0.5781 | Stop: 0.5811 (0.5% risco) [Market_Structure] | T1: 0.5660 (2.1%) | T2: 0.5572 (3.6%) [Support_Levels] | Conf: 0.788
+2025-07-23 22:17:29,357 - core.analyzer - INFO - 💾 IMX: GRAVADO | 15m | RSI | Score: 78.8 | Entry: $0.5781 | 2.0s
+2025-07-23 22:17:29,358 - core.analyzer - INFO - 🎯 IMX (6/8): 1 ATIVO
+2025-07-23 22:17:29,461 - core.signal_writer - INFO - 🚫 NEAR BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:17:29,462 - core.signal_writer - INFO -    • NEAR_SELL_SHORT_1753318432794 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:17:29,563 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-23 22:17:29,588 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 22:17:29,595 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 22:17:29,601 - indicators.technical - INFO - 📊 SINAL TÉCNICO: PEPE 15m | RSI → SELL_SHORT | Conf: 0.788 | Entry: $0.0129
+2025-07-23 22:17:29,629 - indicators.patterns - INFO - Padrões para PEPE: 0 selecionados
+2025-07-23 22:17:30,537 - indicators.advanced_technical - INFO - 🎯 CONFLUÊNCIA DETECTADA: MACD | Confidence: 0.800 → 0.980 (+30%) | Score: 0.75 | 📊 Próximo aos extremos de Bollinger | 🚧 VWAP atuando como RESISTÊNCIA | ✅ Boa confluência com indicadores
+2025-07-23 22:17:30,537 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 22:17:30,543 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 22:17:30,551 - indicators.technical - INFO - 📊 SINAL TÉCNICO: PEPE 5m | MACD → SELL_SHORT | Conf: 0.980 | Entry: $0.0129 | 🎯 Confluência: +30% (bearish_moderate/bearish_resistance)
+2025-07-23 22:17:30,551 - core.signal_writer - WARNING - 🎯 Target 1 SHORT corrigido: 0.0126
+2025-07-23 22:17:30,551 - core.signal_writer - WARNING - 🎯 Target 2 SHORT corrigido: 0.0123
+2025-07-23 22:17:30,581 - indicators.patterns - INFO - Padrões para PEPE: 0 selecionados
+2025-07-23 22:17:31,550 - core.analyzer - INFO - ✅ 5m VENCEU: PEPE | Score: 98.0 vs 15m: 78.8
+2025-07-23 22:17:31,555 - core.signal_writer - INFO - 💾 GRAVANDO NOVO SINAL: PEPE | 5m | MACD | Status: ACTIVE
+2025-07-23 22:17:31,573 - core.signal_writer - INFO - ✅ SINAL GRAVADO COMO ACTIVE: PEPE 5m | Entry: 0.0128 | Stop: 0.0130 (1.1% risco) [Market_Structure] | T1: 0.0126 (2.0%) | T2: 0.0123 (4.0%) [Market_Structure] | Conf: 0.980
+2025-07-23 22:17:31,585 - core.analyzer - INFO - 💾 PEPE: GRAVADO | 5m | MACD | Score: 98.0 | Entry: $0.0128 | 2.0s
+2025-07-23 22:17:31,585 - core.analyzer - INFO - 🎯 PEPE (8/8): 1 ATIVO
+2025-07-23 22:17:31,686 - core.analyzer - INFO - ✅ Ciclo 1: 3 novos ACTIVE | 4 bloqueados | 0 erros | 8.5s
+2025-07-23 22:19:43,442 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-23 22:19:43,442 - root - INFO - Inicializando MultiTimeframeAnalyzer...
+2025-07-23 22:19:43,442 - core.data_reader - INFO - ✅ Usando configuração STREAM: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:19:43,443 - core.data_reader - INFO - DataReader OTIMIZADO inicializado:
+2025-07-23 22:19:43,443 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-23 22:19:43,443 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-23 22:19:43,444 - core.data_reader - INFO -   • Anti-locks: ATIVO
+2025-07-23 22:19:43,449 - core.signal_writer - INFO - 🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros
+2025-07-23 22:19:43,449 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:19:43,450 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:19:43,450 - indicators.advanced_technical - INFO - 🎯 AdvancedTechnicalAnalyzer inicializado - Bollinger + VWAP
+2025-07-23 22:19:43,450 - indicators.technical - INFO - 🎯 TechnicalAnalyzer COM sistema de confluência ativado
+2025-07-23 22:19:43,451 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:19:43,451 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:19:43,451 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:19:43,452 - indicators.patterns - INFO - PatternAnalyzer SIMPLIFICADO - APENAS Double Top/Bottom
+2025-07-23 22:19:43,452 - indicators.patterns - INFO - HeadAndShouldersDetector DESABILITADO conforme configuração
+2025-07-23 22:19:43,452 - indicators.patterns - INFO - CupAndHandleDetector DESABILITADO conforme configuração
+2025-07-23 22:19:43,453 - core.analyzer - INFO - MultiTimeframeAnalyzer DEFINITIVO inicializado:
+2025-07-23 22:19:43,453 - core.analyzer - INFO -   • Prioridade: 15m > 5m
+2025-07-23 22:19:43,453 - core.analyzer - INFO -   • Score mínimo 5m: 90.0
+2025-07-23 22:19:43,453 - core.analyzer - INFO -   • Vantagem necessária 5m: +10.0
+2025-07-23 22:19:43,454 - root - INFO - MultiTimeframeAnalyzer inicializado com sucesso
+2025-07-23 22:19:43,454 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-23 22:19:43,455 - core.analyzer - INFO - 🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m
+2025-07-23 22:19:43,477 - core.data_reader - INFO - ✅ Símbolos válidos encontrados: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:19:43,477 - core.analyzer - INFO - ✅ Símbolos: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-23 22:19:43,478 - core.analyzer - INFO - 🔄 Ciclo 1 - Prioridade 15m
+2025-07-23 22:19:43,480 - core.signal_writer - INFO - 🚫 BNB BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:19:43,481 - core.signal_writer - INFO -    • BNB_SELL_SHORT_1753317568241 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:19:43,584 - core.signal_writer - INFO - 🚫 BTC BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:19:43,585 - core.signal_writer - INFO -    • BTC_SELL_SHORT_1753317569161 | ACTIVE | 5m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:19:43,686 - core.signal_writer - INFO - 🚫 ENA BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:19:43,687 - core.signal_writer - INFO -    • ENA_SELL_SHORT_1753319843375 | ACTIVE | 15m | Criado: 2025-07-23T21:59:59.999000
+2025-07-23 22:19:43,789 - core.signal_writer - INFO - 🚫 ETH BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:19:43,790 - core.signal_writer - INFO -    • ETH_SELL_SHORT_1753318431748 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:19:43,892 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-23 22:19:43,989 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:19:45,054 - indicators.advanced_technical - INFO - 🎯 CONFLUÊNCIA DETECTADA: VWAP | Confidence: 0.700 → 0.805 (+15%) | Score: 0.55 | 📊 Próximo aos extremos de Bollinger | 💪 VWAP atuando como SUPORTE
+2025-07-23 22:19:45,057 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-23 22:19:45,065 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-23 22:19:45,071 - indicators.technical - INFO - 📊 SINAL TÉCNICO: HYPE 5m | VWAP → BUY_LONG | Conf: 0.805 | Entry: $43.6720 | 🎯 Confluência: +15% (bullish_moderate/bullish_support)
+2025-07-23 22:19:45,098 - indicators.patterns - INFO - Padrões para HYPE: 0 selecionados
+2025-07-23 22:19:46,100 - core.signal_writer - INFO - 🚫 IMX BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:19:46,100 - core.signal_writer - INFO -    • IMX_SELL_SHORT_1753319847430 | ACTIVE | 15m | Criado: 2025-07-23T21:59:59.999000
+2025-07-23 22:19:46,202 - core.signal_writer - INFO - 🚫 NEAR BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:19:46,203 - core.signal_writer - INFO -    • NEAR_SELL_SHORT_1753318432794 | ACTIVE | 15m | Criado: 2025-07-23T21:29:59.999000
+2025-07-23 22:19:46,304 - core.signal_writer - INFO - 🚫 PEPE BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-23 22:19:46,305 - core.signal_writer - INFO -    • PEPE_SELL_SHORT_1753319850537 | ACTIVE | 5m | Criado: 2025-07-23T22:09:59.999000
+2025-07-23 22:19:46,406 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos ACTIVE | 7 bloqueados | 0 erros | 2.9s

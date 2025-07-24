@@ -1,6 +1,6 @@
 """
-Trading Analyzer - SISTEMA COMPLETO COM ANALISADORES TÉCNICOS
-Máximo 1 sinal ativo por symbol + Stop Loss e Targets Técnicos + Analisadores de Qualidade
+Trading Analyzer - SISTEMA COMPLETO CORRIGIDO
+Máximo 1 sinal ativo por symbol + Lógica de Status Corrigida
 """
 import argparse
 import sys
@@ -51,57 +51,61 @@ def run_with_timeout(func, args, timeout_seconds=30):
         finally:
             signal.signal(signal.SIGALRM, old_handler)
 
-# Imports do sistema UNIFICADO
+# 🚨 IMPORTS CORRIGIDOS DO SISTEMA
 try:
-    from core.analyzer import TradingAnalyzer
-    from config.settings import settings
+    from core.analyzer import MultiTimeframeAnalyzer
     ANALYZER_AVAILABLE = True
+    print("✅ MultiTimeframeAnalyzer importado com sucesso")
 except ImportError as e:
     print(f"❌ Erro crítico ao importar analyzer: {e}")
     ANALYZER_AVAILABLE = False
+
+try:
+    from config.settings import settings
+    SETTINGS_AVAILABLE = True
+except ImportError as e:
+    print(f"❌ Erro ao importar settings: {e}")
+    SETTINGS_AVAILABLE = False
 
 # 🚨 IMPORTS OPCIONAIS COM PROTEÇÃO
 try:
     from core.signal_manager import SignalManager, print_active_signals_table, clear_symbol_signals
     SIGNAL_MANAGER_AVAILABLE = True
+    print("✅ Signal Manager disponível")
 except ImportError:
     SIGNAL_MANAGER_AVAILABLE = False
     print("⚠️ Signal Manager não disponível")
 
 try:
+    from core.signal_monitor import SignalStatusMonitor, print_signal_monitoring_report
+    SIGNAL_MONITOR_AVAILABLE = True
+    print("✅ Signal Monitor disponível")
+except ImportError:
+    SIGNAL_MONITOR_AVAILABLE = False
+    print("⚠️ Signal Monitor não disponível")
+
+# Outros imports opcionais
+try:
     from core.stop_loss_analyzer import StopLossQualityAnalyzer, print_stop_loss_quality_report
     STOP_ANALYZER_AVAILABLE = True
 except ImportError:
     STOP_ANALYZER_AVAILABLE = False
-    print("⚠️ Stop Loss Analyzer não disponível")
 
-# 🚨 NOVO: Analisador de Targets
 try:
     from core.targets_analyzer import TargetsQualityAnalyzer, print_targets_quality_report
     TARGETS_ANALYZER_AVAILABLE = True
 except ImportError:
     TARGETS_ANALYZER_AVAILABLE = False
-    print("⚠️ Targets Analyzer não disponível")
 
-try:
-    from core.signal_monitor import SignalStatusMonitor, print_signal_monitoring_report
-    SIGNAL_MONITOR_AVAILABLE = True
-except ImportError:
-    SIGNAL_MONITOR_AVAILABLE = False
-    print("⚠️ Signal Monitor não disponível")
-
-# 🚨 NOVO: Configurações Avançadas
 try:
     from config.stop_loss_config import print_current_config as print_stop_config
     from config.targets_config import print_targets_config
     ADVANCED_CONFIG_AVAILABLE = True
 except ImportError:
     ADVANCED_CONFIG_AVAILABLE = False
-    print("⚠️ Configurações avançadas não disponíveis")
 
 def setup_logging(log_level: str):
-    """Configura sistema de logging SEM EMOJIS"""
-    # Configuração específica para Windows
+    """Configura sistema de logging"""
     if sys.platform.startswith('win'):
         logging.basicConfig(
             level=getattr(logging, log_level),
@@ -122,24 +126,25 @@ def setup_logging(log_level: str):
         )
 
 def print_banner():
-    """Exibe banner do sistema COMPLETO"""
+    """Exibe banner do sistema CORRIGIDO"""
     banner = """
 +=================================================================+
 |                    TRADING ANALYZER v2.1.0                     |
-|           Sistema COMPLETO - Análise Técnica Integrada         |
+|              Sistema COMPLETO - LÓGICA CORRIGIDA               |
 |                                                                 |
-|  🎯 SINAL ÚNICO: Máx 1 sinal ativo por crypto                  |
-|  ⚡ TIMEFRAMES: 5m (prioritário) + 15m APENAS                  |
-|  🛑 STOP TÉCNICO: ATR + S/R + Estrutura + Swing               |
-|  🎯 TARGETS TÉCNICOS: Fibonacci + S/R + Estrutura + RR        |
-|  📊 INDICADORES: RSI + MACD (5m/15m)                           |
-|  📈 PADRÕES: Apenas Double Top/Bottom                          |
-|  🕯️ CANDLESTICKS: 43 padrões (alta confiança)                 |
-|  📊 ANALISADORES: Stop Loss + Targets + Performance           |
-|  🧹 LIMPEZA AUTO: Move sinais inativos diariamente             |
-|  ⚖️ VALIDAÇÃO: Volume + Momentum + Microestrutura             |
-|  🛡️ PROTEÇÃO: Timeout + Cache + Validação robusta             |
-|  ⚙️ CONFIGURAÇÕES: Avançadas por symbol/timeframe             |
+|  🚨 CORREÇÕES APLICADAS:                                        |
+|  ✅ Novos sinais → SEMPRE ACTIVE                               |
+|  ✅ Estados bloqueadores → ACTIVE, TARGET_1_HIT                |
+|  ✅ Estados finalizados → TARGET_2_HIT, STOP_HIT, EXPIRED      |
+|  ✅ Fluxo → ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT      |
+|  ✅ Targets → Exatamente 2 targets por sinal                   |
+|                                                                 |
+|  🎯 CARACTERÍSTICAS:                                            |
+|  • Máx 1 sinal ativo por crypto                                |
+|  • Timeframes: 5m (prioritário) + 15m                          |
+|  • Stop Loss e Targets técnicos                                |
+|  • Validação robusta com proteção anti-travamento              |
+|  • Monitoramento e gerenciamento de sinais                     |
 +=================================================================+
     """
     print(banner)
@@ -189,11 +194,9 @@ def format_output_safe(data: dict, output_format: str) -> str:
             return json.dumps(data, indent=2, default=str, ensure_ascii=False)
         
         elif output_format == 'table':
-            # Formato simplificado para evitar problemas
             if 'error' in data or 'status' in data and data['status'] in ['error', 'timeout']:
                 return f"ERRO: {data.get('message', 'Erro desconhecido')}"
             
-            # Resultado básico
             if 'symbol' in data:
                 symbol = data['symbol']
                 status = data.get('status', 'unknown')
@@ -217,26 +220,26 @@ def format_output_safe(data: dict, output_format: str) -> str:
         return f"Erro na formatação: {e}"
 
 def initialize_analyzer_safe():
-    """Inicializa analyzer de forma segura"""
+    """🚨 CORRIGIDO: Inicializa MultiTimeframeAnalyzer"""
     if not ANALYZER_AVAILABLE:
         return None
     
     try:
-        logging.info("Inicializando Trading Analyzer...")
-        analyzer = TradingAnalyzer()
-        logging.info("Trading Analyzer inicializado com sucesso")
+        logging.info("Inicializando MultiTimeframeAnalyzer...")
+        analyzer = MultiTimeframeAnalyzer()  # 🚨 CORRIGIDO
+        logging.info("MultiTimeframeAnalyzer inicializado com sucesso")
         return analyzer
     except Exception as e:
         logging.error(f"Erro ao inicializar analyzer: {e}")
         return None
 
 def main():
-    """Função principal COM PROTEÇÃO ANTI-TRAVAMENTO E ANALISADORES TÉCNICOS"""
+    """Função principal CORRIGIDA"""
     parser = argparse.ArgumentParser(
-        description="Trading Analyzer v2.1.0 - Sistema Completo com Análise Técnica",
+        description="Trading Analyzer v2.1.0 - Sistema Completo CORRIGIDO",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Exemplos de uso COMPLETOS:
+Exemplos de uso CORRIGIDOS:
 
 🔍 ANÁLISE:
   python main.py --status                    # Status do sistema (timeout: 10s)
@@ -244,27 +247,23 @@ Exemplos de uso COMPLETOS:
   python main.py --analyze-all               # Análise de todos (timeout: 300s)
   python main.py --continuous                # Execução contínua robusta
 
-📊 GERENCIAMENTO DE SINAIS:
-  python main.py --check-signals             # Lista sinais ativos
-  python main.py --check-signals BTCUSDT     # Sinais de um symbol específico
-  python main.py --clear-signals BTCUSDT     # Limpa sinais de um symbol
+📊 GERENCIAMENTO DE SINAIS CORRIGIDO:
+  python main.py --check-signals             # Lista sinais BLOQUEADORES
+  python main.py --check-signals BTCUSDT     # Sinais bloqueadores de um symbol
+  python main.py --clear-signals BTCUSDT     # Limpa sinais bloqueadores
   python main.py --clear-signals BTCUSDT 5m  # Limpa sinal específico
 
 📈 MONITORAMENTO:
   python main.py --monitor-signals           # Monitora status dos sinais
   python main.py --update-signals            # Atualiza status automaticamente
 
-🛑 ANÁLISE DE QUALIDADE - STOP LOSS:
+🛑 ANÁLISE DE QUALIDADE:
   python main.py --analyze-stops             # Relatório de stop losses
-  python main.py --analyze-stops --days 14   # Últimos 14 dias
-
-🎯 ANÁLISE DE QUALIDADE - TARGETS:
-  python main.py --analyze-targets           # Relatório de targets (NOVO!)
-  python main.py --analyze-targets --days 14 # Últimos 14 dias
+  python main.py --analyze-targets           # Relatório de targets
 
 ⚙️ CONFIGURAÇÕES:
   python main.py --show-stop-config          # Mostra config de stop loss
-  python main.py --show-targets-config       # Mostra config de targets (NOVO!)
+  python main.py --show-targets-config       # Mostra config de targets
 
 🔧 OPÇÕES:
   python main.py --timeout 60 --analyze BTC  # Define timeout customizado
@@ -287,17 +286,17 @@ Exemplos de uso COMPLETOS:
                        help='Execução contínua')
     
     parser.add_argument('--check-signals', nargs='?', const='ALL', metavar='SYMBOL',
-                       help='Lista sinais ativos')
+                       help='Lista sinais bloqueadores')
     
     parser.add_argument('--clear-signals', nargs='+', metavar=('SYMBOL', 'TIMEFRAME'),
-                       help='Limpa sinais')
+                       help='Limpa sinais bloqueadores')
     
-    # 🚨 COMANDOS DE ANÁLISE TÉCNICA
+    # Comandos de análise técnica
     parser.add_argument('--analyze-stops', action='store_true',
                        help='Análise de qualidade dos stop losses')
     
     parser.add_argument('--analyze-targets', action='store_true',
-                       help='Análise de qualidade dos targets')  # NOVO!
+                       help='Análise de qualidade dos targets')
     
     parser.add_argument('--monitor-signals', action='store_true',
                        help='Monitora sinais')
@@ -305,12 +304,12 @@ Exemplos de uso COMPLETOS:
     parser.add_argument('--update-signals', action='store_true',
                        help='Atualiza status dos sinais')
     
-    # 🚨 COMANDOS DE CONFIGURAÇÃO
+    # Comandos de configuração
     parser.add_argument('--show-stop-config', action='store_true',
                        help='Mostra configuração de stop loss')
     
     parser.add_argument('--show-targets-config', action='store_true',
-                       help='Mostra configuração de targets')  # NOVO!
+                       help='Mostra configuração de targets')
     
     # Opções de configuração
     parser.add_argument('--days', type=int, default=7,
@@ -348,7 +347,7 @@ Exemplos de uso COMPLETOS:
         print_banner()
     
     try:
-        # 🚨 COMANDOS DE CONFIGURAÇÃO (sem analyzer)
+        # COMANDOS DE CONFIGURAÇÃO (sem analyzer)
         if args.show_stop_config:
             if not ADVANCED_CONFIG_AVAILABLE:
                 print("❌ Configurações avançadas não disponíveis")
@@ -386,7 +385,7 @@ Exemplos de uso COMPLETOS:
                     print_active_signals_table(args.check_signals.upper())
                 return {'status': 'success'}
             
-            result = safe_execute(run_check_signals, timeout=10, operation_name="Verificação de sinais")
+            result = safe_execute(run_check_signals, timeout=10, operation_name="Verificação de sinais bloqueadores")
             if 'status' in result and result['status'] != 'success':
                 print(format_output_safe(result, args.output))
                 sys.exit(1)
@@ -402,13 +401,13 @@ Exemplos de uso COMPLETOS:
             
             def run_clear_signals():
                 clear_symbol_signals(symbol, timeframe)
-                return {'status': 'success', 'message': f'Sinais limpos para {symbol}'}
+                return {'status': 'success', 'message': f'Sinais bloqueadores limpos para {symbol}'}
             
-            result = safe_execute(run_clear_signals, timeout=5, operation_name="Limpeza de sinais")
+            result = safe_execute(run_clear_signals, timeout=5, operation_name="Limpeza de sinais bloqueadores")
             print(format_output_safe(result, args.output))
             return
         
-        # 🚨 NOVOS COMANDOS DE ANÁLISE TÉCNICA
+        # COMANDOS DE ANÁLISE TÉCNICA
         elif args.analyze_stops:
             if not STOP_ANALYZER_AVAILABLE:
                 print("❌ Stop Loss Analyzer não disponível")
@@ -427,7 +426,7 @@ Exemplos de uso COMPLETOS:
                 print(format_output_safe(result, args.output))
             return
         
-        elif args.analyze_targets:  # 🚨 NOVO COMANDO
+        elif args.analyze_targets:
             if not TARGETS_ANALYZER_AVAILABLE:
                 print("❌ Targets Analyzer não disponível")
                 sys.exit(1)
@@ -487,14 +486,14 @@ Exemplos de uso COMPLETOS:
         
         # COMANDOS QUE PRECISAM DO ANALYZER
         if not ANALYZER_AVAILABLE:
-            print("❌ Trading Analyzer não disponível - verifique as dependências")
+            print("❌ MultiTimeframeAnalyzer não disponível - verifique as dependências")
             sys.exit(1)
         
         # Inicializa o analisador de forma segura
         analyzer = safe_execute(initialize_analyzer_safe, timeout=10, operation_name="Inicialização do analyzer")
         
         if analyzer is None or (isinstance(analyzer, dict) and 'status' in analyzer):
-            print("❌ Falha ao inicializar Trading Analyzer")
+            print("❌ Falha ao inicializar MultiTimeframeAnalyzer")
             if isinstance(analyzer, dict):
                 print(format_output_safe(analyzer, args.output))
             sys.exit(1)
@@ -506,7 +505,7 @@ Exemplos de uso COMPLETOS:
         
         elif args.analyze:
             symbol = args.analyze.upper()
-            result = safe_execute(analyzer.analyze_symbol, (symbol,), timeout=args.timeout, operation_name=f"Análise de {symbol}")
+            result = safe_execute(analyzer.analyze_symbol_all_timeframes, (symbol,), timeout=args.timeout, operation_name=f"Análise de {symbol}")
             print(format_output_safe(result, args.output))
         
         elif args.analyze_all:
@@ -515,7 +514,8 @@ Exemplos de uso COMPLETOS:
         
         elif args.continuous:
             if not args.quiet:
-                print(f"Iniciando análise contínua ROBUSTA (timeout por ciclo: {args.timeout}s)")
+                print(f"Iniciando análise contínua CORRIGIDA (timeout por ciclo: {args.timeout}s)")
+                print("Estados: ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT")
                 print("Pressione Ctrl+C para parar\n")
             
             try:

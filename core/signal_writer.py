@@ -1,9 +1,10 @@
-# signal_writer.py - LÓGICA CORRIGIDA - 2 TARGETS APENAS
+# signal_writer.py - CORREÇÃO COMPLETA DOS TARGETS TÉCNICOS
 
 """
-Signal Writer - CORREÇÃO DA LÓGICA: 2 targets apenas
-- BLOQUEAR: ACTIVE ou TARGET_HIT com targets_hit=[true,false]  
-- PERMITIR: STOP_HIT ou TARGET_HIT com targets_hit=[true,true]
+Signal Writer - CORREÇÃO DOS ERROS DE TARGETS:
+1. Validação robusta de tipos antes de conversões float()
+2. Fallbacks seguros para todos os cálculos
+3. Serialização JSON 100% segura
 """
 import sqlite3
 import json
@@ -11,16 +12,125 @@ import time
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Union
 from dataclasses import dataclass, field, asdict
 import logging
 import hashlib
 
 from config.settings import settings
 
+def safe_float_conversion(value, fallback: float = 0.0) -> float:
+    """Converte qualquer valor para float de forma segura"""
+    if value is None:
+        return fallback
+    
+    # Se já é float ou int
+    if isinstance(value, (int, float)):
+        return float(value)
+    
+    # Se é string
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except (ValueError, TypeError):
+            return fallback
+    
+    # Se é numpy type
+    if hasattr(value, 'item'):
+        try:
+            return float(value.item())
+        except:
+            return fallback
+    
+    # Se é pandas Series (pega o último valor)
+    if hasattr(value, 'iloc'):
+        try:
+            return float(value.iloc[-1])
+        except:
+            return fallback
+    
+    # Se é lista ou array (pega o último)
+    if isinstance(value, (list, tuple)) and len(value) > 0:
+        return safe_float_conversion(value[-1], fallback)
+    
+    # Se é dict, tenta extrair valor numérico
+    if isinstance(value, dict):
+        # Procura por chaves comuns
+        for key in ['value', 'price', 'level', 'target', 'close', 'last']:
+            if key in value:
+                return safe_float_conversion(value[key], fallback)
+        
+        # Se não encontrou, tenta o primeiro valor numérico
+        for v in value.values():
+            try:
+                return safe_float_conversion(v, fallback)
+            except:
+                continue
+        
+        return fallback
+    
+    # Último recurso: tenta converter diretamente
+    try:
+        return float(value)
+    except:
+        return fallback
+
+def safe_json_serialize(obj):
+    """Serializa objetos de forma segura para JSON"""
+    if obj is None:
+        return None
+    
+    # Se já é um tipo básico JSON-serializável
+    if isinstance(obj, (str, int, float, bool)):
+        return obj
+    
+    # Se é lista ou tupla
+    if isinstance(obj, (list, tuple)):
+        return [safe_json_serialize(item) for item in obj]
+    
+    # Se é um dicionário
+    if isinstance(obj, dict):
+        return {str(k): safe_json_serialize(v) for k, v in obj.items()}
+    
+    # Se é um pandas Series ou DataFrame
+    if hasattr(obj, 'to_list'):
+        try:
+            return obj.to_list()
+        except:
+            pass
+    elif hasattr(obj, 'to_dict'):
+        try:
+            return safe_json_serialize(obj.to_dict())
+        except:
+            pass
+    
+    # Se é um objeto com __dict__
+    if hasattr(obj, '__dict__'):
+        try:
+            return {k: safe_json_serialize(v) for k, v in obj.__dict__.items()}
+        except:
+            pass
+    
+    # Para datetime
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    
+    # Para numpy types
+    if hasattr(obj, 'item'):  # numpy scalar
+        try:
+            return obj.item()
+        except:
+            pass
+    
+    # Para objetos não serializáveis, converte para string
+    try:
+        return str(obj)
+    except:
+        return None
+
 @dataclass
 class EnhancedTradingSignal:
-    """Estrutura de sinal com INTEGRAÇÃO TÉCNICA CORRETA"""
+    """Estrutura de sinal com VALIDAÇÃO ROBUSTA DE TARGETS"""
     symbol: str
     signal_type: str
     entry_price: float
@@ -48,12 +158,11 @@ class EnhancedTradingSignal:
     strategy: str = ""
     timestamp: datetime = field(default_factory=datetime.now)
     
-    # 🚨 INTEGRAÇÃO CORRIGIDA: Análises técnicas
+    # Análises técnicas
     stop_loss_analysis: Optional[Dict] = None
     targets_analysis: Optional[Dict] = None
 
     def __post_init__(self):
-        # 🚨 CORREÇÃO: Inicializa logger
         self.logger = logging.getLogger(__name__)
         
         self._normalize_signal_type()
@@ -70,19 +179,58 @@ class EnhancedTradingSignal:
             direction = "bullish" if "BUY" in self.signal_type else "bearish"
             self.signal_source = f"{self.detector_name}_{direction}_{self.timeframe}"
 
-        # 🚨 INTEGRAÇÃO CORRIGIDA: Cálculo técnico completo
+        # FORÇA STATUS COMO ACTIVE
+        self.status = "ACTIVE"
+
+        # Valida entry_price
+        self.entry_price = safe_float_conversion(self.entry_price, 100.0)
+
+        # Cálculo técnico completo COM VALIDAÇÃO ROBUSTA
         if self.stop_loss is None: 
-            self.stop_loss, self.stop_loss_analysis = self._calculate_technical_stop_loss_integrated()
+            self.stop_loss, self.stop_loss_analysis = self._calculate_technical_stop_loss_safe()
         if self.targets is None: 
-            self.targets, self.targets_analysis = self._calculate_technical_targets_integrated()
+            self.targets, self.targets_analysis = self._calculate_technical_targets_safe()
         
         if self.indicators_used is None: 
             self.indicators_used = [f"{self.detector_name.lower()}_analyze"]
         if self.targets_hit is None: 
-            self.targets_hit = [False, False]  # 🚨 CORRIGIDO: Apenas 2 targets
+            self.targets_hit = [False, False]  # Apenas 2 targets
         
         self._apply_precisions()
         self._validate_stop_and_targets()
+        
+        # Limpa objetos não serializáveis APÓS todos os cálculos
+        self._prepare_for_serialization()
+
+    def _prepare_for_serialization(self):
+        """Prepara o objeto para serialização JSON removendo objetos problemáticos"""
+        
+        # Remove/converte market_data que não é serializável
+        if self.market_data is not None:
+            self.market_data = None  # Remove para evitar problemas de serialização
+        
+        # Limpa technical_data de objetos não serializáveis
+        if self.technical_data:
+            self.technical_data = safe_json_serialize(self.technical_data)
+        
+        # Limpa pattern_data  
+        if self.pattern_data:
+            self.pattern_data = safe_json_serialize(self.pattern_data)
+            
+        # Limpa timeframe_analysis
+        if self.timeframe_analysis:
+            self.timeframe_analysis = safe_json_serialize(self.timeframe_analysis)
+            
+        # Limpa market_conditions
+        if self.market_conditions:
+            self.market_conditions = safe_json_serialize(self.market_conditions)
+            
+        # Limpa análises técnicas
+        if self.stop_loss_analysis:
+            self.stop_loss_analysis = safe_json_serialize(self.stop_loss_analysis)
+            
+        if self.targets_analysis:
+            self.targets_analysis = safe_json_serialize(self.targets_analysis)
 
     def _normalize_signal_type(self):
         if self.signal_type.upper() in ['BUY', 'BULLISH']: 
@@ -90,16 +238,15 @@ class EnhancedTradingSignal:
         elif self.signal_type.upper() in ['SELL', 'BEARISH']: 
             self.signal_type = 'SELL_SHORT'
 
-    def _calculate_technical_stop_loss_integrated(self) -> tuple[float, Dict]:
-        """🚨 INTEGRAÇÃO CORRIGIDA com technical_stop_loss.py"""
+    def _calculate_technical_stop_loss_safe(self) -> tuple[float, Dict]:
+        """Cálcula stop loss técnico COM VALIDAÇÃO ROBUSTA"""
         try:
             from core.technical_stop_loss import TechnicalStopLossCalculator
             from core.data_reader import MarketData
             
             calculator = TechnicalStopLossCalculator()
             
-            # Cria MarketData object se necessário
-            if isinstance(self.market_data, pd.DataFrame):
+            if isinstance(self.market_data, pd.DataFrame) and len(self.market_data) > 10:
                 market_data_obj = MarketData(
                     symbol=self.symbol,
                     timeframe=self.timeframe,
@@ -107,7 +254,6 @@ class EnhancedTradingSignal:
                     last_update=datetime.now()
                 )
             else:
-                # Fallback se não há dados
                 return self._calculate_fallback_stop_loss(), {
                     'method_used': 'Fallback_No_Data',
                     'confidence': 0.3,
@@ -116,7 +262,6 @@ class EnhancedTradingSignal:
                     'analysis_details': {'error': 'No market data available'}
                 }
             
-            # 🚨 CHAMA O SISTEMA TÉCNICO
             stop_result = calculator.calculate_intelligent_stop_loss(
                 market_data_obj, 
                 self.signal_type, 
@@ -124,18 +269,20 @@ class EnhancedTradingSignal:
                 self.timeframe
             )
             
-            # 🚨 CONVERTE StopLossAnalysis PARA DICT (compatível com JSON)
+            # VALIDAÇÃO ROBUSTA DO RESULTADO
+            recommended_stop = safe_float_conversion(stop_result.recommended_stop, self._calculate_fallback_stop_loss())
+            
             analysis_dict = {
-                'method_used': stop_result.method_used,
-                'confidence': stop_result.confidence,
-                'risk_percentage': stop_result.risk_percentage,
-                'atr_value': stop_result.atr_value,
-                'nearest_support_resistance': stop_result.nearest_support_resistance,
-                'analysis_details': stop_result.analysis_details
+                'method_used': str(stop_result.method_used),
+                'confidence': safe_float_conversion(stop_result.confidence, 0.3),
+                'risk_percentage': safe_float_conversion(stop_result.risk_percentage, 2.0),
+                'atr_value': safe_float_conversion(stop_result.atr_value, 0),
+                'nearest_support_resistance': safe_float_conversion(stop_result.nearest_support_resistance, None),
+                'analysis_details': safe_json_serialize(stop_result.analysis_details)
             }
             
             self.logger.debug(f"Stop loss técnico calculado: {stop_result.method_used} para {self.symbol}")
-            return stop_result.recommended_stop, analysis_dict
+            return recommended_stop, analysis_dict
             
         except Exception as e:
             self.logger.error(f"Erro no cálculo técnico de stop loss para {self.symbol}: {e}")
@@ -148,16 +295,15 @@ class EnhancedTradingSignal:
                 'analysis_details': {'error': str(e)}
             }
     
-    def _calculate_technical_targets_integrated(self) -> tuple[List[float], Dict]:
-        """🚨 INTEGRAÇÃO COM SISTEMA TÉCNICO DE TARGETS - 2 TARGETS"""
+    def _calculate_technical_targets_safe(self) -> tuple[List[float], Dict]:
+        """Cálcula targets técnicos COM VALIDAÇÃO ROBUSTA - APENAS 2 TARGETS"""
         try:
             from core.technical_targets import TechnicalTargetsCalculator
             from core.data_reader import MarketData
             
             calculator = TechnicalTargetsCalculator()
             
-            # Cria MarketData object se necessário
-            if isinstance(self.market_data, pd.DataFrame):
+            if isinstance(self.market_data, pd.DataFrame) and len(self.market_data) > 10:
                 market_data_obj = MarketData(
                     symbol=self.symbol,
                     timeframe=self.timeframe,
@@ -171,10 +317,8 @@ class EnhancedTradingSignal:
                     'analysis_details': {'error': 'No market data available'}
                 }
             
-            # Calcula targets técnicos (precisa do stop loss para calcular risco)
-            temp_stop = self.stop_loss if self.stop_loss else self._calculate_fallback_stop_loss()
+            temp_stop = safe_float_conversion(self.stop_loss if self.stop_loss else self._calculate_fallback_stop_loss())
             
-            # 🚨 CHAMA O SISTEMA TÉCNICO DE TARGETS
             targets_result = calculator.calculate_intelligent_targets(
                 market_data_obj,
                 self.signal_type,
@@ -183,27 +327,76 @@ class EnhancedTradingSignal:
                 self.timeframe
             )
             
-            # 🚨 GARANTE APENAS 2 TARGETS
-            final_targets = targets_result.targets[:2] if len(targets_result.targets) >= 2 else targets_result.targets
-            if len(final_targets) < 2:
+            # VALIDAÇÃO SUPER ROBUSTA DOS TARGETS - TRATA NoneType
+            raw_targets = getattr(targets_result, 'targets', None)
+            
+            # Se targets é None ou não iterável, usa fallback
+            if raw_targets is None:
+                self.logger.warning(f"Targets retornaram None para {self.symbol}, usando fallback")
+                return self._calculate_fallback_targets(), {
+                    'method_used': 'None_Targets_Fallback',
+                    'confidence': 0.3,
+                    'analysis_details': {'error': 'Targets returned None'}
+                }
+            
+            # Tenta converter para lista se não for iterável
+            if not hasattr(raw_targets, '__iter__'):
+                self.logger.warning(f"Targets não iteráveis para {self.symbol}, usando fallback")
+                return self._calculate_fallback_targets(), {
+                    'method_used': 'Non_Iterable_Targets_Fallback',
+                    'confidence': 0.3,
+                    'analysis_details': {'error': 'Targets not iterable'}
+                }
+            
+            # Converte todos os targets para float de forma segura
+            safe_targets = []
+            try:
+                for target in raw_targets:
+                    converted_target = safe_float_conversion(target, None)
+                    if converted_target is not None and converted_target > 0:
+                        safe_targets.append(converted_target)
+            except Exception as e:
+                self.logger.warning(f"Erro ao iterar targets para {self.symbol}: {e}")
+                return self._calculate_fallback_targets(), {
+                    'method_used': 'Iteration_Error_Fallback',
+                    'confidence': 0.3,
+                    'analysis_details': {'error': f'Iteration error: {e}'}
+                }
+            
+            # GARANTE APENAS 2 TARGETS
+            if len(safe_targets) >= 2:
+                final_targets = safe_targets[:2]
+            elif len(safe_targets) == 1:
+                # Se só tem 1 target, cria o segundo baseado no primeiro
+                if 'BUY' in self.signal_type:
+                    final_targets = [safe_targets[0], safe_targets[0] * 1.02]
+                else:
+                    final_targets = [safe_targets[0], safe_targets[0] * 0.98]
+            else:
+                # Se não tem targets válidos, usa fallback
+                self.logger.warning(f"Nenhum target válido encontrado para {self.symbol}, usando fallback")
                 final_targets = self._calculate_fallback_targets()
             
-            # 🚨 CONVERTE TargetsAnalysis PARA DICT (compatível com JSON)
+            # VALIDAÇÃO DOS RESULTADOS DE ANÁLISE COM PROTEÇÃO None
+            target_levels = getattr(targets_result, 'target_levels', None)
+            resistance_levels = getattr(targets_result, 'resistance_levels', None)
+            support_levels = getattr(targets_result, 'support_levels', None)
+            risk_reward_ratios = getattr(targets_result, 'risk_reward_ratios', None)
+            
             analysis_dict = {
-                'method_used': targets_result.method_used,
-                'confidence': targets_result.confidence,
-                'target_levels': targets_result.target_levels[:2] if targets_result.target_levels else [],
-                'resistance_levels': targets_result.resistance_levels,
-                'support_levels': targets_result.support_levels,
-                'risk_reward_ratios': targets_result.risk_reward_ratios[:2] if targets_result.risk_reward_ratios else [],
-                'analysis_details': targets_result.analysis_details
+                'method_used': str(getattr(targets_result, 'method_used', 'Technical_Calculated')),
+                'confidence': safe_float_conversion(getattr(targets_result, 'confidence', 0.5)),
+                'target_levels': [safe_float_conversion(x) for x in (target_levels or final_targets)[:2]],
+                'resistance_levels': [safe_float_conversion(x) for x in (resistance_levels or [])] if resistance_levels else [],
+                'support_levels': [safe_float_conversion(x) for x in (support_levels or [])] if support_levels else [],
+                'risk_reward_ratios': [safe_float_conversion(x) for x in (risk_reward_ratios or [])[:2]] if risk_reward_ratios else [],
+                'analysis_details': safe_json_serialize(getattr(targets_result, 'analysis_details', {}))
             }
             
-            self.logger.debug(f"Targets técnicos calculados: {targets_result.method_used} para {self.symbol} (2 targets)")
+            self.logger.debug(f"Targets técnicos calculados: {analysis_dict['method_used']} para {self.symbol} (2 targets)")
             return final_targets, analysis_dict
             
         except ImportError:
-            # Fallback se o sistema de targets não existe ainda
             self.logger.warning("Sistema técnico de targets não disponível, usando fallback")
             return self._calculate_simple_technical_targets(), {
                 'method_used': 'Simple_Technical_Fallback',
@@ -220,20 +413,18 @@ class EnhancedTradingSignal:
             }
 
     def _calculate_simple_technical_targets(self) -> List[float]:
-        """Targets técnicos simples baseados em ATR e estrutura - 2 TARGETS"""
+        """Targets técnicos simples baseados em ATR - 2 TARGETS"""
         try:
             if self.market_data is None or len(self.market_data) < 20:
                 return self._calculate_fallback_targets()
             
-            # Calcula ATR para targets
             atr = self._calculate_atr(self.market_data, 14)
-            
-            # Encontra resistências/suportes próximos
             resistance_levels, support_levels = self._find_nearby_levels(self.market_data)
             
             if 'BUY' in self.signal_type:
-                # Para LONG: busca resistências acima como targets
-                valid_resistances = [r for r in resistance_levels if r > self.entry_price]
+                valid_resistances = [safe_float_conversion(r) for r in resistance_levels if safe_float_conversion(r) > self.entry_price]
+                valid_resistances = [r for r in valid_resistances if r > 0]
+                
                 if len(valid_resistances) >= 2:
                     targets = sorted(valid_resistances)[:2]
                 else:
@@ -242,8 +433,9 @@ class EnhancedTradingSignal:
                         self.entry_price + atr * 3.5   # Target 2: 3.5x ATR
                     ]
             else:
-                # Para SHORT: busca suportes abaixo como targets
-                valid_supports = [s for s in support_levels if s < self.entry_price]
+                valid_supports = [safe_float_conversion(s) for s in support_levels if safe_float_conversion(s) < self.entry_price]
+                valid_supports = [s for s in valid_supports if s > 0]
+                
                 if len(valid_supports) >= 2:
                     targets = sorted(valid_supports, reverse=True)[:2]
                 else:
@@ -252,35 +444,69 @@ class EnhancedTradingSignal:
                         self.entry_price - atr * 3.5   # Target 2: 3.5x ATR
                     ]
             
-            return targets
+            # Validação final
+            final_targets = [safe_float_conversion(t, self.entry_price) for t in targets]
+            return final_targets[:2]  # Garante apenas 2
             
         except Exception as e:
             self.logger.warning(f"Erro no cálculo simples de targets técnicos: {e}")
             return self._calculate_fallback_targets()
 
     def _find_nearby_levels(self, df: pd.DataFrame) -> tuple[List[float], List[float]]:
-        """Encontra níveis de suporte e resistência próximos"""
+        """Encontra níveis de suporte e resistência próximos COM VALIDAÇÃO ROBUSTA"""
         try:
-            # Pega últimas 50 barras para análise
+            if df is None or len(df) < 10:
+                return [], []
+            
             recent_data = df.tail(50)
             
-            # Encontra picos e vales
+            # Validação das colunas necessárias
+            if 'high_price' not in recent_data.columns or 'low_price' not in recent_data.columns:
+                self.logger.warning("Colunas high_price ou low_price não encontradas")
+                return [], []
+            
             highs = recent_data['high_price']
             lows = recent_data['low_price']
             
-            # Resistências (picos locais)
+            # Verifica se as séries não são None
+            if highs is None or lows is None:
+                return [], []
+            
             resistance_levels = []
             for i in range(2, len(highs) - 2):
-                if (highs.iloc[i] > highs.iloc[i-1] and highs.iloc[i] > highs.iloc[i-2] and
-                    highs.iloc[i] > highs.iloc[i+1] and highs.iloc[i] > highs.iloc[i+2]):
-                    resistance_levels.append(highs.iloc[i])
+                try:
+                    current_high = safe_float_conversion(highs.iloc[i])
+                    prev1_high = safe_float_conversion(highs.iloc[i-1])
+                    prev2_high = safe_float_conversion(highs.iloc[i-2])
+                    next1_high = safe_float_conversion(highs.iloc[i+1])
+                    next2_high = safe_float_conversion(highs.iloc[i+2])
+                    
+                    if (current_high > 0 and prev1_high > 0 and prev2_high > 0 and 
+                        next1_high > 0 and next2_high > 0 and
+                        current_high > prev1_high and current_high > prev2_high and
+                        current_high > next1_high and current_high > next2_high):
+                        resistance_levels.append(current_high)
+                except Exception as e:
+                    self.logger.debug(f"Erro ao processar high {i}: {e}")
+                    continue
             
-            # Suportes (vales locais)
             support_levels = []
             for i in range(2, len(lows) - 2):
-                if (lows.iloc[i] < lows.iloc[i-1] and lows.iloc[i] < lows.iloc[i-2] and
-                    lows.iloc[i] < lows.iloc[i+1] and lows.iloc[i] < lows.iloc[i+2]):
-                    support_levels.append(lows.iloc[i])
+                try:
+                    current_low = safe_float_conversion(lows.iloc[i])
+                    prev1_low = safe_float_conversion(lows.iloc[i-1])
+                    prev2_low = safe_float_conversion(lows.iloc[i-2])
+                    next1_low = safe_float_conversion(lows.iloc[i+1])
+                    next2_low = safe_float_conversion(lows.iloc[i+2])
+                    
+                    if (current_low > 0 and prev1_low > 0 and prev2_low > 0 and 
+                        next1_low > 0 and next2_low > 0 and
+                        current_low < prev1_low and current_low < prev2_low and
+                        current_low < next1_low and current_low < next2_low):
+                        support_levels.append(current_low)
+                except Exception as e:
+                    self.logger.debug(f"Erro ao processar low {i}: {e}")
+                    continue
             
             return resistance_levels, support_levels
             
@@ -289,52 +515,51 @@ class EnhancedTradingSignal:
             return [], []
 
     def _calculate_atr(self, data: pd.DataFrame, period: int = 14) -> float:
-        """Calcula ATR (Average True Range) - COM DEBUG"""
+        """Calcula ATR (Average True Range) COM VALIDAÇÃO"""
         try:
             if data is None or len(data) < period + 2:
                 fallback_atr = self.entry_price * 0.015
-                print(f"🔧 ATR fallback usado: {fallback_atr:.4f} (dados insuficientes)")
                 return fallback_atr
             
             df = data.iloc[:-1].copy() if len(data) > 1 else data.copy()
             
             if len(df) < period:
                 fallback_atr = self.entry_price * 0.015
-                print(f"🔧 ATR fallback usado: {fallback_atr:.4f} (período insuficiente)")
                 return fallback_atr
             
-            # Calcula True Range
+            # Conversão segura das colunas
             df['prev_close'] = df['close_price'].shift(1)
-            df['tr1'] = df['high_price'] - df['low_price']
-            df['tr2'] = abs(df['high_price'] - df['prev_close'])
-            df['tr3'] = abs(df['low_price'] - df['prev_close'])
+            df['high_safe'] = df['high_price'].apply(lambda x: safe_float_conversion(x, 0))
+            df['low_safe'] = df['low_price'].apply(lambda x: safe_float_conversion(x, 0))
+            df['close_safe'] = df['close_price'].apply(lambda x: safe_float_conversion(x, 0))
+            df['prev_close_safe'] = df['prev_close'].apply(lambda x: safe_float_conversion(x, 0))
+            
+            df['tr1'] = df['high_safe'] - df['low_safe']
+            df['tr2'] = abs(df['high_safe'] - df['prev_close_safe'])
+            df['tr3'] = abs(df['low_safe'] - df['prev_close_safe'])
             
             df['true_range'] = df[['tr1', 'tr2', 'tr3']].max(axis=1)
             atr = df['true_range'].ewm(span=period, adjust=False).mean().iloc[-1]
             
-            # Validação
             min_atr = self.entry_price * 0.005
             max_atr = self.entry_price * 0.03
-            atr_final = max(min_atr, min(max_atr, atr)) if pd.notna(atr) and atr > 0 else self.entry_price * 0.015
+            atr_final = max(min_atr, min(max_atr, safe_float_conversion(atr, self.entry_price * 0.015)))
             
-            print(f"🔧 ATR calculado: {atr_final:.4f} para {self.symbol} (entry: {self.entry_price:.4f})")
-            return float(atr_final)
+            return atr_final
             
         except Exception as e:
+            self.logger.warning(f"Erro no cálculo de ATR: {e}")
             fallback_atr = self.entry_price * 0.015
-            print(f"🔧 ATR ERRO, usando fallback: {fallback_atr:.4f} - {e}")
             return fallback_atr
     
     def _calculate_fallback_stop_loss(self) -> float:
-        """Stop loss de emergência - CORRIGIDO"""
+        """Stop loss de emergência"""
         stop_percentage = 0.02  # 2% conservador
         
         if 'BUY' in self.signal_type:
-            # Para LONG: stop deve ser MENOR que entry (subtrai)
-            return self.entry_price * (1 - stop_percentage)  # entry * 0.98
+            return self.entry_price * (1 - stop_percentage)
         else:
-            # Para SHORT: stop deve ser MAIOR que entry (soma)
-            return self.entry_price * (1 + stop_percentage)  # entry * 1.02
+            return self.entry_price * (1 + stop_percentage)
 
     def _calculate_fallback_targets(self) -> List[float]:
         """Targets de emergência - APENAS 2"""
@@ -350,27 +575,30 @@ class EnhancedTradingSignal:
             ]
 
     def _apply_precisions(self):
-        """Aplica precisão de preços"""
-        precision = settings.get_price_precision(self.symbol)
-        self.entry_price = round(self.entry_price, precision)
-        self.stop_loss = round(self.stop_loss, precision)
-        self.targets = [round(t, precision) for t in self.targets]
+        """Aplica precisão de preços COM VALIDAÇÃO"""
+        try:
+            precision = settings.get_price_precision(self.symbol)
+            
+            self.entry_price = round(safe_float_conversion(self.entry_price), precision)
+            self.stop_loss = round(safe_float_conversion(self.stop_loss), precision)
+            self.targets = [round(safe_float_conversion(t), precision) for t in self.targets]
+            
+        except Exception as e:
+            self.logger.warning(f"Erro na aplicação de precisão: {e}")
 
     def _validate_stop_and_targets(self):
-        """Valida stop loss e targets - CORRIGIDO"""
+        """Valida stop loss e targets COM CORREÇÃO AUTOMÁTICA"""
         try:
             # VALIDAÇÃO 1: Direção correta do stop loss
             if 'BUY' in self.signal_type:
                 if self.stop_loss >= self.entry_price:
-                    # Para LONG: stop deve ser MENOR que entry
-                    self.stop_loss = self.entry_price * 0.985  # 1.5% abaixo
-                    self.logger.warning(f"🔧 Stop loss LONG corrigido para {self.symbol}: {self.stop_loss:.4f} (era >= entry)")
+                    self.stop_loss = self.entry_price * 0.985
+                    self.logger.warning(f"🔧 Stop loss LONG corrigido para {self.symbol}: {self.stop_loss:.4f}")
             
             elif 'SELL' in self.signal_type:
                 if self.stop_loss <= self.entry_price:
-                    # Para SHORT: stop deve ser MAIOR que entry  
-                    self.stop_loss = self.entry_price * 1.015  # 1.5% acima
-                    self.logger.warning(f"🔧 Stop loss SHORT corrigido para {self.symbol}: {self.stop_loss:.4f} (era <= entry)")
+                    self.stop_loss = self.entry_price * 1.015
+                    self.logger.warning(f"🔧 Stop loss SHORT corrigido para {self.symbol}: {self.stop_loss:.4f}")
             
             # VALIDAÇÃO 2: Garante apenas 2 targets
             if len(self.targets) > 2:
@@ -382,13 +610,15 @@ class EnhancedTradingSignal:
             
             # VALIDAÇÃO 3: Targets na direção correta
             for i, target in enumerate(self.targets):
+                target_safe = safe_float_conversion(target, self.entry_price)
+                
                 if 'BUY' in self.signal_type:
-                    if target <= self.entry_price:
-                        self.targets[i] = self.entry_price * (1.02 + i * 0.02)  # 2%, 4%
+                    if target_safe <= self.entry_price:
+                        self.targets[i] = self.entry_price * (1.02 + i * 0.02)
                         self.logger.warning(f"🎯 Target {i+1} LONG corrigido: {self.targets[i]:.4f}")
                 else:  # SELL
-                    if target >= self.entry_price:
-                        self.targets[i] = self.entry_price * (0.98 - i * 0.02)  # -2%, -4%
+                    if target_safe >= self.entry_price:
+                        self.targets[i] = self.entry_price * (0.98 - i * 0.02)
                         self.logger.warning(f"🎯 Target {i+1} SHORT corrigido: {self.targets[i]:.4f}")
             
             # VALIDAÇÃO 4: Ordem dos targets
@@ -399,9 +629,12 @@ class EnhancedTradingSignal:
                 
         except Exception as e:
             self.logger.error(f"❌ Erro na validação de stop/targets para {self.symbol}: {e}")
+            # Em caso de erro, usa valores seguros
+            self.targets = self._calculate_fallback_targets()
+            self.stop_loss = self._calculate_fallback_stop_loss()
 
 class EnhancedSignalWriter:
-    """Signal Writer LÓGICA CORRIGIDA - 2 targets apenas"""
+    """Signal Writer com VALIDAÇÃO ROBUSTA DE TARGETS"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -409,13 +642,13 @@ class EnhancedSignalWriter:
         self.signals_table = settings.database.signals_table
         self.backup_table = settings.database.backup_table
         self._ensure_tables_exist()
-        self.logger.info("EnhancedSignalWriter LÓGICA CORRIGIDA - 2 targets apenas")
+        self.logger.info("🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros")
         
     def _get_connection(self):
         return sqlite3.connect(self.db_path, timeout=10)
 
     def _ensure_tables_exist(self):
-        """Garante que as tabelas existam com colunas para análises técnicas"""
+        """Garante que as tabelas existam"""
         create_signals_table = f"""
         CREATE TABLE IF NOT EXISTS {self.signals_table} (
             id TEXT PRIMARY KEY,
@@ -482,26 +715,16 @@ class EnhancedSignalWriter:
                 conn.execute(create_signals_table)
                 conn.execute(create_backup_table)
                 conn.commit()
-                self.logger.debug("Tabelas verificadas/criadas com sucesso")
+                self.logger.debug("✅ Tabelas verificadas/criadas")
         except Exception as e:
-            self.logger.error(f"Erro ao criar tabelas: {e}")
+            self.logger.error(f"❌ Erro ao criar tabelas: {e}")
     
-   
     def check_existing_active_signals(self, symbol: str) -> bool:
         """
-        CORRIGIDO: Verifica se há sinal que bloqueia novos sinais
-        
-        BLOQUEAR quando:
-        - Status = ACTIVE (nenhum target atingido)
-        - Status = TARGET_1_HIT (só primeiro target)
-        
-        PERMITIR quando:
-        - Status = TARGET_2_HIT (ambos targets atingidos)
-        - Status = STOP_HIT (stop loss atingido)
-        - Status = EXPIRED ou MANUALLY_CLOSED
+        Verifica sinais que BLOQUEIAM novos sinais (ACTIVE, TARGET_1_HIT)
         """
         query = f"""
-        SELECT id, status, targets_hit, created_at 
+        SELECT id, status, targets_hit, created_at, timeframe
         FROM {self.signals_table} 
         WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_1_HIT')
         ORDER BY created_at DESC
@@ -511,71 +734,39 @@ class EnhancedSignalWriter:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(query, (symbol,))
-                signals = cursor.fetchall()
-                
-                blocking_signals = []
-                
-                for signal in signals:
-                    signal_id, status, targets_hit_str, created_at = signal
-                    
-                    # Parse targets_hit
-                    try:
-                        targets_hit = json.loads(targets_hit_str) if targets_hit_str else [False, False]
-                    except:
-                        targets_hit = [False, False]
-                    
-                    # LÓGICA CORRIGIDA:
-                    should_block = False
-                    
-                    if status == 'ACTIVE':
-                        should_block = True
-                        reason = "ACTIVE (aguardando resultado)"
-                        
-                    elif status == 'TARGET_1_HIT':
-                        should_block = True  # TARGET_1_HIT ainda bloqueia
-                        reason = "TARGET_1_HIT (ainda ativo)"
-                    
-                    if should_block:
-                        blocking_signals.append((signal_id, status, targets_hit, reason))
-                        self.logger.debug(f"🚫 BLOQUEIO para {symbol}: {signal_id} | Status: {status} | Motivo: {reason}")
+                blocking_signals = cursor.fetchall()
                 
                 has_blocking = len(blocking_signals) > 0
+                
                 if has_blocking:
-                    self.logger.info(f"🚫 {symbol} BLOQUEADO: {len(blocking_signals)} sinal(s) ativo(s)")
+                    self.logger.info(f"🚫 {symbol} BLOQUEADO: {len(blocking_signals)} sinal(s) que impedem novos sinais:")
+                    for signal_id, status, targets_hit_str, created_at, timeframe in blocking_signals:
+                        self.logger.info(f"   • {signal_id} | {status} | {timeframe} | Criado: {created_at}")
                 
                 return has_blocking
                     
         except Exception as e:
-            self.logger.error(f"Erro ao verificar sinais bloqueadores para {symbol}: {e}")
+            self.logger.error(f"❌ Erro ao verificar sinais bloqueadores para {symbol}: {e}")
             return False
-   
    
     def write_enhanced_signal(self, signal: EnhancedTradingSignal) -> bool:
-        """Escreve sinal no banco com LÓGICA CORRIGIDA"""
+        """GRAVAÇÃO CORRIGIDA com validação robusta"""
         
-        # 🚨 NOVO: Verificação de Sinal Obsoleto
-        if signal.signal_type == 'BUY_LONG' and signal.entry_price >= signal.targets[0]:
-            self.logger.warning(f"🚫 Sinal OBsoleto para {signal.symbol}: Preço de entrada ({signal.entry_price}) maior ou igual ao alvo 1 ({signal.targets[0]})")
-            self._backup_signal(signal, "blocked_stale_signal_entry_too_high")
-            return False
-        elif signal.signal_type == 'SELL_SHORT' and signal.entry_price <= signal.targets[0]:
-            self.logger.warning(f"🚫 Sinal OBsoleto para {signal.symbol}: Preço de entrada ({signal.entry_price}) menor ou igual ao alvo 1 ({signal.targets[0]})")
-            self._backup_signal(signal, "blocked_stale_signal_entry_too_low")
+        # Validação de sinal obsoleto
+        if not self._validate_signal_freshness(signal):
+            self._backup_signal(signal, "blocked_stale_signal")
             return False
         
-        # VERIFICAÇÃO CRÍTICA COM LÓGICA CORRIGIDA
+        # Verificação de bloqueio
         if self.check_existing_active_signals(signal.symbol):
-            self.logger.info(f"🚫 SINAL BLOQUEADO para {signal.symbol}: Existe sinal ativo ou TARGET_HIT parcial")
+            self.logger.info(f"🚫 SINAL BLOQUEADO: {signal.symbol} tem sinal ativo/TARGET_1_HIT")
             self._backup_signal(signal, "blocked_existing_active_signal")
             return False
         
-        # 🚨 LOG DE DEBUG PARA ENTENDER O QUE ESTÁ ACONTECENDO
-        self.logger.info(f"🔍 TENTANDO GRAVAR: {signal.symbol} | Status será: {signal.status}")
-
-        # Verifica se já existe sinal ativo (log detalhado)
-        existing_check = self.check_existing_active_signals(signal.symbol)
-        if existing_check:
-            self.logger.warning(f"⚠️ ATENÇÃO: {signal.symbol} tem sinal ativo, mas prosseguindo com gravação")
+        # FORÇA STATUS ACTIVE
+        signal.status = "ACTIVE"
+        
+        self.logger.info(f"💾 GRAVANDO NOVO SINAL: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Status: {signal.status}")
                 
         sql = f"""
         INSERT OR REPLACE INTO {self.signals_table} (
@@ -587,29 +778,35 @@ class EnhancedSignalWriter:
             stop_loss_analysis, targets_analysis
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
+        
         try:
+            # Faz backup primeiro
             self._backup_signal(signal, "generated")
 
+            # SERIALIZAÇÃO JSON SEGURA COM VALIDAÇÃO
             with self._get_connection() as conn:
                 values = (
                     signal.id, signal.symbol, signal.signal_type, signal.timeframe,
                     signal.detector_type, signal.detector_name, signal.signal_source,
-                    signal.signal_hash, signal.entry_price, json.dumps(signal.targets),
-                    signal.stop_loss, signal.confidence, signal.confluence_score,
-                    signal.status, signal.timestamp.isoformat(), signal.timestamp.isoformat(),
-                    signal.entry_price, json.dumps(signal.targets_hit),
-                    json.dumps(signal.indicators_used), datetime.now().isoformat(),
-                    json.dumps(signal.timeframe_analysis),
-                    json.dumps(signal.market_conditions),
-                    json.dumps(signal.pattern_data),
-                    json.dumps(signal.technical_data),
-                    json.dumps(signal.stop_loss_analysis),
-                    json.dumps(signal.targets_analysis)
+                    signal.signal_hash, safe_float_conversion(signal.entry_price), 
+                    json.dumps([safe_float_conversion(t) for t in signal.targets], default=safe_json_serialize),
+                    safe_float_conversion(signal.stop_loss), safe_float_conversion(signal.confidence), 
+                    signal.confluence_score, signal.status, signal.timestamp.isoformat(), 
+                    signal.timestamp.isoformat(), safe_float_conversion(signal.entry_price), 
+                    json.dumps(signal.targets_hit, default=safe_json_serialize),
+                    json.dumps(signal.indicators_used, default=safe_json_serialize), 
+                    datetime.now().isoformat(),
+                    json.dumps(signal.timeframe_analysis, default=safe_json_serialize),
+                    json.dumps(signal.market_conditions, default=safe_json_serialize),
+                    json.dumps(signal.pattern_data, default=safe_json_serialize),
+                    json.dumps(signal.technical_data, default=safe_json_serialize),
+                    json.dumps(signal.stop_loss_analysis, default=safe_json_serialize),
+                    json.dumps(signal.targets_analysis, default=safe_json_serialize)
                 )
                 conn.execute(sql, values)
                 conn.commit()
             
-            # Log com informações técnicas detalhadas - 2 TARGETS
+            # Log detalhado de sucesso
             risk_pct = abs(signal.stop_loss - signal.entry_price) / signal.entry_price * 100
             target1_pct = abs(signal.targets[0] - signal.entry_price) / signal.entry_price * 100
             target2_pct = abs(signal.targets[1] - signal.entry_price) / signal.entry_price * 100
@@ -618,66 +815,92 @@ class EnhancedSignalWriter:
             targets_method = signal.targets_analysis.get('method_used', 'Unknown') if signal.targets_analysis else 'Unknown'
             
             self.logger.info(
-                f"✅ SINAL 2-TARGETS: {signal.symbol} {signal.timeframe} | "
+                f"✅ SINAL GRAVADO COMO ACTIVE: {signal.symbol} {signal.timeframe} | "
                 f"Entry: {signal.entry_price:.4f} | "
-                f"Stop: {signal.stop_loss:.4f} ({risk_pct:.1f}%) [{stop_method}] | "
+                f"Stop: {signal.stop_loss:.4f} ({risk_pct:.1f}% risco) [{stop_method}] | "
                 f"T1: {signal.targets[0]:.4f} ({target1_pct:.1f}%) | "
-                f"T2: {signal.targets[1]:.4f} ({target2_pct:.1f}%) [{targets_method}]"
+                f"T2: {signal.targets[1]:.4f} ({target2_pct:.1f}%) [{targets_method}] | "
+                f"Conf: {signal.confidence:.3f}"
             )
+            
+            # Verificação pós-gravação
+            self._verify_signal_saved_correctly(signal)
+            
             return True
             
         except Exception as e:
-            self.logger.error(f"❌ Erro ao gravar sinal: {e}")
+            self.logger.error(f"❌ ERRO AO GRAVAR SINAL: {signal.symbol} - {e}")
             self._backup_signal(signal, f"insert_error: {e}")
             return False
 
+    def _validate_signal_freshness(self, signal: EnhancedTradingSignal) -> bool:
+        """Valida se o sinal não está obsoleto"""
+        try:
+            if signal.signal_type == 'BUY_LONG':
+                if signal.entry_price >= signal.targets[0]:
+                    self.logger.warning(f"🚫 Sinal BUY obsoleto para {signal.symbol}: Entry {signal.entry_price:.4f} >= T1 {signal.targets[0]:.4f}")
+                    return False
+            
+            elif signal.signal_type == 'SELL_SHORT':
+                if signal.entry_price <= signal.targets[0]:
+                    self.logger.warning(f"🚫 Sinal SELL obsoleto para {signal.symbol}: Entry {signal.entry_price:.4f} <= T1 {signal.targets[0]:.4f}")
+                    return False
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Erro na validação de sinal obsoleto: {e}")
+            return True
+
+    def _verify_signal_saved_correctly(self, signal: EnhancedTradingSignal):
+        """Verifica se o sinal foi gravado corretamente"""
+        try:
+            query = f"SELECT status, targets_hit FROM {self.signals_table} WHERE id = ?"
+            
+            with self._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(query, (signal.id,))
+                result = cursor.fetchone()
+                
+                if result:
+                    saved_status, saved_targets_hit = result
+                    self.logger.debug(f"✅ VERIFICAÇÃO: {signal.symbol} salvo com status={saved_status}, targets_hit={saved_targets_hit}")
+                    
+                    if saved_status != "ACTIVE":
+                        self.logger.error(f"❌ ERRO: {signal.symbol} salvo com status incorreto: {saved_status} (deveria ser ACTIVE)")
+                else:
+                    self.logger.error(f"❌ ERRO: {signal.symbol} não encontrado no banco após gravação!")
+                    
+        except Exception as e:
+            self.logger.error(f"Erro na verificação pós-gravação: {e}")
+
     def get_active_signals_count(self, symbol: str) -> int:
-        """
-        LÓGICA CORRIGIDA: Conta sinais que REALMENTE bloqueiam novos sinais
-        """
+        """Conta sinais que REALMENTE bloqueiam novos sinais"""
         query = f"""
-        SELECT status, targets_hit 
+        SELECT COUNT(*) 
         FROM {self.signals_table} 
-        WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_HIT')
+        WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_1_HIT')
         """
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(query, (symbol,))
-                signals = cursor.fetchall()
-                
-                blocking_count = 0
-                
-                for status, targets_hit_str in signals:
-                    try:
-                        targets_hit = json.loads(targets_hit_str) if targets_hit_str else [False, False]
-                    except:
-                        targets_hit = [False, False]
-                    
-                    # Aplica a mesma lógica de bloqueio
-                    if status == 'ACTIVE':
-                        blocking_count += 1
-                    elif status == 'TARGET_HIT':
-                        if len(targets_hit) >= 2 and targets_hit[0] and not targets_hit[1]:
-                            blocking_count += 1  # Apenas primeiro target atingido - ainda bloqueia
-                        # Se targets_hit = [true, true], não conta (sinal finalizado)
-                
-                return blocking_count
+                count = cursor.fetchone()[0]
+                return count
                 
         except Exception as e:
             self.logger.error(f"Erro ao contar sinais bloqueadores para {symbol}: {e}")
             return 0
 
     def move_inactive_signals_to_backup(self) -> Dict[str, int]:
-        """Move sinais REALMENTE finalizados para backup"""
-        moved_counts = {'STOP_HIT': 0, 'TARGET_2_COMPLETE': 0, 'EXPIRED': 0, 'MANUALLY_CLOSED': 0}
+        """Move sinais FINALIZADOS para backup"""
+        moved_counts = {'TARGET_2_HIT': 0, 'STOP_HIT': 0, 'EXPIRED': 0, 'MANUALLY_CLOSED': 0}
+        
+        final_statuses = ['TARGET_2_HIT', 'STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']
         
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
-                
-                # 1. Move sinais com STOP_HIT (sempre finalizados)
-                final_statuses = ['STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']
                 
                 for status in final_statuses:
                     select_query = f"""
@@ -698,40 +921,12 @@ class EnhancedSignalWriter:
                         cursor.execute(delete_query, (status,))
                         
                         moved_counts[status] = len(signals_to_move)
-                        self.logger.info(f"Movidos {len(signals_to_move)} sinais {status} para backup")
-                
-                # 2. Move sinais TARGET_HIT com ambos targets atingidos
-                cursor.execute(f"""
-                    SELECT * FROM {self.signals_table} 
-                    WHERE status = 'TARGET_HIT'
-                """)
-                target_hit_signals = cursor.fetchall()
-                
-                target_2_complete_count = 0
-                
-                for signal in target_hit_signals:
-                    try:
-                        targets_hit_str = signal[17]  # índice da coluna targets_hit
-                        targets_hit = json.loads(targets_hit_str) if targets_hit_str else [False, False]
-                        
-                        # Se ambos targets foram atingidos, move para backup
-                        if len(targets_hit) >= 2 and targets_hit[0] and targets_hit[1]:
-                            self._backup_signal_from_row(signal, "moved_to_backup_target_2_complete")
-                            
-                            cursor.execute(f"DELETE FROM {self.signals_table} WHERE id = ?", (signal[0],))
-                            target_2_complete_count += 1
-                            
-                    except Exception as e:
-                        self.logger.warning(f"Erro ao processar sinal TARGET_HIT {signal[0]}: {e}")
-                
-                if target_2_complete_count > 0:
-                    moved_counts['TARGET_2_COMPLETE'] = target_2_complete_count
-                    self.logger.info(f"Movidos {target_2_complete_count} sinais TARGET_HIT completos para backup")
+                        self.logger.info(f"📦 Movidos {len(signals_to_move)} sinais {status} para backup")
                 
                 conn.commit()
                 
         except Exception as e:
-            self.logger.error(f"Erro ao mover sinais finalizados para backup: {e}")
+            self.logger.error(f"❌ Erro ao mover sinais finalizados para backup: {e}")
         
         return moved_counts
     
@@ -744,12 +939,10 @@ class EnhancedSignalWriter:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 
-                # Apenas marca sinais ACTIVE como expirados
-                # TARGET_HIT pode demorar mais para finalizar
                 update_query = f"""
                 UPDATE {self.signals_table} 
                 SET status = 'EXPIRED', updated_at = ?
-                WHERE status = 'ACTIVE' AND created_at < ?
+                WHERE status = 'ACTIVE' AND datetime(created_at) < ?
                 """
                 
                 cursor.execute(update_query, (datetime.now().isoformat(), cutoff_time.isoformat()))
@@ -762,7 +955,7 @@ class EnhancedSignalWriter:
                 return expired_count
                 
         except Exception as e:
-            self.logger.error(f"Erro ao marcar sinais como EXPIRED: {e}")
+            self.logger.error(f"❌ Erro ao marcar sinais como EXPIRED: {e}")
             return 0
     
     def _backup_signal_from_row(self, signal_row: tuple, reason: str):
@@ -807,10 +1000,10 @@ class EnhancedSignalWriter:
                 conn.execute(sql, values)
                 conn.commit()
         except Exception as e:
-            self.logger.error(f"Erro ao fazer backup da row: {e}")
+            self.logger.error(f"❌ Erro ao fazer backup da row: {e}")
 
     def _backup_signal(self, signal: EnhancedTradingSignal, reason: str):
-        """Faz backup do sinal"""
+        """Faz backup com serialização JSON segura"""
         sql = f"""
         INSERT INTO {self.backup_table} (
             original_id, symbol, signal_type, timeframe, detector_type, detector_name,
@@ -822,27 +1015,70 @@ class EnhancedSignalWriter:
         """
         try:
             with self._get_connection() as conn:
+                # SERIALIZAÇÃO SEGURA
                 values = (
                     signal.id, signal.symbol, signal.signal_type, signal.timeframe,
                     signal.detector_type, signal.detector_name, signal.signal_source,
-                    signal.signal_hash, signal.entry_price, signal.confidence,
-                    signal.confluence_score, signal.status,
+                    signal.signal_hash, safe_float_conversion(signal.entry_price), 
+                    safe_float_conversion(signal.confidence), signal.confluence_score, signal.status,
                     signal.timestamp.isoformat(), reason,
-                    json.dumps(signal.targets), signal.stop_loss,
-                    json.dumps(signal.indicators_used),
-                    json.dumps(signal.timeframe_analysis),
-                    json.dumps(signal.market_conditions),
-                    json.dumps(signal.pattern_data),
-                    json.dumps(signal.technical_data),
-                    json.dumps(signal.stop_loss_analysis),
-                    json.dumps(signal.targets_analysis),
+                    json.dumps([safe_float_conversion(t) for t in signal.targets], default=safe_json_serialize), 
+                    safe_float_conversion(signal.stop_loss),
+                    json.dumps(signal.indicators_used, default=safe_json_serialize),
+                    json.dumps(signal.timeframe_analysis, default=safe_json_serialize),
+                    json.dumps(signal.market_conditions, default=safe_json_serialize),
+                    json.dumps(signal.pattern_data, default=safe_json_serialize),
+                    json.dumps(signal.technical_data, default=safe_json_serialize),
+                    json.dumps(signal.stop_loss_analysis, default=safe_json_serialize),
+                    json.dumps(signal.targets_analysis, default=safe_json_serialize),
                     datetime.now().isoformat()
                 )
                 conn.execute(sql, values)
                 conn.commit()
         except Exception as e:
-            self.logger.error(f"Erro ao fazer backup do sinal: {e}")
+            self.logger.error(f"❌ Erro ao fazer backup do sinal: {e}")
 
-# Apelidos para compatibilidade
+    def get_current_signal_status_summary(self) -> Dict:
+        """Resumo dos status atuais dos sinais"""
+        try:
+            query = f"""
+            SELECT status, COUNT(*) as count, 
+                   GROUP_CONCAT(DISTINCT symbol) as symbols
+            FROM {self.signals_table}
+            GROUP BY status
+            ORDER BY count DESC
+            """
+            
+            with self._get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(query)
+                results = cursor.fetchall()
+                
+                summary = {
+                    'status_distribution': {},
+                    'total_signals': 0,
+                    'blocking_signals': 0,
+                    'completed_signals': 0
+                }
+                
+                for status, count, symbols in results:
+                    summary['status_distribution'][status] = {
+                        'count': count,
+                        'symbols': symbols.split(',') if symbols else []
+                    }
+                    summary['total_signals'] += count
+                    
+                    if status in ['ACTIVE', 'TARGET_1_HIT']:
+                        summary['blocking_signals'] += count
+                    elif status in ['TARGET_2_HIT', 'STOP_HIT', 'EXPIRED']:
+                        summary['completed_signals'] += count
+                
+                return summary
+                
+        except Exception as e:
+            self.logger.error(f"Erro ao obter resumo de status: {e}")
+            return {'error': str(e)}
+
+# Aliases para compatibilidade
 TradingSignal = EnhancedTradingSignal
 SignalWriter = EnhancedSignalWriter

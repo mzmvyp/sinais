@@ -20,7 +20,7 @@ from config.settings import settings
 
 @dataclass
 class MarketData:
-    """Estrutura COMPLETA para dados de mercado"""
+    """Estrutura para dados de mercado"""
     symbol: str
     timeframe: str
     data: pd.DataFrame
@@ -30,18 +30,6 @@ class MarketData:
     def is_sufficient_data(self) -> bool:
         """Verifica se há dados suficientes para análise"""
         return len(self.data) >= 50
-    
-    @property
-    def latest_price(self) -> float:
-        """Preço mais recente (compatibilidade com TechnicalAnalyzer)"""
-        if len(self.data) > 0:
-            return float(self.data.iloc[-1]['close_price'])
-        return 0.0
-    
-    @property
-    def current_price(self) -> float:
-        """Alias para latest_price"""
-        return self.latest_price
 
 class DataReader:
     """Data Reader otimizado sem locks - COMPATÍVEL COM CONFIGURAÇÃO EXISTENTE"""

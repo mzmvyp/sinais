@@ -1,8 +1,9 @@
-# signal_manager.py - UTILITÁRIO DE GERENCIAMENTO DE SINAIS
+# signal_manager.py - UTILITÁRIO CORRIGIDO - ESTADOS DE BLOQUEIO ATUALIZADOS
 
 """
-Utilitário para gerenciar sinais ativos no sistema anti-spam
-Permite visualizar, desativar e gerenciar sinais por symbol/timeframe
+Utilitário para gerenciar sinais ativos no sistema corrigido
+Estados que bloqueiam: ACTIVE, TARGET_1_HIT
+Estados finalizados: TARGET_2_HIT, STOP_HIT, EXPIRED, MANUALLY_CLOSED
 """
 
 import json
@@ -16,7 +17,7 @@ from config.settings import settings
 from core.signal_writer import EnhancedSignalWriter
 
 class SignalManager:
-    """Gerenciador de sinais ativos - Utilitário administrativo"""
+    """Gerenciador de sinais ativos - LÓGICA CORRIGIDA"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -25,19 +26,20 @@ class SignalManager:
         self.signals_table = settings.database.signals_table
         self.backup_table = settings.database.backup_table
         
-        self.logger.info("SignalManager inicializado")
+        # 🚨 ESTADOS CORRIGIDOS
+        self.BLOCKING_STATES = ['ACTIVE', 'TARGET_1_HIT']  # Estados que bloqueiam novos sinais
+        self.COMPLETED_STATES = ['TARGET_2_HIT', 'STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']  # Estados finalizados
+        
+        self.logger.info("SignalManager inicializado com estados corrigidos")
     
     def _get_connection(self):
         return sqlite3.connect(self.db_path, timeout=10)
     
     def get_active_signals_overview(self) -> Dict:
         """
-        📊 Visão geral completa dos sinais ativos CORRIGIDA
-        Considera apenas sinais que REALMENTE bloqueiam timeframes
+        📊 Visão geral dos sinais que BLOQUEIAM timeframes (ACTIVE, TARGET_1_HIT)
         """
-        # 🚨 CORRIGIDO: Estados que bloqueiam timeframes
-        blocking_statuses = ['ACTIVE', 'TARGET_1_HIT', 'TARGET_2_HIT']
-        placeholders = ', '.join(['?' for _ in blocking_statuses])
+        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
         
         sql = f"""
         SELECT 
@@ -50,12 +52,12 @@ class SignalManager:
         
         try:
             with self._get_connection() as conn:
-                df = pd.read_sql_query(sql, conn, params=blocking_statuses)
+                df = pd.read_sql_query(sql, conn, params=self.BLOCKING_STATES)
             
             if df.empty:
                 return {
-                    'total_active': 0,
-                    'symbols_with_signals': 0,
+                    'total_blocking': 0,
+                    'symbols_blocked': 0,
                     'by_symbol': {},
                     'by_timeframe': {},
                     'by_status': {},
@@ -73,18 +75,18 @@ class SignalManager:
                     'statuses': group['status'].tolist()
                 }
             
-            # Agrupa por timeframe
+            # Agrupa por timeframe e status
             by_timeframe = df['timeframe'].value_counts().to_dict()
-            
-            # 🚨 NOVO: Agrupa por status
             by_status = df['status'].value_counts().to_dict()
             
             return {
-                'total_active': len(df),
-                'symbols_with_signals': len(by_symbol),
+                'total_blocking': len(df),
+                'symbols_blocked': len(by_symbol),
                 'by_symbol': by_symbol,
                 'by_timeframe': by_timeframe,
-                'by_status': by_status,  # NOVO
+                'by_status': by_status,
+                'blocking_states': self.BLOCKING_STATES,
+                'completed_states': self.COMPLETED_STATES,
                 'signals': df.to_dict('records')
             }
             
@@ -94,11 +96,9 @@ class SignalManager:
     
     def get_signals_by_symbol(self, symbol: str) -> Dict:
         """
-        🔍 Detalhes dos sinais de um symbol específico CORRIGIDO
+        🔍 Detalhes dos sinais de um symbol específico
         """
-        # 🚨 CORRIGIDO: Estados que bloqueiam timeframes
-        blocking_statuses = ['ACTIVE', 'TARGET_1_HIT', 'TARGET_2_HIT']
-        placeholders = ', '.join(['?' for _ in blocking_statuses])
+        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
         
         sql = f"""
         SELECT 
@@ -112,13 +112,13 @@ class SignalManager:
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
-                cursor.execute(sql, [symbol] + blocking_statuses)
+                cursor.execute(sql, [symbol] + self.BLOCKING_STATES)
                 results = cursor.fetchall()
                 
                 if not results:
                     return {
                         'symbol': symbol,
-                        'active_signals': 0,
+                        'blocking_signals': 0,
                         'signals': [],
                         'blocked_timeframes': [],
                         'available_timeframes': settings.get_enabled_timeframes()
@@ -131,10 +131,10 @@ class SignalManager:
                     # Parse de dados JSON
                     try:
                         targets = json.loads(row[7]) if row[7] else []
-                        targets_hit = json.loads(row[10]) if row[10] else [False, False, False]
+                        targets_hit = json.loads(row[10]) if row[10] else [False, False]
                     except (json.JSONDecodeError, TypeError):
                         targets = []
-                        targets_hit = [False, False, False]
+                        targets_hit = [False, False]
                     
                     signal_data = {
                         'id': row[0],
@@ -149,7 +149,6 @@ class SignalManager:
                         'status': row[9],
                         'targets_hit': targets_hit,
                         'current_price': row[11],
-                        # 🚨 NOVO: Calcula progresso do sinal
                         'progress': self._calculate_signal_progress(targets_hit, row[9])
                     }
                     signals.append(signal_data)
@@ -160,7 +159,7 @@ class SignalManager:
                 
                 return {
                     'symbol': symbol,
-                    'active_signals': len(signals),
+                    'blocking_signals': len(signals),
                     'signals': signals,
                     'blocked_timeframes': blocked_timeframes,
                     'available_timeframes': available_timeframes
@@ -171,30 +170,34 @@ class SignalManager:
             return {'error': str(e)}
     
     def _calculate_signal_progress(self, targets_hit: List[bool], status: str) -> str:
-        """🚨 NOVO: Calcula progresso do sinal"""
+        """Calcula progresso do sinal - CORRIGIDO para 2 targets"""
         if status == 'TARGET_2_HIT':
-            return "TARGET 2/3 ATINGIDO"
+            return "TARGET 2/2 ATINGIDO - FINALIZADO"
         elif status == 'TARGET_1_HIT':
-            return "TARGET 1/3 ATINGIDO"
+            return "TARGET 1/2 ATINGIDO - AINDA ATIVO"
         elif status == 'ACTIVE':
             return "AGUARDANDO RESULTADO"
+        elif status == 'STOP_HIT':
+            return "STOP LOSS ATINGIDO - FINALIZADO"
         else:
             return status
     
     def deactivate_signal_by_id(self, signal_id: str, reason: str = "manual_admin") -> bool:
         """
-        🔴 Desativa um sinal específico pelo ID
+        🔴 Desativa um sinal específico pelo ID (apenas se estiver bloqueando)
         """
+        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
+        
         sql = f"""
         UPDATE {self.signals_table}
-        SET status = 'INACTIVE', updated_at = ?
-        WHERE id = ? AND status = 'ACTIVE'
+        SET status = 'MANUALLY_CLOSED', updated_at = ?
+        WHERE id = ? AND status IN ({placeholders})
         """
         
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
-                cursor.execute(sql, (datetime.now().isoformat(), signal_id))
+                cursor.execute(sql, [datetime.now().isoformat(), signal_id] + self.BLOCKING_STATES)
                 affected_rows = cursor.rowcount
                 conn.commit()
                 
@@ -202,7 +205,7 @@ class SignalManager:
                     self.logger.info(f"🔴 SINAL DESATIVADO POR ID: {signal_id} | Motivo: {reason}")
                     return True
                 else:
-                    self.logger.warning(f"⚠️ Sinal não encontrado ou já inativo: {signal_id}")
+                    self.logger.warning(f"⚠️ Sinal não encontrado ou já finalizado: {signal_id}")
                     return False
                     
         except Exception as e:
@@ -211,10 +214,9 @@ class SignalManager:
     
     def deactivate_signals_by_symbol(self, symbol: str, timeframe: Optional[str] = None, reason: str = "manual_admin") -> int:
         """
-        🔴 Desativa sinais de um symbol CORRIGIDO (apenas sinais que bloqueiam timeframes)
+        🔴 Desativa sinais que estão bloqueando um symbol
         """
-        blocking_statuses = ['ACTIVE', 'TARGET_1_HIT', 'TARGET_2_HIT']
-        placeholders = ', '.join(['?' for _ in blocking_statuses])
+        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
         
         if timeframe:
             sql = f"""
@@ -222,7 +224,7 @@ class SignalManager:
             SET status = 'MANUALLY_CLOSED', updated_at = ?
             WHERE symbol = ? AND timeframe = ? AND status IN ({placeholders})
             """
-            params = [datetime.now().isoformat(), symbol, timeframe] + blocking_statuses
+            params = [datetime.now().isoformat(), symbol, timeframe] + self.BLOCKING_STATES
             action_desc = f"{symbol} {timeframe}"
         else:
             sql = f"""
@@ -230,7 +232,7 @@ class SignalManager:
             SET status = 'MANUALLY_CLOSED', updated_at = ?
             WHERE symbol = ? AND status IN ({placeholders})
             """
-            params = [datetime.now().isoformat(), symbol] + blocking_statuses
+            params = [datetime.now().isoformat(), symbol] + self.BLOCKING_STATES
             action_desc = f"{symbol} (todos timeframes)"
         
         try:
@@ -244,7 +246,7 @@ class SignalManager:
                     self.logger.info(f"🔴 {affected_rows} SINAIS DESATIVADOS: {action_desc} | Motivo: {reason}")
                     return affected_rows
                 else:
-                    self.logger.warning(f"⚠️ Nenhum sinal ativo encontrado para: {action_desc}")
+                    self.logger.warning(f"⚠️ Nenhum sinal bloqueador encontrado para: {action_desc}")
                     return 0
                     
         except Exception as e:
@@ -253,13 +255,13 @@ class SignalManager:
     
     def deactivate_old_signals(self, hours_old: int = 24, reason: str = "auto_cleanup_old") -> int:
         """
-        🔴 Desativa sinais mais antigos que X horas
+        🔴 Desativa sinais ACTIVE mais antigos que X horas
         """
         cutoff_time = datetime.now() - timedelta(hours=hours_old)
         
         sql = f"""
         UPDATE {self.signals_table}
-        SET status = 'INACTIVE', updated_at = ?
+        SET status = 'EXPIRED', updated_at = ?
         WHERE status = 'ACTIVE' AND datetime(created_at) < ?
         """
         
@@ -271,14 +273,14 @@ class SignalManager:
                 conn.commit()
                 
                 if affected_rows > 0:
-                    self.logger.info(f"🔴 {affected_rows} SINAIS ANTIGOS DESATIVADOS (>{hours_old}h) | Motivo: {reason}")
+                    self.logger.info(f"🔴 {affected_rows} SINAIS ANTIGOS MARCADOS COMO EXPIRED (>{hours_old}h) | Motivo: {reason}")
                     return affected_rows
                 else:
-                    self.logger.info(f"✅ Nenhum sinal antigo encontrado (>{hours_old}h)")
+                    self.logger.info(f"✅ Nenhum sinal ACTIVE antigo encontrado (>{hours_old}h)")
                     return 0
                     
         except Exception as e:
-            self.logger.error(f"Erro ao desativar sinais antigos: {e}")
+            self.logger.error(f"Erro ao marcar sinais antigos como expired: {e}")
             return 0
     
     def get_backup_signals_stats(self, days: int = 1) -> Dict:
@@ -330,12 +332,11 @@ class SignalManager:
             self.logger.error(f"Erro ao obter estatísticas de backup: {e}")
             return {'error': str(e)}
     
-    def force_clear_all_active_signals(self, confirmation_code: str = None) -> Dict:
+    def force_clear_all_blocking_signals(self, confirmation_code: str = None) -> Dict:
         """
-        ⚠️ FUNÇÃO PERIGOSA: Limpa TODOS os sinais ativos 
-        Requer código de confirmação por segurança
+        ⚠️ FUNÇÃO PERIGOSA: Limpa TODOS os sinais que estão bloqueando
         """
-        expected_code = "CLEAR_ALL_SIGNALS_CONFIRMED"
+        expected_code = "CLEAR_ALL_BLOCKING_CONFIRMED"
         
         if confirmation_code != expected_code:
             return {
@@ -344,25 +345,28 @@ class SignalManager:
                 'signals_cleared': 0
             }
         
+        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
+        
         sql = f"""
         UPDATE {self.signals_table}
-        SET status = 'INACTIVE', updated_at = ?
-        WHERE status = 'ACTIVE'
+        SET status = 'MANUALLY_CLOSED', updated_at = ?
+        WHERE status IN ({placeholders})
         """
         
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
-                cursor.execute(sql, (datetime.now().isoformat(),))
+                cursor.execute(sql, [datetime.now().isoformat()] + self.BLOCKING_STATES)
                 affected_rows = cursor.rowcount
                 conn.commit()
                 
-                self.logger.warning(f"⚠️ LIMPEZA TOTAL EXECUTADA: {affected_rows} sinais desativados | Confirmação: {confirmation_code}")
+                self.logger.warning(f"⚠️ LIMPEZA TOTAL EXECUTADA: {affected_rows} sinais bloqueadores fechados | Confirmação: {confirmation_code}")
                 
                 return {
                     'status': 'success',
-                    'message': 'Todos os sinais ativos foram desativados',
+                    'message': 'Todos os sinais bloqueadores foram fechados',
                     'signals_cleared': affected_rows,
+                    'states_cleared': self.BLOCKING_STATES,
                     'timestamp': datetime.now().isoformat()
                 }
                 
@@ -376,7 +380,7 @@ class SignalManager:
 
 def print_active_signals_table(symbol: str = None):
     """
-    🖨️ Função utilitária para imprimir tabela formatada dos sinais ativos CORRIGIDA
+    🖨️ Função utilitária para imprimir tabela dos sinais QUE BLOQUEIAM
     """
     manager = SignalManager()
     
@@ -386,32 +390,31 @@ def print_active_signals_table(symbol: str = None):
             print(f"❌ Erro: {data['error']}")
             return
         
-        print(f"\n📊 SINAIS ATIVOS PARA {symbol.upper()}")
+        print(f"\n📊 SINAIS BLOQUEADORES PARA {symbol.upper()}")
         print("=" * 80)
         
-        if data['active_signals'] == 0:
-            print("✅ Nenhum sinal ativo - Symbol disponível para novos sinais")
+        if data['blocking_signals'] == 0:
+            print("✅ Nenhum sinal bloqueando - Symbol disponível para novos sinais")
             print(f"Timeframes disponíveis: {data['available_timeframes']}")
             return
         
-        print(f"Total de sinais ativos: {data['active_signals']}")
+        print(f"Total de sinais bloqueando: {data['blocking_signals']}")
         print(f"Timeframes bloqueados: {data['blocked_timeframes']}")
         print(f"Timeframes disponíveis: {data['available_timeframes']}")
-        print("\nDetalhes dos sinais:")
+        print("\nDetalhes dos sinais bloqueadores:")
         print("-" * 80)
         
         for signal in data['signals']:
-            # 🚨 CORRIGIDO: Mostra progresso do sinal
             progress = signal.get('progress', 'ATIVO')
             targets_info = ""
             if signal.get('targets_hit'):
                 hits = sum(signal['targets_hit'])
-                targets_info = f" | Targets: {hits}/3"
+                total_targets = len(signal['targets_hit'])
+                targets_info = f" | Targets: {hits}/{total_targets}"
             
             status_icon = {
                 'ACTIVE': '🔴',
-                'TARGET_1_HIT': '🟡', 
-                'TARGET_2_HIT': '🟠'
+                'TARGET_1_HIT': '🟡'
             }.get(signal['status'], '🔴')
             
             print(f"{status_icon} {signal['timeframe']} | {signal['detector_name']} | {signal['signal_type']} | "
@@ -425,17 +428,18 @@ def print_active_signals_table(symbol: str = None):
             print(f"❌ Erro: {data['error']}")
             return
         
-        print(f"\n📊 VISÃO GERAL DOS SINAIS ATIVOS")
+        print(f"\n📊 VISÃO GERAL DOS SINAIS BLOQUEADORES")
         print("=" * 80)
         
-        if data['total_active'] == 0:
-            print("✅ Nenhum sinal ativo no sistema - Todos os symbols disponíveis")
+        if data['total_blocking'] == 0:
+            print("✅ Nenhum sinal bloqueando no sistema - Todos os symbols disponíveis")
             return
         
-        print(f"Total de sinais ativos: {data['total_active']}")
-        print(f"Symbols com sinais: {data['symbols_with_signals']}")
+        print(f"Total de sinais bloqueando: {data['total_blocking']}")
+        print(f"Symbols com sinais bloqueadores: {data['symbols_blocked']}")
+        print(f"Estados que bloqueiam: {data['blocking_states']}")
+        print(f"Estados finalizados: {data['completed_states']}")
         
-        # 🚨 NOVO: Mostra distribuição por status
         if 'by_status' in data and data['by_status']:
             print(f"\nPor status: {data['by_status']}")
         
@@ -445,7 +449,6 @@ def print_active_signals_table(symbol: str = None):
         
         for symbol, info in data['by_symbol'].items():
             timeframes_str = ', '.join(info['timeframes'])
-            # 🚨 NOVO: Mostra status dos sinais
             status_summary = ""
             if 'statuses' in info:
                 status_counts = {}
@@ -458,16 +461,16 @@ def print_active_signals_table(symbol: str = None):
 
 def clear_symbol_signals(symbol: str, timeframe: str = None):
     """
-    🔴 Função utilitária para limpar sinais de um symbol
+    🔴 Função utilitária para limpar sinais bloqueadores de um symbol
     """
     manager = SignalManager()
     
     if timeframe:
         cleared = manager.deactivate_signals_by_symbol(symbol.upper(), timeframe, "manual_utility_clear")
-        print(f"🔴 {cleared} sinais desativados para {symbol.upper()} {timeframe}")
+        print(f"🔴 {cleared} sinais bloqueadores desativados para {symbol.upper()} {timeframe}")
     else:
         cleared = manager.deactivate_signals_by_symbol(symbol.upper(), None, "manual_utility_clear")
-        print(f"🔴 {cleared} sinais desativados para {symbol.upper()} (todos timeframes)")
+        print(f"🔴 {cleared} sinais bloqueadores desativados para {symbol.upper()} (todos timeframes)")
 
 if __name__ == "__main__":
     # Exemplo de uso standalone
