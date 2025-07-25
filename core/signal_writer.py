@@ -720,44 +720,64 @@ class EnhancedSignalWriter:
         except Exception as e:
             self.logger.error(f"❌ Erro ao criar tabelas: {e}")
     
+    
     def validate_signal_pricing(self, signal):
-        """Valida preço do sinal antes de salvar"""
+        """Validação FINAL com dados mais atuais possíveis"""
         try:
-            # Buscar preço atual do banco
+            # Buscar preço MAIS ATUAL do banco (pode ser mais novo que os dados da análise)
             current_price = self.get_current_price_from_db(signal.symbol)
             if not current_price:
                 return True, "Sem preço atual para validar"
             
+            # Diferença entre preço de análise e preço atual
             price_diff_pct = abs(current_price - signal.entry_price) / signal.entry_price * 100
             
-            if price_diff_pct > 0.5:
-                return False, f"DIVERGÊNCIA: {price_diff_pct:.2f}%"
+            # VALIDAÇÃO 1: Divergência máxima permitida
+            if price_diff_pct > 1.5:  # Máximo 1.5%
+                return False, f"DIVERGÊNCIA ALTA: {price_diff_pct:.2f}% (análise: ${signal.entry_price:.4f}, atual: ${current_price:.4f})"
             
-            return True, f"OK (diff: {price_diff_pct:.2f}%)"
+            # VALIDAÇÃO 2: Sinal não pode estar "pré-executado"
+            if signal.signal_type == 'BUY_LONG':
+                if current_price >= signal.targets[0] * 0.995:  # 0.5% tolerância
+                    return False, f"PRÉ-EXECUTADO: atual ${current_price:.4f} próximo/acima target ${signal.targets[0]:.4f}"
+                if current_price <= signal.stop_loss * 1.005:  # 0.5% tolerância
+                    return False, f"JÁ STOPADO: atual ${current_price:.4f} próximo/abaixo stop ${signal.stop_loss:.4f}"
+                    
+            elif signal.signal_type == 'SELL_SHORT':
+                if current_price <= signal.targets[0] * 1.005:  # 0.5% tolerância
+                    return False, f"PRÉ-EXECUTADO: atual ${current_price:.4f} próximo/abaixo target ${signal.targets[0]:.4f}"
+                if current_price >= signal.stop_loss * 0.995:  # 0.5% tolerância
+                    return False, f"JÁ STOPADO: atual ${current_price:.4f} próximo/acima stop ${signal.stop_loss:.4f}"
+            
+            return True, f"OK (diff: {price_diff_pct:.2f}%, atual: ${current_price:.4f})"
             
         except Exception as e:
             return True, f"Erro na validação: {e}"
-
+    
     def get_current_price_from_db(self, symbol):
-        """Busca preço mais atual do banco"""
+        """Busca o preço MAIS ATUAL possível (incluindo candle dinâmico)"""
         try:
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
             
-            cursor.execute("""
-                SELECT close_price FROM crypto_ohlc 
-                WHERE symbol = ? AND timeframe = '5m' 
-                ORDER BY timestamp DESC LIMIT 1
-            """, (symbol,))
+            # Busca primeiro por dados de 1m (mais atuais), depois 5m
+            for tf in ['1m', '5m', '15m']:
+                cursor.execute("""
+                    SELECT close_price FROM crypto_ohlc 
+                    WHERE symbol = ? AND timeframe = ? 
+                    ORDER BY timestamp DESC LIMIT 1
+                """, (symbol, tf))
+                
+                result = cursor.fetchone()
+                if result:
+                    conn.close()
+                    return float(result[0])
             
-            result = cursor.fetchone()
             conn.close()
-            
-            return float(result[0]) if result else None
+            return None
             
         except Exception as e:
             return None
-
     
     def check_existing_active_signals(self, symbol: str) -> bool:
         """

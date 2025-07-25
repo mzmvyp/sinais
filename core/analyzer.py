@@ -298,10 +298,13 @@ class MultiTimeframeAnalyzer:
                     tf_signals = tf_result.get('signals', [])
                     all_signals.extend(tf_signals)
                     
-                    self.logger.debug(f"✓ {symbol} {timeframe}: {len(tf_signals)} sinais em {tf_time:.1f}s")
+                    # 🔥 LOG DETALHADO
+                    self.logger.info(f"🔍 {symbol} {timeframe}: {len(tf_signals)} sinais detectados em {tf_time:.1f}s")
+                    for sig in tf_signals:
+                        self.logger.info(f"   → {sig.detector_name} | {sig.signal_type} | Conf: {sig.confidence:.3f}")
                             
                 except Exception as e:
-                    self.logger.warning(f"❌ {symbol} {timeframe}: Erro - {e}")
+                    self.logger.error(f"❌ {symbol} {timeframe}: Erro - {e}")
 
         # Resolução de conflitos com NOVA LÓGICA
         if len(all_signals) > 1:
@@ -367,51 +370,43 @@ class MultiTimeframeAnalyzer:
         }
      
     def _analyze_single_timeframe_fast(self, symbol: str, timeframe: str, market_data: MarketData) -> Dict[str, Any]:
-        """Análise de timeframe RÁPIDA sem locks"""
+        """Análise SEMPRE usa candle fechado, validação usa candle dinâmico"""
         
         tf_config = settings.get_timeframe_config(timeframe)
         signals = []
 
-        if len(market_data.data) < 2:
+        if len(market_data.data) < 3:  # Precisa de pelo menos 3 candles
             return {'signals': []}
 
-        # CORREÇÃO: Verificar dados antes de usar
-        # CORREÇÃO: SEMPRE usar candle FECHADO para sinais
+        # 🔥 ANÁLISE: SEMPRE usa CANDLE FECHADO (confirmado)
         try:
-            # SEMPRE usa penúltimo candle (fechado e confirmado)
-            if len(market_data.data) >= 2:
-                closed_candle = market_data.data.iloc[-2]
-                entry_price = float(closed_candle['close_price'])
-                signal_timestamp = closed_candle['timestamp'].to_pydatetime()
-                
-                # VALIDAÇÃO: Verifica se preço não está muito desatualizado
-                current_candle = market_data.data.iloc[-1]
-                current_price = float(current_candle['close_price'])
-                price_diff_pct = abs(current_price - entry_price) / entry_price * 100
-                
-                if price_diff_pct > 2.0:  # Mais de 2% de diferença = sinal obsoleto
-                    self.logger.warning(f"⚠️ {symbol} {timeframe}: Sinal obsoleto - diff {price_diff_pct:.2f}%")
-                    return {'signals': []}
-                
-                self.logger.debug(f"✅ {symbol} {timeframe}: Entry ${entry_price:.4f} | Current ${current_price:.4f} | Diff: {price_diff_pct:.2f}%")
-            else:
-                self.logger.warning(f"❌ {symbol} {timeframe}: Dados insuficientes")
-                return {'signals': []}
-                
+            # Candle fechado para análise (penúltimo)
+            analysis_candle = market_data.data.iloc[-2]
+            analysis_price = float(analysis_candle['close_price'])
+            analysis_timestamp = analysis_candle['timestamp'].to_pydatetime()
+            
+            # Candle dinâmico para validação pré-gravação
+            dynamic_candle = market_data.data.iloc[-1]
+            dynamic_price = float(dynamic_candle['close_price'])
+            
+            self.logger.debug(f"📊 {symbol} {timeframe}: Análise=${analysis_price:.4f} | Dinâmico=${dynamic_price:.4f}")
+            
         except Exception as e:
-            self.logger.error(f"Erro ao obter preço de entrada para {symbol} {timeframe}: {e}")
+            self.logger.error(f"Erro ao obter preços para {symbol} {timeframe}: {e}")
             return {'signals': []}
         
         # 🔧 CORREÇÃO 5: Definir create_signal_fast no local correto
+        # 🔥 FUNÇÃO PARA CRIAR SINAIS (usa preço de análise)
         def create_signal_fast(**kwargs):
             try:
                 base_args = {
                     'symbol': symbol, 
                     'timeframe': timeframe, 
-                    'entry_price': entry_price, 
-                    'timestamp': signal_timestamp,
-                    'market_data': market_data.data,
-                    'status': 'ACTIVE'
+                    'entry_price': analysis_price,  # 🔥 SEMPRE preço do candle fechado
+                    'timestamp': analysis_timestamp,
+                    'market_data': market_data.data.iloc[:-1],  # 🔥 Dados SEM candle dinâmico
+                    'status': 'ACTIVE',
+                    'dynamic_validation_price': dynamic_price  # 🔥 NOVO: para validação
                 }
                 final_args = {**kwargs, **base_args}
                 allowed_keys = EnhancedTradingSignal.__annotations__.keys()
@@ -419,34 +414,19 @@ class MultiTimeframeAnalyzer:
                 
                 signal = EnhancedTradingSignal(**filtered_args)
                 
-                # Evita duplicatas
-                existing_detectors = [s.detector_name for s in signals]
-                if signal.detector_name not in existing_detectors:
-                    signals.append(signal)
-                    score = signal.confidence * 100
-                    self.logger.debug(f"➕ {timeframe} {signal.detector_name} | Score: {score:.1f}")
+                # 🔥 VALIDAÇÃO DINÂMICA antes de adicionar
+                if self._validate_signal_with_dynamic_price(signal, dynamic_price):
+                    # Evita duplicatas
+                    existing_detectors = [s.detector_name for s in signals]
+                    if signal.detector_name not in existing_detectors:
+                        signals.append(signal)
+                        score = signal.confidence * 100
+                        self.logger.debug(f"➕ {timeframe} {signal.detector_name} | Score: {score:.1f} | Dinâmico OK")
+                else:
+                    self.logger.debug(f"❌ {timeframe} {kwargs.get('detector_name', 'unknown')}: Invalidado por candle dinâmico")
                     
             except Exception as e:
                 self.logger.debug(f"⏭️ Sinal descartado: {e}")
-        
-        # ANÁLISE TÉCNICA LIMITADA
-        if 'technical' in tf_config.enabled_detectors:
-            try:
-                tech_start = time.time()
-                tech_analyzer = self.technical_analyzers[timeframe]
-                technical_results = tech_analyzer.analyze_all(market_data, timeframe)
-                raw_signals = tech_analyzer.generate_trading_signals(market_data, technical_results, timeframe)
-                tech_time = time.time() - tech_start
-                
-                if tech_time > 3:
-                    self.logger.warning(f"⏰ {symbol} {timeframe}: Técnico lento ({tech_time:.1f}s)")
-                
-                # LIMITE: máximo 2 sinais técnicos
-                for s in raw_signals[:2]:
-                    create_signal_fast(**s.__dict__)
-                    
-            except Exception as e:
-                self.logger.warning(f"❌ Erro técnico {symbol} {timeframe}: {e}")
 
         # 🔧 CORREÇÃO 6: CANDLESTICK COM FILTRO RIGOROSO
         # CANDLESTICK SIMPLIFICADO - apenas engolfo de alta performance

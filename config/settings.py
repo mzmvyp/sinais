@@ -142,7 +142,7 @@ class PatternConfig:
 class SystemConfig:
     """Configuracoes do sistema OTIMIZADAS - APENAS 5m/15m"""
     multi_timeframe_enabled: bool = True
-    analysis_interval: int = 300
+    analysis_interval: int = 100
     backup_all_signals: bool = True
     max_total_signals_per_symbol: int = 1
     log_level: str = "INFO"

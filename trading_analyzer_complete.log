@@ -17600,3 +17600,1126 @@ AttributeError: 'TechnicalAnalyzer' object has no attribute 'should_use_live_dat
 2025-07-24 20:36:28,915 - core.data_reader - WARNING - ⚠️ Nenhum dado para BTCUSDT 15m em 0.01s
 2025-07-24 20:36:28,917 - core.data_reader - WARNING - ⚠️ Nenhum dado para BTCUSDT 5m em 0.00s
 2025-07-24 20:36:28,917 - root - INFO - Análise de BTCUSDT concluída em 0.0s
+2025-07-24 20:36:47,741 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-24 20:36:47,742 - root - INFO - Inicializando MultiTimeframeAnalyzer com Timing Controller...
+2025-07-24 20:36:47,742 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 20:36:47,742 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 20:36:47,759 - core.data_reader - INFO - ✅ Banco validado: 68710 registros, 0.02s
+2025-07-24 20:36:47,759 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-24 20:36:47,759 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 20:36:47,760 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-24 20:36:47,760 - core.data_reader - INFO -   • Validado: True
+2025-07-24 20:36:47,760 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-24 20:36:47,762 - core.signal_writer - INFO - 🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros
+2025-07-24 20:36:47,762 - indicators.technical - INFO - 🎯 TechnicalAnalyzer SIMPLIFICADO - RSI + MACD + Bollinger
+2025-07-24 20:36:47,762 - indicators.technical - INFO - 🎯 TechnicalAnalyzer SIMPLIFICADO - RSI + MACD + Bollinger
+2025-07-24 20:36:47,762 - core.analyzer - INFO - MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:
+2025-07-24 20:36:47,763 - core.analyzer - INFO -   • Timeframes: ['5m', '15m'] (PRIORIDADE: 15m)
+2025-07-24 20:36:47,763 - core.analyzer - INFO -   • Score mínimo 5m: 90.0
+2025-07-24 20:36:47,763 - core.analyzer - INFO -   • Vantagem necessária 5m: +10.0 pontos
+2025-07-24 20:36:47,763 - core.analyzer - INFO -   • Microestrutura: DESABILITADA (evita locks)
+2025-07-24 20:36:47,763 - core.analyzer - INFO -   • Monitoramento tempo real: DESABILITADO (evita locks)
+2025-07-24 20:36:47,764 - root - WARNING - ⚠️ Timing Controller INATIVO - possíveis atrasos nos sinais
+2025-07-24 20:36:47,764 - root - INFO - MultiTimeframeAnalyzer inicializado com sucesso
+2025-07-24 20:36:47,764 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-24 20:36:47,765 - core.analyzer - INFO - 🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m + FILTRO CANDLESTICK
+2025-07-24 20:36:47,765 - core.analyzer - INFO - ⏱️ Intervalo entre ciclos: 300s
+2025-07-24 20:36:47,765 - core.data_reader - INFO - 🔍 Iniciando busca de símbolos válidos...
+2025-07-24 20:36:47,768 - core.data_reader - INFO - ✅ Query executada em 0.00s, 8 símbolos encontrados
+2025-07-24 20:36:47,776 - core.data_reader - INFO - ✅ 8 símbolos válidos em 0.01s: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-24 20:36:47,776 - core.analyzer - INFO - ✅ Símbolos: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-24 20:36:47,776 - core.analyzer - INFO - 🔄 Ciclo 1 - Prioridade 15m + Filtro Candlestick
+2025-07-24 20:36:47,778 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 20:36:47,823 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:36:47,834 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:47,839 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BNB 15m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 20:36:47,840 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BNB: 760.5973
+2025-07-24 20:36:48,651 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:48,656 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:48,660 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.04%
+2025-07-24 20:36:48,661 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:36:48,661 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.80% (atual: $786.0700, entrada: $772.1800)
+2025-07-24 20:36:48,763 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 20:36:48,796 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:36:48,802 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:48,806 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 20:36:49,565 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:49,570 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:50,380 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:50,385 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:36:50,390 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116382.8720
+2025-07-24 20:36:50,390 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:36:50,390 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:36:50,391 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - PREÇO DIVERGIU: 1.06% (atual: $119432.0000, entrada: $118180.4000)
+2025-07-24 20:36:50,492 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 20:36:50,519 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 9.17%
+2025-07-24 20:36:50,519 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 8.68%
+2025-07-24 20:36:50,621 - core.signal_writer - INFO - 🚫 ETH BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-24 20:36:50,621 - core.signal_writer - INFO -    • ETH_BUY_LONG_1753394219999 | ACTIVE | 15m | Criado: 2025-07-24T18:56:59.999000
+2025-07-24 20:36:50,723 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 20:36:50,748 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.23%
+2025-07-24 20:36:50,749 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.41%
+2025-07-24 20:36:50,851 - core.signal_writer - INFO - 🚫 IMX BLOQUEADO: 1 sinal(s) que impedem novos sinais:
+2025-07-24 20:36:50,851 - core.signal_writer - INFO -    • IMX_SELL_SHORT_1753394579999 | TARGET_1_HIT | 15m | Criado: 2025-07-24T19:02:59.999000
+2025-07-24 20:36:50,953 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 20:36:50,981 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 3.98%
+2025-07-24 20:36:50,982 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 4.13%
+2025-07-24 20:36:51,084 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 20:36:51,116 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 4.61%
+2025-07-24 20:36:51,117 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 5.10%
+2025-07-24 20:36:51,218 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos ACTIVE | 2 bloqueados | 0 erros | 3.4s
+2025-07-24 20:36:51,218 - core.analyzer - INFO - 📊 Ciclo 1 finalizado com sucesso!
+2025-07-24 20:36:51,218 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 20:37:51,238 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 20:38:51,263 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 20:39:51,287 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 20:40:51,311 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 20:41:51,334 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 2...
+2025-07-24 20:41:51,334 - core.analyzer - INFO - 🔄 Ciclo 2 - Prioridade 15m + Filtro Candlestick
+2025-07-24 20:41:51,336 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 20:41:51,388 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:41:51,394 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:51,398 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BNB 15m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 20:41:51,399 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BNB: 760.5973
+2025-07-24 20:41:52,148 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:52,153 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:52,853 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:52,857 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:52,861 - core.analyzer - INFO - ✅ 15m PREFERIDO: BNB → BollingerBands | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:41:52,861 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:41:52,862 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.80% (atual: $786.0700, entrada: $772.1800)
+2025-07-24 20:41:52,964 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 20:41:53,000 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:41:53,004 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:53,008 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 20:41:53,793 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:53,798 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:54,561 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:54,566 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:54,571 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116515.1575
+2025-07-24 20:41:54,571 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:41:54,571 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:41:54,572 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - PREÇO DIVERGIU: 1.06% (atual: $119432.0000, entrada: $118180.4000)
+2025-07-24 20:41:54,674 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 20:41:54,703 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 9.17%
+2025-07-24 20:41:54,703 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 7.65%
+2025-07-24 20:41:54,805 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 20:41:54,833 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:41:54,837 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:54,841 - indicators.technical - INFO - 📊 SINAL TÉCNICO: ETH 15m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 20:41:54,842 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ETH: 3647.9179
+2025-07-24 20:41:55,482 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:55,487 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:56,178 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:56,183 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3765.3556
+2025-07-24 20:41:56,183 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:41:56,187 - core.analyzer - INFO - ✅ 15m PREFERIDO: ETH → BollingerBands | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:41:56,187 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:41:56,188 - core.analyzer - WARNING - ❌ ETH: SINAL REJEITADO - PREÇO DIVERGIU: 1.78% (atual: $3769.3600, entrada: $3703.4700)
+2025-07-24 20:41:56,290 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 20:41:56,317 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.23%
+2025-07-24 20:41:56,317 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.02%
+2025-07-24 20:41:56,419 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 20:41:56,445 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.01%
+2025-07-24 20:41:56,446 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 5.80%
+2025-07-24 20:41:56,548 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 20:41:56,579 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 3.98%
+2025-07-24 20:41:56,580 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 3.79%
+2025-07-24 20:41:56,681 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 20:41:56,709 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 4.61%
+2025-07-24 20:41:56,709 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 4.66%
+2025-07-24 20:41:56,810 - core.analyzer - INFO - ✅ Ciclo 2: 0 novos ACTIVE | 0 bloqueados | 0 erros | 5.5s
+2025-07-24 20:41:56,810 - core.analyzer - INFO - 📊 Ciclo 2 finalizado com sucesso!
+2025-07-24 20:41:56,810 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 20:42:56,831 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 20:43:56,852 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 20:44:56,874 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 20:45:56,897 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 20:46:56,921 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 3...
+2025-07-24 20:46:56,922 - core.analyzer - INFO - 🔄 Ciclo 3 - Prioridade 15m + Filtro Candlestick
+2025-07-24 20:46:56,923 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 20:46:56,961 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:46:56,964 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:56,969 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BNB 15m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 20:46:56,970 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BNB: 759.5335
+2025-07-24 20:46:57,596 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:57,601 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:58,374 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:58,378 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:58,383 - core.analyzer - INFO - ✅ 15m PREFERIDO: BNB → BollingerBands | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:46:58,384 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:46:58,385 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.94% (atual: $786.0700, entrada: $771.1000)
+2025-07-24 20:46:58,487 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 20:46:58,515 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:46:58,520 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:58,524 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 20:46:59,229 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:59,234 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:59,992 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:46:59,997 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:47:00,001 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116486.9865
+2025-07-24 20:47:00,002 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:47:00,002 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:47:00,003 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - SINAL JÁ STOPADO: Preço atual $119432.0000 >= Stop $118713.4300
+2025-07-24 20:47:00,105 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 20:47:00,134 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 7.60%
+2025-07-24 20:47:00,135 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 7.60%
+2025-07-24 20:47:00,236 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 20:47:00,922 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:47:00,927 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:47:00,937 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:47:00,940 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:47:00,944 - indicators.technical - INFO - 📊 SINAL TÉCNICO: ETH 5m | MACD → BUY_LONG | Conf: 0.800
+2025-07-24 20:47:00,944 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ETH: 3657.3641
+2025-07-24 20:47:01,760 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:47:01,765 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3768.7559
+2025-07-24 20:47:01,765 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:47:01,770 - core.analyzer - INFO - ✅ 15m PREFERIDO: ETH → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:47:01,770 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:47:01,771 - core.analyzer - WARNING - ❌ ETH: SINAL REJEITADO - PREÇO DIVERGIU: 1.52% (atual: $3769.3600, entrada: $3713.0600)
+2025-07-24 20:47:01,873 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 20:47:01,901 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.24%
+2025-07-24 20:47:01,901 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.24%
+2025-07-24 20:47:02,003 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 20:47:02,029 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.03%
+2025-07-24 20:47:02,030 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 6.03%
+2025-07-24 20:47:02,132 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 20:47:02,161 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 4.09%
+2025-07-24 20:47:02,161 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 4.09%
+2025-07-24 20:47:02,263 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 20:47:02,289 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 4.61%
+2025-07-24 20:47:02,289 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 5.06%
+2025-07-24 20:47:02,390 - core.analyzer - INFO - ✅ Ciclo 3: 0 novos ACTIVE | 0 bloqueados | 0 erros | 5.5s
+2025-07-24 20:47:02,390 - core.analyzer - INFO - 📊 Ciclo 3 finalizado com sucesso!
+2025-07-24 20:47:02,390 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 20:48:02,410 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 20:49:02,433 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 20:50:02,456 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 20:51:02,500 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 20:52:02,520 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 4...
+2025-07-24 20:52:02,521 - core.analyzer - INFO - 🔄 Ciclo 4 - Prioridade 15m + Filtro Candlestick
+2025-07-24 20:52:02,523 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 20:52:02,556 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:52:02,561 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:02,565 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BNB 15m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 20:52:02,565 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BNB: 759.5335
+2025-07-24 20:52:03,238 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:03,243 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:03,247 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.01%
+2025-07-24 20:52:03,248 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:52:03,248 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.94% (atual: $786.0700, entrada: $771.1000)
+2025-07-24 20:52:03,350 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 20:52:03,380 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:52:03,384 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:03,388 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 20:52:04,136 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:04,140 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:04,961 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:04,965 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:04,971 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116425.1285
+2025-07-24 20:52:04,971 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:52:04,971 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:52:04,972 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - SINAL JÁ STOPADO: Preço atual $119432.0000 >= Stop $118713.4300
+2025-07-24 20:52:05,073 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 20:52:05,101 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 7.60%
+2025-07-24 20:52:05,101 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 8.43%
+2025-07-24 20:52:05,203 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 20:52:05,943 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:05,948 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:05,959 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:52:05,962 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:05,966 - indicators.technical - INFO - 📊 SINAL TÉCNICO: ETH 5m | MACD → SELL_SHORT | Conf: 0.800
+2025-07-24 20:52:05,967 - core.signal_writer - WARNING - 🎯 Target 1 SHORT corrigido: 3628.6460
+2025-07-24 20:52:06,812 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:06,817 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3758.2405
+2025-07-24 20:52:06,817 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:52:06,822 - core.analyzer - INFO - ✅ 15m PREFERIDO: ETH → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:52:06,822 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:52:06,823 - core.analyzer - WARNING - ❌ ETH: SINAL REJEITADO - PREÇO DIVERGIU: 1.52% (atual: $3769.3600, entrada: $3713.0600)
+2025-07-24 20:52:06,924 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 20:52:06,965 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.24%
+2025-07-24 20:52:06,966 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.37%
+2025-07-24 20:52:07,067 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 20:52:07,094 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.03%
+2025-07-24 20:52:07,094 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 6.07%
+2025-07-24 20:52:07,196 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 20:52:07,226 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 4.09%
+2025-07-24 20:52:07,226 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 4.17%
+2025-07-24 20:52:07,328 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 20:52:07,358 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 5.06%
+2025-07-24 20:52:07,359 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 5.40%
+2025-07-24 20:52:07,459 - core.analyzer - INFO - ✅ Ciclo 4: 0 novos ACTIVE | 0 bloqueados | 0 erros | 4.9s
+2025-07-24 20:52:07,460 - core.analyzer - INFO - 📊 Ciclo 4 finalizado com sucesso!
+2025-07-24 20:52:07,460 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 20:53:07,514 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 20:54:07,588 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 20:55:07,624 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 20:56:07,648 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 20:57:07,670 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 5...
+2025-07-24 20:57:07,670 - core.analyzer - INFO - 🔄 Ciclo 5 - Prioridade 15m + Filtro Candlestick
+2025-07-24 20:57:07,672 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 20:57:07,715 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:57:07,720 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:07,725 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BNB 15m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 20:57:07,725 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BNB: 759.5335
+2025-07-24 20:57:08,489 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:08,497 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:08,508 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:57:08,512 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:08,518 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BNB 5m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 20:57:08,519 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BNB: 760.6072
+2025-07-24 20:57:09,362 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:09,366 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:09,370 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para BNB: 783.7728
+2025-07-24 20:57:09,371 - core.analyzer - INFO - ✅ 15m PREFERIDO: BNB → BollingerBands | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:57:09,371 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:57:09,371 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.94% (atual: $786.0700, entrada: $771.1000)
+2025-07-24 20:57:09,473 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 20:57:09,512 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:57:09,516 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:09,521 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 20:57:10,236 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:10,241 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:11,002 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:11,007 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:11,011 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116480.4855
+2025-07-24 20:57:11,011 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:57:11,012 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:57:11,012 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - SINAL JÁ STOPADO: Preço atual $119432.0000 >= Stop $118713.4300
+2025-07-24 20:57:11,114 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 20:57:11,146 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 7.60%
+2025-07-24 20:57:11,147 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 7.83%
+2025-07-24 20:57:11,248 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 20:57:11,932 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:11,937 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:11,946 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 20:57:11,950 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:11,954 - indicators.technical - INFO - 📊 SINAL TÉCNICO: ETH 5m | MACD → BUY_LONG | Conf: 0.800
+2025-07-24 20:57:11,954 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ETH: 3651.6609
+2025-07-24 20:57:12,685 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:12,689 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3762.8790
+2025-07-24 20:57:12,690 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 20:57:12,694 - core.analyzer - INFO - ✅ 15m PREFERIDO: ETH → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 20:57:12,694 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 20:57:12,695 - core.analyzer - WARNING - ❌ ETH: SINAL REJEITADO - PREÇO DIVERGIU: 1.52% (atual: $3769.3600, entrada: $3713.0600)
+2025-07-24 20:57:12,796 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 20:57:12,820 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.24%
+2025-07-24 20:57:12,821 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.40%
+2025-07-24 20:57:12,922 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 20:57:12,947 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.03%
+2025-07-24 20:57:12,948 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 5.70%
+2025-07-24 20:57:13,049 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 20:57:13,074 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 4.09%
+2025-07-24 20:57:13,075 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 3.75%
+2025-07-24 20:57:13,176 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 20:57:13,203 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 5.06%
+2025-07-24 20:57:13,203 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 5.01%
+2025-07-24 20:57:13,304 - core.analyzer - INFO - ✅ Ciclo 5: 0 novos ACTIVE | 0 bloqueados | 0 erros | 5.6s
+2025-07-24 20:57:13,304 - core.analyzer - INFO - 📊 Ciclo 5 finalizado com sucesso!
+2025-07-24 20:57:13,304 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 20:58:13,329 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 20:59:13,352 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:00:13,372 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 21:01:13,396 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 21:02:13,430 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 6...
+2025-07-24 21:02:13,430 - core.analyzer - INFO - 🔄 Ciclo 6 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:02:13,432 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:02:14,128 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:14,132 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:14,142 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:02:14,145 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:14,149 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BNB 5m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:02:14,150 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BNB: 759.5827
+2025-07-24 21:02:14,890 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:14,895 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:14,899 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para BNB: 782.7172
+2025-07-24 21:02:14,899 - core.analyzer - INFO - ✅ 15m PREFERIDO: BNB → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:02:14,900 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:02:14,900 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.93% (atual: $786.0700, entrada: $771.1500)
+2025-07-24 21:02:15,002 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:02:15,031 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:02:15,035 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:15,040 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:02:15,770 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:15,775 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:16,631 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:16,638 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:16,641 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116519.8855
+2025-07-24 21:02:16,641 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:02:16,642 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:02:16,642 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - SINAL JÁ STOPADO: Preço atual $119432.0000 >= Stop $118713.4300
+2025-07-24 21:02:16,744 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:02:16,770 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 7.60%
+2025-07-24 21:02:16,770 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 8.04%
+2025-07-24 21:02:16,872 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:02:17,540 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:17,544 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:18,237 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:18,241 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3761.7930
+2025-07-24 21:02:18,242 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:02:18,246 - core.analyzer - INFO - ✅ 15m PREFERIDO: ETH → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:02:18,246 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:02:18,247 - core.analyzer - WARNING - ❌ ETH: SINAL REJEITADO - PREÇO DIVERGIU: 1.70% (atual: $3769.3600, entrada: $3706.2000)
+2025-07-24 21:02:18,349 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:02:18,381 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.47%
+2025-07-24 21:02:18,381 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.47%
+2025-07-24 21:02:18,483 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:02:18,510 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.03%
+2025-07-24 21:02:18,511 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 5.84%
+2025-07-24 21:02:18,613 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:02:18,641 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 4.09%
+2025-07-24 21:02:18,642 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 3.98%
+2025-07-24 21:02:18,743 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:02:18,772 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 5.10%
+2025-07-24 21:02:18,772 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 5.10%
+2025-07-24 21:02:18,873 - core.analyzer - INFO - ✅ Ciclo 6: 0 novos ACTIVE | 0 bloqueados | 0 erros | 5.4s
+2025-07-24 21:02:18,873 - core.analyzer - INFO - 📊 Ciclo 6 finalizado com sucesso!
+2025-07-24 21:02:18,873 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:03:18,893 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:04:18,914 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:05:18,935 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 21:06:18,958 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 21:07:18,984 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 7...
+2025-07-24 21:07:18,984 - core.analyzer - INFO - 🔄 Ciclo 7 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:07:18,986 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:07:19,674 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:19,678 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:19,684 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.27%
+2025-07-24 21:07:19,684 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.93% (atual: $786.0700, entrada: $771.1500)
+2025-07-24 21:07:19,786 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:07:19,817 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:07:19,821 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:19,825 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:07:20,584 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:20,590 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:21,600 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:21,608 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:21,614 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116409.0730
+2025-07-24 21:07:21,614 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:07:21,614 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:07:21,615 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - SINAL JÁ STOPADO: Preço atual $119432.0000 >= Stop $118713.4300
+2025-07-24 21:07:21,717 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:07:21,751 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 8.04%
+2025-07-24 21:07:21,751 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 9.01%
+2025-07-24 21:07:21,853 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:07:22,597 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:22,603 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:07:22,608 - core.analyzer - WARNING - ⚠️ ETH 5m: Sinal obsoleto - diff 2.26%
+2025-07-24 21:07:22,608 - core.analyzer - WARNING - ❌ ETH: SINAL REJEITADO - PREÇO DIVERGIU: 1.70% (atual: $3769.3600, entrada: $3706.2000)
+2025-07-24 21:07:22,710 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:07:22,734 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.47%
+2025-07-24 21:07:22,735 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.78%
+2025-07-24 21:07:22,836 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:07:22,863 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 5.84%
+2025-07-24 21:07:22,863 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 6.58%
+2025-07-24 21:07:22,965 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:07:22,990 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 3.98%
+2025-07-24 21:07:22,991 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 4.63%
+2025-07-24 21:07:23,092 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:07:23,118 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 5.10%
+2025-07-24 21:07:23,118 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 5.75%
+2025-07-24 21:07:23,219 - core.analyzer - INFO - ✅ Ciclo 7: 0 novos ACTIVE | 0 bloqueados | 0 erros | 4.2s
+2025-07-24 21:07:23,219 - core.analyzer - INFO - 📊 Ciclo 7 finalizado com sucesso!
+2025-07-24 21:07:23,219 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:08:23,238 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:09:23,267 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:10:23,288 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 21:11:23,309 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 21:12:23,335 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 8...
+2025-07-24 21:12:23,335 - core.analyzer - INFO - 🔄 Ciclo 8 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:12:23,338 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:12:24,150 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:24,156 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:24,161 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.17%
+2025-07-24 21:12:24,161 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.93% (atual: $786.0700, entrada: $771.1500)
+2025-07-24 21:12:24,263 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:12:24,302 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:12:24,307 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:24,311 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:12:25,150 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:25,155 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:26,093 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:26,097 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:26,102 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116327.9090
+2025-07-24 21:12:26,103 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:12:26,103 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:12:26,103 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - SINAL JÁ STOPADO: Preço atual $119432.0000 >= Stop $118713.4300
+2025-07-24 21:12:26,205 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:12:26,244 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 8.04%
+2025-07-24 21:12:26,245 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 9.17%
+2025-07-24 21:12:26,347 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:12:27,163 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:27,168 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:12:27,175 - core.analyzer - WARNING - ⚠️ ETH 5m: Sinal obsoleto - diff 2.27%
+2025-07-24 21:12:27,176 - core.analyzer - WARNING - ❌ ETH: SINAL REJEITADO - PREÇO DIVERGIU: 1.70% (atual: $3769.3600, entrada: $3706.2000)
+2025-07-24 21:12:27,277 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:12:27,314 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 5.47%
+2025-07-24 21:12:27,314 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 6.03%
+2025-07-24 21:12:27,416 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:12:27,446 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 5.84%
+2025-07-24 21:12:27,447 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 7.01%
+2025-07-24 21:12:27,548 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:12:27,577 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 3.98%
+2025-07-24 21:12:27,577 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 5.10%
+2025-07-24 21:12:27,679 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:12:27,704 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 5.10%
+2025-07-24 21:12:27,704 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 6.31%
+2025-07-24 21:12:27,805 - core.analyzer - INFO - ✅ Ciclo 8: 0 novos ACTIVE | 0 bloqueados | 0 erros | 4.5s
+2025-07-24 21:12:27,805 - core.analyzer - INFO - 📊 Ciclo 8 finalizado com sucesso!
+2025-07-24 21:12:27,806 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:13:27,830 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:14:27,889 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:15:27,989 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 21:16:28,011 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 21:17:28,033 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 9...
+2025-07-24 21:17:28,033 - core.analyzer - INFO - 🔄 Ciclo 9 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:17:28,034 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:17:28,732 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:28,737 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:28,743 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.22%
+2025-07-24 21:17:28,743 - core.analyzer - WARNING - ❌ BNB: SINAL REJEITADO - PREÇO DIVERGIU: 1.93% (atual: $786.0700, entrada: $771.1500)
+2025-07-24 21:17:28,845 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:17:28,876 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:17:28,880 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:28,884 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:17:29,634 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:29,640 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:29,648 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:17:29,652 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:29,657 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 5m | MACD → SELL_SHORT | Conf: 0.800
+2025-07-24 21:17:29,657 - core.signal_writer - WARNING - 🎯 Target 1 SHORT corrigido: 115747.8980
+2025-07-24 21:17:29,657 - core.signal_writer - WARNING - 🎯 Target 2 SHORT corrigido: 113385.6960
+2025-07-24 21:17:30,519 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:30,524 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:17:30,528 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116338.4485
+2025-07-24 21:17:30,528 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:17:30,528 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:17:30,529 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - PREÇO DIVERGIU: 1.12% (atual: $119432.0000, entrada: $118110.1000)
+2025-07-24 21:17:30,630 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:17:30,658 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 9.29%
+2025-07-24 21:17:30,659 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 9.29%
+2025-07-24 21:17:30,760 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:17:30,786 - core.analyzer - WARNING - ⚠️ ETH 15m: Sinal obsoleto - diff 2.32%
+2025-07-24 21:17:30,787 - core.analyzer - WARNING - ⚠️ ETH 5m: Sinal obsoleto - diff 2.32%
+2025-07-24 21:17:30,888 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:17:30,912 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 6.21%
+2025-07-24 21:17:30,912 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 6.21%
+2025-07-24 21:17:31,014 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:17:31,039 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.81%
+2025-07-24 21:17:31,039 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 6.81%
+2025-07-24 21:17:31,141 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:17:31,166 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 3.98%
+2025-07-24 21:17:31,166 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 5.02%
+2025-07-24 21:17:31,268 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:17:31,293 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 5.10%
+2025-07-24 21:17:31,293 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 6.12%
+2025-07-24 21:17:31,393 - core.analyzer - INFO - ✅ Ciclo 9: 0 novos ACTIVE | 0 bloqueados | 0 erros | 3.4s
+2025-07-24 21:17:31,394 - core.analyzer - INFO - 📊 Ciclo 9 finalizado com sucesso!
+2025-07-24 21:17:31,394 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:18:31,416 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:19:31,438 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:20:31,462 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 21:21:31,485 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 21:22:31,507 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 10...
+2025-07-24 21:22:31,508 - core.analyzer - INFO - 🔄 Ciclo 10 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:22:31,509 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:22:31,545 - core.analyzer - WARNING - ⚠️ BNB 15m: Sinal obsoleto - diff 2.21%
+2025-07-24 21:22:31,546 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.28%
+2025-07-24 21:22:31,648 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:22:31,679 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:22:31,683 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:22:31,687 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:22:32,420 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:22:32,426 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:22:32,434 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:22:32,437 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:22:32,441 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 5m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 21:22:33,213 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:22:33,217 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:22:33,221 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116214.1415
+2025-07-24 21:22:33,221 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:22:33,222 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:22:33,222 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - PREÇO DIVERGIU: 1.12% (atual: $119432.0000, entrada: $118110.1000)
+2025-07-24 21:22:33,324 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:22:33,349 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 9.29%
+2025-07-24 21:22:33,349 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 8.96%
+2025-07-24 21:22:33,451 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:22:33,476 - core.analyzer - WARNING - ⚠️ ETH 15m: Sinal obsoleto - diff 2.32%
+2025-07-24 21:22:33,476 - core.analyzer - WARNING - ⚠️ ETH 5m: Sinal obsoleto - diff 2.48%
+2025-07-24 21:22:33,578 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:22:33,602 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 6.21%
+2025-07-24 21:22:33,602 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 6.34%
+2025-07-24 21:22:33,704 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:22:33,733 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.81%
+2025-07-24 21:22:33,733 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 6.81%
+2025-07-24 21:22:33,835 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:22:33,862 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 5.02%
+2025-07-24 21:22:33,863 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 4.98%
+2025-07-24 21:22:33,965 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:22:33,991 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 6.12%
+2025-07-24 21:22:33,991 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 6.34%
+2025-07-24 21:22:34,092 - core.analyzer - INFO - ✅ Ciclo 10: 0 novos ACTIVE | 0 bloqueados | 0 erros | 2.6s
+2025-07-24 21:22:34,092 - core.analyzer - INFO - 📊 Ciclo 10 finalizado com sucesso!
+2025-07-24 21:22:34,093 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:23:34,117 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:24:34,139 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:25:34,162 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 21:26:34,190 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 21:27:34,227 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 11...
+2025-07-24 21:27:34,227 - core.analyzer - INFO - 🔄 Ciclo 11 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:27:34,229 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:27:34,264 - core.analyzer - WARNING - ⚠️ BNB 15m: Sinal obsoleto - diff 2.21%
+2025-07-24 21:27:34,265 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.08%
+2025-07-24 21:27:34,367 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:27:34,397 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:27:34,401 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:27:34,405 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:27:35,184 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:27:35,190 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:27:35,199 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:27:35,203 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:27:35,206 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 5m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 21:27:36,149 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:27:36,156 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:27:36,162 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116177.7950
+2025-07-24 21:27:36,163 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:27:36,163 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:27:36,163 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - PREÇO DIVERGIU: 1.12% (atual: $119432.0000, entrada: $118110.1000)
+2025-07-24 21:27:36,265 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:27:36,299 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 9.29%
+2025-07-24 21:27:36,299 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 8.11%
+2025-07-24 21:27:36,401 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:27:36,434 - core.analyzer - WARNING - ⚠️ ETH 15m: Sinal obsoleto - diff 2.32%
+2025-07-24 21:27:36,435 - core.analyzer - WARNING - ⚠️ ETH 5m: Sinal obsoleto - diff 2.38%
+2025-07-24 21:27:36,536 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:27:36,567 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 6.21%
+2025-07-24 21:27:36,567 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.94%
+2025-07-24 21:27:36,669 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:27:36,702 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.81%
+2025-07-24 21:27:36,702 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 6.42%
+2025-07-24 21:27:36,804 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:27:36,837 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 5.02%
+2025-07-24 21:27:36,837 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 4.52%
+2025-07-24 21:27:36,939 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:27:36,972 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 6.12%
+2025-07-24 21:27:36,972 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 6.09%
+2025-07-24 21:27:37,073 - core.analyzer - INFO - ✅ Ciclo 11: 0 novos ACTIVE | 0 bloqueados | 0 erros | 2.8s
+2025-07-24 21:27:37,073 - core.analyzer - INFO - 📊 Ciclo 11 finalizado com sucesso!
+2025-07-24 21:27:37,073 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:28:37,102 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:29:37,125 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:30:37,152 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 120s até próximo ciclo...
+2025-07-24 21:31:37,184 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 60s até próximo ciclo...
+2025-07-24 21:32:37,229 - core.analyzer - INFO - ⏰ Aguardo de 300s concluído. Iniciando Ciclo 12...
+2025-07-24 21:32:37,230 - core.analyzer - INFO - 🔄 Ciclo 12 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:32:37,234 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:32:37,286 - core.analyzer - WARNING - ⚠️ BNB 15m: Sinal obsoleto - diff 2.07%
+2025-07-24 21:32:37,287 - core.analyzer - WARNING - ⚠️ BNB 5m: Sinal obsoleto - diff 2.07%
+2025-07-24 21:32:37,389 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:32:37,425 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:32:37,430 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:32:37,435 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 15m | RSI → BUY_LONG | Conf: 0.750
+2025-07-24 21:32:38,334 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:32:38,346 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:32:38,367 - core.technical_stop_loss - INFO - 🔧 Stop Loss Inteligente usando configurações avançadas
+2025-07-24 21:32:38,416 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:32:38,433 - indicators.technical - INFO - 📊 SINAL TÉCNICO: BTC 5m | BollingerBands → BUY_LONG | Conf: 0.850
+2025-07-24 21:32:38,435 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116133.7655
+2025-07-24 21:32:39,615 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:32:39,622 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:32:39,628 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116133.7655
+2025-07-24 21:32:39,628 - core.analyzer - INFO - ✅ 15m PREFERIDO: BTC → Bearish_Engulfing | Score 5m: 85.0 < 90.0 (mínimo)
+2025-07-24 21:32:39,629 - core.analyzer - INFO - 🚨 1 conflitos resolvidos com PRIORIDADE 15m em 0.00s
+2025-07-24 21:32:39,629 - core.analyzer - WARNING - ❌ BTC: SINAL REJEITADO - PREÇO DIVERGIU: 1.30% (atual: $119432.0000, entrada: $117902.3000)
+2025-07-24 21:32:39,731 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:32:39,768 - core.analyzer - WARNING - ⚠️ ENA 15m: Sinal obsoleto - diff 7.74%
+2025-07-24 21:32:39,768 - core.analyzer - WARNING - ⚠️ ENA 5m: Sinal obsoleto - diff 7.74%
+2025-07-24 21:32:39,870 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:32:39,901 - core.analyzer - WARNING - ⚠️ ETH 15m: Sinal obsoleto - diff 2.29%
+2025-07-24 21:32:39,902 - core.analyzer - WARNING - ⚠️ ETH 5m: Sinal obsoleto - diff 2.29%
+2025-07-24 21:32:40,003 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:32:40,033 - core.analyzer - WARNING - ⚠️ HYPE 15m: Sinal obsoleto - diff 6.21%
+2025-07-24 21:32:40,033 - core.analyzer - WARNING - ⚠️ HYPE 5m: Sinal obsoleto - diff 5.79%
+2025-07-24 21:32:40,135 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:32:40,163 - core.analyzer - WARNING - ⚠️ IMX 15m: Sinal obsoleto - diff 6.50%
+2025-07-24 21:32:40,164 - core.analyzer - WARNING - ⚠️ IMX 5m: Sinal obsoleto - diff 6.50%
+2025-07-24 21:32:40,265 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:32:40,296 - core.analyzer - WARNING - ⚠️ NEAR 15m: Sinal obsoleto - diff 4.67%
+2025-07-24 21:32:40,297 - core.analyzer - WARNING - ⚠️ NEAR 5m: Sinal obsoleto - diff 4.67%
+2025-07-24 21:32:40,399 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:32:40,438 - core.analyzer - WARNING - ⚠️ PEPE 15m: Sinal obsoleto - diff 5.93%
+2025-07-24 21:32:40,438 - core.analyzer - WARNING - ⚠️ PEPE 5m: Sinal obsoleto - diff 5.93%
+2025-07-24 21:32:40,539 - core.analyzer - INFO - ✅ Ciclo 12: 0 novos ACTIVE | 0 bloqueados | 0 erros | 3.3s
+2025-07-24 21:32:40,539 - core.analyzer - INFO - 📊 Ciclo 12 finalizado com sucesso!
+2025-07-24 21:32:40,539 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:33:40,562 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:34:40,585 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 180s até próximo ciclo...
+2025-07-24 21:35:14,783 - core.analyzer - INFO - 🛑 Análise interrompida pelo usuário
+2025-07-24 21:35:14,783 - core.analyzer - INFO - 🏁 Análise contínua finalizada
+2025-07-24 21:35:40,913 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-24 21:35:40,913 - root - INFO - Inicializando MultiTimeframeAnalyzer com Timing Controller...
+2025-07-24 21:35:40,914 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 21:35:40,914 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 21:35:40,930 - core.data_reader - INFO - ✅ Banco validado: 68875 registros, 0.02s
+2025-07-24 21:35:40,931 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-24 21:35:40,931 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 21:35:40,931 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-24 21:35:40,931 - core.data_reader - INFO -   • Validado: True
+2025-07-24 21:35:40,932 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-24 21:35:40,933 - core.signal_writer - INFO - 🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros
+2025-07-24 21:35:40,933 - indicators.technical - INFO - 🎯 TechnicalAnalyzer SIMPLIFICADO - RSI + MACD + Bollinger
+2025-07-24 21:35:40,934 - indicators.technical - INFO - 🎯 TechnicalAnalyzer SIMPLIFICADO - RSI + MACD + Bollinger
+2025-07-24 21:35:40,934 - core.analyzer - INFO - MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:
+2025-07-24 21:35:40,934 - core.analyzer - INFO -   • Timeframes: ['5m', '15m'] (PRIORIDADE: 15m)
+2025-07-24 21:35:40,934 - core.analyzer - INFO -   • Score mínimo 5m: 90.0
+2025-07-24 21:35:40,935 - core.analyzer - INFO -   • Vantagem necessária 5m: +10.0 pontos
+2025-07-24 21:35:40,935 - core.analyzer - INFO -   • Microestrutura: DESABILITADA (evita locks)
+2025-07-24 21:35:40,935 - core.analyzer - INFO -   • Monitoramento tempo real: DESABILITADO (evita locks)
+2025-07-24 21:35:40,935 - root - WARNING - ⚠️ Timing Controller INATIVO - possíveis atrasos nos sinais
+2025-07-24 21:35:40,935 - root - INFO - MultiTimeframeAnalyzer inicializado com sucesso
+2025-07-24 21:35:40,936 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-24 21:35:40,937 - core.analyzer - INFO - 🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m + FILTRO CANDLESTICK
+2025-07-24 21:35:40,937 - core.analyzer - INFO - ⏱️ Intervalo entre ciclos: 300s
+2025-07-24 21:35:40,937 - core.data_reader - INFO - 🔍 Iniciando busca de símbolos válidos...
+2025-07-24 21:35:40,940 - core.data_reader - INFO - ✅ Query executada em 0.00s, 8 símbolos encontrados
+2025-07-24 21:35:40,946 - core.data_reader - INFO - ✅ 8 símbolos válidos em 0.01s: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-24 21:35:40,947 - core.analyzer - INFO - ✅ Símbolos: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-24 21:35:40,947 - core.analyzer - INFO - 🔄 Ciclo 1 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:35:40,948 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:35:41,709 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:41,714 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:42,536 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:42,540 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:42,544 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para BNB: 781.6819
+2025-07-24 21:35:42,647 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:35:43,440 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:43,445 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:44,344 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:44,350 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:44,355 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116072.4000
+2025-07-24 21:35:44,458 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:35:45,148 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:45,153 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:45,157 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ENA: 0.4657
+2025-07-24 21:35:45,837 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:45,841 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ENA: 0.4799
+2025-07-24 21:35:45,842 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:45,948 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:35:46,732 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:46,741 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:47,563 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:47,569 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3726.6334
+2025-07-24 21:35:47,570 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:47,674 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:35:48,408 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:48,413 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:35:48,414 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:48,420 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:35:49,205 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:49,210 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:49,316 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:35:50,028 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:50,034 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:50,038 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5364
+2025-07-24 21:35:50,783 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:50,787 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5318
+2025-07-24 21:35:50,788 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:50,894 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:35:51,705 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:51,710 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:51,717 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6565
+2025-07-24 21:35:52,513 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:52,519 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:52,625 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:35:53,366 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:53,370 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:35:53,371 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:53,375 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:35:54,073 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:54,078 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:35:54,083 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:35:54,183 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos ACTIVE | 0 bloqueados | 0 erros | 13.2s
+2025-07-24 21:35:54,184 - core.analyzer - INFO - 📊 Ciclo 1 finalizado com sucesso!
+2025-07-24 21:35:54,184 - core.analyzer - INFO - ⏳ Iniciando aguardo de 300s...
+2025-07-24 21:36:54,209 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 240s até próximo ciclo...
+2025-07-24 21:37:24,534 - core.analyzer - INFO - 🛑 Análise interrompida pelo usuário
+2025-07-24 21:37:24,534 - core.analyzer - INFO - 🏁 Análise contínua finalizada
+2025-07-24 21:37:26,014 - root - INFO - Iniciando Inicialização do analyzer...
+2025-07-24 21:37:26,015 - root - INFO - Inicializando MultiTimeframeAnalyzer com Timing Controller...
+2025-07-24 21:37:26,015 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 21:37:26,015 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 21:37:26,033 - core.data_reader - INFO - ✅ Banco validado: 68880 registros, 0.02s
+2025-07-24 21:37:26,034 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-24 21:37:26,034 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-24 21:37:26,034 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-24 21:37:26,034 - core.data_reader - INFO -   • Validado: True
+2025-07-24 21:37:26,035 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-24 21:37:26,036 - core.signal_writer - INFO - 🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros
+2025-07-24 21:37:26,037 - indicators.technical - INFO - 🎯 TechnicalAnalyzer SIMPLIFICADO - RSI + MACD + Bollinger
+2025-07-24 21:37:26,037 - indicators.technical - INFO - 🎯 TechnicalAnalyzer SIMPLIFICADO - RSI + MACD + Bollinger
+2025-07-24 21:37:26,038 - core.analyzer - INFO - MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:
+2025-07-24 21:37:26,038 - core.analyzer - INFO -   • Timeframes: ['5m', '15m'] (PRIORIDADE: 15m)
+2025-07-24 21:37:26,038 - core.analyzer - INFO -   • Score mínimo 5m: 90.0
+2025-07-24 21:37:26,038 - core.analyzer - INFO -   • Vantagem necessária 5m: +10.0 pontos
+2025-07-24 21:37:26,039 - core.analyzer - INFO -   • Microestrutura: DESABILITADA (evita locks)
+2025-07-24 21:37:26,039 - core.analyzer - INFO -   • Monitoramento tempo real: DESABILITADO (evita locks)
+2025-07-24 21:37:26,039 - root - WARNING - ⚠️ Timing Controller INATIVO - possíveis atrasos nos sinais
+2025-07-24 21:37:26,039 - root - INFO - MultiTimeframeAnalyzer inicializado com sucesso
+2025-07-24 21:37:26,039 - root - INFO - Inicialização do analyzer concluída em 0.0s
+2025-07-24 21:37:26,041 - core.analyzer - INFO - 🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m + FILTRO CANDLESTICK
+2025-07-24 21:37:26,041 - core.analyzer - INFO - ⏱️ Intervalo entre ciclos: 100s
+2025-07-24 21:37:26,041 - core.data_reader - INFO - 🔍 Iniciando busca de símbolos válidos...
+2025-07-24 21:37:26,042 - core.data_reader - INFO - ✅ Query executada em 0.00s, 8 símbolos encontrados
+2025-07-24 21:37:26,050 - core.data_reader - INFO - ✅ 8 símbolos válidos em 0.01s: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-24 21:37:26,050 - core.analyzer - INFO - ✅ Símbolos: ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE']
+2025-07-24 21:37:26,050 - core.analyzer - INFO - 🔄 Ciclo 1 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:37:26,052 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:37:26,848 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:26,854 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:27,600 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:27,604 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:27,710 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:37:28,552 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:28,558 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:29,481 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:29,486 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:29,490 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116072.4000
+2025-07-24 21:37:29,592 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:37:30,267 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:30,272 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:30,276 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ENA: 0.4657
+2025-07-24 21:37:30,954 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:30,959 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ENA: 0.4791
+2025-07-24 21:37:30,959 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:31,065 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:37:31,898 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:31,904 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:32,638 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:32,644 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3726.6334
+2025-07-24 21:37:32,645 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:32,752 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:37:33,561 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:33,571 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:37:33,572 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:33,577 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:37:34,402 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:34,407 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:34,514 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:37:35,239 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:35,244 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:35,249 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5364
+2025-07-24 21:37:35,974 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:35,978 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5318
+2025-07-24 21:37:35,979 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:36,087 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:37:36,919 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:36,924 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:36,931 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6565
+2025-07-24 21:37:37,623 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:37,630 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:37,634 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6359
+2025-07-24 21:37:37,737 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:37:38,501 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:38,507 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:37:38,508 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:38,512 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:37:39,257 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:39,263 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:37:39,267 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:37:39,368 - core.analyzer - INFO - ✅ Ciclo 1: 0 novos ACTIVE | 0 bloqueados | 0 erros | 13.3s
+2025-07-24 21:37:39,368 - core.analyzer - INFO - 📊 Ciclo 1 finalizado com sucesso!
+2025-07-24 21:37:39,369 - core.analyzer - INFO - ⏳ Iniciando aguardo de 100s...
+2025-07-24 21:38:39,408 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 40s até próximo ciclo...
+2025-07-24 21:39:19,426 - core.analyzer - INFO - ⏰ Aguardo de 100s concluído. Iniciando Ciclo 2...
+2025-07-24 21:39:19,426 - core.analyzer - INFO - 🔄 Ciclo 2 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:39:19,428 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:39:20,226 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:20,233 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:21,098 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:21,103 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:21,210 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:39:22,154 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:22,158 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:23,007 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:23,012 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:23,016 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 116072.4000
+2025-07-24 21:39:23,118 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:39:23,861 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:23,865 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:23,870 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ENA: 0.4657
+2025-07-24 21:39:24,538 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:24,552 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ENA: 0.4791
+2025-07-24 21:39:24,552 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:24,664 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:39:25,475 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:25,483 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:26,315 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:26,320 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3726.6334
+2025-07-24 21:39:26,320 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:26,428 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:39:27,176 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:27,181 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:39:27,181 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:27,186 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:39:27,905 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:27,910 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:28,017 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:39:28,716 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:28,722 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:28,728 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5364
+2025-07-24 21:39:29,519 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:29,523 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5318
+2025-07-24 21:39:29,524 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:29,631 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:39:30,314 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:30,319 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:30,323 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6565
+2025-07-24 21:39:31,003 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:31,008 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:31,012 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6359
+2025-07-24 21:39:31,114 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:39:31,789 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:31,795 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:39:31,796 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:31,801 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:39:32,588 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:32,593 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:39:32,597 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:39:32,698 - core.analyzer - INFO - ✅ Ciclo 2: 0 novos ACTIVE | 0 bloqueados | 0 erros | 13.3s
+2025-07-24 21:39:32,699 - core.analyzer - INFO - 📊 Ciclo 2 finalizado com sucesso!
+2025-07-24 21:39:32,699 - core.analyzer - INFO - ⏳ Iniciando aguardo de 100s...
+2025-07-24 21:40:32,724 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 40s até próximo ciclo...
+2025-07-24 21:41:12,739 - core.analyzer - INFO - ⏰ Aguardo de 100s concluído. Iniciando Ciclo 3...
+2025-07-24 21:41:12,739 - core.analyzer - INFO - 🔄 Ciclo 3 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:41:12,741 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:41:13,471 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:13,477 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:14,246 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:14,250 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:14,357 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:41:15,204 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:15,211 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:16,105 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:16,111 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:16,114 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 115913.2240
+2025-07-24 21:41:16,216 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:41:16,874 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:16,879 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:16,884 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ENA: 0.4657
+2025-07-24 21:41:17,657 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:17,663 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ENA: 0.4796
+2025-07-24 21:41:17,664 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:17,770 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:41:18,474 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:18,479 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:19,212 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:19,217 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3716.0368
+2025-07-24 21:41:19,217 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:19,325 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:41:20,145 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:20,150 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:41:20,150 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:20,156 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:41:20,855 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:20,859 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:20,965 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:41:21,763 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:21,770 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:21,776 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5364
+2025-07-24 21:41:22,590 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:22,594 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:22,700 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:41:23,380 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:23,385 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:23,391 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6565
+2025-07-24 21:41:24,077 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:24,081 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:24,089 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6368
+2025-07-24 21:41:24,191 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:41:24,868 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:24,875 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:41:24,875 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:24,879 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:41:25,657 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:25,661 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:41:25,666 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:41:25,767 - core.analyzer - INFO - ✅ Ciclo 3: 0 novos ACTIVE | 0 bloqueados | 0 erros | 13.0s
+2025-07-24 21:41:25,767 - core.analyzer - INFO - 📊 Ciclo 3 finalizado com sucesso!
+2025-07-24 21:41:25,768 - core.analyzer - INFO - ⏳ Iniciando aguardo de 100s...
+2025-07-24 21:42:25,791 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 40s até próximo ciclo...
+2025-07-24 21:43:05,806 - core.analyzer - INFO - ⏰ Aguardo de 100s concluído. Iniciando Ciclo 4...
+2025-07-24 21:43:05,806 - core.analyzer - INFO - 🔄 Ciclo 4 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:43:05,808 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:43:06,563 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:06,569 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:07,450 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:07,456 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:07,561 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:43:08,448 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:08,455 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:09,360 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:09,365 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:09,369 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 115913.2240
+2025-07-24 21:43:09,471 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:43:10,156 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:10,161 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:10,166 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ENA: 0.4657
+2025-07-24 21:43:10,859 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:10,864 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ENA: 0.4796
+2025-07-24 21:43:10,865 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:10,971 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:43:11,716 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:11,721 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:12,436 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:12,440 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3716.0368
+2025-07-24 21:43:12,441 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:12,547 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:43:13,307 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:13,311 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:43:13,312 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:13,318 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:43:14,006 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:14,011 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:14,117 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:43:14,870 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:14,875 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:14,879 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5364
+2025-07-24 21:43:15,656 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:15,661 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:15,768 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:43:16,453 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:16,457 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:16,462 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6565
+2025-07-24 21:43:17,165 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:17,170 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:17,173 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6368
+2025-07-24 21:43:17,275 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:43:18,056 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:18,061 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:43:18,062 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:18,069 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0121
+2025-07-24 21:43:18,798 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:18,803 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:43:18,807 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:43:18,908 - core.analyzer - INFO - ✅ Ciclo 4: 0 novos ACTIVE | 0 bloqueados | 0 erros | 13.1s
+2025-07-24 21:43:18,908 - core.analyzer - INFO - 📊 Ciclo 4 finalizado com sucesso!
+2025-07-24 21:43:18,908 - core.analyzer - INFO - ⏳ Iniciando aguardo de 100s...
+2025-07-24 21:44:18,944 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 40s até próximo ciclo...
+2025-07-24 21:44:58,960 - core.analyzer - INFO - ⏰ Aguardo de 100s concluído. Iniciando Ciclo 5...
+2025-07-24 21:44:58,960 - core.analyzer - INFO - 🔄 Ciclo 5 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:44:58,965 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:44:59,826 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:44:59,837 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:01,085 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:01,092 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:01,205 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:45:02,405 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:02,413 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:03,375 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:03,383 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:03,387 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 115913.2240
+2025-07-24 21:45:03,490 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:45:04,504 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:04,512 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:04,520 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ENA: 0.4657
+2025-07-24 21:45:05,441 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:05,447 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ENA: 0.4796
+2025-07-24 21:45:05,448 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:05,556 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:45:07,053 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:07,073 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:08,443 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:08,450 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3716.0368
+2025-07-24 21:45:08,451 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:08,558 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:45:09,771 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:09,780 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:45:09,780 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:09,789 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.3168
+2025-07-24 21:45:11,151 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:11,159 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:11,270 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:45:12,618 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:12,625 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:12,632 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5364
+2025-07-24 21:45:13,629 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:13,642 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:13,751 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:45:15,275 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:15,285 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:15,294 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6565
+2025-07-24 21:45:16,516 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:16,523 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:16,529 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6368
+2025-07-24 21:45:16,631 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:45:17,458 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:17,465 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:45:17,465 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:17,475 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:45:19,126 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:19,135 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:45:19,143 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:45:19,244 - core.analyzer - INFO - ✅ Ciclo 5: 0 novos ACTIVE | 0 bloqueados | 0 erros | 20.3s
+2025-07-24 21:45:19,245 - core.analyzer - INFO - 📊 Ciclo 5 finalizado com sucesso!
+2025-07-24 21:45:19,245 - core.analyzer - INFO - ⏳ Iniciando aguardo de 100s...
+2025-07-24 21:46:19,283 - core.analyzer - INFO - 💓 Heartbeat: aguardando mais 40s até próximo ciclo...
+2025-07-24 21:46:59,297 - core.analyzer - INFO - ⏰ Aguardo de 100s concluído. Iniciando Ciclo 6...
+2025-07-24 21:46:59,298 - core.analyzer - INFO - 🔄 Ciclo 6 - Prioridade 15m + Filtro Candlestick
+2025-07-24 21:46:59,300 - core.analyzer - INFO - 🔍 BNB: Análise (prioridade 15m)
+2025-07-24 21:47:00,540 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:00,547 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:01,801 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:01,813 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:01,819 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para BNB: 781.2556
+2025-07-24 21:47:01,922 - core.analyzer - INFO - 🔍 BTC: Análise (prioridade 15m)
+2025-07-24 21:47:03,373 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:03,381 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:04,615 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:04,623 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:04,629 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para BTC: 115973.7030
+2025-07-24 21:47:04,732 - core.analyzer - INFO - 🔍 ENA: Análise (prioridade 15m)
+2025-07-24 21:47:05,668 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:05,676 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:05,686 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para ENA: 0.4697
+2025-07-24 21:47:06,901 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:06,911 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ENA: 0.4841
+2025-07-24 21:47:06,912 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:07,025 - core.analyzer - INFO - 🔍 ETH: Análise (prioridade 15m)
+2025-07-24 21:47:08,882 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:08,894 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:10,319 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:10,327 - core.signal_writer - WARNING - 🔧 Stop loss SHORT corrigido para ETH: 3720.9494
+2025-07-24 21:47:10,327 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:10,438 - core.analyzer - INFO - 🔍 HYPE: Análise (prioridade 15m)
+2025-07-24 21:47:11,396 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:11,405 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.1917
+2025-07-24 21:47:11,406 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:11,415 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para HYPE: 41.1917
+2025-07-24 21:47:12,327 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:12,333 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:12,441 - core.analyzer - INFO - 🔍 IMX: Análise (prioridade 15m)
+2025-07-24 21:47:13,291 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:13,296 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:13,302 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para IMX: 0.5364
+2025-07-24 21:47:14,220 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:14,229 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:14,342 - core.analyzer - INFO - 🔍 NEAR: Análise (prioridade 15m)
+2025-07-24 21:47:15,305 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:15,314 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:15,324 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6565
+2025-07-24 21:47:16,288 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:16,295 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:16,304 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para NEAR: 2.6536
+2025-07-24 21:47:16,406 - core.analyzer - INFO - 🔍 PEPE: Análise (prioridade 15m)
+2025-07-24 21:47:17,191 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:17,198 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:47:17,199 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:17,204 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:47:18,133 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:18,138 - core.signal_writer - WARNING - 🔧 Stop loss LONG corrigido para PEPE: 0.0120
+2025-07-24 21:47:18,139 - core.technical_targets - INFO - 🎯 Targets Inteligentes usando configurações avançadas
+2025-07-24 21:47:18,248 - core.analyzer - INFO - ✅ Ciclo 6: 0 novos ACTIVE | 0 bloqueados | 0 erros | 19.0s
+2025-07-24 21:47:18,248 - core.analyzer - INFO - 📊 Ciclo 6 finalizado com sucesso!
+2025-07-24 21:47:18,249 - core.analyzer - INFO - ⏳ Iniciando aguardo de 100s...
+2025-07-24 21:47:50,329 - core.analyzer - INFO - 🛑 Análise interrompida pelo usuário
+2025-07-24 21:47:50,330 - core.analyzer - INFO - 🏁 Análise contínua finalizada
