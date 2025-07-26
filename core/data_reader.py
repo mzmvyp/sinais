@@ -402,7 +402,7 @@ class DataReader:
     
     def _get_fallback_symbols(self) -> List[str]:
         """Símbolos de fallback quando banco não está disponível"""
-        fallback_symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT"]
+        fallback_symbols = ["BTC", "ETH", "BNB"]
         self.logger.info(f"📋 Usando símbolos fallback: {fallback_symbols}")
         return fallback_symbols
     

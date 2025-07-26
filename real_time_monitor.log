@@ -110408,3 +110408,1690 @@
 2025-07-25 10:12:42,847 - core.data_reader - INFO -   • Tabela: crypto_ohlc
 2025-07-25 10:12:42,847 - core.data_reader - INFO -   • Validado: True
 2025-07-25 10:12:42,847 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 10:13:42,850 - core.signal_monitor - INFO - 🔍 Verificando 5 sinais ativos
+2025-07-25 10:13:42,850 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,851 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,861 - core.data_reader - INFO - ✅ Banco validado: 71020 registros, 0.01s
+2025-07-25 10:13:42,861 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 10:13:42,861 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,861 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 10:13:42,862 - core.data_reader - INFO -   • Validado: True
+2025-07-25 10:13:42,862 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 10:13:42,863 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,863 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,872 - core.data_reader - INFO - ✅ Banco validado: 71020 registros, 0.01s
+2025-07-25 10:13:42,873 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 10:13:42,873 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,873 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 10:13:42,873 - core.data_reader - INFO -   • Validado: True
+2025-07-25 10:13:42,873 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 10:13:42,874 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,875 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,882 - core.data_reader - INFO - ✅ Banco validado: 71020 registros, 0.01s
+2025-07-25 10:13:42,882 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 10:13:42,883 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,883 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 10:13:42,883 - core.data_reader - INFO -   • Validado: True
+2025-07-25 10:13:42,883 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 10:13:42,884 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,885 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,893 - core.data_reader - INFO - ✅ Banco validado: 71020 registros, 0.01s
+2025-07-25 10:13:42,894 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 10:13:42,894 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,894 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 10:13:42,894 - core.data_reader - INFO -   • Validado: True
+2025-07-25 10:13:42,895 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 10:13:42,896 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,896 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,905 - core.data_reader - INFO - ✅ Banco validado: 71020 registros, 0.01s
+2025-07-25 10:13:42,906 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 10:13:42,906 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 10:13:42,906 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 10:13:42,906 - core.data_reader - INFO -   • Validado: True
+2025-07-25 10:13:42,906 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 10:58:43,039 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 10:58:43,039 - __main__ - INFO -    ⏱️ Uptime: 21h 1m
+2025-07-25 10:58:43,039 - __main__ - INFO -    🔄 Verificações: 1260
+2025-07-25 10:58:43,039 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 10:58:43,040 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 10:58:43,040 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 11:58:43,188 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 11:58:43,189 - __main__ - INFO -    ⏱️ Uptime: 22h 1m
+2025-07-25 11:58:43,189 - __main__ - INFO -    🔄 Verificações: 1320
+2025-07-25 11:58:43,189 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 11:58:43,189 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 11:58:43,189 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 12:58:43,329 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 12:58:43,329 - __main__ - INFO -    ⏱️ Uptime: 23h 1m
+2025-07-25 12:58:43,329 - __main__ - INFO -    🔄 Verificações: 1380
+2025-07-25 12:58:43,329 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 12:58:43,330 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 12:58:43,330 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 13:58:43,459 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 13:58:43,460 - __main__ - INFO -    ⏱️ Uptime: 1d 0h 1m
+2025-07-25 13:58:43,460 - __main__ - INFO -    🔄 Verificações: 1440
+2025-07-25 13:58:43,460 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 13:58:43,460 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 13:58:43,460 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 14:58:43,582 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 14:58:43,582 - __main__ - INFO -    ⏱️ Uptime: 1d 1h 1m
+2025-07-25 14:58:43,582 - __main__ - INFO -    🔄 Verificações: 1500
+2025-07-25 14:58:43,582 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 14:58:43,582 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 14:58:43,583 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 15:58:43,716 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 15:58:43,716 - __main__ - INFO -    ⏱️ Uptime: 1d 2h 1m
+2025-07-25 15:58:43,717 - __main__ - INFO -    🔄 Verificações: 1560
+2025-07-25 15:58:43,717 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 15:58:43,717 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 15:58:43,717 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 16:58:43,849 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 16:58:43,849 - __main__ - INFO -    ⏱️ Uptime: 1d 3h 1m
+2025-07-25 16:58:43,849 - __main__ - INFO -    🔄 Verificações: 1620
+2025-07-25 16:58:43,850 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 16:58:43,850 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 16:58:43,850 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 17:58:43,974 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 17:58:43,975 - __main__ - INFO -    ⏱️ Uptime: 1d 4h 1m
+2025-07-25 17:58:43,975 - __main__ - INFO -    🔄 Verificações: 1680
+2025-07-25 17:58:43,975 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 17:58:43,975 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 17:58:43,975 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 18:58:44,107 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 18:58:44,107 - __main__ - INFO -    ⏱️ Uptime: 1d 5h 1m
+2025-07-25 18:58:44,107 - __main__ - INFO -    🔄 Verificações: 1740
+2025-07-25 18:58:44,107 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 18:58:44,108 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 18:58:44,108 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 19:58:44,265 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 19:58:44,265 - __main__ - INFO -    ⏱️ Uptime: 1d 6h 1m
+2025-07-25 19:58:44,265 - __main__ - INFO -    🔄 Verificações: 1800
+2025-07-25 19:58:44,265 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 19:58:44,266 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 19:58:44,266 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 20:58:44,419 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 20:58:44,420 - __main__ - INFO -    ⏱️ Uptime: 1d 7h 1m
+2025-07-25 20:58:44,420 - __main__ - INFO -    🔄 Verificações: 1860
+2025-07-25 20:58:44,420 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 20:58:44,420 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 20:58:44,421 - __main__ - INFO -    🚫 Sinais bloqueando: 0
+2025-07-25 21:58:44,608 - core.signal_monitor - INFO - 🔍 Verificando 2 sinais ativos
+2025-07-25 21:58:44,610 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:58:44,610 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:58:44,631 - core.data_reader - INFO - ✅ Banco validado: 71237 registros, 0.02s
+2025-07-25 21:58:44,631 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:58:44,631 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:58:44,631 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:58:44,632 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:58:44,632 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:58:44,634 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:58:44,635 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:58:44,649 - core.data_reader - INFO - ✅ Banco validado: 71237 registros, 0.01s
+2025-07-25 21:58:44,649 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:58:44,649 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:58:44,650 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:58:44,650 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:58:44,650 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:58:44,657 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-25 21:58:44,658 - __main__ - INFO -    ⏱️ Uptime: 1d 8h 1m
+2025-07-25 21:58:44,658 - __main__ - INFO -    🔄 Verificações: 1920
+2025-07-25 21:58:44,658 - __main__ - INFO -    📝 Atualizações: 253
+2025-07-25 21:58:44,659 - __main__ - INFO -    🔄 Transições: 121
+2025-07-25 21:58:44,659 - __main__ - INFO -    🚫 Sinais bloqueando: 2
+2025-07-25 21:59:44,663 - core.signal_monitor - INFO - 🔍 Verificando 2 sinais ativos
+2025-07-25 21:59:44,663 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:59:44,664 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:59:44,697 - core.data_reader - INFO - ✅ Banco validado: 71237 registros, 0.03s
+2025-07-25 21:59:44,697 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:59:44,697 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:59:44,698 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:59:44,698 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:59:44,699 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:59:44,702 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:59:44,703 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:59:44,725 - core.data_reader - INFO - ✅ Banco validado: 71237 registros, 0.02s
+2025-07-25 21:59:44,726 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:59:44,726 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:59:44,727 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:59:44,727 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:59:44,728 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:00:44,733 - core.signal_monitor - INFO - 🔍 Verificando 2 sinais ativos
+2025-07-25 22:00:44,733 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:00:44,734 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:00:44,760 - core.data_reader - INFO - ✅ Banco validado: 71246 registros, 0.03s
+2025-07-25 22:00:44,760 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:00:44,761 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:00:44,761 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:00:44,761 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:00:44,762 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:00:44,764 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:00:44,764 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:00:44,777 - core.data_reader - INFO - ✅ Banco validado: 71246 registros, 0.01s
+2025-07-25 22:00:44,777 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:00:44,778 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:00:44,778 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:00:44,778 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:00:44,779 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:01:44,784 - core.signal_monitor - INFO - 🔍 Verificando 2 sinais ativos
+2025-07-25 22:01:44,784 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:01:44,785 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:01:44,807 - core.data_reader - INFO - ✅ Banco validado: 71254 registros, 0.02s
+2025-07-25 22:01:44,807 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:01:44,808 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:01:44,808 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:01:44,808 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:01:44,809 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:01:44,810 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:01:44,810 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:01:44,821 - core.data_reader - INFO - ✅ Banco validado: 71254 registros, 0.01s
+2025-07-25 22:01:44,822 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:01:44,822 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:01:44,822 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:01:44,823 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:01:44,823 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:02:44,827 - core.signal_monitor - INFO - 🔍 Verificando 2 sinais ativos
+2025-07-25 22:02:44,827 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:02:44,827 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:02:44,859 - core.data_reader - INFO - ✅ Banco validado: 71256 registros, 0.03s
+2025-07-25 22:02:44,859 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:02:44,860 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:02:44,860 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:02:44,860 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:02:44,861 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:02:44,864 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:02:44,865 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:02:44,879 - core.data_reader - INFO - ✅ Banco validado: 71256 registros, 0.01s
+2025-07-25 22:02:44,880 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:02:44,880 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:02:44,880 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:02:44,880 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:02:44,881 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:03:44,885 - core.signal_monitor - INFO - 🔍 Verificando 3 sinais ativos
+2025-07-25 22:03:44,886 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,886 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,908 - core.data_reader - INFO - ✅ Banco validado: 71258 registros, 0.02s
+2025-07-25 22:03:44,908 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:03:44,909 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,909 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:03:44,909 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:03:44,910 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:03:44,912 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,913 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,922 - core.data_reader - INFO - ✅ Banco validado: 71258 registros, 0.01s
+2025-07-25 22:03:44,922 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:03:44,923 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,923 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:03:44,923 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:03:44,924 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:03:44,925 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,926 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,938 - core.data_reader - INFO - ✅ Banco validado: 71258 registros, 0.01s
+2025-07-25 22:03:44,939 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:03:44,939 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:03:44,940 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:03:44,940 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:03:44,941 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:04:44,947 - core.signal_monitor - INFO - 🔍 Verificando 4 sinais ativos
+2025-07-25 22:04:44,948 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:44,948 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:44,971 - core.data_reader - INFO - ✅ Banco validado: 71258 registros, 0.02s
+2025-07-25 22:04:44,972 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:04:44,972 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:44,972 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:04:44,973 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:04:44,973 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:04:44,974 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:44,974 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:44,987 - core.data_reader - INFO - ✅ Banco validado: 71258 registros, 0.01s
+2025-07-25 22:04:44,988 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:04:44,988 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:44,988 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:04:44,988 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:04:44,989 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:04:44,990 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:44,991 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:45,004 - core.data_reader - INFO - ✅ Banco validado: 71258 registros, 0.01s
+2025-07-25 22:04:45,005 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:04:45,005 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:45,006 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:04:45,006 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:04:45,006 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:04:45,008 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:45,008 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:45,021 - core.data_reader - INFO - ✅ Banco validado: 71258 registros, 0.01s
+2025-07-25 22:04:45,022 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:04:45,022 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:04:45,022 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:04:45,022 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:04:45,023 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:05:45,027 - core.signal_monitor - INFO - 🔍 Verificando 4 sinais ativos
+2025-07-25 22:05:45,027 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,028 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,051 - core.data_reader - INFO - ✅ Banco validado: 71265 registros, 0.02s
+2025-07-25 22:05:45,052 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:05:45,052 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,052 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:05:45,053 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:05:45,053 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:05:45,055 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,056 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,066 - core.data_reader - INFO - ✅ Banco validado: 71265 registros, 0.01s
+2025-07-25 22:05:45,066 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:05:45,067 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,068 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:05:45,069 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:05:45,069 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:05:45,071 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,071 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,080 - core.data_reader - INFO - ✅ Banco validado: 71265 registros, 0.01s
+2025-07-25 22:05:45,080 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:05:45,081 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,081 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:05:45,081 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:05:45,082 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:05:45,084 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,084 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,095 - core.data_reader - INFO - ✅ Banco validado: 71265 registros, 0.01s
+2025-07-25 22:05:45,096 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:05:45,096 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:05:45,096 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:05:45,097 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:05:45,097 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:06:45,101 - core.signal_monitor - INFO - 🔍 Verificando 4 sinais ativos
+2025-07-25 22:06:45,102 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,102 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,129 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.03s
+2025-07-25 22:06:45,130 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:06:45,130 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,130 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:06:45,131 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:06:45,131 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:06:45,133 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,133 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,148 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.01s
+2025-07-25 22:06:45,148 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:06:45,148 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,149 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:06:45,149 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:06:45,149 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:06:45,151 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,151 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,165 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.01s
+2025-07-25 22:06:45,165 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:06:45,165 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,165 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:06:45,166 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:06:45,166 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:06:45,168 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,169 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,182 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.01s
+2025-07-25 22:06:45,183 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:06:45,183 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:06:45,183 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:06:45,183 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:06:45,184 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:07:45,189 - core.signal_monitor - INFO - 🔍 Verificando 4 sinais ativos
+2025-07-25 22:07:45,189 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,190 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,222 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.03s
+2025-07-25 22:07:45,222 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:07:45,222 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,223 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:07:45,223 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:07:45,224 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:07:45,226 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,227 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,237 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.01s
+2025-07-25 22:07:45,238 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:07:45,238 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,238 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:07:45,239 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:07:45,239 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:07:45,242 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,242 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,254 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.01s
+2025-07-25 22:07:45,255 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:07:45,255 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,255 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:07:45,255 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:07:45,256 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:07:45,258 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,259 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,270 - core.data_reader - INFO - ✅ Banco validado: 71271 registros, 0.01s
+2025-07-25 22:07:45,271 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:07:45,271 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:07:45,271 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:07:45,271 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:07:45,272 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,277 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:08:45,277 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,278 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,300 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.02s
+2025-07-25 22:08:45,301 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,301 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,301 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,302 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,302 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,304 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,305 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,317 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.01s
+2025-07-25 22:08:45,318 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,318 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,319 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,319 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,319 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,334 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,335 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,346 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.01s
+2025-07-25 22:08:45,346 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,347 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,347 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,348 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,348 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,349 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,350 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,360 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.01s
+2025-07-25 22:08:45,360 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,361 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,361 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,362 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,362 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,364 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,364 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,376 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.01s
+2025-07-25 22:08:45,376 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,376 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,377 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,377 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,377 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,379 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,380 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,392 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.01s
+2025-07-25 22:08:45,392 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,392 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,392 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,393 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,393 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,395 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,395 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,407 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.01s
+2025-07-25 22:08:45,408 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,408 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,408 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,408 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,409 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:08:45,410 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,411 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,424 - core.data_reader - INFO - ✅ Banco validado: 71272 registros, 0.01s
+2025-07-25 22:08:45,425 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:08:45,425 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:08:45,425 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:08:45,426 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:08:45,426 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,430 - core.signal_monitor - INFO - 🔍 Verificando 11 sinais ativos
+2025-07-25 22:09:45,431 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,431 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,448 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.02s
+2025-07-25 22:09:45,448 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,449 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,449 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,450 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,450 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,452 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,452 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,465 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,465 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,466 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,466 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,467 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,467 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,470 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,470 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,481 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,482 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,482 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,483 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,483 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,483 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,486 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,486 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,498 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,498 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,498 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,499 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,499 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,500 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,502 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,502 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,513 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,514 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,514 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,514 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,515 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,515 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,517 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,518 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,531 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,531 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,531 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,532 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,532 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,532 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,535 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,535 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,546 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,546 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,546 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,547 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,547 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,547 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,550 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,550 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,562 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,563 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,563 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,563 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,563 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,564 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,566 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,566 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,581 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,581 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,581 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,582 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,582 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,583 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,584 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,585 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,597 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,597 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,598 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,598 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,598 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,599 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:09:45,600 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,601 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,612 - core.data_reader - INFO - ✅ Banco validado: 71273 registros, 0.01s
+2025-07-25 22:09:45,613 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:09:45,613 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:09:45,613 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:09:45,614 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:09:45,614 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,619 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:10:45,619 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,619 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,639 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.02s
+2025-07-25 22:10:45,639 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,640 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,640 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,640 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,641 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,642 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,643 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,656 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.01s
+2025-07-25 22:10:45,657 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,657 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,657 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,658 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,658 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,659 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,660 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,673 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.01s
+2025-07-25 22:10:45,673 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,674 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,674 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,674 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,675 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,676 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,676 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,688 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.01s
+2025-07-25 22:10:45,689 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,689 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,689 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,690 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,690 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,692 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,692 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,704 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.01s
+2025-07-25 22:10:45,704 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,705 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,705 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,705 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,706 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,708 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,708 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,718 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.01s
+2025-07-25 22:10:45,718 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,718 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,719 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,719 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,720 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,722 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,722 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,733 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.01s
+2025-07-25 22:10:45,733 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,734 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,734 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,734 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,735 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:10:45,737 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,737 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,749 - core.data_reader - INFO - ✅ Banco validado: 71279 registros, 0.01s
+2025-07-25 22:10:45,750 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:10:45,750 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:10:45,750 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:10:45,751 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:10:45,751 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,755 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:11:45,756 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,756 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,784 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.03s
+2025-07-25 22:11:45,785 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,785 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,785 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,786 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,786 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,788 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,788 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,804 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.02s
+2025-07-25 22:11:45,804 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,805 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,805 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,805 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,806 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,808 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,809 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,821 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.01s
+2025-07-25 22:11:45,821 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,821 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,822 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,822 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,822 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,825 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,826 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,840 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.01s
+2025-07-25 22:11:45,840 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,841 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,841 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,841 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,842 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,844 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,845 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,856 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.01s
+2025-07-25 22:11:45,857 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,857 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,857 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,858 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,858 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,861 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,861 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,879 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.02s
+2025-07-25 22:11:45,879 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,880 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,880 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,880 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,881 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,883 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,883 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,898 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.01s
+2025-07-25 22:11:45,898 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,899 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,899 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,899 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,899 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:11:45,902 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,902 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,920 - core.data_reader - INFO - ✅ Banco validado: 71284 registros, 0.02s
+2025-07-25 22:11:45,920 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:11:45,920 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:11:45,921 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:11:45,921 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:11:45,921 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:45,925 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:12:45,925 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,926 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,950 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.02s
+2025-07-25 22:12:45,950 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:45,950 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,951 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:45,951 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:45,952 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:45,953 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,954 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,966 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.01s
+2025-07-25 22:12:45,966 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:45,966 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,967 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:45,967 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:45,967 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:45,969 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,969 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,978 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.01s
+2025-07-25 22:12:45,978 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:45,978 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,979 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:45,979 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:45,980 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:45,982 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,982 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,991 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.01s
+2025-07-25 22:12:45,992 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:45,992 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,992 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:45,993 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:45,993 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:45,995 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:45,995 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,007 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.01s
+2025-07-25 22:12:46,008 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:46,008 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,008 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:46,008 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:46,009 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:46,012 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,012 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,023 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.01s
+2025-07-25 22:12:46,024 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:46,024 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,024 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:46,024 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:46,025 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:46,027 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,027 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,041 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.01s
+2025-07-25 22:12:46,041 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:46,041 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,042 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:46,042 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:46,042 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:12:46,044 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,045 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,059 - core.data_reader - INFO - ✅ Banco validado: 71285 registros, 0.01s
+2025-07-25 22:12:46,059 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:12:46,060 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:12:46,060 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:12:46,060 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:12:46,060 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,066 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:13:46,066 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,067 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,086 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.02s
+2025-07-25 22:13:46,086 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,087 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,087 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,087 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,088 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,091 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,091 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,102 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:13:46,102 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,103 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,103 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,103 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,104 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,106 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,106 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,116 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:13:46,117 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,117 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,117 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,118 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,118 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,120 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,120 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,130 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:13:46,131 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,131 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,131 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,132 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,132 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,134 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,134 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,143 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:13:46,143 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,144 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,144 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,144 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,145 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,146 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,146 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,156 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:13:46,156 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,157 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,157 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,157 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,158 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,159 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,159 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,169 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:13:46,169 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,170 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,170 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,170 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,171 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:13:46,172 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,172 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,181 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:13:46,181 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:13:46,182 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:13:46,182 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:13:46,182 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:13:46,183 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,189 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:14:46,189 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,189 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,217 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.03s
+2025-07-25 22:14:46,218 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,218 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,218 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,219 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,219 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,221 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,221 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,235 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:14:46,236 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,237 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,237 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,237 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,238 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,240 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,240 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,253 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:14:46,253 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,253 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,254 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,254 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,255 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,257 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,257 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,270 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:14:46,271 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,271 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,271 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,272 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,272 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,275 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,275 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,290 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:14:46,291 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,291 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,291 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,292 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,292 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,293 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,294 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,307 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:14:46,308 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,308 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,308 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,309 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,309 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,311 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,311 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,324 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:14:46,324 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,324 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,325 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,325 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,325 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:14:46,327 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,327 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,339 - core.data_reader - INFO - ✅ Banco validado: 71286 registros, 0.01s
+2025-07-25 22:14:46,339 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:14:46,339 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:14:46,340 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:14:46,340 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:14:46,340 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,345 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:15:46,345 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,345 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,373 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.03s
+2025-07-25 22:15:46,373 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,374 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,374 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,374 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,375 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,378 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,379 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,391 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.01s
+2025-07-25 22:15:46,392 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,392 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,392 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,393 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,393 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,395 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,395 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,412 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.02s
+2025-07-25 22:15:46,412 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,412 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,413 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,413 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,413 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,415 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,415 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,430 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.01s
+2025-07-25 22:15:46,430 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,431 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,431 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,431 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,432 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,433 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,434 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,448 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.01s
+2025-07-25 22:15:46,448 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,449 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,449 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,449 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,450 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,452 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,452 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,467 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.01s
+2025-07-25 22:15:46,467 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,467 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,468 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,469 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,469 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,471 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,471 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,487 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.01s
+2025-07-25 22:15:46,487 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,487 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,488 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,488 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,488 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,490 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,490 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,506 - core.data_reader - INFO - ✅ Banco validado: 71294 registros, 0.01s
+2025-07-25 22:15:46,506 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:15:46,506 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:15:46,507 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:15:46,507 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:15:46,508 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:15:46,512 - core.signal_monitor - INFO - 🔄 NEAR: ACTIVE → TARGET_1_HIT | Motivo: Target 1 hit: 2.882 >= 2.882
+2025-07-25 22:15:46,512 - core.signal_monitor - INFO - ✅ Monitoramento: 8 verificados | 1 atualizados | 0.17s
+2025-07-25 22:15:46,513 - __main__ - INFO - 🔄 Ciclo #1937: 8 ativos | 1 atualizações | 1 transições | 0.17s
+2025-07-25 22:15:46,513 - __main__ - INFO - 🎯 TARGET 1 ATINGIDO: NEAR 15m | ACTIVE → TARGET_1_HIT | Motivo: Target 1 hit: 2.882 >= 2.882
+2025-07-25 22:16:46,517 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:16:46,517 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,517 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,546 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.03s
+2025-07-25 22:16:46,546 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,547 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,547 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,547 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,548 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,550 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,550 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,567 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.01s
+2025-07-25 22:16:46,567 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,568 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,568 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,568 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,568 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,570 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,570 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,582 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.01s
+2025-07-25 22:16:46,582 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,582 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,583 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,583 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,583 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,584 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,585 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,595 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.01s
+2025-07-25 22:16:46,595 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,596 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,596 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,596 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,597 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,599 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,599 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,608 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.01s
+2025-07-25 22:16:46,608 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,608 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,609 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,609 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,609 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,611 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,611 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,623 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.01s
+2025-07-25 22:16:46,624 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,624 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,624 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,625 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,625 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,626 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,627 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,638 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.01s
+2025-07-25 22:16:46,638 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,638 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,639 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,639 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,639 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,641 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,641 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,651 - core.data_reader - INFO - ✅ Banco validado: 71301 registros, 0.01s
+2025-07-25 22:16:46,652 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:16:46,652 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:16:46,652 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:16:46,653 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:16:46,653 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:16:46,656 - core.signal_monitor - INFO - 🔄 HYPE: ACTIVE → STOP_HIT | Motivo: Price 44.266 >= stop 44.256087
+2025-07-25 22:16:46,657 - core.signal_monitor - INFO - 🔄 IMX: ACTIVE → TARGET_1_HIT | Motivo: Target 1 hit: 0.5651 >= 0.565
+2025-07-25 22:16:46,658 - core.signal_monitor - INFO - 🔄 NEAR: TARGET_1_HIT → TARGET_2_HIT | Motivo: Target 2 hit: 2.882 >= 2.882
+2025-07-25 22:16:46,658 - core.signal_monitor - INFO - ✅ Monitoramento: 8 verificados | 3 atualizados | 0.14s
+2025-07-25 22:16:46,658 - __main__ - INFO - 🔄 Ciclo #1938: 8 ativos | 3 atualizações | 3 transições | 0.14s
+2025-07-25 22:16:46,659 - __main__ - INFO - 🛑 STOP LOSS ATINGIDO: HYPE 15m | ACTIVE → STOP_HIT | Motivo: Price 44.266 >= stop 44.256087
+2025-07-25 22:16:46,659 - __main__ - INFO - 🎯 TARGET 1 ATINGIDO: IMX 15m | ACTIVE → TARGET_1_HIT | Motivo: Target 1 hit: 0.5651 >= 0.565
+2025-07-25 22:16:46,660 - __main__ - INFO - 🏆 TARGET 2 ATINGIDO - SUCESSO: NEAR 15m | TARGET_1_HIT → TARGET_2_HIT | Motivo: Target 2 hit: 2.882 >= 2.882
+2025-07-25 22:17:46,662 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:17:46,663 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,663 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,685 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.02s
+2025-07-25 22:17:46,685 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,686 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,686 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,687 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,687 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,689 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,689 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,700 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.01s
+2025-07-25 22:17:46,700 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,701 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,701 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,702 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,702 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,704 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,705 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,722 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.02s
+2025-07-25 22:17:46,722 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,723 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,723 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,723 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,724 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,725 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,725 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,738 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.01s
+2025-07-25 22:17:46,738 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,739 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,739 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,739 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,740 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,741 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,741 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,753 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.01s
+2025-07-25 22:17:46,754 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,754 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,754 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,755 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,755 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,756 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,757 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,770 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.01s
+2025-07-25 22:17:46,770 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,770 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,771 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,771 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,771 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,773 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,773 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,791 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.02s
+2025-07-25 22:17:46,791 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,791 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,792 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,792 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,792 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,794 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,794 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,822 - core.data_reader - INFO - ✅ Banco validado: 71305 registros, 0.03s
+2025-07-25 22:17:46,822 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:17:46,823 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:17:46,823 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:17:46,823 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:17:46,824 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:17:46,826 - core.signal_monitor - INFO - 🔄 IMX: TARGET_1_HIT → TARGET_2_HIT | Motivo: Target 2 hit: 0.5651 >= 0.565
+2025-07-25 22:17:46,826 - core.signal_monitor - INFO - ✅ Monitoramento: 8 verificados | 1 atualizados | 0.17s
+2025-07-25 22:17:46,827 - __main__ - INFO - 🔄 Ciclo #1939: 8 ativos | 1 atualizações | 1 transições | 0.17s
+2025-07-25 22:17:46,827 - __main__ - INFO - 🏆 TARGET 2 ATINGIDO - SUCESSO: IMX 15m | TARGET_1_HIT → TARGET_2_HIT | Motivo: Target 2 hit: 0.5651 >= 0.565
+2025-07-25 22:18:46,830 - core.signal_monitor - INFO - 🔍 Verificando 7 sinais ativos
+2025-07-25 22:18:46,830 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,831 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,856 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.02s
+2025-07-25 22:18:46,856 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:18:46,857 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,857 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:18:46,858 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:18:46,858 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:18:46,861 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,864 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,923 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.06s
+2025-07-25 22:18:46,924 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:18:46,925 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,926 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:18:46,927 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:18:46,928 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:18:46,931 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,932 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,952 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.02s
+2025-07-25 22:18:46,954 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:18:46,954 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,955 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:18:46,956 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:18:46,957 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:18:46,961 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,962 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,983 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.02s
+2025-07-25 22:18:46,983 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:18:46,984 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,984 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:18:46,985 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:18:46,986 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:18:46,988 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:46,989 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,006 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.02s
+2025-07-25 22:18:47,006 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:18:47,007 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,007 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:18:47,007 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:18:47,007 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:18:47,009 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,009 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,022 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:18:47,023 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:18:47,023 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,023 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:18:47,023 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:18:47,024 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:18:47,025 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,025 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,040 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:18:47,040 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:18:47,040 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:18:47,041 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:18:47,041 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:18:47,041 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,045 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:19:47,045 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,046 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,075 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.03s
+2025-07-25 22:19:47,075 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,076 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,076 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,076 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,077 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,088 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,089 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,102 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:19:47,102 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,103 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,103 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,103 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,104 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,105 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,105 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,119 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:19:47,119 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,119 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,119 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,120 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,120 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,121 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,122 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,136 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:19:47,136 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,136 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,137 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,137 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,137 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,138 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,139 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,150 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:19:47,150 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,150 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,151 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,151 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,151 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,153 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,153 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,166 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:19:47,166 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,167 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,167 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,167 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,168 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,170 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,170 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,182 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:19:47,182 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,182 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,183 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,183 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,183 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:19:47,185 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,185 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,199 - core.data_reader - INFO - ✅ Banco validado: 71307 registros, 0.01s
+2025-07-25 22:19:47,199 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:19:47,199 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:19:47,200 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:19:47,200 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:19:47,200 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,204 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:20:47,204 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,204 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,216 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,216 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,217 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,217 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,217 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,217 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,218 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,219 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,226 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,227 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,227 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,227 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,227 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,228 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,230 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,230 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,238 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,239 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,239 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,239 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,239 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,240 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,241 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,241 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,251 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,251 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,252 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,252 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,252 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,253 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,254 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,254 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,264 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,264 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,264 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,264 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,265 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,265 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,266 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,266 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,275 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,275 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,275 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,275 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,276 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,276 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,277 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,277 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,287 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,287 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,287 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,288 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,288 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,288 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:20:47,289 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,289 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,299 - core.data_reader - INFO - ✅ Banco validado: 71314 registros, 0.01s
+2025-07-25 22:20:47,300 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:20:47,300 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:20:47,300 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:20:47,300 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:20:47,301 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,304 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:21:47,304 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,304 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,323 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.02s
+2025-07-25 22:21:47,324 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,324 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,324 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,324 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,325 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,326 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,326 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,335 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:21:47,335 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,336 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,336 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,336 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,336 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,337 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,338 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,346 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:21:47,346 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,346 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,346 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,347 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,347 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,348 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,349 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,358 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:21:47,358 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,358 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,358 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,358 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,359 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,360 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,360 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,369 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:21:47,370 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,370 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,370 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,370 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,371 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,372 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,372 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,380 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:21:47,380 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,380 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,380 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,381 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,381 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,383 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,383 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,393 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:21:47,393 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,393 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,393 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,394 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,394 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:21:47,395 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,395 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,405 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:21:47,405 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:21:47,405 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:21:47,406 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:21:47,406 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:21:47,406 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,409 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:22:47,410 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,410 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,434 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.02s
+2025-07-25 22:22:47,435 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,435 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,435 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,435 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,436 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,438 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,439 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,449 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:22:47,449 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,449 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,450 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,450 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,450 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,451 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,451 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,461 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:22:47,461 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,461 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,462 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,462 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,462 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,463 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,463 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,473 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:22:47,473 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,473 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,473 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,473 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,474 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,475 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,475 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,483 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:22:47,483 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,484 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,484 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,484 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,484 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,485 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,486 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,495 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:22:47,496 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,496 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,496 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,496 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,497 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,498 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,498 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,508 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:22:47,508 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,509 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,509 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,509 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,509 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:22:47,511 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,511 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,519 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:22:47,519 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:22:47,519 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:22:47,520 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:22:47,520 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:22:47,520 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,525 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:23:47,525 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,525 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,547 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.02s
+2025-07-25 22:23:47,548 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,548 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,548 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,548 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,549 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,550 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,550 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,560 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:23:47,561 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,561 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,561 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,561 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,562 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,563 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,563 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,571 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:23:47,571 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,571 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,572 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,572 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,572 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,574 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,574 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,582 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:23:47,583 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,583 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,583 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,583 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,584 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,585 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,585 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,595 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:23:47,595 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,595 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,596 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,596 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,596 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,597 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,597 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,608 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:23:47,609 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,609 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,610 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,610 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,610 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,611 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,611 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,620 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:23:47,620 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,621 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,621 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,621 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,621 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:23:47,623 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,623 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,634 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:23:47,634 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:23:47,634 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:23:47,635 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:23:47,635 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:23:47,635 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,638 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:24:47,639 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,639 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,658 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.02s
+2025-07-25 22:24:47,659 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,659 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,659 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,659 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,660 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,663 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,663 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,673 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:24:47,673 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,674 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,674 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,674 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,674 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,676 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,676 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,686 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:24:47,687 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,687 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,687 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,687 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,688 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,689 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,689 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,699 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:24:47,700 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,700 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,700 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,700 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,701 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,702 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,702 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,710 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:24:47,711 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,711 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,711 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,712 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,712 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,715 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,716 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,726 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:24:47,726 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,726 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,727 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,727 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,727 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,730 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,730 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,740 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:24:47,741 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,741 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,741 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,741 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,742 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:24:47,743 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,743 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,754 - core.data_reader - INFO - ✅ Banco validado: 71317 registros, 0.01s
+2025-07-25 22:24:47,754 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:24:47,754 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:24:47,755 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:24:47,755 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:24:47,755 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,758 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:25:47,758 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,759 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,779 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.02s
+2025-07-25 22:25:47,779 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,780 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,780 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,780 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,780 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,783 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,783 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,793 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.01s
+2025-07-25 22:25:47,793 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,793 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,793 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,794 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,794 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,795 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,795 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,806 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.01s
+2025-07-25 22:25:47,806 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,806 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,807 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,807 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,807 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,808 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,809 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,819 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.01s
+2025-07-25 22:25:47,819 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,819 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,819 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,820 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,820 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,821 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,821 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,829 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.01s
+2025-07-25 22:25:47,829 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,830 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,830 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,830 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,830 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,832 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,832 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,841 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.01s
+2025-07-25 22:25:47,841 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,841 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,842 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,842 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,842 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,843 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,843 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,853 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.01s
+2025-07-25 22:25:47,853 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,853 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,853 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,854 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,854 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:25:47,855 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,855 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,863 - core.data_reader - INFO - ✅ Banco validado: 71324 registros, 0.01s
+2025-07-25 22:25:47,864 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:25:47,864 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:25:47,864 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:25:47,864 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:25:47,865 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,869 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:26:47,869 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,870 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,895 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.02s
+2025-07-25 22:26:47,895 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,895 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,895 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,896 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,896 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,898 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,898 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,910 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:26:47,911 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,911 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,911 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,911 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,912 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,913 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,914 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,926 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:26:47,927 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,927 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,927 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,927 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,927 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,929 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,929 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,944 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:26:47,945 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,945 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,945 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,945 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,945 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,947 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,947 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,957 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:26:47,957 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,957 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,958 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,958 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,958 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,959 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,960 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,968 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:26:47,969 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,969 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,969 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,970 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,970 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,972 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,972 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,981 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:26:47,982 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,982 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,982 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,982 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,982 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:26:47,983 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,984 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,995 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:26:47,996 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:26:47,996 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:26:47,996 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:26:47,996 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:26:47,996 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,000 - core.signal_monitor - INFO - 🔍 Verificando 8 sinais ativos
+2025-07-25 22:27:48,001 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,001 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,015 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,016 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,016 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,016 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,016 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,017 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,018 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,018 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,030 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,030 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,031 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,031 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,031 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,031 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,032 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,033 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,045 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,045 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,045 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,045 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,046 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,046 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,047 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,047 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,058 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,058 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,059 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,059 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,059 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,060 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,061 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,061 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,070 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,071 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,071 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,071 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,072 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,072 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,073 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,073 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,083 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,084 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,084 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,084 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,084 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,085 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,086 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,087 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,097 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,097 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,098 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,098 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,098 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,099 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 22:27:48,100 - core.data_reader - INFO - ✅ Configuração STREAM detectada: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,100 - core.data_reader - INFO - 🔍 Validando banco: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,111 - core.data_reader - INFO - ✅ Banco validado: 71327 registros, 0.01s
+2025-07-25 22:27:48,111 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 22:27:48,112 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 22:27:48,112 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 22:27:48,112 - core.data_reader - INFO -   • Validado: True
+2025-07-25 22:27:48,112 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query

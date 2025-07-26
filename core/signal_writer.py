@@ -158,6 +158,7 @@ class EnhancedTradingSignal:
     technical_data: Optional[Dict] = None
     strategy: str = ""
     timestamp: datetime = field(default_factory=datetime.now)
+    entry_timestamp: Optional[datetime] = None
     
     # Análises técnicas
     stop_loss_analysis: Optional[Dict] = None
@@ -255,13 +256,13 @@ class EnhancedTradingSignal:
                     last_update=datetime.now()
                 )
             else:
-                return self._calculate_fallback_stop_loss(), {
-                    'method_used': 'Fallback_No_Data',
-                    'confidence': 0.3,
-                    'risk_percentage': 2.0,
-                    'atr_value': 0,
-                    'analysis_details': {'error': 'No market data available'}
-                }
+                # Força usar sistema inteligente mesmo com poucos dados
+                market_data_obj = MarketData(
+                    symbol=self.symbol,
+                    timeframe=self.timeframe, 
+                    data=self.market_data,
+                    last_update=datetime.now()
+                )
             
             stop_result = calculator.calculate_intelligent_stop_loss(
                 market_data_obj, 
@@ -897,13 +898,15 @@ class EnhancedSignalWriter:
 
             # SERIALIZAÇÃO JSON SEGURA COM VALIDAÇÃO
             with self._get_connection() as conn:
+                entry_time = signal.entry_timestamp if signal.entry_timestamp else signal.timestamp
+
                 values = (
                     signal.id, signal.symbol, signal.signal_type, signal.timeframe,
                     signal.detector_type, signal.detector_name, signal.signal_source,
                     signal.signal_hash, safe_float_conversion(signal.entry_price), 
                     json.dumps([safe_float_conversion(t) for t in signal.targets], default=safe_json_serialize),
                     safe_float_conversion(signal.stop_loss), safe_float_conversion(signal.confidence), 
-                    signal.confluence_score, signal.status, signal.timestamp.isoformat(), 
+                    signal.confluence_score, signal.status, signal.timestamp.isoformat(), entry_time.isoformat(),
                     signal.timestamp.isoformat(), safe_float_conversion(signal.entry_price), 
                     json.dumps(signal.targets_hit, default=safe_json_serialize),
                     json.dumps(signal.indicators_used, default=safe_json_serialize), 

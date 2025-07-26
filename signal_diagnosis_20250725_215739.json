@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-07-25T21:57:39.132585",
+  "tests_performed": [
+    "imports",
+    "configurations",
+    "database_connection",
+    "data_availability",
+    "signal_generation_pipeline",
+    "validation_pipeline"
+  ],
+  "issues_found": [
+    "Insufficient data for BTCUSDT 5m",
+    "Insufficient data for BTCUSDT 15m"
+  ],
+  "recommendations": [
+    "Verificar se o data collector está funcionando corretamente"
+  ],
+  "detailed_results": {
+    "imports": {
+      "core.analyzer": "✅ OK",
+      "core.data_reader": "✅ OK",
+      "core.signal_writer": "✅ OK",
+      "indicators.technical": "✅ OK",
+      "indicators.candlestick_patterns_detector": "✅ OK",
+      "config.settings": "✅ OK"
+    },
+    "configurations": {
+      "enabled_timeframes": "✅ ['5m', '15m']",
+      "analysis_symbols": "✅ 10 símbolos",
+      "rsi_config": "✅ Overbought: 65, Oversold: 35"
+    },
+    "database_connection": {
+      "status": "success",
+      "database_path": "C:\\Users\\mzmvy\\Documents\\python\\trading_system\\data\\crypto_stream.db",
+      "main_table": "crypto_ohlc",
+      "main_table_exists": true,
+      "total_tables": 7,
+      "sample_record_count": 71237,
+      "connection_time": 0.016941308975219727,
+      "anti_lock_enabled": true,
+      "validation_passed": true
+    },
+    "data_availability": {
+      "BTCUSDT": {
+        "5m": {
+          "status": "INSUFFICIENT"
+        },
+        "15m": {
+          "status": "INSUFFICIENT"
+        }
+      }
+    },
+    "signal_generation_pipeline": {
+      "BTCUSDT": {}
+    },
+    "validation_config": {
+      "min_5m_score": 75.0,
+      "score_advantage_required": 5.0
+    }
+  }
+}

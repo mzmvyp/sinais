@@ -227,7 +227,17 @@ class TechnicalTargetsCalculator:
                 if potential_targets:
                     # Ordena e pega os mais próximos
                     potential_targets.sort()
-                    targets = potential_targets[:2]
+                    targets = []
+                    for target in potential_targets:
+                        if not targets or abs(target - targets[-1]) / targets[-1] > 0.01:  # 1% diferença mínima
+                            targets.append(target)
+                        if len(targets) >= 2:
+                            break
+                        
+                if 'BUY' in signal_type:
+                    targets.append(targets[0] * 1.02)  # T2 = T1 + 2%
+                else:
+                    targets.append(targets[0] * 0.98)  # T2 = T1 - 2%
             else:
                 # Para SHORT: busca suportes como targets
                 lows = recent_data['low_price']

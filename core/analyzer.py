@@ -41,8 +41,8 @@ class PrioritySignalResolver:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         # NOVA LÓGICA: 15m tem prioridade, 5m precisa score >= 90 e ser 10+ pontos maior
-        self.MIN_5M_SCORE = 90.0
-        self.SCORE_ADVANTAGE_REQUIRED = 10.0
+        self.MIN_5M_SCORE = 75.0
+        self.SCORE_ADVANTAGE_REQUIRED = 5.0
     
     def resolve_conflicts(self, signals: List[EnhancedTradingSignal]) -> List[EnhancedTradingSignal]:
         """
@@ -399,12 +399,16 @@ class MultiTimeframeAnalyzer:
         # 🔥 FUNÇÃO PARA CRIAR SINAIS (usa preço de análise)
         def create_signal_fast(**kwargs):
             try:
+                analysis_data = market_data.data[:-1] if len(market_data.data) > 50 else market_data.data
+        
+                
                 base_args = {
                     'symbol': symbol, 
                     'timeframe': timeframe, 
                     'entry_price': analysis_price,  # 🔥 SEMPRE preço do candle fechado
-                    'timestamp': analysis_timestamp,
-                    'market_data': market_data.data,  # 🔥 Dados SEM candle dinâmico
+                    'timestamp': datetime.now(),      # 🔧 Data de criação do sinal
+                    'entry_timestamp': analysis_timestamp,  # 🔧 NOVO: timestamp do candle
+                    'market_data': analysis_data,  # 🔥 Dados SEM candle dinâmico
                     'status': 'ACTIVE',
                     'dynamic_validation_price': dynamic_price  # 🔥 NOVO: para validação
                 }
@@ -415,7 +419,7 @@ class MultiTimeframeAnalyzer:
                 signal = EnhancedTradingSignal(**filtered_args)
                 
                 # 🔥 VALIDAÇÃO DINÂMICA antes de adicionar
-                if self._validate_signal_with_dynamic_price(signal, dynamic_price):
+                if dynamic_price > 0 and abs(dynamic_price - analysis_price) / analysis_price < 0.05:
                     # Evita duplicatas
                     existing_detectors = [s.detector_name for s in signals]
                     if signal.detector_name not in existing_detectors:

@@ -1,0 +1,78 @@
+2025-07-25 21:50:24,681 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:50:24,681 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:50:24,682 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:50:24,682 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:50:24,683 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:50:24,723 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:50:24,724 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:50:24,725 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:50:24,725 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:50:24,725 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:50:24,780 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:50:24,781 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:50:24,781 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:50:24,782 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:50:24,783 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:50:24,806 - core.analyzer - INFO - MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:
+2025-07-25 21:50:24,807 - core.analyzer - INFO -   • Timeframes: ['5m', '15m'] (PRIORIDADE: 15m)
+2025-07-25 21:50:24,807 - core.analyzer - INFO -   • Score mínimo 5m: 75.0
+2025-07-25 21:50:24,807 - core.analyzer - INFO -   • Vantagem necessária 5m: +5.0 pontos
+2025-07-25 21:50:24,808 - core.analyzer - INFO -   • Microestrutura: DESABILITADA (evita locks)
+2025-07-25 21:50:24,808 - core.analyzer - INFO -   • Monitoramento tempo real: DESABILITADO (evita locks)
+2025-07-25 21:50:24,835 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:50:24,836 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:50:24,836 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:50:24,836 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:50:24,836 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:53:22,585 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:53:22,586 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:53:22,586 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:53:22,587 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:53:22,587 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:53:22,627 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:53:22,628 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:53:22,628 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:53:22,629 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:53:22,629 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:53:22,671 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:53:22,672 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:53:22,672 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:53:22,672 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:53:22,673 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:53:22,695 - core.analyzer - INFO - MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:
+2025-07-25 21:53:22,695 - core.analyzer - INFO -   • Timeframes: ['5m', '15m'] (PRIORIDADE: 15m)
+2025-07-25 21:53:22,696 - core.analyzer - INFO -   • Score mínimo 5m: 75.0
+2025-07-25 21:53:22,696 - core.analyzer - INFO -   • Vantagem necessária 5m: +5.0 pontos
+2025-07-25 21:53:22,697 - core.analyzer - INFO -   • Microestrutura: DESABILITADA (evita locks)
+2025-07-25 21:53:22,697 - core.analyzer - INFO -   • Monitoramento tempo real: DESABILITADO (evita locks)
+2025-07-25 21:53:22,723 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:53:22,723 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:53:22,724 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:53:22,724 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:53:22,725 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:57:39,259 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:57:39,259 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:57:39,260 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:57:39,260 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:57:39,260 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:57:39,305 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:57:39,305 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:57:39,305 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:57:39,306 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:57:39,306 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:57:39,354 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:57:39,355 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:57:39,355 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:57:39,356 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:57:39,356 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query
+2025-07-25 21:57:39,379 - core.analyzer - INFO - MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:
+2025-07-25 21:57:39,379 - core.analyzer - INFO -   • Timeframes: ['5m', '15m'] (PRIORIDADE: 15m)
+2025-07-25 21:57:39,379 - core.analyzer - INFO -   • Score mínimo 5m: 75.0
+2025-07-25 21:57:39,380 - core.analyzer - INFO -   • Vantagem necessária 5m: +5.0 pontos
+2025-07-25 21:57:39,380 - core.analyzer - INFO -   • Microestrutura: DESABILITADA (evita locks)
+2025-07-25 21:57:39,380 - core.analyzer - INFO -   • Monitoramento tempo real: DESABILITADO (evita locks)
+2025-07-25 21:57:39,417 - core.data_reader - INFO - DataReader ANTI-TRAVAMENTO inicializado:
+2025-07-25 21:57:39,418 - core.data_reader - INFO -   • DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-25 21:57:39,418 - core.data_reader - INFO -   • Tabela: crypto_ohlc
+2025-07-25 21:57:39,419 - core.data_reader - INFO -   • Validado: True
+2025-07-25 21:57:39,419 - core.data_reader - INFO -   • Timeouts: 1s conexão, 2s query

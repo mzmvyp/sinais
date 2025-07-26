@@ -289,7 +289,7 @@ def test_timing_controller():
         data_reader = DataReader()
         
         # Testa símbolos disponíveis
-        symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT"][:2]  # Máximo 2 para teste rápido
+        symbols = ["BTC", "ETH", "BNB"][:2]  # Máximo 2 para teste rápido
         timeframes = ["5m", "15m"]
         
         print(f"\n📊 Testando timing para {len(symbols)} símbolos x {len(timeframes)} timeframes:")

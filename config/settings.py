@@ -100,7 +100,7 @@ class AnalysisConfig:
 
     def __post_init__(self):
         if self.symbols is None:
-            self.symbols = ["BNB", "BTC", "ENA", "ETH", "NEAR", "SOL", "SUI", "IMX"]
+            self.symbols = ['BTC', 'ETH', 'BNB', 'ENA', 'HYPE', 'IMX', 'NEAR', 'PEPE', 'SOL', 'SUI']
         if self.multi_timeframe is None:
             self.multi_timeframe = MultiTimeframeConfig()
 

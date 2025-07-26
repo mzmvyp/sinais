@@ -27,8 +27,8 @@ class StopLossConfig:
         '15m': {
             'atr_period': 14,
             'atr_multiplier': 2.0,
-            'max_risk_pct': 3.0,
-            'min_risk_pct': 1.0,
+            'max_risk_pct': 2.0,
+            'min_risk_pct': 0.8,
             'support_resistance_lookback': 30,
             'swing_lookback': 15,
             'volatility_adjustment': True,
