@@ -732,8 +732,10 @@ class EnhancedSignalWriter:
             # Diferença entre preço de análise e preço atual
             price_diff_pct = abs(current_price - signal.entry_price) / signal.entry_price * 100
             
+            
+            self.logger.info(f"Predict price {price_diff_pct} ")
             # VALIDAÇÃO 1: Divergência máxima permitida
-            if price_diff_pct > 1.5:  # Máximo 1.5%
+            if price_diff_pct > 3:  # Máximo 1.5%
                 return False, f"DIVERGÊNCIA ALTA: {price_diff_pct:.2f}% (análise: ${signal.entry_price:.4f}, atual: ${current_price:.4f})"
             
             # VALIDAÇÃO 2: Sinal não pode estar "pré-executado"

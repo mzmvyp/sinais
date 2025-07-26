@@ -118,8 +118,8 @@ class IndicatorConfig:
 
     def __post_init__(self):
         # APENAS 5m e 15m
-        if self.rsi_overbought is None: self.rsi_overbought = {"5m": 72, "15m": 70}
-        if self.rsi_oversold is None: self.rsi_oversold = {"5m": 28, "15m": 30}
+        if self.rsi_overbought is None: self.rsi_overbought = {"5m": 65, "15m": 65}
+        if self.rsi_oversold is None: self.rsi_oversold = {"5m": 35, "15m": 35}
         if self.macd_fast is None: self.macd_fast = {"5m": 10, "15m": 12}
         if self.macd_slow is None: self.macd_slow = {"5m": 22, "15m": 26}
         if self.macd_signal is None: self.macd_signal = {"5m": 8, "15m": 9}

@@ -95,7 +95,7 @@ class CandlestickDetector:
         
         data = self.prepare_candlestick_data(df)
         patterns = []
-        end_index = len(data) - 1
+        end_index = len(data)
 
         # 1-Candle Patterns
         patterns.extend(self._detect_hammer_like(data, end_index))           # Hammer, Hanging Man, Inverted Hammer, Shooting Star

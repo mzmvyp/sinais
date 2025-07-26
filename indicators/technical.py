@@ -46,7 +46,7 @@ class RSIAnalyzer:
     def analyze(self, market_data, timeframe: str):
         self.logger.debug(f"Analisando RSI para {market_data.symbol} no timeframe {timeframe}")
         # Garante que a análise use um slice que termina no candle fechado.
-        df_closed = market_data.data.iloc[:-1]
+        df_closed = market_data.data
 
         if len(df_closed) < self.period + 5:
             return IndicatorResult("RSI", pd.Series(dtype=float), [], {})
@@ -89,7 +89,7 @@ class MACDAnalyzer:
         self.logger.debug(f"Analisando MACD para {market_data.symbol} no timeframe {timeframe}")
         params = settings.get_macd_params(timeframe)
         # Garante que a análise use um slice que termina no candle fechado.
-        df_closed = market_data.data.iloc[:-1]
+        df_closed = market_data.data
 
         if len(df_closed) < params['slow'] + 5:
             return IndicatorResult("MACD", pd.Series(dtype=float), [], {})
@@ -128,7 +128,7 @@ class BollingerBandsAnalyzer:
         """Análise das Bandas de Bollinger"""
         self.logger.debug(f"Analisando Bollinger Bands para {market_data.symbol} no timeframe {timeframe}")
         
-        df_closed = market_data.data.iloc[:-1]
+        df_closed = market_data.data
         
         if len(df_closed) < self.period + 5:
             return IndicatorResult("BollingerBands", pd.Series(dtype=float), [], {})
@@ -193,7 +193,7 @@ class VWAPAnalyzer:
         """Análise do VWAP"""
         self.logger.debug(f"Analisando VWAP para {market_data.symbol} no timeframe {timeframe}")
         
-        df_closed = market_data.data.iloc[:-1]
+        df_closed = market_data.data
         
         if len(df_closed) < 20:
             return IndicatorResult("VWAP", pd.Series(dtype=float), [], {})

@@ -381,11 +381,11 @@ class MultiTimeframeAnalyzer:
         # 🔥 ANÁLISE: SEMPRE usa CANDLE FECHADO (confirmado)
         try:
             # Candle fechado para análise (penúltimo)
-            analysis_candle = market_data.data.iloc[-2]
+            analysis_candle = market_data.data.iloc[-1]
             analysis_price = float(analysis_candle['close_price'])
             analysis_timestamp = analysis_candle['timestamp'].to_pydatetime()
-            
-            # Candle dinâmico para validação pré-gravação
+
+            # Como só temos candles fechados, usa o mesmo para validação
             dynamic_candle = market_data.data.iloc[-1]
             dynamic_price = float(dynamic_candle['close_price'])
             
@@ -404,7 +404,7 @@ class MultiTimeframeAnalyzer:
                     'timeframe': timeframe, 
                     'entry_price': analysis_price,  # 🔥 SEMPRE preço do candle fechado
                     'timestamp': analysis_timestamp,
-                    'market_data': market_data.data.iloc[:-1],  # 🔥 Dados SEM candle dinâmico
+                    'market_data': market_data.data,  # 🔥 Dados SEM candle dinâmico
                     'status': 'ACTIVE',
                     'dynamic_validation_price': dynamic_price  # 🔥 NOVO: para validação
                 }
@@ -434,10 +434,7 @@ class MultiTimeframeAnalyzer:
             try:
                 cs_start = time.time()
                 # USA dados fechados sempre
-                if timeframe in ["5m", "15m"] and len(market_data.data) > 2:
-                    df_for_cs = market_data.data.iloc[:-2]
-                else:
-                    df_for_cs = market_data.data.iloc[:-1]
+                df_for_cs = market_data.data
                 
                 if len(df_for_cs) >= 10:
                     # SEM FILTRO - usa detector direto
