@@ -263,12 +263,15 @@ class MultiTimeframeAnalyzer:
                 data_start = time.time()
                 
                 # USAR DADOS LIVE PARA 5m E 15m
-                if tf in ["5m", "15m"]:
+                # CORREÇÃO: Apenas 5m usa dados live
+                if tf == "5m":
                     market_data = self.data_reader.get_enhanced_data(symbol, tf)
                     self.logger.debug(f"🔴 {symbol} {tf}: Dados LIVE requisitados")
                 else:
+                    # 15m usa dados históricos puros (sem mistura de 1m)
                     market_data = self.data_reader.get_latest_data(symbol, tf)
-                    
+                    self.logger.debug(f"📊 {symbol} {tf}: Dados HISTÓRICOS puros")
+                                    
                 data_time = time.time() - data_start            
                 
                 
@@ -380,12 +383,30 @@ class MultiTimeframeAnalyzer:
 
         # 🔥 ANÁLISE: SEMPRE usa CANDLE FECHADO (confirmado)
         try:
-            # Candle fechado para análise (penúltimo)
+            # CORREÇÃO: Valida se dados são do timeframe correto
+            if len(market_data.data) < 2:
+                self.logger.error(f"❌ {symbol} {timeframe}: Dados insuficientes")
+                return {'signals': []}
+
+            # Para 15m: usa último candle fechado (não mistura com 1m)
             analysis_candle = market_data.data.iloc[-1]
             analysis_price = float(analysis_candle['close_price'])
             analysis_timestamp = analysis_candle['timestamp'].to_pydatetime()
 
-            # Como só temos candles fechados, usa o mesmo para validação
+            # VALIDAÇÃO: Verifica se timestamp é compatível com timeframe
+            if timeframe == "15m":
+                # Para 15m, timestamp deve terminar em :14:59, :29:59, :44:59, :59:59
+                minute = analysis_timestamp.minute
+                if minute not in [14, 29, 44, 59]:
+                    self.logger.warning(f"⚠️ {symbol} {timeframe}: Timestamp suspeito: {analysis_timestamp}")
+
+            # LOG para debug
+            self.logger.info(f"🔍 {symbol} {timeframe}: Entry = ${analysis_price:.4f} | Timestamp: {analysis_timestamp}")
+
+            # Log para debug do preço
+            self.logger.info(f"🔍 {symbol} {timeframe}: Analysis price = {analysis_price:.4f} | Timestamp: {analysis_timestamp}")
+
+            # Validação com o mesmo candle
             dynamic_candle = market_data.data.iloc[-1]
             dynamic_price = float(dynamic_candle['close_price'])
             
@@ -438,24 +459,45 @@ class MultiTimeframeAnalyzer:
             try:
                 cs_start = time.time()
                 # USA dados fechados sempre
-                df_for_cs = market_data.data
+                df_for_cs = market_data.data.tail(30)
+                
+                self.logger.debug(f"🕯️ {symbol} {timeframe}: Usando {len(df_for_cs)} candles para patterns (otimizado)")
                 
                 if len(df_for_cs) >= 10:
                     # SEM FILTRO - usa detector direto
                     cs_signals_raw = generate_candlestick_signals(df_for_cs, symbol)
                     cs_time = time.time() - cs_start
                     
-                    # FILTRA apenas engolfo (os únicos que funcionam)
+                    # ACEITA TODOS OS 5 PADRÕES EFETIVOS com limiares ajustados
                     quality_signals = []
+
                     for cs in cs_signals_raw:
                         detector_name = cs.get('detector_name', '')
-                        if 'Engulfing' in detector_name and cs.get('confidence', 0) >= 0.75:
+                        confidence = cs.get('confidence', 0)
+                        
+                        # Limiares por tipo de padrão (baseado na confiabilidade)
+                        if detector_name in ['Bullish_Engulfing', 'Bearish_Engulfing'] and confidence >= 0.75:
                             quality_signals.append(cs)
-                    
-                    for cs in quality_signals[:2]:  # Máximo 2
+                            self.logger.debug(f"✅ Engulfing aceito: {detector_name} conf={confidence:.3f}")
+                            
+                        elif detector_name in ['Hammer', 'Shooting_Star'] and confidence >= 0.70:
+                            quality_signals.append(cs)
+                            self.logger.debug(f"✅ Reversal aceito: {detector_name} conf={confidence:.3f}")
+                            
+                        elif detector_name in ['Doji_Bullish', 'Doji_Bearish'] and confidence >= 0.60:
+                            quality_signals.append(cs)
+                            self.logger.debug(f"✅ Doji aceito: {detector_name} conf={confidence:.3f}")
+                            
+                        else:
+                            self.logger.debug(f"❌ Rejeitado: {detector_name} conf={confidence:.3f} (abaixo do limiar)")
+
+                    # Ordena por confiança e pega os melhores
+                    quality_signals.sort(key=lambda x: x.get('confidence', 0), reverse=True)
+
+                    for cs in quality_signals[:2]:  # Máximo 2 padrões
                         create_signal_fast(**cs)
                         
-                    self.logger.debug(f"🕯️ Candlestick {symbol} {timeframe}: {len(quality_signals)} engolfos em {cs_time:.2f}s")
+                    self.logger.debug(f"🕯️ Candlestick {symbol} {timeframe}: {len(quality_signals)} padrões válidos em {cs_time:.2f}s")
                                 
             except Exception as e:
                 self.logger.warning(f"❌ Erro candlestick {symbol} {timeframe}: {e}")

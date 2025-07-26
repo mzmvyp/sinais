@@ -93,7 +93,12 @@ class SimplifiedCandlestickDetector:
     
     def prepare_candlestick_data(self, df: pd.DataFrame) -> pd.DataFrame:
         """Pré-calcula propriedades dos candles de forma otimizada."""
-        data = df.copy()
+        # OTIMIZAÇÃO: Usa apenas últimos 25 candles
+        if len(df) > 25:
+            data = df.tail(25).copy()
+            self.logger.debug(f"🔥 Candlestick otimizado: {len(data)} candles (era {len(df)})")
+        else:
+            data = df.copy()
         
         # Propriedades básicas dos candles
         data['body_size'] = abs(data['close_price'] - data['open_price'])

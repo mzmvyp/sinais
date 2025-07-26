@@ -202,6 +202,21 @@ class EnhancedTradingSignal:
         self._validate_stop_and_targets()
         
         # Limpa objetos não serializáveis APÓS todos os cálculos
+        # CORRIGE ENTRY_TIMESTAMP se não foi definido
+        if self.entry_timestamp is None:
+            if self.market_data is not None and len(self.market_data) > 0:
+                try:
+                    last_candle_timestamp = self.market_data.iloc[-1]['timestamp']
+                    if pd.notna(last_candle_timestamp):
+                        self.entry_timestamp = pd.to_datetime(last_candle_timestamp).to_pydatetime()
+                    else:
+                        self.entry_timestamp = self.timestamp
+                except Exception:
+                    self.entry_timestamp = self.timestamp
+            else:
+                self.entry_timestamp = self.timestamp
+
+        # Limpa objetos não serializáveis APÓS todos os cálculos
         self._prepare_for_serialization()
 
     def _prepare_for_serialization(self):
@@ -591,17 +606,34 @@ class EnhancedTradingSignal:
     def _validate_stop_and_targets(self):
         """Valida stop loss e targets COM CORREÇÃO AUTOMÁTICA"""
         try:
+            # INICIALIZA risk_pct PARA TODOS OS CASOS
+            risk_pct = 0.0
+            
             # VALIDAÇÃO 1: Direção correta do stop loss
             if 'BUY' in self.signal_type:
                 if self.stop_loss >= self.entry_price:
                     self.stop_loss = self.entry_price * 0.985
                     self.logger.warning(f"🔧 Stop loss LONG corrigido para {self.symbol}: {self.stop_loss:.4f}")
+                
+                # Calcula risco para BUY
+                risk_pct = abs(self.entry_price - self.stop_loss) / self.entry_price * 100
+                if risk_pct > 15:  # Máximo 15% de risco
+                    self.stop_loss = self.entry_price * 0.85  # 15% de risco
+                    risk_pct = 15.0  # Atualiza o valor
+                    self.logger.warning(f"🔧 Stop loss LONG ajustado para risco máximo: {self.stop_loss:.4f}")
             
             elif 'SELL' in self.signal_type:
                 if self.stop_loss <= self.entry_price:
                     self.stop_loss = self.entry_price * 1.015
                     self.logger.warning(f"🔧 Stop loss SHORT corrigido para {self.symbol}: {self.stop_loss:.4f}")
-            
+                
+                # Calcula risco para SELL
+                risk_pct = abs(self.stop_loss - self.entry_price) / self.entry_price * 100
+                if risk_pct > 15:  # Máximo 15% de risco
+                    self.stop_loss = self.entry_price * 1.15  # 15% de risco
+                    risk_pct = 15.0  # Atualiza o valor
+                    self.logger.warning(f"🔧 Stop loss SHORT ajustado para risco máximo: {self.stop_loss:.4f}")  
+                    
             # VALIDAÇÃO 2: Garante apenas 2 targets
             if len(self.targets) > 2:
                 self.targets = self.targets[:2]
@@ -611,17 +643,24 @@ class EnhancedTradingSignal:
                 self.logger.warning(f"🎯 Targets insuficientes para {self.symbol}, calculados automaticamente")
             
             # VALIDAÇÃO 3: Targets na direção correta
+            self.logger.info(f"🎯 Validando targets para {self.symbol}: Entry=${self.entry_price:.4f}")
+
+            # VALIDAÇÃO 3: Targets na direção correta
+            self.logger.info(f"🎯 Validando targets para {self.symbol}: Entry=${self.entry_price:.4f}")
+
             for i, target in enumerate(self.targets):
                 target_safe = safe_float_conversion(target, self.entry_price)
                 
                 if 'BUY' in self.signal_type:
                     if target_safe <= self.entry_price:
-                        self.targets[i] = self.entry_price * (1.02 + i * 0.02)
-                        self.logger.warning(f"🎯 Target {i+1} LONG corrigido: {self.targets[i]:.4f}")
+                        # Targets corrigidos baseados no entry_price correto
+                        self.targets[i] = self.entry_price * (1.015 + i * 0.015)  # 1.5% e 3%
+                        self.logger.warning(f"🎯 Target {i+1} LONG corrigido: ${self.targets[i]:.4f} (era ${target_safe:.4f})")
                 else:  # SELL
                     if target_safe >= self.entry_price:
-                        self.targets[i] = self.entry_price * (0.98 - i * 0.02)
-                        self.logger.warning(f"🎯 Target {i+1} SHORT corrigido: {self.targets[i]:.4f}")
+                        # Targets SHORT corrigidos
+                        self.targets[i] = self.entry_price * (0.985 - i * 0.015)  # -1.5% e -3%
+                        self.logger.warning(f"🎯 Target {i+1} SHORT corrigido: ${self.targets[i]:.4f} (era ${target_safe:.4f})")
             
             # VALIDAÇÃO 4: Ordem dos targets
             if 'BUY' in self.signal_type:
@@ -631,6 +670,10 @@ class EnhancedTradingSignal:
                 
         except Exception as e:
             self.logger.error(f"❌ Erro na validação de stop/targets para {self.symbol}: {e}")
+            # Log adicional para debug
+            import traceback
+            self.logger.error(f"Traceback: {traceback.format_exc()}")
+            
             # Em caso de erro, usa valores seguros
             self.targets = self._calculate_fallback_targets()
             self.stop_loss = self._calculate_fallback_stop_loss()
@@ -899,6 +942,14 @@ class EnhancedSignalWriter:
             # SERIALIZAÇÃO JSON SEGURA COM VALIDAÇÃO
             with self._get_connection() as conn:
                 entry_time = signal.entry_timestamp if signal.entry_timestamp else signal.timestamp
+                # TIMESTAMPS CORRETOS
+                current_timestamp = datetime.now()  # SYSDATE para created_at
+
+                # ENTRY_TIME = timestamp do candle de análise
+                if hasattr(signal, 'entry_timestamp') and signal.entry_timestamp:
+                    candle_close_time = signal.entry_timestamp
+                else:
+                    candle_close_time = current_timestamp
 
                 values = (
                     signal.id, signal.symbol, signal.signal_type, signal.timeframe,
@@ -906,11 +957,13 @@ class EnhancedSignalWriter:
                     signal.signal_hash, safe_float_conversion(signal.entry_price), 
                     json.dumps([safe_float_conversion(t) for t in signal.targets], default=safe_json_serialize),
                     safe_float_conversion(signal.stop_loss), safe_float_conversion(signal.confidence), 
-                    signal.confluence_score, signal.status, signal.timestamp.isoformat(), entry_time.isoformat(),
-                    signal.timestamp.isoformat(), safe_float_conversion(signal.entry_price), 
+                    signal.confluence_score, signal.status, 
+                    current_timestamp.isoformat(),          # created_at = SYSDATE
+                    candle_close_time.isoformat(),         # entry_time = close time do candle
+                    safe_float_conversion(signal.entry_price),  # current_price
                     json.dumps(signal.targets_hit, default=safe_json_serialize),
                     json.dumps(signal.indicators_used, default=safe_json_serialize), 
-                    datetime.now().isoformat(),
+                    current_timestamp.isoformat(),         # updated_at
                     json.dumps(signal.timeframe_analysis, default=safe_json_serialize),
                     json.dumps(signal.market_conditions, default=safe_json_serialize),
                     json.dumps(signal.pattern_data, default=safe_json_serialize),
@@ -951,6 +1004,9 @@ class EnhancedSignalWriter:
     def _validate_signal_freshness(self, signal: EnhancedTradingSignal) -> bool:
         """Valida se o sinal não está obsoleto"""
         try:
+            # LOG ADICIONAL para debug
+            self.logger.info(f"🔍 Validando freshness: {signal.symbol} | Entry: {signal.entry_price:.4f} | T1: {signal.targets[0]:.4f} | Stop: {signal.stop_loss:.4f}")
+            
             if signal.signal_type == 'BUY_LONG':
                 if signal.entry_price >= signal.targets[0]:
                     self.logger.warning(f"🚫 Sinal BUY obsoleto para {signal.symbol}: Entry {signal.entry_price:.4f} >= T1 {signal.targets[0]:.4f}")
@@ -1131,6 +1187,15 @@ class EnhancedSignalWriter:
         try:
             with self._get_connection() as conn:
                 # SERIALIZAÇÃO SEGURA
+                # TIMESTAMPS CORRETOS
+                current_timestamp = datetime.now()  # SYSDATE para created_at
+
+                # ENTRY_TIME = timestamp do candle de análise
+                if hasattr(signal, 'entry_timestamp') and signal.entry_timestamp:
+                    candle_close_time = signal.entry_timestamp
+                else:
+                    candle_close_time = current_timestamp
+                
                 values = (
                     signal.id, signal.symbol, signal.signal_type, signal.timeframe,
                     signal.detector_type, signal.detector_name, signal.signal_source,

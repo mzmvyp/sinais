@@ -1,0 +1,1639 @@
+2025-07-26 02:55:21 - __main__ - INFO - 🔄 Monitor Melhorado inicializado (intervalo: 30s)
+2025-07-26 02:55:21 - __main__ - ERROR - ❌ Erro no banco de dados: no such table: signals
+2025-07-26 02:55:21 - __main__ - ERROR - ❌ Problemas com banco de dados
+2025-07-26 02:55:21 - __main__ - INFO - Monitor já está parado
+2025-07-26 02:57:31 - __main__ - INFO - 🔄 Monitor Melhorado inicializado (intervalo: 30s)
+2025-07-26 02:57:31 - __main__ - ERROR - ❌ Erro no banco de dados: no such table: signals
+2025-07-26 02:57:31 - __main__ - ERROR - ❌ Problemas com banco de dados
+2025-07-26 02:57:31 - __main__ - INFO - Monitor já está parado
+2025-07-26 02:58:46 - __main__ - INFO - 🔄 Monitor Melhorado inicializado (intervalo: 30s)
+2025-07-26 02:58:46 - __main__ - INFO - 📊 Banco OK: 7 sinais total
+2025-07-26 02:58:47 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 02:58:48 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 02:58:48 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 02:58:48 - __main__ - INFO - 🔄 Loop de monitoramento iniciado
+2025-07-26 02:58:48 - __main__ - INFO - 🚀 MONITOR MELHORADO INICIADO
+2025-07-26 02:58:48 - __main__ - INFO - ⏱️ Intervalo: 30s
+2025-07-26 02:58:48 - __main__ - INFO - 🔗 APIs funcionando: 3/3
+2025-07-26 02:58:48 - __main__ - INFO - 🎯 Atualizando: ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT
+2025-07-26 02:58:49 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: no such table: signals
+2025-07-26 02:58:50 - __main__ - ERROR - ❌ Erro ao atualizar sinal PEPE_SELL_SHORT_1753503480068: no such table: signals
+2025-07-26 02:58:51 - __main__ - ERROR - ❌ Erro ao atualizar sinal HYPE_SELL_SHORT_1753503479555: no such table: signals
+2025-07-26 02:58:52 - __main__ - ERROR - ❌ Erro ao atualizar sinal ETH_BUY_LONG_1753503479368: no such table: signals
+2025-07-26 02:58:53 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: no such table: signals
+2025-07-26 02:58:54 - __main__ - ERROR - ❌ Erro ao atualizar sinal ENA_BUY_LONG_1753500701642: no such table: signals
+2025-07-26 02:59:25 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: no such table: signals
+2025-07-26 02:59:26 - __main__ - ERROR - ❌ Erro ao atualizar sinal PEPE_SELL_SHORT_1753503480068: no such table: signals
+2025-07-26 02:59:27 - __main__ - ERROR - ❌ Erro ao atualizar sinal HYPE_SELL_SHORT_1753503479555: no such table: signals
+2025-07-26 02:59:28 - __main__ - ERROR - ❌ Erro ao atualizar sinal ETH_BUY_LONG_1753503479368: no such table: signals
+2025-07-26 02:59:28 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: no such table: signals
+2025-07-26 02:59:29 - __main__ - ERROR - ❌ Erro ao atualizar sinal ENA_BUY_LONG_1753500701642: no such table: signals
+2025-07-26 02:59:59 - __main__ - INFO - 🛑 Loop de monitoramento finalizado
+2025-07-26 03:00:01 - __main__ - INFO - 🔄 Monitor Melhorado inicializado (intervalo: 30s)
+2025-07-26 03:00:01 - __main__ - INFO - 📊 Banco OK: 7 sinais total
+2025-07-26 03:00:02 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:00:03 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:00:04 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:00:04 - __main__ - INFO - 🔄 Loop de monitoramento iniciado
+2025-07-26 03:00:04 - __main__ - INFO - 🚀 MONITOR MELHORADO INICIADO
+2025-07-26 03:00:04 - __main__ - INFO - ⏱️ Intervalo: 30s
+2025-07-26 03:00:04 - __main__ - INFO - 🔗 APIs funcionando: 3/3
+2025-07-26 03:00:04 - __main__ - INFO - 🎯 Atualizando: ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT
+2025-07-26 03:00:09 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012046464
+2025-07-26 03:00:09 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044981 | Preço atingiu Target 2: 42.4512
+2025-07-26 03:00:09 - __main__ - INFO - 🔄 Ciclo #1: 6 ativos | 6 atualizações | 2 transições | 5.42s
+2025-07-26 03:00:43 - __main__ - INFO - 🔄 Ciclo #2: 4 ativos | 3 atualizações | 0 transições | 3.49s
+2025-07-26 03:01:16 - __main__ - INFO - 🔄 Ciclo #3: 4 ativos | 4 atualizações | 0 transições | 3.23s
+2025-07-26 03:01:49 - __main__ - INFO - 🔄 Ciclo #4: 4 ativos | 3 atualizações | 0 transições | 3.14s
+2025-07-26 03:02:22 - __main__ - INFO - 🔄 Ciclo #5: 4 ativos | 4 atualizações | 0 transições | 3.25s
+2025-07-26 03:02:59 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012212106
+2025-07-26 03:02:59 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044982 | Preço atingiu Target 2: 43.619615
+2025-07-26 03:02:59 - __main__ - INFO - 🔄 Ciclo #6: 6 ativos | 5 atualizações | 2 transições | 6.89s
+2025-07-26 03:03:32 - __main__ - INFO - 🔄 Ciclo #7: 4 ativos | 3 atualizações | 0 transições | 3.40s
+2025-07-26 03:04:06 - __main__ - INFO - 🔄 Ciclo #8: 4 ativos | 4 atualizações | 0 transições | 3.70s
+2025-07-26 03:04:39 - __main__ - INFO - 🔄 Ciclo #9: 4 ativos | 4 atualizações | 0 transições | 3.17s
+2025-07-26 03:05:12 - __main__ - INFO - 🔄 Ciclo #10: 4 ativos | 3 atualizações | 0 transições | 3.14s
+2025-07-26 03:05:13 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:05:14 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:05:15 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:05:50 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012212106
+2025-07-26 03:05:50 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044983 | Preço atingiu Target 2: 43.619615
+2025-07-26 03:05:50 - __main__ - INFO - 🔄 Ciclo #11: 6 ativos | 5 atualizações | 2 transições | 5.48s
+2025-07-26 03:06:23 - __main__ - INFO - 🔄 Ciclo #12: 4 ativos | 4 atualizações | 0 transições | 3.19s
+2025-07-26 03:06:57 - __main__ - INFO - 🔄 Ciclo #13: 4 ativos | 3 atualizações | 0 transições | 3.75s
+2025-07-26 03:07:30 - __main__ - INFO - 🔄 Ciclo #14: 4 ativos | 4 atualizações | 0 transições | 3.13s
+2025-07-26 03:08:04 - __main__ - INFO - 🔄 Ciclo #15: 4 ativos | 3 atualizações | 0 transições | 3.90s
+2025-07-26 03:08:37 - __main__ - INFO - 🔄 Ciclo #16: 4 ativos | 4 atualizações | 0 transições | 3.26s
+2025-07-26 03:09:13 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012212106
+2025-07-26 03:09:13 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044975 | Preço atingiu Target 2: 43.619615
+2025-07-26 03:09:13 - __main__ - INFO - 🔄 Ciclo #17: 6 ativos | 6 atualizações | 2 transições | 5.34s
+2025-07-26 03:09:46 - __main__ - INFO - 🔄 Ciclo #18: 4 ativos | 2 atualizações | 0 transições | 3.21s
+2025-07-26 03:10:19 - __main__ - INFO - 🔄 Ciclo #19: 4 ativos | 4 atualizações | 0 transições | 3.19s
+2025-07-26 03:10:53 - __main__ - INFO - 🔄 Ciclo #20: 4 ativos | 3 atualizações | 0 transições | 3.47s
+2025-07-26 03:10:54 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:10:54 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:10:55 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:11:28 - __main__ - INFO - 🔄 Ciclo #21: 4 ativos | 4 atualizações | 0 transições | 3.65s
+2025-07-26 03:12:05 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012212106
+2025-07-26 03:12:05 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044972 | Preço atingiu Target 2: 43.619615
+2025-07-26 03:12:05 - __main__ - INFO - 🔄 Ciclo #22: 6 ativos | 5 atualizações | 2 transições | 6.41s
+2025-07-26 03:12:38 - __main__ - INFO - 🔄 Ciclo #23: 4 ativos | 2 atualizações | 0 transições | 3.32s
+2025-07-26 03:13:11 - __main__ - INFO - 🔄 Ciclo #24: 4 ativos | 3 atualizações | 0 transições | 3.13s
+2025-07-26 03:13:45 - __main__ - INFO - 🔄 Ciclo #25: 4 ativos | 4 atualizações | 0 transições | 3.76s
+2025-07-26 03:14:18 - __main__ - INFO - 🔄 Ciclo #26: 4 ativos | 3 atualizações | 0 transições | 3.18s
+2025-07-26 03:14:54 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012212106
+2025-07-26 03:14:54 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044970 | Preço atingiu Target 2: 43.619615
+2025-07-26 03:14:54 - __main__ - INFO - 🔄 Ciclo #27: 6 ativos | 4 atualizações | 2 transições | 5.44s
+2025-07-26 03:15:27 - __main__ - INFO - 🔄 Ciclo #28: 4 ativos | 4 atualizações | 0 transições | 3.45s
+2025-07-26 03:16:00 - __main__ - INFO - 🔄 Ciclo #29: 4 ativos | 2 atualizações | 0 transições | 3.26s
+2025-07-26 03:16:34 - __main__ - INFO - 🔄 Ciclo #30: 4 ativos | 4 atualizações | 0 transições | 3.16s
+2025-07-26 03:16:34 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:16:35 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:16:36 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:17:09 - __main__ - INFO - 🔄 Ciclo #31: 4 ativos | 3 atualizações | 0 transições | 3.59s
+2025-07-26 03:17:44 - __main__ - INFO - 🔄 Ciclo #32: 5 ativos | 4 atualizações | 0 transições | 4.60s
+2025-07-26 03:18:20 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012190086999999999
+2025-07-26 03:18:20 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044947 | Preço atingiu Target 2: 43.624187
+2025-07-26 03:18:20 - __main__ - INFO - 🔄 Ciclo #33: 7 ativos | 6 atualizações | 2 transições | 6.33s
+2025-07-26 03:18:54 - __main__ - INFO - 🔄 Ciclo #34: 5 ativos | 4 atualizações | 0 transições | 3.95s
+2025-07-26 03:19:28 - __main__ - INFO - 🔄 Ciclo #35: 5 ativos | 4 atualizações | 0 transições | 4.04s
+2025-07-26 03:20:03 - __main__ - INFO - 🔄 Ciclo #36: 5 ativos | 5 atualizações | 0 transições | 4.20s
+2025-07-26 03:20:37 - __main__ - INFO - 🔄 Ciclo #37: 5 ativos | 4 atualizações | 0 transições | 4.78s
+2025-07-26 03:21:14 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012190086999999999
+2025-07-26 03:21:14 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044947 | Preço atingiu Target 2: 43.624187
+2025-07-26 03:21:14 - __main__ - INFO - 🔄 Ciclo #38: 7 ativos | 7 atualizações | 2 transições | 6.31s
+2025-07-26 03:21:48 - __main__ - INFO - 🔄 Ciclo #39: 5 ativos | 4 atualizações | 0 transições | 3.91s
+2025-07-26 03:22:22 - __main__ - INFO - 🔄 Ciclo #40: 5 ativos | 5 atualizações | 0 transições | 4.05s
+2025-07-26 03:22:22 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:22:23 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:22:24 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:22:58 - __main__ - INFO - 🔄 Ciclo #41: 5 ativos | 4 atualizações | 0 transições | 4.30s
+2025-07-26 03:23:32 - __main__ - INFO - 🔄 Ciclo #42: 5 ativos | 5 atualizações | 0 transições | 4.05s
+2025-07-26 03:24:09 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012190086999999999
+2025-07-26 03:24:09 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044800 | Preço atingiu Target 2: 43.624187
+2025-07-26 03:24:09 - __main__ - INFO - 🔄 Ciclo #43: 7 ativos | 7 atualizações | 2 transições | 6.84s
+2025-07-26 03:24:43 - __main__ - INFO - 🔄 Ciclo #44: 5 ativos | 5 atualizações | 0 transições | 4.17s
+2025-07-26 03:25:17 - __main__ - INFO - 🔄 Ciclo #45: 5 ativos | 5 atualizações | 0 transições | 4.11s
+2025-07-26 03:25:51 - __main__ - INFO - 🔄 Ciclo #46: 5 ativos | 4 atualizações | 0 transições | 4.25s
+2025-07-26 03:26:25 - __main__ - INFO - 🔄 Ciclo #47: 5 ativos | 3 atualizações | 0 transições | 4.04s
+2025-07-26 03:27:02 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012190086999999999
+2025-07-26 03:27:02 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044824 | Preço atingiu Target 2: 43.624187
+2025-07-26 03:27:02 - __main__ - INFO - 🔄 Ciclo #48: 7 ativos | 7 atualizações | 2 transições | 6.91s
+2025-07-26 03:27:36 - __main__ - INFO - 🔄 Ciclo #49: 5 ativos | 4 atualizações | 0 transições | 4.11s
+2025-07-26 03:28:10 - __main__ - INFO - 🔄 Ciclo #50: 5 ativos | 3 atualizações | 0 transições | 4.04s
+2025-07-26 03:28:11 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:28:12 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:28:13 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:28:47 - __main__ - INFO - 🔄 Ciclo #51: 5 ativos | 4 atualizações | 0 transições | 3.83s
+2025-07-26 03:29:21 - __main__ - INFO - 🔄 Ciclo #52: 5 ativos | 5 atualizações | 0 transições | 4.03s
+2025-07-26 03:29:57 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012190086999999999
+2025-07-26 03:29:57 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044824 | Preço atingiu Target 2: 43.624187
+2025-07-26 03:29:57 - __main__ - INFO - 🔄 Ciclo #53: 7 ativos | 6 atualizações | 2 transições | 6.82s
+2025-07-26 03:30:32 - __main__ - INFO - 🔄 Ciclo #54: 5 ativos | 5 atualizações | 0 transições | 4.35s
+2025-07-26 03:31:07 - __main__ - INFO - 🔄 Ciclo #55: 5 ativos | 5 atualizações | 0 transições | 4.96s
+2025-07-26 03:31:41 - __main__ - INFO - 🔄 Ciclo #56: 5 ativos | 5 atualizações | 0 transições | 4.27s
+2025-07-26 03:32:16 - __main__ - INFO - 🔄 Ciclo #57: 5 ativos | 5 atualizações | 0 transições | 5.06s
+2025-07-26 03:32:52 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012173014999999999
+2025-07-26 03:32:52 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044745 | Preço atingiu Target 2: 43.148509999999995
+2025-07-26 03:32:52 - __main__ - INFO - 🔄 Ciclo #58: 7 ativos | 6 atualizações | 2 transições | 6.35s
+2025-07-26 03:33:27 - __main__ - INFO - 🔄 Ciclo #59: 5 ativos | 5 atualizações | 0 transições | 4.54s
+2025-07-26 03:34:01 - __main__ - INFO - 🔄 Ciclo #60: 5 ativos | 3 atualizações | 0 transições | 4.07s
+2025-07-26 03:34:01 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 03:34:01 - __main__ - INFO -    ⏱️ Uptime: 33m
+2025-07-26 03:34:01 - __main__ - INFO -    🔄 Verificações: 60
+2025-07-26 03:34:01 - __main__ - INFO -    📝 Atualizações: 254
+2025-07-26 03:34:01 - __main__ - INFO -    🔄 Transições: 24
+2025-07-26 03:34:01 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 03:34:01 - __main__ - INFO -    📈 Preços atualizados: 254
+2025-07-26 03:34:01 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 03:34:01 - __main__ - INFO -    🆕 Transições recentes: 24
+2025-07-26 03:34:02 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:34:03 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:34:03 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:34:37 - __main__ - INFO - 🔄 Ciclo #61: 5 ativos | 4 atualizações | 0 transições | 4.02s
+2025-07-26 03:35:12 - __main__ - INFO - 🔄 Ciclo #62: 5 ativos | 4 atualizações | 0 transições | 4.43s
+2025-07-26 03:35:46 - __main__ - INFO - 🔄 Ciclo #63: 5 ativos | 4 atualizações | 0 transições | 4.32s
+2025-07-26 03:36:23 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012173014999999999
+2025-07-26 03:36:23 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044778 | Preço atingiu Target 2: 43.148509999999995
+2025-07-26 03:36:23 - __main__ - INFO - 🔄 Ciclo #64: 7 ativos | 6 atualizações | 2 transições | 6.44s
+2025-07-26 03:36:58 - __main__ - INFO - 🔄 Ciclo #65: 5 ativos | 5 atualizações | 0 transições | 5.02s
+2025-07-26 03:37:32 - __main__ - INFO - 🔄 Ciclo #66: 5 ativos | 3 atualizações | 0 transições | 4.20s
+2025-07-26 03:38:06 - __main__ - INFO - 🔄 Ciclo #67: 5 ativos | 4 atualizações | 0 transições | 4.05s
+2025-07-26 03:38:40 - __main__ - INFO - 🔄 Ciclo #68: 5 ativos | 4 atualizações | 0 transições | 4.13s
+2025-07-26 03:39:16 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012173014999999999
+2025-07-26 03:39:16 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044778 | Preço atingiu Target 2: 43.148509999999995
+2025-07-26 03:39:16 - __main__ - INFO - 🔄 Ciclo #69: 7 ativos | 6 atualizações | 2 transições | 6.25s
+2025-07-26 03:39:50 - __main__ - INFO - 🔄 Ciclo #70: 5 ativos | 4 atualizações | 0 transições | 4.00s
+2025-07-26 03:39:51 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:39:52 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:39:53 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:40:27 - __main__ - INFO - 🔄 Ciclo #71: 5 ativos | 4 atualizações | 0 transições | 4.09s
+2025-07-26 03:41:01 - __main__ - INFO - 🔄 Ciclo #72: 5 ativos | 4 atualizações | 0 transições | 4.33s
+2025-07-26 03:41:35 - __main__ - INFO - 🔄 Ciclo #73: 5 ativos | 2 atualizações | 0 transições | 3.98s
+2025-07-26 03:42:12 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012173014999999999
+2025-07-26 03:42:12 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044780 | Preço atingiu Target 2: 43.148509999999995
+2025-07-26 03:42:12 - __main__ - INFO - 🔄 Ciclo #74: 7 ativos | 6 atualizações | 2 transições | 6.66s
+2025-07-26 03:42:46 - __main__ - INFO - 🔄 Ciclo #75: 5 ativos | 4 atualizações | 0 transições | 3.94s
+2025-07-26 03:43:20 - __main__ - INFO - 🔄 Ciclo #76: 5 ativos | 5 atualizações | 0 transições | 4.08s
+2025-07-26 03:43:54 - __main__ - INFO - 🔄 Ciclo #77: 5 ativos | 5 atualizações | 0 transições | 4.03s
+2025-07-26 03:44:28 - __main__ - INFO - 🔄 Ciclo #78: 5 ativos | 5 atualizações | 0 transições | 4.02s
+2025-07-26 03:45:04 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012173014999999999
+2025-07-26 03:45:04 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044785 | Preço atingiu Target 2: 43.148509999999995
+2025-07-26 03:45:04 - __main__ - INFO - 🔄 Ciclo #79: 7 ativos | 6 atualizações | 2 transições | 6.56s
+2025-07-26 03:45:39 - __main__ - INFO - 🔄 Ciclo #80: 5 ativos | 5 atualizações | 0 transições | 4.31s
+2025-07-26 03:45:40 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:45:40 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:45:41 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:46:15 - __main__ - INFO - 🔄 Ciclo #81: 5 ativos | 4 atualizações | 0 transições | 4.30s
+2025-07-26 03:46:49 - __main__ - INFO - 🔄 Ciclo #82: 5 ativos | 4 atualizações | 0 transições | 4.00s
+2025-07-26 03:47:24 - __main__ - INFO - 🔄 Ciclo #83: 5 ativos | 4 atualizações | 0 transições | 4.49s
+2025-07-26 03:48:01 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012170298999999999
+2025-07-26 03:48:01 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044797 | Preço atingiu Target 2: 43.09224999999999
+2025-07-26 03:48:01 - __main__ - INFO - 🔄 Ciclo #84: 7 ativos | 6 atualizações | 2 transições | 6.98s
+2025-07-26 03:48:35 - __main__ - INFO - 🔄 Ciclo #85: 5 ativos | 5 atualizações | 0 transições | 4.11s
+2025-07-26 03:49:10 - __main__ - INFO - 🔄 Ciclo #86: 5 ativos | 3 atualizações | 0 transições | 5.11s
+2025-07-26 03:49:44 - __main__ - INFO - 🔄 Ciclo #87: 5 ativos | 5 atualizações | 0 transições | 4.01s
+2025-07-26 03:50:18 - __main__ - INFO - 🔄 Ciclo #88: 5 ativos | 3 atualizações | 0 transições | 4.29s
+2025-07-26 03:50:53 - __main__ - INFO - 🔄 Ciclo #89: 5 ativos | 4 atualizações | 0 transições | 4.26s
+2025-07-26 03:51:29 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012170298999999999
+2025-07-26 03:51:29 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044765 | Preço atingiu Target 2: 43.09224999999999
+2025-07-26 03:51:29 - __main__ - INFO - 🔄 Ciclo #90: 7 ativos | 4 atualizações | 2 transições | 6.60s
+2025-07-26 03:51:30 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:51:31 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:51:32 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:52:06 - __main__ - INFO - 🔄 Ciclo #91: 5 ativos | 4 atualizações | 0 transições | 4.51s
+2025-07-26 03:52:41 - __main__ - INFO - 🔄 Ciclo #92: 5 ativos | 3 atualizações | 0 transições | 4.04s
+2025-07-26 03:53:15 - __main__ - INFO - 🔄 Ciclo #93: 5 ativos | 5 atualizações | 0 transições | 4.62s
+2025-07-26 03:53:49 - __main__ - INFO - 🔄 Ciclo #94: 5 ativos | 5 atualizações | 0 transições | 3.90s
+2025-07-26 03:54:26 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012170298999999999
+2025-07-26 03:54:26 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044765 | Preço atingiu Target 2: 43.09224999999999
+2025-07-26 03:54:26 - __main__ - INFO - 🔄 Ciclo #95: 7 ativos | 6 atualizações | 2 transições | 6.77s
+2025-07-26 03:55:00 - __main__ - INFO - 🔄 Ciclo #96: 5 ativos | 3 atualizações | 0 transições | 3.94s
+2025-07-26 03:55:35 - __main__ - INFO - 🔄 Ciclo #97: 5 ativos | 2 atualizações | 0 transições | 4.98s
+2025-07-26 03:56:09 - __main__ - INFO - 🔄 Ciclo #98: 5 ativos | 5 atualizações | 0 transições | 4.34s
+2025-07-26 03:56:43 - __main__ - INFO - 🔄 Ciclo #99: 5 ativos | 4 atualizações | 0 transições | 4.16s
+2025-07-26 03:57:20 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012170298999999999
+2025-07-26 03:57:20 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044764 | Preço atingiu Target 2: 43.09224999999999
+2025-07-26 03:57:20 - __main__ - INFO - 🔄 Ciclo #100: 7 ativos | 5 atualizações | 2 transições | 6.31s
+2025-07-26 03:57:20 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 03:57:21 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 03:57:22 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 03:57:56 - __main__ - INFO - 🔄 Ciclo #101: 5 ativos | 5 atualizações | 0 transições | 4.01s
+2025-07-26 03:58:30 - __main__ - INFO - 🔄 Ciclo #102: 5 ativos | 5 atualizações | 0 transições | 3.93s
+2025-07-26 03:59:04 - __main__ - INFO - 🔄 Ciclo #103: 5 ativos | 3 atualizações | 0 transições | 3.98s
+2025-07-26 03:59:38 - __main__ - INFO - 🔄 Ciclo #104: 5 ativos | 4 atualizações | 0 transições | 4.18s
+2025-07-26 04:00:15 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012170298999999999
+2025-07-26 04:00:15 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044763 | Preço atingiu Target 2: 43.09224999999999
+2025-07-26 04:00:15 - __main__ - INFO - 🔄 Ciclo #105: 7 ativos | 7 atualizações | 2 transições | 6.37s
+2025-07-26 04:00:50 - __main__ - INFO - 🔄 Ciclo #106: 5 ativos | 4 atualizações | 0 transições | 4.90s
+2025-07-26 04:01:24 - __main__ - INFO - 🔄 Ciclo #107: 5 ativos | 4 atualizações | 0 transições | 4.77s
+2025-07-26 04:01:59 - __main__ - INFO - 🔄 Ciclo #108: 5 ativos | 5 atualizações | 0 transições | 4.42s
+2025-07-26 04:02:33 - __main__ - INFO - 🔄 Ciclo #109: 5 ativos | 4 atualizações | 0 transições | 4.76s
+2025-07-26 04:03:10 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012155748999999999
+2025-07-26 04:03:10 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044779 | Preço atingiu Target 2: 43.14754
+2025-07-26 04:03:10 - __main__ - INFO - 🔄 Ciclo #110: 7 ativos | 6 atualizações | 2 transições | 6.53s
+2025-07-26 04:03:11 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:03:12 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:03:12 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:03:46 - __main__ - INFO - 🔄 Ciclo #111: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 04:04:21 - __main__ - INFO - 🔄 Ciclo #112: 5 ativos | 3 atualizações | 0 transições | 4.17s
+2025-07-26 04:04:56 - __main__ - INFO - 🔄 Ciclo #113: 5 ativos | 5 atualizações | 0 transições | 5.12s
+2025-07-26 04:05:30 - __main__ - INFO - 🔄 Ciclo #114: 5 ativos | 3 atualizações | 0 transições | 4.09s
+2025-07-26 04:06:07 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012155748999999999
+2025-07-26 04:06:07 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044778 | Preço atingiu Target 2: 43.14754
+2025-07-26 04:06:07 - __main__ - INFO - 🔄 Ciclo #115: 7 ativos | 5 atualizações | 2 transições | 7.30s
+2025-07-26 04:06:41 - __main__ - INFO - 🔄 Ciclo #116: 5 ativos | 3 atualizações | 0 transições | 4.28s
+2025-07-26 04:07:15 - __main__ - INFO - 🔄 Ciclo #117: 5 ativos | 3 atualizações | 0 transições | 4.11s
+2025-07-26 04:07:50 - __main__ - INFO - 🔄 Ciclo #118: 5 ativos | 4 atualizações | 0 transições | 4.12s
+2025-07-26 04:08:24 - __main__ - INFO - 🔄 Ciclo #119: 5 ativos | 5 atualizações | 0 transições | 4.15s
+2025-07-26 04:08:58 - __main__ - INFO - 🔄 Ciclo #120: 5 ativos | 3 atualizações | 0 transições | 3.94s
+2025-07-26 04:08:58 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 04:08:58 - __main__ - INFO -    ⏱️ Uptime: 1h 8m
+2025-07-26 04:08:58 - __main__ - INFO -    🔄 Verificações: 120
+2025-07-26 04:08:58 - __main__ - INFO -    📝 Atualizações: 513
+2025-07-26 04:08:58 - __main__ - INFO -    🔄 Transições: 46
+2025-07-26 04:08:58 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 04:08:58 - __main__ - INFO -    📈 Preços atualizados: 513
+2025-07-26 04:08:58 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 04:08:58 - __main__ - INFO -    🆕 Transições recentes: 40
+2025-07-26 04:08:59 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:08:59 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:09:00 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:09:36 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012155748999999999
+2025-07-26 04:09:36 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044778 | Preço atingiu Target 2: 43.14754
+2025-07-26 04:09:36 - __main__ - INFO - 🔄 Ciclo #121: 7 ativos | 7 atualizações | 2 transições | 6.25s
+2025-07-26 04:10:11 - __main__ - INFO - 🔄 Ciclo #122: 5 ativos | 4 atualizações | 0 transições | 4.31s
+2025-07-26 04:10:45 - __main__ - INFO - 🔄 Ciclo #123: 5 ativos | 4 atualizações | 0 transições | 4.37s
+2025-07-26 04:11:19 - __main__ - INFO - 🔄 Ciclo #124: 5 ativos | 4 atualizações | 0 transições | 4.36s
+2025-07-26 04:11:54 - __main__ - INFO - 🔄 Ciclo #125: 5 ativos | 4 atualizações | 0 transições | 4.68s
+2025-07-26 04:12:31 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012155748999999999
+2025-07-26 04:12:31 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044791 | Preço atingiu Target 2: 43.14754
+2025-07-26 04:12:31 - __main__ - INFO - 🔄 Ciclo #126: 7 ativos | 6 atualizações | 2 transições | 6.58s
+2025-07-26 04:13:05 - __main__ - INFO - 🔄 Ciclo #127: 5 ativos | 3 atualizações | 0 transições | 4.12s
+2025-07-26 04:13:39 - __main__ - INFO - 🔄 Ciclo #128: 5 ativos | 4 atualizações | 0 transições | 4.04s
+2025-07-26 04:14:13 - __main__ - INFO - 🔄 Ciclo #129: 5 ativos | 3 atualizações | 0 transições | 4.00s
+2025-07-26 04:14:47 - __main__ - INFO - 🔄 Ciclo #130: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 04:14:48 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:14:49 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:14:49 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:15:26 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012155748999999999
+2025-07-26 04:15:26 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044787 | Preço atingiu Target 2: 43.14754
+2025-07-26 04:15:26 - __main__ - INFO - 🔄 Ciclo #131: 7 ativos | 6 atualizações | 2 transições | 6.57s
+2025-07-26 04:16:00 - __main__ - INFO - 🔄 Ciclo #132: 5 ativos | 4 atualizações | 0 transições | 4.20s
+2025-07-26 04:16:35 - __main__ - INFO - 🔄 Ciclo #133: 5 ativos | 5 atualizações | 0 transições | 4.42s
+2025-07-26 04:17:10 - __main__ - INFO - 🔄 Ciclo #134: 5 ativos | 4 atualizações | 0 transições | 5.81s
+2025-07-26 04:17:45 - __main__ - INFO - 🔄 Ciclo #135: 5 ativos | 5 atualizações | 0 transições | 4.52s
+2025-07-26 04:18:22 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012191348
+2025-07-26 04:18:22 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044788 | Preço atingiu Target 2: 43.172760000000004
+2025-07-26 04:18:22 - __main__ - INFO - 🔄 Ciclo #136: 7 ativos | 7 atualizações | 2 transições | 6.76s
+2025-07-26 04:18:57 - __main__ - INFO - 🔄 Ciclo #137: 5 ativos | 4 atualizações | 0 transições | 5.11s
+2025-07-26 04:19:31 - __main__ - INFO - 🔄 Ciclo #138: 5 ativos | 4 atualizações | 0 transições | 4.12s
+2025-07-26 04:20:05 - __main__ - INFO - 🔄 Ciclo #139: 5 ativos | 5 atualizações | 0 transições | 4.15s
+2025-07-26 04:20:39 - __main__ - INFO - 🔄 Ciclo #140: 5 ativos | 3 atualizações | 0 transições | 4.26s
+2025-07-26 04:20:40 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:20:41 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:20:42 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:21:19 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012191348
+2025-07-26 04:21:19 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044827 | Preço atingiu Target 2: 43.172760000000004
+2025-07-26 04:21:19 - __main__ - INFO - 🔄 Ciclo #141: 7 ativos | 7 atualizações | 2 transições | 6.92s
+2025-07-26 04:21:53 - __main__ - INFO - 🔄 Ciclo #142: 5 ativos | 5 atualizações | 0 transições | 4.88s
+2025-07-26 04:22:28 - __main__ - INFO - 🔄 Ciclo #143: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 04:23:02 - __main__ - INFO - 🔄 Ciclo #144: 5 ativos | 3 atualizações | 0 transições | 4.15s
+2025-07-26 04:23:36 - __main__ - INFO - 🔄 Ciclo #145: 5 ativos | 4 atualizações | 0 transições | 4.08s
+2025-07-26 04:24:12 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012191348
+2025-07-26 04:24:12 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044828 | Preço atingiu Target 2: 43.172760000000004
+2025-07-26 04:24:12 - __main__ - INFO - 🔄 Ciclo #146: 7 ativos | 7 atualizações | 2 transições | 6.40s
+2025-07-26 04:24:46 - __main__ - INFO - 🔄 Ciclo #147: 5 ativos | 5 atualizações | 0 transições | 3.97s
+2025-07-26 04:25:20 - __main__ - INFO - 🔄 Ciclo #148: 5 ativos | 5 atualizações | 0 transições | 4.06s
+2025-07-26 04:25:54 - __main__ - INFO - 🔄 Ciclo #149: 5 ativos | 3 atualizações | 0 transições | 3.93s
+2025-07-26 04:26:28 - __main__ - INFO - 🔄 Ciclo #150: 5 ativos | 5 atualizações | 0 transições | 4.21s
+2025-07-26 04:26:29 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:26:30 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:26:31 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:27:05 - __main__ - INFO - 🔄 Ciclo #151: 5 ativos | 5 atualizações | 0 transições | 4.09s
+2025-07-26 04:27:41 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012191348
+2025-07-26 04:27:41 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044813 | Preço atingiu Target 2: 43.172760000000004
+2025-07-26 04:27:41 - __main__ - INFO - 🔄 Ciclo #152: 7 ativos | 6 atualizações | 2 transições | 6.41s
+2025-07-26 04:28:15 - __main__ - INFO - 🔄 Ciclo #153: 5 ativos | 1 atualizações | 0 transições | 3.95s
+2025-07-26 04:28:49 - __main__ - INFO - 🔄 Ciclo #154: 5 ativos | 4 atualizações | 0 transições | 3.98s
+2025-07-26 04:29:24 - __main__ - INFO - 🔄 Ciclo #155: 5 ativos | 4 atualizações | 0 transições | 4.63s
+2025-07-26 04:29:58 - __main__ - INFO - 🔄 Ciclo #156: 5 ativos | 5 atualizações | 0 transições | 4.01s
+2025-07-26 04:30:35 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012191348
+2025-07-26 04:30:35 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044813 | Preço atingiu Target 2: 43.172760000000004
+2025-07-26 04:30:35 - __main__ - INFO - 🔄 Ciclo #157: 7 ativos | 6 atualizações | 2 transições | 7.07s
+2025-07-26 04:31:10 - __main__ - INFO - 🔄 Ciclo #158: 5 ativos | 5 atualizações | 0 transições | 4.71s
+2025-07-26 04:31:45 - __main__ - INFO - 🔄 Ciclo #159: 5 ativos | 5 atualizações | 0 transições | 5.03s
+2025-07-26 04:32:20 - __main__ - INFO - 🔄 Ciclo #160: 5 ativos | 5 atualizações | 0 transições | 5.01s
+2025-07-26 04:32:21 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:32:21 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:32:22 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:32:56 - __main__ - INFO - 🔄 Ciclo #161: 5 ativos | 4 atualizações | 0 transições | 3.98s
+2025-07-26 04:33:33 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012198429
+2025-07-26 04:33:33 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044821 | Preço atingiu Target 2: 43.05442
+2025-07-26 04:33:33 - __main__ - INFO - 🔄 Ciclo #162: 7 ativos | 5 atualizações | 2 transições | 6.52s
+2025-07-26 04:34:07 - __main__ - INFO - 🔄 Ciclo #163: 5 ativos | 4 atualizações | 0 transições | 4.13s
+2025-07-26 04:34:41 - __main__ - INFO - 🔄 Ciclo #164: 5 ativos | 4 atualizações | 0 transições | 3.97s
+2025-07-26 04:35:15 - __main__ - INFO - 🔄 Ciclo #165: 5 ativos | 5 atualizações | 0 transições | 4.11s
+2025-07-26 04:35:49 - __main__ - INFO - 🔄 Ciclo #166: 5 ativos | 5 atualizações | 0 transições | 4.04s
+2025-07-26 04:36:26 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012198429
+2025-07-26 04:36:26 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044818 | Preço atingiu Target 2: 43.05442
+2025-07-26 04:36:26 - __main__ - INFO - 🔄 Ciclo #167: 7 ativos | 6 atualizações | 2 transições | 6.97s
+2025-07-26 04:37:00 - __main__ - INFO - 🔄 Ciclo #168: 5 ativos | 4 atualizações | 0 transições | 4.54s
+2025-07-26 04:37:35 - __main__ - INFO - 🔄 Ciclo #169: 5 ativos | 4 atualizações | 0 transições | 4.28s
+2025-07-26 04:38:09 - __main__ - INFO - 🔄 Ciclo #170: 5 ativos | 4 atualizações | 0 transições | 4.08s
+2025-07-26 04:38:09 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:38:10 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:38:11 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:38:45 - __main__ - INFO - 🔄 Ciclo #171: 5 ativos | 4 atualizações | 0 transições | 4.12s
+2025-07-26 04:39:22 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012198429
+2025-07-26 04:39:22 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044801 | Preço atingiu Target 2: 43.05442
+2025-07-26 04:39:22 - __main__ - INFO - 🔄 Ciclo #172: 7 ativos | 7 atualizações | 2 transições | 6.39s
+2025-07-26 04:39:56 - __main__ - INFO - 🔄 Ciclo #173: 5 ativos | 3 atualizações | 0 transições | 3.95s
+2025-07-26 04:40:30 - __main__ - INFO - 🔄 Ciclo #174: 5 ativos | 5 atualizações | 0 transições | 4.07s
+2025-07-26 04:41:04 - __main__ - INFO - 🔄 Ciclo #175: 5 ativos | 3 atualizações | 0 transições | 4.64s
+2025-07-26 04:41:39 - __main__ - INFO - 🔄 Ciclo #176: 5 ativos | 5 atualizações | 0 transições | 4.70s
+2025-07-26 04:42:14 - __main__ - INFO - 🔄 Ciclo #177: 5 ativos | 4 atualizações | 0 transições | 4.46s
+2025-07-26 04:42:50 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012198429
+2025-07-26 04:42:50 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044798 | Preço atingiu Target 2: 43.05442
+2025-07-26 04:42:50 - __main__ - INFO - 🔄 Ciclo #178: 7 ativos | 7 atualizações | 2 transições | 6.56s
+2025-07-26 04:43:24 - __main__ - INFO - 🔄 Ciclo #179: 5 ativos | 4 atualizações | 0 transições | 4.14s
+2025-07-26 04:43:58 - __main__ - INFO - 🔄 Ciclo #180: 5 ativos | 3 atualizações | 0 transições | 3.90s
+2025-07-26 04:43:58 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 04:43:58 - __main__ - INFO -    ⏱️ Uptime: 1h 43m
+2025-07-26 04:43:58 - __main__ - INFO -    🔄 Verificações: 180
+2025-07-26 04:43:58 - __main__ - INFO -    📝 Atualizações: 787
+2025-07-26 04:43:58 - __main__ - INFO -    🔄 Transições: 70
+2025-07-26 04:43:58 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 04:43:58 - __main__ - INFO -    📈 Preços atualizados: 787
+2025-07-26 04:43:58 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 04:43:58 - __main__ - INFO -    🆕 Transições recentes: 40
+2025-07-26 04:43:59 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:44:00 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:44:00 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:44:34 - __main__ - INFO - 🔄 Ciclo #181: 5 ativos | 4 atualizações | 0 transições | 4.18s
+2025-07-26 04:45:08 - __main__ - INFO - 🔄 Ciclo #182: 5 ativos | 2 atualizações | 0 transições | 4.05s
+2025-07-26 04:45:45 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012198429
+2025-07-26 04:45:45 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044807 | Preço atingiu Target 2: 43.05442
+2025-07-26 04:45:45 - __main__ - INFO - 🔄 Ciclo #183: 7 ativos | 5 atualizações | 2 transições | 6.33s
+2025-07-26 04:46:19 - __main__ - INFO - 🔄 Ciclo #184: 5 ativos | 5 atualizações | 0 transições | 4.23s
+2025-07-26 04:46:54 - __main__ - INFO - 🔄 Ciclo #185: 5 ativos | 4 atualizações | 0 transições | 4.56s
+2025-07-26 04:47:28 - __main__ - INFO - 🔄 Ciclo #186: 5 ativos | 4 atualizações | 0 transições | 4.63s
+2025-07-26 04:48:02 - __main__ - INFO - 🔄 Ciclo #187: 5 ativos | 5 atualizações | 0 transições | 4.19s
+2025-07-26 04:48:39 - __main__ - WARNING - 🛑 PEPE: ACTIVE → STOP_HIT | Preço: 0.000013 | Preço atingiu Stop Loss: 0.01247996
+2025-07-26 04:48:39 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044806 | Preço atingiu Target 2: 43.07867
+2025-07-26 04:48:39 - __main__ - INFO - 🔄 Ciclo #188: 7 ativos | 7 atualizações | 2 transições | 6.66s
+2025-07-26 04:49:13 - __main__ - INFO - 🔄 Ciclo #189: 5 ativos | 4 atualizações | 0 transições | 4.00s
+2025-07-26 04:49:47 - __main__ - INFO - 🔄 Ciclo #190: 5 ativos | 4 atualizações | 0 transições | 4.19s
+2025-07-26 04:49:48 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:49:49 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:49:50 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:50:24 - __main__ - INFO - 🔄 Ciclo #191: 5 ativos | 5 atualizações | 0 transições | 4.19s
+2025-07-26 04:50:59 - __main__ - INFO - 🔄 Ciclo #192: 5 ativos | 4 atualizações | 0 transições | 4.73s
+2025-07-26 04:51:36 - __main__ - WARNING - 🛑 PEPE: ACTIVE → STOP_HIT | Preço: 0.000013 | Preço atingiu Stop Loss: 0.01247996
+2025-07-26 04:51:36 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044806 | Preço atingiu Target 2: 43.07867
+2025-07-26 04:51:36 - __main__ - INFO - 🔄 Ciclo #193: 7 ativos | 7 atualizações | 2 transições | 7.03s
+2025-07-26 04:52:10 - __main__ - INFO - 🔄 Ciclo #194: 5 ativos | 5 atualizações | 0 transições | 4.48s
+2025-07-26 04:52:44 - __main__ - INFO - 🔄 Ciclo #195: 5 ativos | 3 atualizações | 0 transições | 4.21s
+2025-07-26 04:53:18 - __main__ - INFO - 🔄 Ciclo #196: 5 ativos | 4 atualizações | 0 transições | 3.88s
+2025-07-26 04:53:52 - __main__ - INFO - 🔄 Ciclo #197: 5 ativos | 4 atualizações | 0 transições | 4.08s
+2025-07-26 04:54:28 - __main__ - WARNING - 🛑 PEPE: ACTIVE → STOP_HIT | Preço: 0.000013 | Preço atingiu Stop Loss: 0.01247996
+2025-07-26 04:54:28 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044803 | Preço atingiu Target 2: 43.07867
+2025-07-26 04:54:28 - __main__ - INFO - 🔄 Ciclo #198: 7 ativos | 5 atualizações | 2 transições | 6.25s
+2025-07-26 04:55:03 - __main__ - INFO - 🔄 Ciclo #199: 5 ativos | 5 atualizações | 0 transições | 4.49s
+2025-07-26 04:55:37 - __main__ - INFO - 🔄 Ciclo #200: 5 ativos | 5 atualizações | 0 transições | 4.23s
+2025-07-26 04:55:38 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 04:55:39 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 04:55:40 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 04:56:13 - __main__ - INFO - 🔄 Ciclo #201: 5 ativos | 3 atualizações | 0 transições | 3.97s
+2025-07-26 04:56:48 - __main__ - INFO - 🔄 Ciclo #202: 5 ativos | 4 atualizações | 0 transições | 4.45s
+2025-07-26 04:57:24 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044790 | Preço atingiu Target 2: 43.07867
+2025-07-26 04:57:24 - __main__ - INFO - 🔄 Ciclo #203: 6 ativos | 6 atualizações | 1 transições | 6.15s
+2025-07-26 04:57:58 - __main__ - INFO - 🔄 Ciclo #204: 5 ativos | 3 atualizações | 0 transições | 3.99s
+2025-07-26 04:58:32 - __main__ - INFO - 🔄 Ciclo #205: 5 ativos | 5 atualizações | 0 transições | 4.10s
+2025-07-26 04:59:06 - __main__ - INFO - 🔄 Ciclo #206: 5 ativos | 2 atualizações | 0 transições | 4.10s
+2025-07-26 04:59:40 - __main__ - INFO - 🔄 Ciclo #207: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 05:00:14 - __main__ - INFO - 🔄 Ciclo #208: 5 ativos | 5 atualizações | 0 transições | 4.06s
+2025-07-26 05:00:50 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044788 | Preço atingiu Target 2: 43.07867
+2025-07-26 05:00:50 - __main__ - INFO - 🔄 Ciclo #209: 6 ativos | 5 atualizações | 1 transições | 5.80s
+2025-07-26 05:01:25 - __main__ - INFO - 🔄 Ciclo #210: 5 ativos | 3 atualizações | 0 transições | 4.52s
+2025-07-26 05:01:25 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:01:26 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:01:27 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:02:01 - __main__ - INFO - 🔄 Ciclo #211: 5 ativos | 2 atualizações | 0 transições | 4.23s
+2025-07-26 05:02:35 - __main__ - INFO - 🔄 Ciclo #212: 5 ativos | 3 atualizações | 0 transições | 4.00s
+2025-07-26 05:03:10 - __main__ - INFO - 🔄 Ciclo #213: 5 ativos | 5 atualizações | 0 transições | 4.12s
+2025-07-26 05:03:45 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044785 | Preço atingiu Target 2: 42.9516
+2025-07-26 05:03:45 - __main__ - INFO - 🔄 Ciclo #214: 6 ativos | 5 atualizações | 1 transições | 5.49s
+2025-07-26 05:04:19 - __main__ - INFO - 🔄 Ciclo #215: 5 ativos | 4 atualizações | 0 transições | 4.09s
+2025-07-26 05:04:53 - __main__ - INFO - 🔄 Ciclo #216: 5 ativos | 4 atualizações | 0 transições | 4.15s
+2025-07-26 05:05:27 - __main__ - INFO - 🔄 Ciclo #217: 5 ativos | 4 atualizações | 0 transições | 3.94s
+2025-07-26 05:06:01 - __main__ - INFO - 🔄 Ciclo #218: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 05:06:37 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044789 | Preço atingiu Target 2: 42.9516
+2025-07-26 05:06:37 - __main__ - INFO - 🔄 Ciclo #219: 6 ativos | 5 atualizações | 1 transições | 6.11s
+2025-07-26 05:07:12 - __main__ - INFO - 🔄 Ciclo #220: 5 ativos | 4 atualizações | 0 transições | 4.30s
+2025-07-26 05:07:13 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:07:13 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:07:14 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:07:48 - __main__ - INFO - 🔄 Ciclo #221: 5 ativos | 3 atualizações | 0 transições | 4.12s
+2025-07-26 05:08:22 - __main__ - INFO - 🔄 Ciclo #222: 5 ativos | 4 atualizações | 0 transições | 4.16s
+2025-07-26 05:08:56 - __main__ - INFO - 🔄 Ciclo #223: 5 ativos | 5 atualizações | 0 transições | 4.05s
+2025-07-26 05:09:32 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044821 | Preço atingiu Target 2: 42.9516
+2025-07-26 05:09:32 - __main__ - INFO - 🔄 Ciclo #224: 6 ativos | 5 atualizações | 1 transições | 5.30s
+2025-07-26 05:10:06 - __main__ - INFO - 🔄 Ciclo #225: 5 ativos | 2 atualizações | 0 transições | 4.09s
+2025-07-26 05:10:40 - __main__ - INFO - 🔄 Ciclo #226: 5 ativos | 5 atualizações | 0 transições | 4.08s
+2025-07-26 05:11:14 - __main__ - INFO - 🔄 Ciclo #227: 5 ativos | 4 atualizações | 0 transições | 4.39s
+2025-07-26 05:11:49 - __main__ - INFO - 🔄 Ciclo #228: 5 ativos | 4 atualizações | 0 transições | 4.32s
+2025-07-26 05:12:23 - __main__ - INFO - 🔄 Ciclo #229: 5 ativos | 4 atualizações | 0 transições | 4.32s
+2025-07-26 05:12:59 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044822 | Preço atingiu Target 2: 42.9516
+2025-07-26 05:12:59 - __main__ - INFO - 🔄 Ciclo #230: 6 ativos | 6 atualizações | 1 transições | 5.73s
+2025-07-26 05:12:59 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:13:00 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:13:01 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:13:35 - __main__ - INFO - 🔄 Ciclo #231: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 05:14:09 - __main__ - INFO - 🔄 Ciclo #232: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 05:14:43 - __main__ - INFO - 🔄 Ciclo #233: 5 ativos | 4 atualizações | 0 transições | 4.05s
+2025-07-26 05:15:17 - __main__ - INFO - 🔄 Ciclo #234: 5 ativos | 5 atualizações | 0 transições | 3.93s
+2025-07-26 05:15:53 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044817 | Preço atingiu Target 2: 42.9516
+2025-07-26 05:15:53 - __main__ - INFO - 🔄 Ciclo #235: 6 ativos | 5 atualizações | 1 transições | 5.92s
+2025-07-26 05:16:27 - __main__ - INFO - 🔄 Ciclo #236: 5 ativos | 5 atualizações | 0 transições | 4.57s
+2025-07-26 05:17:02 - __main__ - INFO - 🔄 Ciclo #237: 5 ativos | 4 atualizações | 0 transições | 4.71s
+2025-07-26 05:17:36 - __main__ - INFO - 🔄 Ciclo #238: 5 ativos | 4 atualizações | 0 transições | 3.92s
+2025-07-26 05:18:10 - __main__ - INFO - 🔄 Ciclo #239: 5 ativos | 5 atualizações | 0 transições | 4.18s
+2025-07-26 05:18:46 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044816 | Preço atingiu Target 2: 43.05636
+2025-07-26 05:18:46 - __main__ - INFO - 🔄 Ciclo #240: 6 ativos | 6 atualizações | 1 transições | 5.69s
+2025-07-26 05:18:46 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 05:18:46 - __main__ - INFO -    ⏱️ Uptime: 2h 18m
+2025-07-26 05:18:46 - __main__ - INFO -    🔄 Verificações: 240
+2025-07-26 05:18:46 - __main__ - INFO -    📝 Atualizações: 1046
+2025-07-26 05:18:46 - __main__ - INFO -    🔄 Transições: 86
+2025-07-26 05:18:46 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 05:18:46 - __main__ - INFO -    📈 Preços atualizados: 1046
+2025-07-26 05:18:46 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 05:18:46 - __main__ - INFO -    🆕 Transições recentes: 32
+2025-07-26 05:18:47 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:18:47 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:18:48 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:19:22 - __main__ - INFO - 🔄 Ciclo #241: 5 ativos | 5 atualizações | 0 transições | 4.15s
+2025-07-26 05:19:56 - __main__ - INFO - 🔄 Ciclo #242: 5 ativos | 5 atualizações | 0 transições | 4.13s
+2025-07-26 05:20:31 - __main__ - INFO - 🔄 Ciclo #243: 5 ativos | 4 atualizações | 0 transições | 4.44s
+2025-07-26 05:21:06 - __main__ - INFO - 🔄 Ciclo #244: 5 ativos | 4 atualizações | 0 transições | 4.70s
+2025-07-26 05:21:42 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044842 | Preço atingiu Target 2: 43.05636
+2025-07-26 05:21:42 - __main__ - INFO - 🔄 Ciclo #245: 6 ativos | 6 atualizações | 1 transições | 6.07s
+2025-07-26 05:22:16 - __main__ - INFO - 🔄 Ciclo #246: 5 ativos | 4 atualizações | 0 transições | 4.55s
+2025-07-26 05:22:50 - __main__ - INFO - 🔄 Ciclo #247: 5 ativos | 4 atualizações | 0 transições | 4.04s
+2025-07-26 05:23:24 - __main__ - INFO - 🔄 Ciclo #248: 5 ativos | 5 atualizações | 0 transições | 4.20s
+2025-07-26 05:23:58 - __main__ - INFO - 🔄 Ciclo #249: 5 ativos | 4 atualizações | 0 transições | 3.99s
+2025-07-26 05:24:34 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044846 | Preço atingiu Target 2: 43.05636
+2025-07-26 05:24:34 - __main__ - INFO - 🔄 Ciclo #250: 6 ativos | 6 atualizações | 1 transições | 5.64s
+2025-07-26 05:24:35 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:24:36 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:24:36 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:25:11 - __main__ - INFO - 🔄 Ciclo #251: 5 ativos | 4 atualizações | 0 transições | 4.49s
+2025-07-26 05:25:45 - __main__ - INFO - 🔄 Ciclo #252: 5 ativos | 5 atualizações | 0 transições | 3.98s
+2025-07-26 05:26:19 - __main__ - INFO - 🔄 Ciclo #253: 5 ativos | 4 atualizações | 0 transições | 4.62s
+2025-07-26 05:26:54 - __main__ - INFO - 🔄 Ciclo #254: 5 ativos | 5 atualizações | 0 transições | 4.15s
+2025-07-26 05:27:28 - __main__ - INFO - 🔄 Ciclo #255: 5 ativos | 5 atualizações | 0 transições | 4.05s
+2025-07-26 05:28:03 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044881 | Preço atingiu Target 2: 43.05636
+2025-07-26 05:28:03 - __main__ - INFO - 🔄 Ciclo #256: 6 ativos | 6 atualizações | 1 transições | 5.72s
+2025-07-26 05:28:37 - __main__ - INFO - 🔄 Ciclo #257: 5 ativos | 3 atualizações | 0 transições | 4.10s
+2025-07-26 05:29:11 - __main__ - INFO - 🔄 Ciclo #258: 5 ativos | 5 atualizações | 0 transições | 4.08s
+2025-07-26 05:29:46 - __main__ - INFO - 🔄 Ciclo #259: 5 ativos | 3 atualizações | 0 transições | 4.12s
+2025-07-26 05:30:19 - __main__ - INFO - 🔄 Ciclo #260: 5 ativos | 4 atualizações | 0 transições | 3.92s
+2025-07-26 05:30:20 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:30:21 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:30:22 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:30:58 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044882 | Preço atingiu Target 2: 43.05636
+2025-07-26 05:30:58 - __main__ - INFO - 🔄 Ciclo #261: 6 ativos | 6 atualizações | 1 transições | 5.80s
+2025-07-26 05:31:32 - __main__ - INFO - 🔄 Ciclo #262: 5 ativos | 5 atualizações | 0 transições | 4.18s
+2025-07-26 05:32:06 - __main__ - INFO - 🔄 Ciclo #263: 5 ativos | 4 atualizações | 0 transições | 4.48s
+2025-07-26 05:32:40 - __main__ - INFO - 🔄 Ciclo #264: 5 ativos | 4 atualizações | 0 transições | 3.98s
+2025-07-26 05:33:14 - __main__ - INFO - 🔄 Ciclo #265: 5 ativos | 4 atualizações | 0 transições | 4.11s
+2025-07-26 05:33:50 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.045374 | Preço atingiu Target 2: 43.22417
+2025-07-26 05:33:50 - __main__ - INFO - 🔄 Ciclo #266: 6 ativos | 4 atualizações | 1 transições | 5.55s
+2025-07-26 05:34:24 - __main__ - INFO - 🔄 Ciclo #267: 5 ativos | 4 atualizações | 0 transições | 4.31s
+2025-07-26 05:34:58 - __main__ - INFO - 🔄 Ciclo #268: 5 ativos | 3 atualizações | 0 transições | 4.01s
+2025-07-26 05:35:32 - __main__ - INFO - 🔄 Ciclo #269: 5 ativos | 5 atualizações | 0 transições | 3.97s
+2025-07-26 05:36:06 - __main__ - INFO - 🔄 Ciclo #270: 5 ativos | 5 atualizações | 0 transições | 4.09s
+2025-07-26 05:36:07 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:36:08 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:36:09 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:36:44 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.045378 | Preço atingiu Target 2: 43.22417
+2025-07-26 05:36:44 - __main__ - INFO - 🔄 Ciclo #271: 6 ativos | 5 atualizações | 1 transições | 5.72s
+2025-07-26 05:37:18 - __main__ - INFO - 🔄 Ciclo #272: 5 ativos | 4 atualizações | 0 transições | 4.04s
+2025-07-26 05:37:53 - __main__ - INFO - 🔄 Ciclo #273: 5 ativos | 4 atualizações | 0 transições | 4.05s
+2025-07-26 05:38:27 - __main__ - INFO - 🔄 Ciclo #274: 5 ativos | 3 atualizações | 0 transições | 4.11s
+2025-07-26 05:39:01 - __main__ - INFO - 🔄 Ciclo #275: 5 ativos | 4 atualizações | 0 transições | 3.98s
+2025-07-26 05:39:35 - __main__ - INFO - 🔄 Ciclo #276: 5 ativos | 3 atualizações | 0 transições | 4.12s
+2025-07-26 05:40:11 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.045327 | Preço atingiu Target 2: 43.22417
+2025-07-26 05:40:11 - __main__ - INFO - 🔄 Ciclo #277: 6 ativos | 6 atualizações | 1 transições | 6.16s
+2025-07-26 05:40:45 - __main__ - INFO - 🔄 Ciclo #278: 5 ativos | 4 atualizações | 0 transições | 3.91s
+2025-07-26 05:41:19 - __main__ - INFO - 🔄 Ciclo #279: 5 ativos | 5 atualizações | 0 transições | 3.96s
+2025-07-26 05:41:53 - __main__ - INFO - 🔄 Ciclo #280: 5 ativos | 3 atualizações | 0 transições | 4.31s
+2025-07-26 05:41:54 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:41:55 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:41:56 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:42:30 - __main__ - INFO - 🔄 Ciclo #281: 5 ativos | 4 atualizações | 0 transições | 3.97s
+2025-07-26 05:43:06 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.045326 | Preço atingiu Target 2: 43.22417
+2025-07-26 05:43:06 - __main__ - INFO - 🔄 Ciclo #282: 6 ativos | 4 atualizações | 1 transições | 6.22s
+2025-07-26 05:43:40 - __main__ - INFO - 🔄 Ciclo #283: 5 ativos | 4 atualizações | 0 transições | 4.12s
+2025-07-26 05:44:14 - __main__ - INFO - 🔄 Ciclo #284: 5 ativos | 3 atualizações | 0 transições | 4.10s
+2025-07-26 05:44:48 - __main__ - INFO - 🔄 Ciclo #285: 5 ativos | 3 atualizações | 0 transições | 4.20s
+2025-07-26 05:45:22 - __main__ - INFO - 🔄 Ciclo #286: 5 ativos | 4 atualizações | 0 transições | 4.13s
+2025-07-26 05:45:58 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.045329 | Preço atingiu Target 2: 43.22417
+2025-07-26 05:45:58 - __main__ - INFO - 🔄 Ciclo #287: 6 ativos | 6 atualizações | 1 transições | 5.89s
+2025-07-26 05:46:32 - __main__ - INFO - 🔄 Ciclo #288: 5 ativos | 3 atualizações | 0 transições | 4.01s
+2025-07-26 05:47:06 - __main__ - INFO - 🔄 Ciclo #289: 5 ativos | 3 atualizações | 0 transições | 4.10s
+2025-07-26 05:47:40 - __main__ - INFO - 🔄 Ciclo #290: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 05:47:41 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:47:42 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:47:42 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:48:17 - __main__ - INFO - 🔄 Ciclo #291: 5 ativos | 5 atualizações | 0 transições | 4.22s
+2025-07-26 05:48:52 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.045330 | Preço atingiu Target 2: 43.10971
+2025-07-26 05:48:52 - __main__ - INFO - 🔄 Ciclo #292: 6 ativos | 5 atualizações | 1 transições | 5.76s
+2025-07-26 05:49:27 - __main__ - INFO - 🎯 ETH: ACTIVE → TARGET_1_HIT | Preço: 3769.510000 | Preço atingiu Target 1: 3767.95
+2025-07-26 05:49:27 - __main__ - INFO - 🔄 Ciclo #293: 5 ativos | 5 atualizações | 1 transições | 4.13s
+2025-07-26 05:50:00 - __main__ - INFO - 🔄 Ciclo #294: 4 ativos | 3 atualizações | 0 transições | 3.47s
+2025-07-26 05:50:33 - __main__ - INFO - 🔄 Ciclo #295: 4 ativos | 4 atualizações | 0 transições | 3.15s
+2025-07-26 05:51:07 - __main__ - INFO - 🔄 Ciclo #296: 4 ativos | 3 atualizações | 0 transições | 3.43s
+2025-07-26 05:51:42 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.045361 | Preço atingiu Target 2: 43.10971
+2025-07-26 05:51:42 - __main__ - INFO - 🔄 Ciclo #297: 5 ativos | 5 atualizações | 1 transições | 5.02s
+2025-07-26 05:52:15 - __main__ - INFO - 🔄 Ciclo #298: 4 ativos | 3 atualizações | 0 transições | 3.59s
+2025-07-26 05:52:48 - __main__ - INFO - 🔄 Ciclo #299: 4 ativos | 3 atualizações | 0 transições | 3.22s
+2025-07-26 05:53:22 - __main__ - INFO - 🔄 Ciclo #300: 4 ativos | 4 atualizações | 0 transições | 3.49s
+2025-07-26 05:53:22 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 05:53:22 - __main__ - INFO -    ⏱️ Uptime: 2h 53m
+2025-07-26 05:53:22 - __main__ - INFO -    🔄 Verificações: 300
+2025-07-26 05:53:22 - __main__ - INFO -    📝 Atualizações: 1300
+2025-07-26 05:53:22 - __main__ - INFO -    🔄 Transições: 98
+2025-07-26 05:53:22 - __main__ - INFO -    🎯 Sinais ativos: 4
+2025-07-26 05:53:22 - __main__ - INFO -    📈 Preços atualizados: 1300
+2025-07-26 05:53:22 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 05:53:22 - __main__ - INFO -    🆕 Transições recentes: 22
+2025-07-26 05:53:23 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:53:24 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:53:24 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:53:57 - __main__ - INFO - 🔄 Ciclo #301: 4 ativos | 3 atualizações | 0 transições | 3.37s
+2025-07-26 05:54:31 - __main__ - INFO - 🔄 Ciclo #302: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 05:55:06 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044582 | Preço atingiu Target 2: 43.10971
+2025-07-26 05:55:06 - __main__ - INFO - 🔄 Ciclo #303: 5 ativos | 5 atualizações | 1 transições | 5.02s
+2025-07-26 05:55:39 - __main__ - INFO - 🔄 Ciclo #304: 4 ativos | 4 atualizações | 0 transições | 3.38s
+2025-07-26 05:56:12 - __main__ - INFO - 🔄 Ciclo #305: 4 ativos | 2 atualizações | 0 transições | 3.25s
+2025-07-26 05:56:46 - __main__ - INFO - 🔄 Ciclo #306: 4 ativos | 2 atualizações | 0 transições | 3.34s
+2025-07-26 05:57:20 - __main__ - INFO - 🔄 Ciclo #307: 4 ativos | 4 atualizações | 0 transições | 3.92s
+2025-07-26 05:57:55 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044615 | Preço atingiu Target 2: 43.10971
+2025-07-26 05:57:55 - __main__ - INFO - 🔄 Ciclo #308: 5 ativos | 4 atualizações | 1 transições | 5.16s
+2025-07-26 05:58:28 - __main__ - INFO - 🔄 Ciclo #309: 4 ativos | 4 atualizações | 0 transições | 3.14s
+2025-07-26 05:59:01 - __main__ - INFO - 🔄 Ciclo #310: 4 ativos | 4 atualizações | 0 transições | 3.33s
+2025-07-26 05:59:02 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 05:59:03 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 05:59:04 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 05:59:37 - __main__ - INFO - 🔄 Ciclo #311: 4 ativos | 3 atualizações | 0 transições | 3.16s
+2025-07-26 06:00:10 - __main__ - INFO - 🔄 Ciclo #312: 4 ativos | 4 atualizações | 0 transições | 3.22s
+2025-07-26 06:00:43 - __main__ - INFO - 🔄 Ciclo #313: 4 ativos | 4 atualizações | 0 transições | 3.29s
+2025-07-26 06:01:17 - __main__ - INFO - 🔄 Ciclo #314: 4 ativos | 3 atualizações | 0 transições | 3.22s
+2025-07-26 06:01:50 - __main__ - INFO - 🔄 Ciclo #315: 4 ativos | 2 atualizações | 0 transições | 3.79s
+2025-07-26 06:02:24 - __main__ - INFO - 🔄 Ciclo #316: 4 ativos | 4 atualizações | 0 transições | 3.66s
+2025-07-26 06:02:57 - __main__ - INFO - 🔄 Ciclo #317: 4 ativos | 4 atualizações | 0 transições | 3.21s
+2025-07-26 06:03:30 - __main__ - INFO - 🔄 Ciclo #318: 4 ativos | 3 atualizações | 0 transições | 3.19s
+2025-07-26 06:04:04 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012263322
+2025-07-26 06:04:04 - __main__ - INFO - 🔄 Ciclo #319: 5 ativos | 4 atualizações | 1 transições | 4.05s
+2025-07-26 06:04:38 - __main__ - INFO - 🔄 Ciclo #320: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 06:04:39 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:04:39 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:04:40 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:05:13 - __main__ - INFO - 🔄 Ciclo #321: 4 ativos | 4 atualizações | 0 transições | 3.24s
+2025-07-26 06:05:47 - __main__ - INFO - 🔄 Ciclo #322: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 06:06:20 - __main__ - INFO - 🔄 Ciclo #323: 4 ativos | 3 atualizações | 0 transições | 3.21s
+2025-07-26 06:06:54 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012263322
+2025-07-26 06:06:54 - __main__ - INFO - 🔄 Ciclo #324: 5 ativos | 5 atualizações | 1 transições | 3.96s
+2025-07-26 06:07:27 - __main__ - INFO - 🔄 Ciclo #325: 4 ativos | 4 atualizações | 0 transições | 3.74s
+2025-07-26 06:08:01 - __main__ - INFO - 🔄 Ciclo #326: 4 ativos | 2 atualizações | 0 transições | 3.15s
+2025-07-26 06:08:34 - __main__ - INFO - 🔄 Ciclo #327: 4 ativos | 3 atualizações | 0 transições | 3.41s
+2025-07-26 06:09:07 - __main__ - INFO - 🔄 Ciclo #328: 4 ativos | 3 atualizações | 0 transições | 3.38s
+2025-07-26 06:09:41 - __main__ - INFO - 🔄 Ciclo #329: 4 ativos | 4 atualizações | 0 transições | 3.46s
+2025-07-26 06:10:15 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012263322
+2025-07-26 06:10:15 - __main__ - INFO - 🔄 Ciclo #330: 5 ativos | 5 atualizações | 1 transições | 4.12s
+2025-07-26 06:10:16 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:10:16 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:10:17 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:10:50 - __main__ - INFO - 🔄 Ciclo #331: 4 ativos | 2 atualizações | 0 transições | 3.16s
+2025-07-26 06:11:24 - __main__ - INFO - 🔄 Ciclo #332: 4 ativos | 3 atualizações | 0 transições | 3.33s
+2025-07-26 06:11:57 - __main__ - INFO - 🔄 Ciclo #333: 4 ativos | 3 atualizações | 0 transições | 3.25s
+2025-07-26 06:12:30 - __main__ - INFO - 🔄 Ciclo #334: 4 ativos | 3 atualizações | 0 transições | 3.39s
+2025-07-26 06:13:05 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012263322
+2025-07-26 06:13:05 - __main__ - INFO - 🔄 Ciclo #335: 5 ativos | 4 atualizações | 1 transições | 4.32s
+2025-07-26 06:13:38 - __main__ - INFO - 🔄 Ciclo #336: 4 ativos | 3 atualizações | 0 transições | 3.47s
+2025-07-26 06:14:11 - __main__ - INFO - 🔄 Ciclo #337: 4 ativos | 4 atualizações | 0 transições | 3.18s
+2025-07-26 06:14:45 - __main__ - INFO - 🔄 Ciclo #338: 4 ativos | 2 atualizações | 0 transições | 3.18s
+2025-07-26 06:15:18 - __main__ - INFO - 🔄 Ciclo #339: 4 ativos | 4 atualizações | 0 transições | 3.14s
+2025-07-26 06:15:52 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012272149
+2025-07-26 06:15:52 - __main__ - INFO - 🔄 Ciclo #340: 5 ativos | 5 atualizações | 1 transições | 4.24s
+2025-07-26 06:15:53 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:15:53 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:15:54 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:16:27 - __main__ - INFO - 🔄 Ciclo #341: 4 ativos | 4 atualizações | 0 transições | 3.20s
+2025-07-26 06:17:01 - __main__ - INFO - 🔄 Ciclo #342: 4 ativos | 2 atualizações | 0 transições | 3.18s
+2025-07-26 06:17:34 - __main__ - INFO - 🔄 Ciclo #343: 4 ativos | 4 atualizações | 0 transições | 3.54s
+2025-07-26 06:18:07 - __main__ - INFO - 🔄 Ciclo #344: 4 ativos | 4 atualizações | 0 transições | 3.31s
+2025-07-26 06:18:41 - __main__ - INFO - 🔄 Ciclo #345: 4 ativos | 3 atualizações | 0 transições | 3.20s
+2025-07-26 06:19:15 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012272149
+2025-07-26 06:19:15 - __main__ - INFO - 🔄 Ciclo #346: 5 ativos | 5 atualizações | 1 transições | 4.09s
+2025-07-26 06:19:48 - __main__ - INFO - 🔄 Ciclo #347: 4 ativos | 4 atualizações | 0 transições | 3.25s
+2025-07-26 06:20:21 - __main__ - INFO - 🔄 Ciclo #348: 4 ativos | 3 atualizações | 0 transições | 3.18s
+2025-07-26 06:20:55 - __main__ - INFO - 🔄 Ciclo #349: 4 ativos | 3 atualizações | 0 transições | 3.39s
+2025-07-26 06:21:28 - __main__ - INFO - 🔄 Ciclo #350: 4 ativos | 3 atualizações | 0 transições | 3.39s
+2025-07-26 06:21:29 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:21:29 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:21:30 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:22:04 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012272149
+2025-07-26 06:22:04 - __main__ - INFO - 🔄 Ciclo #351: 5 ativos | 4 atualizações | 1 transições | 4.01s
+2025-07-26 06:22:38 - __main__ - INFO - 🔄 Ciclo #352: 4 ativos | 3 atualizações | 0 transições | 3.37s
+2025-07-26 06:23:11 - __main__ - INFO - 🔄 Ciclo #353: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 06:23:44 - __main__ - INFO - 🔄 Ciclo #354: 4 ativos | 3 atualizações | 0 transições | 3.14s
+2025-07-26 06:24:17 - __main__ - INFO - 🔄 Ciclo #355: 4 ativos | 4 atualizações | 0 transições | 3.15s
+2025-07-26 06:24:51 - __main__ - INFO - 🔄 Ciclo #356: 4 ativos | 3 atualizações | 0 transições | 3.35s
+2025-07-26 06:25:25 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012272149
+2025-07-26 06:25:25 - __main__ - INFO - 🔄 Ciclo #357: 5 ativos | 4 atualizações | 1 transições | 4.18s
+2025-07-26 06:25:58 - __main__ - INFO - 🔄 Ciclo #358: 4 ativos | 2 atualizações | 0 transições | 3.16s
+2025-07-26 06:26:31 - __main__ - INFO - 🔄 Ciclo #359: 4 ativos | 4 atualizações | 0 transições | 3.22s
+2025-07-26 06:27:05 - __main__ - INFO - 🔄 Ciclo #360: 4 ativos | 4 atualizações | 0 transições | 3.71s
+2025-07-26 06:27:05 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 06:27:05 - __main__ - INFO -    ⏱️ Uptime: 3h 27m
+2025-07-26 06:27:05 - __main__ - INFO -    🔄 Verificações: 360
+2025-07-26 06:27:05 - __main__ - INFO -    📝 Atualizações: 1508
+2025-07-26 06:27:05 - __main__ - INFO -    🔄 Transições: 108
+2025-07-26 06:27:05 - __main__ - INFO -    🎯 Sinais ativos: 4
+2025-07-26 06:27:05 - __main__ - INFO -    📈 Preços atualizados: 1508
+2025-07-26 06:27:05 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 06:27:05 - __main__ - INFO -    🆕 Transições recentes: 20
+2025-07-26 06:27:06 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:27:06 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:27:07 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:27:40 - __main__ - INFO - 🔄 Ciclo #361: 4 ativos | 3 atualizações | 0 transições | 3.19s
+2025-07-26 06:28:15 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012272149
+2025-07-26 06:28:15 - __main__ - INFO - 🔄 Ciclo #362: 5 ativos | 2 atualizações | 1 transições | 4.41s
+2025-07-26 06:28:48 - __main__ - INFO - 🔄 Ciclo #363: 4 ativos | 3 atualizações | 0 transições | 3.26s
+2025-07-26 06:29:21 - __main__ - INFO - 🔄 Ciclo #364: 4 ativos | 4 atualizações | 0 transições | 3.38s
+2025-07-26 06:29:55 - __main__ - INFO - 🔄 Ciclo #365: 4 ativos | 3 atualizações | 0 transições | 3.30s
+2025-07-26 06:30:28 - __main__ - INFO - 🔄 Ciclo #366: 4 ativos | 4 atualizações | 0 transições | 3.25s
+2025-07-26 06:31:02 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012270791
+2025-07-26 06:31:02 - __main__ - INFO - 🔄 Ciclo #367: 5 ativos | 4 atualizações | 1 transições | 4.04s
+2025-07-26 06:31:35 - __main__ - INFO - 🔄 Ciclo #368: 4 ativos | 4 atualizações | 0 transições | 3.27s
+2025-07-26 06:32:09 - __main__ - INFO - 🔄 Ciclo #369: 4 ativos | 3 atualizações | 0 transições | 3.84s
+2025-07-26 06:32:43 - __main__ - INFO - 🔄 Ciclo #370: 4 ativos | 3 atualizações | 0 transições | 3.45s
+2025-07-26 06:32:43 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:32:44 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:32:45 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:33:18 - __main__ - INFO - 🔄 Ciclo #371: 4 ativos | 3 atualizações | 0 transições | 3.36s
+2025-07-26 06:33:51 - __main__ - INFO - 🔄 Ciclo #372: 4 ativos | 4 atualizações | 0 transições | 3.24s
+2025-07-26 06:34:26 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012270791
+2025-07-26 06:34:26 - __main__ - INFO - 🔄 Ciclo #373: 5 ativos | 5 atualizações | 1 transições | 4.10s
+2025-07-26 06:34:59 - __main__ - INFO - 🔄 Ciclo #374: 4 ativos | 2 atualizações | 0 transições | 3.20s
+2025-07-26 06:35:32 - __main__ - INFO - 🔄 Ciclo #375: 4 ativos | 3 atualizações | 0 transições | 3.13s
+2025-07-26 06:36:05 - __main__ - INFO - 🔄 Ciclo #376: 4 ativos | 3 atualizações | 0 transições | 3.20s
+2025-07-26 06:36:39 - __main__ - INFO - 🔄 Ciclo #377: 4 ativos | 4 atualizações | 0 transições | 3.43s
+2025-07-26 06:37:13 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012270791
+2025-07-26 06:37:13 - __main__ - INFO - 🔄 Ciclo #378: 5 ativos | 4 atualizações | 1 transições | 4.17s
+2025-07-26 06:37:46 - __main__ - INFO - 🔄 Ciclo #379: 4 ativos | 2 atualizações | 0 transições | 3.18s
+2025-07-26 06:38:19 - __main__ - INFO - 🔄 Ciclo #380: 4 ativos | 3 atualizações | 0 transições | 3.22s
+2025-07-26 06:38:20 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:38:21 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:38:21 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:38:54 - __main__ - INFO - 🔄 Ciclo #381: 4 ativos | 4 atualizações | 0 transições | 3.22s
+2025-07-26 06:39:28 - __main__ - INFO - 🔄 Ciclo #382: 4 ativos | 4 atualizações | 0 transições | 3.14s
+2025-07-26 06:40:02 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012270791
+2025-07-26 06:40:02 - __main__ - INFO - 🔄 Ciclo #383: 5 ativos | 5 atualizações | 1 transições | 4.13s
+2025-07-26 06:40:35 - __main__ - INFO - 🔄 Ciclo #384: 4 ativos | 3 atualizações | 0 transições | 3.32s
+2025-07-26 06:41:09 - __main__ - INFO - 🔄 Ciclo #385: 4 ativos | 2 atualizações | 0 transições | 3.55s
+2025-07-26 06:41:42 - __main__ - INFO - 🔄 Ciclo #386: 4 ativos | 2 atualizações | 0 transições | 3.18s
+2025-07-26 06:42:15 - __main__ - INFO - 🔄 Ciclo #387: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 06:42:48 - __main__ - INFO - 🔄 Ciclo #388: 4 ativos | 3 atualizações | 0 transições | 3.15s
+2025-07-26 06:43:22 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012270791
+2025-07-26 06:43:22 - __main__ - INFO - 🔄 Ciclo #389: 5 ativos | 4 atualizações | 1 transições | 4.06s
+2025-07-26 06:43:56 - __main__ - INFO - 🔄 Ciclo #390: 4 ativos | 3 atualizações | 0 transições | 3.35s
+2025-07-26 06:43:56 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:43:57 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:43:58 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:44:31 - __main__ - INFO - 🔄 Ciclo #391: 4 ativos | 4 atualizações | 0 transições | 3.29s
+2025-07-26 06:45:05 - __main__ - INFO - 🔄 Ciclo #392: 4 ativos | 3 atualizações | 0 transições | 3.79s
+2025-07-26 06:45:38 - __main__ - INFO - 🔄 Ciclo #393: 4 ativos | 4 atualizações | 0 transições | 3.49s
+2025-07-26 06:46:12 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012278842
+2025-07-26 06:46:12 - __main__ - INFO - 🔄 Ciclo #394: 5 ativos | 5 atualizações | 1 transições | 4.10s
+2025-07-26 06:46:46 - __main__ - INFO - 🔄 Ciclo #395: 4 ativos | 4 atualizações | 0 transições | 3.69s
+2025-07-26 06:47:19 - __main__ - INFO - 🔄 Ciclo #396: 4 ativos | 1 atualizações | 0 transições | 3.09s
+2025-07-26 06:47:52 - __main__ - INFO - 🔄 Ciclo #397: 4 ativos | 3 atualizações | 0 transições | 3.26s
+2025-07-26 06:48:26 - __main__ - INFO - 🔄 Ciclo #398: 4 ativos | 3 atualizações | 0 transições | 3.23s
+2025-07-26 06:48:59 - __main__ - INFO - 🔄 Ciclo #399: 4 ativos | 4 atualizações | 0 transições | 3.32s
+2025-07-26 06:49:33 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012278842
+2025-07-26 06:49:33 - __main__ - INFO - 🔄 Ciclo #400: 5 ativos | 5 atualizações | 1 transições | 4.01s
+2025-07-26 06:49:34 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:49:34 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:49:35 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:50:09 - __main__ - INFO - 🔄 Ciclo #401: 4 ativos | 4 atualizações | 0 transições | 3.83s
+2025-07-26 06:50:42 - __main__ - INFO - 🔄 Ciclo #402: 4 ativos | 2 atualizações | 0 transições | 3.46s
+2025-07-26 06:51:16 - __main__ - INFO - 🔄 Ciclo #403: 4 ativos | 3 atualizações | 0 transições | 3.48s
+2025-07-26 06:51:49 - __main__ - INFO - 🔄 Ciclo #404: 4 ativos | 4 atualizações | 0 transições | 3.12s
+2025-07-26 06:52:23 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012278842
+2025-07-26 06:52:23 - __main__ - INFO - 🔄 Ciclo #405: 5 ativos | 4 atualizações | 1 transições | 4.20s
+2025-07-26 06:52:57 - __main__ - INFO - 🔄 Ciclo #406: 4 ativos | 3 atualizações | 0 transições | 3.37s
+2025-07-26 06:53:31 - __main__ - INFO - 🔄 Ciclo #407: 4 ativos | 4 atualizações | 0 transições | 3.84s
+2025-07-26 06:54:04 - __main__ - INFO - 🔄 Ciclo #408: 4 ativos | 3 atualizações | 0 transições | 3.29s
+2025-07-26 06:54:37 - __main__ - INFO - 🔄 Ciclo #409: 4 ativos | 3 atualizações | 0 transições | 3.18s
+2025-07-26 06:55:12 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012278842
+2025-07-26 06:55:12 - __main__ - INFO - 🔄 Ciclo #410: 5 ativos | 4 atualizações | 1 transições | 4.92s
+2025-07-26 06:55:13 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 06:55:14 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 06:55:14 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 06:55:48 - __main__ - INFO - 🔄 Ciclo #411: 4 ativos | 2 atualizações | 0 transições | 3.33s
+2025-07-26 06:56:21 - __main__ - INFO - 🔄 Ciclo #412: 4 ativos | 4 atualizações | 0 transições | 3.24s
+2025-07-26 06:56:54 - __main__ - INFO - 🔄 Ciclo #413: 4 ativos | 4 atualizações | 0 transições | 3.42s
+2025-07-26 06:57:27 - __main__ - INFO - 🔄 Ciclo #414: 4 ativos | 4 atualizações | 0 transições | 3.20s
+2025-07-26 06:58:01 - __main__ - INFO - 🔄 Ciclo #415: 4 ativos | 3 atualizações | 0 transições | 3.19s
+2025-07-26 06:58:35 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012278842
+2025-07-26 06:58:35 - __main__ - INFO - 🔄 Ciclo #416: 5 ativos | 5 atualizações | 1 transições | 4.13s
+2025-07-26 06:59:08 - __main__ - INFO - 🔄 Ciclo #417: 4 ativos | 4 atualizações | 0 transições | 3.31s
+2025-07-26 06:59:41 - __main__ - INFO - 🔄 Ciclo #418: 4 ativos | 3 atualizações | 0 transições | 3.17s
+2025-07-26 07:00:14 - __main__ - INFO - 🔄 Ciclo #419: 4 ativos | 4 atualizações | 0 transições | 3.19s
+2025-07-26 07:00:49 - __main__ - INFO - 🔄 Ciclo #420: 4 ativos | 4 atualizações | 0 transições | 4.26s
+2025-07-26 07:00:49 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 07:00:49 - __main__ - INFO -    ⏱️ Uptime: 4h 0m
+2025-07-26 07:00:49 - __main__ - INFO -    🔄 Verificações: 420
+2025-07-26 07:00:49 - __main__ - INFO -    📝 Atualizações: 1714
+2025-07-26 07:00:49 - __main__ - INFO -    🔄 Transições: 119
+2025-07-26 07:00:49 - __main__ - INFO -    🎯 Sinais ativos: 4
+2025-07-26 07:00:49 - __main__ - INFO -    📈 Preços atualizados: 1714
+2025-07-26 07:00:49 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 07:00:49 - __main__ - INFO -    🆕 Transições recentes: 19
+2025-07-26 07:00:50 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:00:51 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:00:52 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:01:26 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.01228699
+2025-07-26 07:01:26 - __main__ - INFO - 🔄 Ciclo #421: 5 ativos | 5 atualizações | 1 transições | 4.59s
+2025-07-26 07:02:00 - __main__ - INFO - 🔄 Ciclo #422: 4 ativos | 3 atualizações | 0 transições | 3.27s
+2025-07-26 07:02:33 - __main__ - INFO - 🔄 Ciclo #423: 4 ativos | 3 atualizações | 0 transições | 3.38s
+2025-07-26 07:03:06 - __main__ - INFO - 🔄 Ciclo #424: 4 ativos | 3 atualizações | 0 transições | 3.34s
+2025-07-26 07:03:40 - __main__ - INFO - 🔄 Ciclo #425: 4 ativos | 2 atualizações | 0 transições | 3.22s
+2025-07-26 07:04:14 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.01228699
+2025-07-26 07:04:14 - __main__ - INFO - 🔄 Ciclo #426: 5 ativos | 5 atualizações | 1 transições | 3.91s
+2025-07-26 07:04:47 - __main__ - INFO - 🔄 Ciclo #427: 4 ativos | 3 atualizações | 0 transições | 3.37s
+2025-07-26 07:05:20 - __main__ - INFO - 🔄 Ciclo #428: 4 ativos | 4 atualizações | 0 transições | 3.38s
+2025-07-26 07:05:54 - __main__ - INFO - 🔄 Ciclo #429: 4 ativos | 4 atualizações | 0 transições | 3.26s
+2025-07-26 07:06:27 - __main__ - INFO - 🔄 Ciclo #430: 4 ativos | 3 atualizações | 0 transições | 3.43s
+2025-07-26 07:06:28 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:06:29 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:06:29 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:07:03 - __main__ - INFO - 🔄 Ciclo #431: 4 ativos | 2 atualizações | 0 transições | 3.55s
+2025-07-26 07:07:37 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.01228699
+2025-07-26 07:07:37 - __main__ - INFO - 🔄 Ciclo #432: 5 ativos | 5 atualizações | 1 transições | 4.14s
+2025-07-26 07:08:10 - __main__ - INFO - 🔄 Ciclo #433: 4 ativos | 4 atualizações | 0 transições | 3.26s
+2025-07-26 07:08:44 - __main__ - INFO - 🔄 Ciclo #434: 4 ativos | 4 atualizações | 0 transições | 3.43s
+2025-07-26 07:09:17 - __main__ - INFO - 🔄 Ciclo #435: 4 ativos | 3 atualizações | 0 transições | 3.33s
+2025-07-26 07:09:50 - __main__ - INFO - 🔄 Ciclo #436: 4 ativos | 3 atualizações | 0 transições | 3.24s
+2025-07-26 07:10:25 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.01228699
+2025-07-26 07:10:25 - __main__ - INFO - 🔄 Ciclo #437: 5 ativos | 5 atualizações | 1 transições | 4.19s
+2025-07-26 07:10:58 - __main__ - INFO - 🔄 Ciclo #438: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 07:11:31 - __main__ - INFO - 🔄 Ciclo #439: 4 ativos | 3 atualizações | 0 transições | 3.38s
+2025-07-26 07:12:05 - __main__ - INFO - 🔄 Ciclo #440: 4 ativos | 4 atualizações | 0 transições | 3.59s
+2025-07-26 07:12:06 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:12:06 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:12:07 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:12:41 - __main__ - INFO - 🔄 Ciclo #441: 4 ativos | 1 atualizações | 0 transições | 3.38s
+2025-07-26 07:13:16 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.01228699
+2025-07-26 07:13:16 - __main__ - INFO - 🔄 Ciclo #442: 6 ativos | 5 atualizações | 1 transições | 4.94s
+2025-07-26 07:13:49 - __main__ - INFO - 🔄 Ciclo #443: 5 ativos | 4 atualizações | 0 transições | 3.98s
+2025-07-26 07:14:24 - __main__ - INFO - 🔄 Ciclo #444: 5 ativos | 3 atualizações | 0 transições | 4.25s
+2025-07-26 07:14:58 - __main__ - INFO - 🔄 Ciclo #445: 5 ativos | 2 atualizações | 0 transições | 4.04s
+2025-07-26 07:15:32 - __main__ - INFO - 🔄 Ciclo #446: 5 ativos | 3 atualizações | 0 transições | 4.29s
+2025-07-26 07:16:07 - __main__ - INFO - 🔄 Ciclo #447: 5 ativos | 4 atualizações | 0 transições | 4.87s
+2025-07-26 07:16:43 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012313471
+2025-07-26 07:16:43 - __main__ - INFO - 🔄 Ciclo #448: 6 ativos | 4 atualizações | 1 transições | 5.69s
+2025-07-26 07:17:17 - __main__ - INFO - 🔄 Ciclo #449: 5 ativos | 4 atualizações | 0 transições | 4.33s
+2025-07-26 07:17:51 - __main__ - INFO - 🔄 Ciclo #450: 5 ativos | 2 atualizações | 0 transições | 4.19s
+2025-07-26 07:17:52 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:17:53 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:17:54 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:18:28 - __main__ - INFO - 🔄 Ciclo #451: 5 ativos | 3 atualizações | 0 transições | 4.04s
+2025-07-26 07:19:02 - __main__ - INFO - 🔄 Ciclo #452: 5 ativos | 2 atualizações | 0 transições | 4.02s
+2025-07-26 07:19:37 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012313471
+2025-07-26 07:19:37 - __main__ - INFO - 🔄 Ciclo #453: 6 ativos | 3 atualizações | 1 transições | 4.90s
+2025-07-26 07:20:11 - __main__ - INFO - 🔄 Ciclo #454: 5 ativos | 3 atualizações | 0 transições | 4.29s
+2025-07-26 07:20:45 - __main__ - INFO - 🔄 Ciclo #455: 5 ativos | 2 atualizações | 0 transições | 4.30s
+2025-07-26 07:21:19 - __main__ - INFO - 🔄 Ciclo #456: 5 ativos | 4 atualizações | 0 transições | 4.00s
+2025-07-26 07:21:53 - __main__ - INFO - 🔄 Ciclo #457: 5 ativos | 4 atualizações | 0 transições | 4.12s
+2025-07-26 07:22:28 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012313471
+2025-07-26 07:22:28 - __main__ - INFO - 🔄 Ciclo #458: 6 ativos | 4 atualizações | 1 transições | 5.21s
+2025-07-26 07:23:03 - __main__ - INFO - 🔄 Ciclo #459: 5 ativos | 1 atualizações | 0 transições | 4.25s
+2025-07-26 07:23:37 - __main__ - INFO - 🔄 Ciclo #460: 5 ativos | 3 atualizações | 0 transições | 4.16s
+2025-07-26 07:23:38 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:23:39 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:23:39 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:24:13 - __main__ - INFO - 🔄 Ciclo #461: 5 ativos | 4 atualizações | 0 transições | 4.01s
+2025-07-26 07:24:47 - __main__ - INFO - 🔄 Ciclo #462: 5 ativos | 3 atualizações | 0 transições | 4.10s
+2025-07-26 07:25:22 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012313471
+2025-07-26 07:25:22 - __main__ - INFO - 🔄 Ciclo #463: 6 ativos | 5 atualizações | 1 transições | 4.82s
+2025-07-26 07:25:56 - __main__ - INFO - 🔄 Ciclo #464: 5 ativos | 3 atualizações | 0 transições | 4.00s
+2025-07-26 07:26:31 - __main__ - INFO - 🔄 Ciclo #465: 5 ativos | 4 atualizações | 0 transições | 4.47s
+2025-07-26 07:27:05 - __main__ - INFO - 🔄 Ciclo #466: 5 ativos | 3 atualizações | 0 transições | 4.15s
+2025-07-26 07:27:39 - __main__ - INFO - 🔄 Ciclo #467: 5 ativos | 3 atualizações | 0 transições | 4.24s
+2025-07-26 07:28:13 - __main__ - INFO - 🔄 Ciclo #468: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 07:28:49 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012313471
+2025-07-26 07:28:49 - __main__ - INFO - 🔄 Ciclo #469: 6 ativos | 4 atualizações | 1 transições | 5.37s
+2025-07-26 07:29:23 - __main__ - INFO - 🔄 Ciclo #470: 5 ativos | 3 atualizações | 0 transições | 4.09s
+2025-07-26 07:29:23 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:29:24 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:29:25 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:29:59 - __main__ - INFO - 🔄 Ciclo #471: 5 ativos | 3 atualizações | 0 transições | 4.09s
+2025-07-26 07:30:33 - __main__ - INFO - 🔄 Ciclo #472: 5 ativos | 4 atualizações | 0 transições | 4.14s
+2025-07-26 07:31:07 - __main__ - INFO - 🔄 Ciclo #473: 5 ativos | 4 atualizações | 0 transições | 4.13s
+2025-07-26 07:31:42 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012310464
+2025-07-26 07:31:42 - __main__ - INFO - 🔄 Ciclo #474: 6 ativos | 4 atualizações | 1 transições | 4.86s
+2025-07-26 07:32:16 - __main__ - INFO - 🔄 Ciclo #475: 5 ativos | 2 atualizações | 0 transições | 4.24s
+2025-07-26 07:32:51 - __main__ - INFO - 🔄 Ciclo #476: 5 ativos | 5 atualizações | 0 transições | 4.28s
+2025-07-26 07:33:25 - __main__ - INFO - 🔄 Ciclo #477: 5 ativos | 3 atualizações | 0 transições | 4.07s
+2025-07-26 07:33:59 - __main__ - INFO - 🔄 Ciclo #478: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 07:34:34 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012310464
+2025-07-26 07:34:34 - __main__ - INFO - 🔄 Ciclo #479: 6 ativos | 5 atualizações | 1 transições | 4.82s
+2025-07-26 07:35:08 - __main__ - INFO - 🔄 Ciclo #480: 5 ativos | 4 atualizações | 0 transições | 3.99s
+2025-07-26 07:35:08 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 07:35:08 - __main__ - INFO -    ⏱️ Uptime: 4h 35m
+2025-07-26 07:35:08 - __main__ - INFO -    🔄 Verificações: 480
+2025-07-26 07:35:08 - __main__ - INFO -    📝 Atualizações: 1920
+2025-07-26 07:35:08 - __main__ - INFO -    🔄 Transições: 131
+2025-07-26 07:35:08 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 07:35:08 - __main__ - INFO -    📈 Preços atualizados: 1920
+2025-07-26 07:35:08 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 07:35:08 - __main__ - INFO -    🆕 Transições recentes: 20
+2025-07-26 07:35:08 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:35:09 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:35:10 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:35:44 - __main__ - INFO - 🔄 Ciclo #481: 5 ativos | 3 atualizações | 0 transições | 3.97s
+2025-07-26 07:36:18 - __main__ - INFO - 🔄 Ciclo #482: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 07:36:52 - __main__ - INFO - 🔄 Ciclo #483: 5 ativos | 3 atualizações | 0 transições | 4.34s
+2025-07-26 07:37:28 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012310464
+2025-07-26 07:37:28 - __main__ - INFO - 🔄 Ciclo #484: 6 ativos | 5 atualizações | 1 transições | 5.25s
+2025-07-26 07:38:02 - __main__ - WARNING - 🛑 IMX: ACTIVE → STOP_HIT | Preço: 0.576000 | Preço atingiu Stop Loss: 0.576
+2025-07-26 07:38:02 - __main__ - INFO - 🔄 Ciclo #485: 5 ativos | 4 atualizações | 1 transições | 4.30s
+2025-07-26 07:38:35 - __main__ - INFO - 🔄 Ciclo #486: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 07:39:08 - __main__ - INFO - 🔄 Ciclo #487: 4 ativos | 2 atualizações | 0 transições | 3.26s
+2025-07-26 07:39:42 - __main__ - INFO - 🔄 Ciclo #488: 4 ativos | 3 atualizações | 0 transições | 3.29s
+2025-07-26 07:40:15 - __main__ - INFO - 🔄 Ciclo #489: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 07:40:49 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012310464
+2025-07-26 07:40:49 - __main__ - INFO - 🔄 Ciclo #490: 5 ativos | 5 atualizações | 1 transições | 4.31s
+2025-07-26 07:40:50 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:40:51 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:40:52 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:41:25 - __main__ - INFO - 🔄 Ciclo #491: 4 ativos | 4 atualizações | 0 transições | 3.32s
+2025-07-26 07:41:58 - __main__ - INFO - 🔄 Ciclo #492: 4 ativos | 4 atualizações | 0 transições | 3.15s
+2025-07-26 07:42:31 - __main__ - INFO - 🔄 Ciclo #493: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 07:43:05 - __main__ - INFO - 🔄 Ciclo #494: 4 ativos | 4 atualizações | 0 transições | 3.35s
+2025-07-26 07:43:39 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012310464
+2025-07-26 07:43:39 - __main__ - INFO - 🔄 Ciclo #495: 5 ativos | 4 atualizações | 1 transições | 4.06s
+2025-07-26 07:44:12 - __main__ - INFO - 🔄 Ciclo #496: 4 ativos | 4 atualizações | 0 transições | 3.19s
+2025-07-26 07:44:45 - __main__ - INFO - 🔄 Ciclo #497: 4 ativos | 4 atualizações | 0 transições | 3.51s
+2025-07-26 07:45:19 - __main__ - INFO - 🔄 Ciclo #498: 4 ativos | 3 atualizações | 0 transições | 3.32s
+2025-07-26 07:45:52 - __main__ - INFO - 🔄 Ciclo #499: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 07:46:28 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012340728
+2025-07-26 07:46:28 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044658 | Preço atingiu Target 2: 43.54718
+2025-07-26 07:46:28 - __main__ - INFO - 🔄 Ciclo #500: 6 ativos | 6 atualizações | 2 transições | 5.51s
+2025-07-26 07:46:28 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:46:29 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:46:30 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:47:03 - __main__ - INFO - 🔄 Ciclo #501: 4 ativos | 4 atualizações | 0 transições | 3.35s
+2025-07-26 07:47:36 - __main__ - INFO - 🔄 Ciclo #502: 4 ativos | 3 atualizações | 0 transições | 3.38s
+2025-07-26 07:48:10 - __main__ - INFO - 🔄 Ciclo #503: 4 ativos | 4 atualizações | 0 transições | 3.27s
+2025-07-26 07:48:43 - __main__ - INFO - 🔄 Ciclo #504: 4 ativos | 3 atualizações | 0 transições | 3.39s
+2025-07-26 07:49:16 - __main__ - INFO - 🔄 Ciclo #505: 4 ativos | 4 atualizações | 0 transições | 3.47s
+2025-07-26 07:49:52 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012340728
+2025-07-26 07:49:52 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044701 | Preço atingiu Target 2: 43.54718
+2025-07-26 07:49:52 - __main__ - INFO - 🔄 Ciclo #506: 6 ativos | 6 atualizações | 2 transições | 5.62s
+2025-07-26 07:50:25 - __main__ - INFO - 🔄 Ciclo #507: 4 ativos | 4 atualizações | 0 transições | 3.16s
+2025-07-26 07:50:58 - __main__ - INFO - 🔄 Ciclo #508: 4 ativos | 4 atualizações | 0 transições | 3.13s
+2025-07-26 07:51:32 - __main__ - INFO - 🔄 Ciclo #509: 4 ativos | 2 atualizações | 0 transições | 3.37s
+2025-07-26 07:52:05 - __main__ - INFO - 🔄 Ciclo #510: 4 ativos | 3 atualizações | 0 transições | 3.18s
+2025-07-26 07:52:06 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:52:07 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:52:08 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:52:44 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012340728
+2025-07-26 07:52:44 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044604 | Preço atingiu Target 2: 43.54718
+2025-07-26 07:52:44 - __main__ - INFO - 🔄 Ciclo #511: 6 ativos | 6 atualizações | 2 transições | 5.97s
+2025-07-26 07:53:17 - __main__ - INFO - 🔄 Ciclo #512: 4 ativos | 2 atualizações | 0 transições | 3.29s
+2025-07-26 07:53:50 - __main__ - INFO - 🔄 Ciclo #513: 4 ativos | 3 atualizações | 0 transições | 3.25s
+2025-07-26 07:54:23 - __main__ - INFO - 🔄 Ciclo #514: 4 ativos | 4 atualizações | 0 transições | 3.23s
+2025-07-26 07:54:57 - __main__ - INFO - 🔄 Ciclo #515: 4 ativos | 4 atualizações | 0 transições | 3.37s
+2025-07-26 07:55:32 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012340728
+2025-07-26 07:55:32 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044604 | Preço atingiu Target 2: 43.54718
+2025-07-26 07:55:32 - __main__ - INFO - 🔄 Ciclo #516: 6 ativos | 6 atualizações | 2 transições | 5.61s
+2025-07-26 07:56:05 - __main__ - INFO - 🔄 Ciclo #517: 4 ativos | 4 atualizações | 0 transições | 3.19s
+2025-07-26 07:56:39 - __main__ - INFO - 🔄 Ciclo #518: 4 ativos | 4 atualizações | 0 transições | 3.32s
+2025-07-26 07:57:12 - __main__ - INFO - 🔄 Ciclo #519: 4 ativos | 1 atualizações | 0 transições | 3.52s
+2025-07-26 07:57:46 - __main__ - INFO - 🔄 Ciclo #520: 4 ativos | 4 atualizações | 0 transições | 3.26s
+2025-07-26 07:57:46 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 07:57:47 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 07:57:48 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 07:58:21 - __main__ - INFO - 🔄 Ciclo #521: 4 ativos | 3 atualizações | 0 transições | 3.18s
+2025-07-26 07:58:57 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012340728
+2025-07-26 07:58:57 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044592 | Preço atingiu Target 2: 43.54718
+2025-07-26 07:58:57 - __main__ - INFO - 🔄 Ciclo #522: 6 ativos | 6 atualizações | 2 transições | 5.60s
+2025-07-26 07:59:30 - __main__ - INFO - 🔄 Ciclo #523: 4 ativos | 3 atualizações | 0 transições | 3.25s
+2025-07-26 08:00:03 - __main__ - INFO - 🔄 Ciclo #524: 4 ativos | 4 atualizações | 0 transições | 3.35s
+2025-07-26 08:00:36 - __main__ - INFO - 🔄 Ciclo #525: 4 ativos | 4 atualizações | 0 transições | 3.15s
+2025-07-26 08:01:10 - __main__ - INFO - 🔄 Ciclo #526: 4 ativos | 4 atualizações | 0 transições | 3.51s
+2025-07-26 08:01:46 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012284468
+2025-07-26 08:01:46 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044574 | Preço atingiu Target 2: 43.236779999999996
+2025-07-26 08:01:46 - __main__ - INFO - 🔄 Ciclo #527: 6 ativos | 6 atualizações | 2 transições | 6.52s
+2025-07-26 08:02:20 - __main__ - INFO - 🔄 Ciclo #528: 4 ativos | 2 atualizações | 0 transições | 3.14s
+2025-07-26 08:02:53 - __main__ - INFO - 🔄 Ciclo #529: 4 ativos | 4 atualizações | 0 transições | 3.66s
+2025-07-26 08:03:27 - __main__ - INFO - 🔄 Ciclo #530: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 08:03:27 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:03:28 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:03:29 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:04:02 - __main__ - INFO - 🔄 Ciclo #531: 4 ativos | 3 atualizações | 0 transições | 3.27s
+2025-07-26 08:04:38 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012284468
+2025-07-26 08:04:38 - __main__ - INFO - 🏆 HYPE: ACTIVE → TARGET_2_HIT | Preço: 0.044564 | Preço atingiu Target 2: 43.236779999999996
+2025-07-26 08:04:38 - __main__ - INFO - 🔄 Ciclo #532: 6 ativos | 6 atualizações | 2 transições | 5.68s
+2025-07-26 08:05:11 - __main__ - INFO - 🔄 Ciclo #533: 4 ativos | 3 atualizações | 0 transições | 3.30s
+2025-07-26 08:05:44 - __main__ - INFO - 🔄 Ciclo #534: 4 ativos | 4 atualizações | 0 transições | 3.53s
+2025-07-26 08:06:18 - __main__ - INFO - 🔄 Ciclo #535: 4 ativos | 4 atualizações | 0 transições | 3.24s
+2025-07-26 08:06:51 - __main__ - INFO - 🔄 Ciclo #536: 4 ativos | 4 atualizações | 0 transições | 3.53s
+2025-07-26 08:07:24 - __main__ - INFO - 🔄 Ciclo #537: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 08:07:59 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012284468
+2025-07-26 08:07:59 - __main__ - INFO - 🔄 Ciclo #538: 5 ativos | 5 atualizações | 1 transições | 4.10s
+2025-07-26 08:08:32 - __main__ - INFO - 🔄 Ciclo #539: 4 ativos | 4 atualizações | 0 transições | 3.25s
+2025-07-26 08:09:05 - __main__ - INFO - 🔄 Ciclo #540: 4 ativos | 3 atualizações | 0 transições | 3.30s
+2025-07-26 08:09:05 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 08:09:05 - __main__ - INFO -    ⏱️ Uptime: 5h 9m
+2025-07-26 08:09:05 - __main__ - INFO -    🔄 Verificações: 540
+2025-07-26 08:09:05 - __main__ - INFO -    📝 Atualizações: 2151
+2025-07-26 08:09:05 - __main__ - INFO -    🔄 Transições: 150
+2025-07-26 08:09:05 - __main__ - INFO -    🎯 Sinais ativos: 4
+2025-07-26 08:09:05 - __main__ - INFO -    📈 Preços atualizados: 2151
+2025-07-26 08:09:05 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 08:09:05 - __main__ - INFO -    🆕 Transições recentes: 28
+2025-07-26 08:09:06 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:09:07 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:09:08 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:09:41 - __main__ - INFO - 🔄 Ciclo #541: 4 ativos | 4 atualizações | 0 transições | 3.38s
+2025-07-26 08:10:14 - __main__ - INFO - 🔄 Ciclo #542: 4 ativos | 3 atualizações | 0 transições | 3.50s
+2025-07-26 08:10:49 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012284468
+2025-07-26 08:10:49 - __main__ - INFO - 🔄 Ciclo #543: 5 ativos | 5 atualizações | 1 transições | 4.10s
+2025-07-26 08:11:22 - __main__ - INFO - 🔄 Ciclo #544: 4 ativos | 2 atualizações | 0 transições | 3.29s
+2025-07-26 08:11:55 - __main__ - INFO - 🔄 Ciclo #545: 4 ativos | 4 atualizações | 0 transições | 3.22s
+2025-07-26 08:12:28 - __main__ - INFO - 🔄 Ciclo #546: 4 ativos | 4 atualizações | 0 transições | 3.16s
+2025-07-26 08:13:01 - __main__ - INFO - 🔄 Ciclo #547: 4 ativos | 2 atualizações | 0 transições | 3.12s
+2025-07-26 08:13:36 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012284468
+2025-07-26 08:13:36 - __main__ - INFO - 🔄 Ciclo #548: 5 ativos | 5 atualizações | 1 transições | 4.34s
+2025-07-26 08:14:09 - __main__ - INFO - 🔄 Ciclo #549: 4 ativos | 4 atualizações | 0 transições | 3.39s
+2025-07-26 08:14:42 - __main__ - INFO - 🔄 Ciclo #550: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 08:14:43 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:14:44 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:14:45 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:15:18 - __main__ - INFO - 🔄 Ciclo #551: 4 ativos | 3 atualizações | 0 transições | 3.20s
+2025-07-26 08:15:51 - __main__ - INFO - 🔄 Ciclo #552: 4 ativos | 3 atualizações | 0 transições | 3.23s
+2025-07-26 08:16:24 - __main__ - INFO - 🔄 Ciclo #553: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 08:17:00 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012296981
+2025-07-26 08:17:00 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044590 | Preço atingiu Stop Loss: 44.313776
+2025-07-26 08:17:00 - __main__ - INFO - 🔄 Ciclo #554: 6 ativos | 4 atualizações | 2 transições | 6.15s
+2025-07-26 08:17:34 - __main__ - INFO - 🔄 Ciclo #555: 4 ativos | 3 atualizações | 0 transições | 3.54s
+2025-07-26 08:18:07 - __main__ - INFO - 🔄 Ciclo #556: 4 ativos | 4 atualizações | 0 transições | 3.44s
+2025-07-26 08:18:41 - __main__ - INFO - 🔄 Ciclo #557: 4 ativos | 4 atualizações | 0 transições | 3.16s
+2025-07-26 08:19:14 - __main__ - INFO - 🔄 Ciclo #558: 4 ativos | 3 atualizações | 0 transições | 3.11s
+2025-07-26 08:19:49 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012296981
+2025-07-26 08:19:49 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044600 | Preço atingiu Stop Loss: 44.313776
+2025-07-26 08:19:49 - __main__ - INFO - 🔄 Ciclo #559: 6 ativos | 6 atualizações | 2 transições | 5.70s
+2025-07-26 08:20:23 - __main__ - INFO - 🔄 Ciclo #560: 4 ativos | 4 atualizações | 0 transições | 3.37s
+2025-07-26 08:20:24 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:20:24 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:20:25 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:20:59 - __main__ - INFO - 🔄 Ciclo #561: 4 ativos | 4 atualizações | 0 transições | 3.40s
+2025-07-26 08:21:32 - __main__ - INFO - 🔄 Ciclo #562: 4 ativos | 4 atualizações | 0 transições | 3.17s
+2025-07-26 08:22:05 - __main__ - INFO - 🔄 Ciclo #563: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 08:22:41 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012296981
+2025-07-26 08:22:41 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044621 | Preço atingiu Stop Loss: 44.313776
+2025-07-26 08:22:41 - __main__ - INFO - 🔄 Ciclo #564: 6 ativos | 5 atualizações | 2 transições | 6.05s
+2025-07-26 08:23:15 - __main__ - INFO - 🔄 Ciclo #565: 4 ativos | 3 atualizações | 0 transições | 3.43s
+2025-07-26 08:23:48 - __main__ - INFO - 🔄 Ciclo #566: 4 ativos | 4 atualizações | 0 transições | 3.61s
+2025-07-26 08:24:22 - __main__ - INFO - 🔄 Ciclo #567: 4 ativos | 4 atualizações | 0 transições | 3.74s
+2025-07-26 08:24:55 - __main__ - INFO - 🔄 Ciclo #568: 4 ativos | 3 atualizações | 0 transições | 3.35s
+2025-07-26 08:25:29 - __main__ - INFO - 🔄 Ciclo #569: 4 ativos | 3 atualizações | 0 transições | 3.51s
+2025-07-26 08:26:05 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012296981
+2025-07-26 08:26:05 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044515 | Preço atingiu Stop Loss: 44.313776
+2025-07-26 08:26:05 - __main__ - INFO - 🔄 Ciclo #570: 6 ativos | 3 atualizações | 2 transições | 5.83s
+2025-07-26 08:26:05 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:26:06 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:26:07 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:26:40 - __main__ - INFO - 🔄 Ciclo #571: 4 ativos | 4 atualizações | 0 transições | 3.29s
+2025-07-26 08:27:13 - __main__ - INFO - 🔄 Ciclo #572: 4 ativos | 4 atualizações | 0 transições | 3.25s
+2025-07-26 08:27:47 - __main__ - INFO - 🔄 Ciclo #573: 4 ativos | 2 atualizações | 0 transições | 3.37s
+2025-07-26 08:28:20 - __main__ - INFO - 🔄 Ciclo #574: 4 ativos | 3 atualizações | 0 transições | 3.30s
+2025-07-26 08:28:56 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012296981
+2025-07-26 08:28:56 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044511 | Preço atingiu Stop Loss: 44.313776
+2025-07-26 08:28:56 - __main__ - INFO - 🔄 Ciclo #575: 6 ativos | 5 atualizações | 2 transições | 5.93s
+2025-07-26 08:29:29 - __main__ - INFO - 🔄 Ciclo #576: 4 ativos | 1 atualizações | 0 transições | 3.43s
+2025-07-26 08:30:03 - __main__ - WARNING - 🛑 ENA: ACTIVE → STOP_HIT | Preço: 0.576400 | Preço atingiu Stop Loss: 0.5768
+2025-07-26 08:30:03 - __main__ - INFO - 🔄 Ciclo #577: 4 ativos | 4 atualizações | 1 transições | 3.39s
+2025-07-26 08:30:35 - __main__ - INFO - 🔄 Ciclo #578: 3 ativos | 3 atualizações | 0 transições | 2.60s
+2025-07-26 08:31:08 - __main__ - INFO - 🔄 Ciclo #579: 3 ativos | 3 atualizações | 0 transições | 2.56s
+2025-07-26 08:31:44 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012243048999999999
+2025-07-26 08:31:44 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044521 | Preço atingiu Stop Loss: 44.316946
+2025-07-26 08:31:44 - __main__ - INFO - 🔄 Ciclo #580: 6 ativos | 5 atualizações | 2 transições | 5.66s
+2025-07-26 08:31:44 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:31:45 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:31:46 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:32:19 - __main__ - INFO - 🔄 Ciclo #581: 4 ativos | 3 atualizações | 0 transições | 3.59s
+2025-07-26 08:32:53 - __main__ - INFO - 🔄 Ciclo #582: 4 ativos | 4 atualizações | 0 transições | 3.26s
+2025-07-26 08:33:26 - __main__ - INFO - 🔄 Ciclo #583: 4 ativos | 2 atualizações | 0 transições | 3.37s
+2025-07-26 08:33:59 - __main__ - INFO - 🔄 Ciclo #584: 4 ativos | 3 atualizações | 0 transições | 3.22s
+2025-07-26 08:34:33 - __main__ - INFO - 🔄 Ciclo #585: 4 ativos | 2 atualizações | 0 transições | 3.38s
+2025-07-26 08:35:09 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012243048999999999
+2025-07-26 08:35:09 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044474 | Preço atingiu Stop Loss: 44.316946
+2025-07-26 08:35:09 - __main__ - INFO - 🔄 Ciclo #586: 6 ativos | 5 atualizações | 2 transições | 6.24s
+2025-07-26 08:35:42 - __main__ - INFO - 🔄 Ciclo #587: 4 ativos | 3 atualizações | 0 transições | 3.32s
+2025-07-26 08:36:15 - __main__ - INFO - 🔄 Ciclo #588: 4 ativos | 4 atualizações | 0 transições | 3.25s
+2025-07-26 08:36:49 - __main__ - INFO - 🔄 Ciclo #589: 4 ativos | 3 atualizações | 0 transições | 3.32s
+2025-07-26 08:37:22 - __main__ - INFO - 🔄 Ciclo #590: 4 ativos | 4 atualizações | 0 transições | 3.35s
+2025-07-26 08:37:23 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:37:24 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:37:24 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:38:00 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012243048999999999
+2025-07-26 08:38:00 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044460 | Preço atingiu Stop Loss: 44.316946
+2025-07-26 08:38:00 - __main__ - INFO - 🔄 Ciclo #591: 6 ativos | 5 atualizações | 2 transições | 5.94s
+2025-07-26 08:38:34 - __main__ - INFO - 🔄 Ciclo #592: 4 ativos | 4 atualizações | 0 transições | 3.30s
+2025-07-26 08:39:07 - __main__ - INFO - 🔄 Ciclo #593: 4 ativos | 4 atualizações | 0 transições | 3.59s
+2025-07-26 08:39:40 - __main__ - INFO - 🔄 Ciclo #594: 4 ativos | 3 atualizações | 0 transições | 3.18s
+2025-07-26 08:40:14 - __main__ - INFO - 🔄 Ciclo #595: 4 ativos | 3 atualizações | 0 transições | 3.39s
+2025-07-26 08:40:49 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012243048999999999
+2025-07-26 08:40:49 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044449 | Preço atingiu Stop Loss: 44.316946
+2025-07-26 08:40:49 - __main__ - INFO - 🔄 Ciclo #596: 6 ativos | 5 atualizações | 2 transições | 5.51s
+2025-07-26 08:41:23 - __main__ - INFO - 🔄 Ciclo #597: 4 ativos | 3 atualizações | 0 transições | 3.60s
+2025-07-26 08:41:56 - __main__ - INFO - 🔄 Ciclo #598: 4 ativos | 4 atualizações | 0 transições | 3.24s
+2025-07-26 08:42:29 - __main__ - INFO - 🔄 Ciclo #599: 4 ativos | 3 atualizações | 0 transições | 3.22s
+2025-07-26 08:43:03 - __main__ - INFO - 🔄 Ciclo #600: 4 ativos | 4 atualizações | 0 transições | 3.33s
+2025-07-26 08:43:03 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 08:43:03 - __main__ - INFO -    ⏱️ Uptime: 5h 42m
+2025-07-26 08:43:03 - __main__ - INFO -    🔄 Verificações: 600
+2025-07-26 08:43:03 - __main__ - INFO -    📝 Atualizações: 2367
+2025-07-26 08:43:03 - __main__ - INFO -    🔄 Transições: 171
+2025-07-26 08:43:03 - __main__ - INFO -    🎯 Sinais ativos: 4
+2025-07-26 08:43:03 - __main__ - INFO -    📈 Preços atualizados: 2367
+2025-07-26 08:43:03 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 08:43:03 - __main__ - INFO -    🆕 Transições recentes: 37
+2025-07-26 08:43:04 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:43:04 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:43:05 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:43:38 - __main__ - INFO - 🔄 Ciclo #601: 4 ativos | 3 atualizações | 0 transições | 3.23s
+2025-07-26 08:44:14 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012243048999999999
+2025-07-26 08:44:14 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044442 | Preço atingiu Stop Loss: 44.316946
+2025-07-26 08:44:14 - __main__ - INFO - 🔄 Ciclo #602: 6 ativos | 6 atualizações | 2 transições | 5.97s
+2025-07-26 08:44:47 - __main__ - INFO - 🔄 Ciclo #603: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 08:45:21 - __main__ - INFO - 🔄 Ciclo #604: 4 ativos | 4 atualizações | 0 transições | 3.39s
+2025-07-26 08:45:54 - __main__ - INFO - 🔄 Ciclo #605: 4 ativos | 3 atualizações | 0 transições | 3.47s
+2025-07-26 08:46:27 - __main__ - INFO - 🔄 Ciclo #606: 4 ativos | 2 atualizações | 0 transições | 3.25s
+2025-07-26 08:47:03 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012200078
+2025-07-26 08:47:03 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044418 | Preço atingiu Stop Loss: 43.63549999999999
+2025-07-26 08:47:03 - __main__ - INFO - 🔄 Ciclo #607: 6 ativos | 5 atualizações | 2 transições | 5.82s
+2025-07-26 08:47:37 - __main__ - INFO - 🔄 Ciclo #608: 4 ativos | 4 atualizações | 0 transições | 3.35s
+2025-07-26 08:48:10 - __main__ - INFO - 🔄 Ciclo #609: 4 ativos | 4 atualizações | 0 transições | 3.27s
+2025-07-26 08:48:43 - __main__ - INFO - 🔄 Ciclo #610: 4 ativos | 4 atualizações | 0 transições | 3.49s
+2025-07-26 08:48:44 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:48:45 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:48:45 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:49:19 - __main__ - INFO - 🔄 Ciclo #611: 4 ativos | 4 atualizações | 0 transições | 3.30s
+2025-07-26 08:49:55 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012200078
+2025-07-26 08:49:55 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044422 | Preço atingiu Stop Loss: 43.63549999999999
+2025-07-26 08:49:55 - __main__ - INFO - 🔄 Ciclo #612: 6 ativos | 6 atualizações | 2 transições | 5.89s
+2025-07-26 08:50:28 - __main__ - INFO - 🔄 Ciclo #613: 4 ativos | 3 atualizações | 0 transições | 3.44s
+2025-07-26 08:51:01 - __main__ - INFO - 🔄 Ciclo #614: 4 ativos | 4 atualizações | 0 transições | 3.27s
+2025-07-26 08:51:34 - __main__ - INFO - 🔄 Ciclo #615: 4 ativos | 4 atualizações | 0 transições | 3.21s
+2025-07-26 08:52:08 - __main__ - INFO - 🔄 Ciclo #616: 4 ativos | 4 atualizações | 0 transições | 3.35s
+2025-07-26 08:52:41 - __main__ - INFO - 🔄 Ciclo #617: 4 ativos | 2 atualizações | 0 transições | 3.23s
+2025-07-26 08:53:16 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012200078
+2025-07-26 08:53:16 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044413 | Preço atingiu Stop Loss: 43.63549999999999
+2025-07-26 08:53:16 - __main__ - INFO - 🔄 Ciclo #618: 6 ativos | 5 atualizações | 2 transições | 5.37s
+2025-07-26 08:53:50 - __main__ - INFO - 🔄 Ciclo #619: 4 ativos | 4 atualizações | 0 transições | 3.43s
+2025-07-26 08:54:23 - __main__ - INFO - 🔄 Ciclo #620: 4 ativos | 3 atualizações | 0 transições | 3.51s
+2025-07-26 08:54:24 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 08:54:25 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 08:54:26 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 08:54:59 - __main__ - INFO - 🔄 Ciclo #621: 4 ativos | 4 atualizações | 0 transições | 3.10s
+2025-07-26 08:55:32 - __main__ - INFO - 🔄 Ciclo #622: 4 ativos | 3 atualizações | 0 transições | 3.30s
+2025-07-26 08:56:08 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012200078
+2025-07-26 08:56:08 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044438 | Preço atingiu Stop Loss: 43.63549999999999
+2025-07-26 08:56:08 - __main__ - INFO - 🔄 Ciclo #623: 6 ativos | 5 atualizações | 2 transições | 5.60s
+2025-07-26 08:56:41 - __main__ - INFO - 🔄 Ciclo #624: 4 ativos | 3 atualizações | 0 transições | 3.30s
+2025-07-26 08:57:14 - __main__ - INFO - 🔄 Ciclo #625: 4 ativos | 3 atualizações | 0 transições | 3.12s
+2025-07-26 08:57:47 - __main__ - INFO - 🔄 Ciclo #626: 4 ativos | 2 atualizações | 0 transições | 3.45s
+2025-07-26 08:58:21 - __main__ - INFO - 🔄 Ciclo #627: 4 ativos | 3 atualizações | 0 transições | 3.23s
+2025-07-26 08:58:57 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012200078
+2025-07-26 08:58:57 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044436 | Preço atingiu Stop Loss: 43.63549999999999
+2025-07-26 08:58:57 - __main__ - INFO - 🔄 Ciclo #628: 7 ativos | 4 atualizações | 2 transições | 6.37s
+2025-07-26 08:59:31 - __main__ - INFO - 🔄 Ciclo #629: 5 ativos | 4 atualizações | 0 transições | 4.13s
+2025-07-26 09:00:05 - __main__ - INFO - 🔄 Ciclo #630: 5 ativos | 4 atualizações | 0 transições | 3.99s
+2025-07-26 09:00:06 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:00:07 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:00:07 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:00:41 - __main__ - INFO - 🔄 Ciclo #631: 5 ativos | 3 atualizações | 0 transições | 3.98s
+2025-07-26 09:01:16 - __main__ - INFO - 🔄 Ciclo #632: 5 ativos | 3 atualizações | 0 transições | 4.08s
+2025-07-26 09:01:49 - __main__ - INFO - 🔄 Ciclo #633: 5 ativos | 4 atualizações | 0 transições | 3.93s
+2025-07-26 09:02:26 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012216277
+2025-07-26 09:02:26 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044428 | Preço atingiu Stop Loss: 44.299975
+2025-07-26 09:02:26 - __main__ - INFO - 🔄 Ciclo #634: 7 ativos | 5 atualizações | 2 transições | 7.02s
+2025-07-26 09:03:01 - __main__ - INFO - 🔄 Ciclo #635: 5 ativos | 5 atualizações | 0 transições | 4.82s
+2025-07-26 09:03:36 - __main__ - INFO - 🔄 Ciclo #636: 5 ativos | 4 atualizações | 0 transições | 4.30s
+2025-07-26 09:04:10 - __main__ - INFO - 🔄 Ciclo #637: 5 ativos | 4 atualizações | 0 transições | 4.42s
+2025-07-26 09:04:44 - __main__ - INFO - 🔄 Ciclo #638: 5 ativos | 3 atualizações | 0 transições | 3.94s
+2025-07-26 09:05:20 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012216277
+2025-07-26 09:05:20 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044430 | Preço atingiu Stop Loss: 44.299975
+2025-07-26 09:05:20 - __main__ - INFO - 🔄 Ciclo #639: 7 ativos | 5 atualizações | 2 transições | 6.40s
+2025-07-26 09:05:54 - __main__ - INFO - 🔄 Ciclo #640: 5 ativos | 4 atualizações | 0 transições | 3.97s
+2025-07-26 09:05:55 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:05:56 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:05:57 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:06:31 - __main__ - INFO - 🔄 Ciclo #641: 5 ativos | 3 atualizações | 0 transições | 4.30s
+2025-07-26 09:07:05 - __main__ - INFO - 🔄 Ciclo #642: 5 ativos | 4 atualizações | 0 transições | 4.32s
+2025-07-26 09:07:40 - __main__ - INFO - 🔄 Ciclo #643: 5 ativos | 5 atualizações | 0 transições | 4.20s
+2025-07-26 09:08:17 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012216277
+2025-07-26 09:08:17 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044413 | Preço atingiu Stop Loss: 44.299975
+2025-07-26 09:08:17 - __main__ - INFO - 🔄 Ciclo #644: 7 ativos | 6 atualizações | 2 transições | 7.07s
+2025-07-26 09:08:51 - __main__ - INFO - 🔄 Ciclo #645: 5 ativos | 4 atualizações | 0 transições | 3.93s
+2025-07-26 09:09:24 - __main__ - INFO - 🔄 Ciclo #646: 5 ativos | 4 atualizações | 0 transições | 3.95s
+2025-07-26 09:09:58 - __main__ - INFO - 🔄 Ciclo #647: 5 ativos | 3 atualizações | 0 transições | 3.91s
+2025-07-26 09:10:32 - __main__ - INFO - 🔄 Ciclo #648: 5 ativos | 4 atualizações | 0 transições | 3.99s
+2025-07-26 09:11:09 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012216277
+2025-07-26 09:11:09 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044410 | Preço atingiu Stop Loss: 44.299975
+2025-07-26 09:11:09 - __main__ - INFO - 🔄 Ciclo #649: 7 ativos | 6 atualizações | 2 transições | 6.99s
+2025-07-26 09:11:44 - __main__ - INFO - 🔄 Ciclo #650: 5 ativos | 2 atualizações | 0 transições | 4.29s
+2025-07-26 09:11:45 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:11:45 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:11:46 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:12:20 - __main__ - INFO - 🔄 Ciclo #651: 5 ativos | 3 atualizações | 0 transições | 4.02s
+2025-07-26 09:12:55 - __main__ - INFO - 🔄 Ciclo #652: 5 ativos | 5 atualizações | 0 transições | 4.55s
+2025-07-26 09:13:29 - __main__ - INFO - 🔄 Ciclo #653: 5 ativos | 3 atualizações | 0 transições | 4.03s
+2025-07-26 09:14:05 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012216277
+2025-07-26 09:14:05 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044397 | Preço atingiu Stop Loss: 44.299975
+2025-07-26 09:14:05 - __main__ - INFO - 🔄 Ciclo #654: 7 ativos | 6 atualizações | 2 transições | 6.64s
+2025-07-26 09:14:39 - __main__ - INFO - 🔄 Ciclo #655: 5 ativos | 4 atualizações | 0 transições | 4.16s
+2025-07-26 09:15:13 - __main__ - INFO - 🔄 Ciclo #656: 5 ativos | 4 atualizações | 0 transições | 4.11s
+2025-07-26 09:15:48 - __main__ - INFO - 🔄 Ciclo #657: 5 ativos | 4 atualizações | 0 transições | 4.41s
+2025-07-26 09:16:22 - __main__ - INFO - 🔄 Ciclo #658: 5 ativos | 4 atualizações | 0 transições | 4.38s
+2025-07-26 09:16:59 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012180096
+2025-07-26 09:16:59 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044416 | Preço atingiu Stop Loss: 43.648305
+2025-07-26 09:16:59 - __main__ - INFO - 🔄 Ciclo #659: 7 ativos | 4 atualizações | 2 transições | 6.77s
+2025-07-26 09:17:33 - __main__ - INFO - 🔄 Ciclo #660: 5 ativos | 5 atualizações | 0 transições | 4.23s
+2025-07-26 09:17:33 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 09:17:33 - __main__ - INFO -    ⏱️ Uptime: 6h 17m
+2025-07-26 09:17:33 - __main__ - INFO -    🔄 Verificações: 660
+2025-07-26 09:17:33 - __main__ - INFO -    📝 Atualizações: 2602
+2025-07-26 09:17:33 - __main__ - INFO -    🔄 Transições: 195
+2025-07-26 09:17:33 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 09:17:33 - __main__ - INFO -    📈 Preços atualizados: 2602
+2025-07-26 09:17:33 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 09:17:33 - __main__ - INFO -    🆕 Transições recentes: 41
+2025-07-26 09:17:34 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:17:35 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:17:36 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:18:10 - __main__ - INFO - 🔄 Ciclo #661: 5 ativos | 4 atualizações | 0 transições | 4.32s
+2025-07-26 09:18:44 - __main__ - INFO - 🔄 Ciclo #662: 5 ativos | 3 atualizações | 0 transições | 3.90s
+2025-07-26 09:19:18 - __main__ - INFO - 🔄 Ciclo #663: 5 ativos | 2 atualizações | 0 transições | 4.05s
+2025-07-26 09:19:52 - __main__ - INFO - 🔄 Ciclo #664: 5 ativos | 4 atualizações | 0 transições | 4.16s
+2025-07-26 09:20:29 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012180096
+2025-07-26 09:20:29 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044425 | Preço atingiu Stop Loss: 43.648305
+2025-07-26 09:20:29 - __main__ - INFO - 🔄 Ciclo #665: 7 ativos | 5 atualizações | 2 transições | 6.64s
+2025-07-26 09:21:03 - __main__ - INFO - 🔄 Ciclo #666: 5 ativos | 5 atualizações | 0 transições | 4.20s
+2025-07-26 09:21:37 - __main__ - INFO - 🔄 Ciclo #667: 5 ativos | 4 atualizações | 0 transições | 4.12s
+2025-07-26 09:22:12 - __main__ - INFO - 🔄 Ciclo #668: 5 ativos | 3 atualizações | 0 transições | 4.91s
+2025-07-26 09:22:47 - __main__ - INFO - 🔄 Ciclo #669: 5 ativos | 3 atualizações | 0 transições | 4.43s
+2025-07-26 09:23:23 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012180096
+2025-07-26 09:23:23 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044427 | Preço atingiu Stop Loss: 43.648305
+2025-07-26 09:23:23 - __main__ - INFO - 🔄 Ciclo #670: 7 ativos | 5 atualizações | 2 transições | 6.71s
+2025-07-26 09:23:24 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:23:25 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:23:26 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:24:00 - __main__ - INFO - 🔄 Ciclo #671: 5 ativos | 3 atualizações | 0 transições | 4.07s
+2025-07-26 09:24:34 - __main__ - INFO - 🔄 Ciclo #672: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 09:25:08 - __main__ - INFO - 🔄 Ciclo #673: 5 ativos | 4 atualizações | 0 transições | 3.98s
+2025-07-26 09:25:42 - __main__ - INFO - 🔄 Ciclo #674: 5 ativos | 5 atualizações | 0 transições | 4.01s
+2025-07-26 09:26:18 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012180096
+2025-07-26 09:26:18 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044455 | Preço atingiu Stop Loss: 43.648305
+2025-07-26 09:26:18 - __main__ - INFO - 🔄 Ciclo #675: 7 ativos | 7 atualizações | 2 transições | 6.66s
+2025-07-26 09:26:53 - __main__ - INFO - 🔄 Ciclo #676: 5 ativos | 4 atualizações | 0 transições | 4.14s
+2025-07-26 09:27:27 - __main__ - INFO - 🔄 Ciclo #677: 5 ativos | 3 atualizações | 0 transições | 4.38s
+2025-07-26 09:28:01 - __main__ - INFO - 🔄 Ciclo #678: 5 ativos | 3 atualizações | 0 transições | 4.34s
+2025-07-26 09:28:35 - __main__ - INFO - 🔄 Ciclo #679: 5 ativos | 4 atualizações | 0 transições | 4.04s
+2025-07-26 09:29:12 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012180096
+2025-07-26 09:29:12 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044459 | Preço atingiu Stop Loss: 43.648305
+2025-07-26 09:29:12 - __main__ - INFO - 🔄 Ciclo #680: 7 ativos | 6 atualizações | 2 transições | 6.41s
+2025-07-26 09:29:13 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:29:13 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:29:14 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:29:48 - __main__ - INFO - 🔄 Ciclo #681: 5 ativos | 2 atualizações | 0 transições | 3.94s
+2025-07-26 09:30:22 - __main__ - INFO - 🔄 Ciclo #682: 5 ativos | 4 atualizações | 0 transições | 4.20s
+2025-07-26 09:30:56 - __main__ - INFO - 🔄 Ciclo #683: 5 ativos | 3 atualizações | 0 transições | 3.95s
+2025-07-26 09:31:30 - __main__ - INFO - 🔄 Ciclo #684: 5 ativos | 2 atualizações | 0 transições | 4.01s
+2025-07-26 09:32:08 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012197556
+2025-07-26 09:32:08 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044749 | Preço atingiu Stop Loss: 44.341967
+2025-07-26 09:32:08 - __main__ - INFO - 🔄 Ciclo #685: 7 ativos | 5 atualizações | 2 transições | 8.39s
+2025-07-26 09:32:43 - __main__ - INFO - 🔄 Ciclo #686: 5 ativos | 4 atualizações | 0 transições | 4.34s
+2025-07-26 09:33:17 - __main__ - INFO - 🔄 Ciclo #687: 5 ativos | 5 atualizações | 0 transições | 4.17s
+2025-07-26 09:33:51 - __main__ - INFO - 🔄 Ciclo #688: 5 ativos | 2 atualizações | 0 transições | 3.94s
+2025-07-26 09:34:25 - __main__ - INFO - 🔄 Ciclo #689: 5 ativos | 3 atualizações | 0 transições | 3.99s
+2025-07-26 09:34:59 - __main__ - INFO - 🔄 Ciclo #690: 5 ativos | 5 atualizações | 0 transições | 4.19s
+2025-07-26 09:35:00 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:35:00 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:35:01 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:35:38 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012197556
+2025-07-26 09:35:38 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044734 | Preço atingiu Stop Loss: 44.341967
+2025-07-26 09:35:38 - __main__ - INFO - 🔄 Ciclo #691: 7 ativos | 5 atualizações | 2 transições | 6.99s
+2025-07-26 09:36:12 - __main__ - INFO - 🔄 Ciclo #692: 5 ativos | 5 atualizações | 0 transições | 4.10s
+2025-07-26 09:36:46 - __main__ - INFO - 🔄 Ciclo #693: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 09:37:22 - __main__ - INFO - 🔄 Ciclo #694: 5 ativos | 4 atualizações | 0 transições | 5.33s
+2025-07-26 09:37:56 - __main__ - INFO - 🔄 Ciclo #695: 5 ativos | 3 atualizações | 0 transições | 4.61s
+2025-07-26 09:38:33 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012197556
+2025-07-26 09:38:33 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044728 | Preço atingiu Stop Loss: 44.341967
+2025-07-26 09:38:33 - __main__ - INFO - 🔄 Ciclo #696: 7 ativos | 6 atualizações | 2 transições | 6.67s
+2025-07-26 09:39:07 - __main__ - INFO - 🔄 Ciclo #697: 5 ativos | 5 atualizações | 0 transições | 4.20s
+2025-07-26 09:39:41 - __main__ - INFO - 🔄 Ciclo #698: 5 ativos | 4 atualizações | 0 transições | 3.99s
+2025-07-26 09:40:16 - __main__ - INFO - 🔄 Ciclo #699: 5 ativos | 5 atualizações | 0 transições | 4.59s
+2025-07-26 09:40:50 - __main__ - INFO - 🔄 Ciclo #700: 5 ativos | 2 atualizações | 0 transições | 3.90s
+2025-07-26 09:40:50 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:40:51 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:40:52 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:41:29 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012197556
+2025-07-26 09:41:29 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044735 | Preço atingiu Stop Loss: 44.341967
+2025-07-26 09:41:29 - __main__ - INFO - 🔄 Ciclo #701: 7 ativos | 5 atualizações | 2 transições | 7.00s
+2025-07-26 09:42:03 - __main__ - INFO - 🔄 Ciclo #702: 5 ativos | 3 atualizações | 0 transições | 4.12s
+2025-07-26 09:42:38 - __main__ - INFO - 🔄 Ciclo #703: 5 ativos | 4 atualizações | 0 transições | 4.38s
+2025-07-26 09:43:12 - __main__ - INFO - 🔄 Ciclo #704: 5 ativos | 3 atualizações | 0 transições | 4.29s
+2025-07-26 09:43:46 - __main__ - INFO - 🔄 Ciclo #705: 5 ativos | 2 atualizações | 0 transições | 4.06s
+2025-07-26 09:44:22 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012197556
+2025-07-26 09:44:22 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044734 | Preço atingiu Stop Loss: 44.341967
+2025-07-26 09:44:22 - __main__ - INFO - 🔄 Ciclo #706: 7 ativos | 6 atualizações | 2 transições | 6.30s
+2025-07-26 09:44:56 - __main__ - INFO - 🔄 Ciclo #707: 5 ativos | 3 atualizações | 0 transições | 4.01s
+2025-07-26 09:45:30 - __main__ - INFO - 🔄 Ciclo #708: 5 ativos | 2 atualizações | 0 transições | 3.93s
+2025-07-26 09:46:04 - __main__ - INFO - 🔄 Ciclo #709: 5 ativos | 3 atualizações | 0 transições | 3.89s
+2025-07-26 09:46:38 - __main__ - INFO - 🔄 Ciclo #710: 5 ativos | 4 atualizações | 0 transições | 4.08s
+2025-07-26 09:46:39 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:46:40 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:46:41 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:47:17 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012214142999999998
+2025-07-26 09:47:17 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044744 | Preço atingiu Stop Loss: 44.333844
+2025-07-26 09:47:17 - __main__ - INFO - 🔄 Ciclo #711: 7 ativos | 4 atualizações | 2 transições | 6.66s
+2025-07-26 09:47:51 - __main__ - INFO - 🔄 Ciclo #712: 5 ativos | 4 atualizações | 0 transições | 4.08s
+2025-07-26 09:48:25 - __main__ - INFO - 🔄 Ciclo #713: 5 ativos | 3 atualizações | 0 transições | 4.14s
+2025-07-26 09:48:59 - __main__ - INFO - 🔄 Ciclo #714: 5 ativos | 4 atualizações | 0 transições | 3.96s
+2025-07-26 09:49:34 - __main__ - INFO - 🔄 Ciclo #715: 5 ativos | 3 atualizações | 0 transições | 4.49s
+2025-07-26 09:50:11 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012214142999999998
+2025-07-26 09:50:11 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044750 | Preço atingiu Stop Loss: 44.333844
+2025-07-26 09:50:11 - __main__ - INFO - 🔄 Ciclo #716: 7 ativos | 6 atualizações | 2 transições | 7.44s
+2025-07-26 09:50:46 - __main__ - INFO - 🔄 Ciclo #717: 5 ativos | 4 atualizações | 0 transições | 4.35s
+2025-07-26 09:51:20 - __main__ - INFO - 🔄 Ciclo #718: 5 ativos | 4 atualizações | 0 transições | 4.09s
+2025-07-26 09:51:54 - __main__ - INFO - 🔄 Ciclo #719: 5 ativos | 2 atualizações | 0 transições | 4.20s
+2025-07-26 09:52:28 - __main__ - INFO - 🔄 Ciclo #720: 5 ativos | 2 atualizações | 0 transições | 4.08s
+2025-07-26 09:52:28 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 09:52:28 - __main__ - INFO -    ⏱️ Uptime: 6h 52m
+2025-07-26 09:52:28 - __main__ - INFO -    🔄 Verificações: 720
+2025-07-26 09:52:28 - __main__ - INFO -    📝 Atualizações: 2832
+2025-07-26 09:52:28 - __main__ - INFO -    🔄 Transições: 217
+2025-07-26 09:52:28 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 09:52:28 - __main__ - INFO -    📈 Preços atualizados: 2832
+2025-07-26 09:52:28 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 09:52:28 - __main__ - INFO -    🆕 Transições recentes: 40
+2025-07-26 09:52:29 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:52:30 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:52:30 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:53:05 - __main__ - INFO - 🔄 Ciclo #721: 5 ativos | 2 atualizações | 0 transições | 4.10s
+2025-07-26 09:53:41 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012214142999999998
+2025-07-26 09:53:41 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044742 | Preço atingiu Stop Loss: 44.333844
+2025-07-26 09:53:41 - __main__ - INFO - 🔄 Ciclo #722: 7 ativos | 4 atualizações | 2 transições | 6.25s
+2025-07-26 09:54:15 - __main__ - INFO - 🔄 Ciclo #723: 5 ativos | 2 atualizações | 0 transições | 3.98s
+2025-07-26 09:54:49 - __main__ - INFO - 🔄 Ciclo #724: 5 ativos | 3 atualizações | 0 transições | 4.22s
+2025-07-26 09:55:23 - __main__ - INFO - 🔄 Ciclo #725: 5 ativos | 3 atualizações | 0 transições | 4.32s
+2025-07-26 09:55:58 - __main__ - INFO - 🔄 Ciclo #726: 5 ativos | 4 atualizações | 0 transições | 4.25s
+2025-07-26 09:56:34 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012214142999999998
+2025-07-26 09:56:34 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044786 | Preço atingiu Stop Loss: 44.333844
+2025-07-26 09:56:34 - __main__ - INFO - 🔄 Ciclo #727: 7 ativos | 6 atualizações | 2 transições | 6.70s
+2025-07-26 09:57:08 - __main__ - INFO - 🔄 Ciclo #728: 5 ativos | 3 atualizações | 0 transições | 4.12s
+2025-07-26 09:57:43 - __main__ - INFO - 🔄 Ciclo #729: 5 ativos | 4 atualizações | 0 transições | 4.19s
+2025-07-26 09:58:17 - __main__ - INFO - 🔄 Ciclo #730: 5 ativos | 5 atualizações | 0 transições | 4.30s
+2025-07-26 09:58:18 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 09:58:18 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 09:58:19 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 09:58:53 - __main__ - INFO - 🔄 Ciclo #731: 5 ativos | 2 atualizações | 0 transições | 3.98s
+2025-07-26 09:59:29 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012214142999999998
+2025-07-26 09:59:29 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044517 | Preço atingiu Stop Loss: 44.333844
+2025-07-26 09:59:29 - __main__ - INFO - 🔄 Ciclo #732: 7 ativos | 5 atualizações | 2 transições | 6.38s
+2025-07-26 10:00:04 - __main__ - INFO - 🔄 Ciclo #733: 5 ativos | 4 atualizações | 0 transições | 4.07s
+2025-07-26 10:00:38 - __main__ - INFO - 🔄 Ciclo #734: 5 ativos | 4 atualizações | 0 transições | 4.52s
+2025-07-26 10:01:12 - __main__ - INFO - 🔄 Ciclo #735: 5 ativos | 4 atualizações | 0 transições | 4.30s
+2025-07-26 10:01:46 - __main__ - INFO - 🔄 Ciclo #736: 5 ativos | 4 atualizações | 0 transições | 4.10s
+2025-07-26 10:02:23 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044618 | Preço atingiu Stop Loss: 44.339097
+2025-07-26 10:02:23 - __main__ - INFO - 🔄 Ciclo #737: 6 ativos | 6 atualizações | 1 transições | 6.25s
+2025-07-26 10:02:57 - __main__ - INFO - 🔄 Ciclo #738: 5 ativos | 2 atualizações | 0 transições | 4.12s
+2025-07-26 10:03:31 - __main__ - INFO - 🔄 Ciclo #739: 5 ativos | 5 atualizações | 0 transições | 4.16s
+2025-07-26 10:04:05 - __main__ - INFO - 🔄 Ciclo #740: 5 ativos | 5 atualizações | 0 transições | 4.21s
+2025-07-26 10:04:06 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:04:07 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:04:08 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:04:42 - __main__ - INFO - 🔄 Ciclo #741: 5 ativos | 5 atualizações | 0 transições | 4.37s
+2025-07-26 10:05:18 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044553 | Preço atingiu Stop Loss: 44.339097
+2025-07-26 10:05:18 - __main__ - INFO - 🔄 Ciclo #742: 6 ativos | 5 atualizações | 1 transições | 5.74s
+2025-07-26 10:05:52 - __main__ - INFO - 🔄 Ciclo #743: 5 ativos | 5 atualizações | 0 transições | 4.01s
+2025-07-26 10:06:26 - __main__ - INFO - 🔄 Ciclo #744: 5 ativos | 3 atualizações | 0 transições | 4.00s
+2025-07-26 10:07:00 - __main__ - INFO - 🔄 Ciclo #745: 5 ativos | 3 atualizações | 0 transições | 4.36s
+2025-07-26 10:07:34 - __main__ - INFO - 🔄 Ciclo #746: 5 ativos | 3 atualizações | 0 transições | 4.18s
+2025-07-26 10:08:09 - __main__ - INFO - 🔄 Ciclo #747: 5 ativos | 3 atualizações | 0 transições | 4.29s
+2025-07-26 10:08:44 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044852 | Preço atingiu Stop Loss: 44.339097
+2025-07-26 10:08:44 - __main__ - INFO - 🔄 Ciclo #748: 6 ativos | 5 atualizações | 1 transições | 5.44s
+2025-07-26 10:09:18 - __main__ - INFO - 🔄 Ciclo #749: 5 ativos | 3 atualizações | 0 transições | 4.03s
+2025-07-26 10:09:52 - __main__ - INFO - 🔄 Ciclo #750: 5 ativos | 4 atualizações | 0 transições | 4.25s
+2025-07-26 10:09:53 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:09:54 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:09:54 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:10:29 - __main__ - INFO - 🔄 Ciclo #751: 5 ativos | 4 atualizações | 0 transições | 4.18s
+2025-07-26 10:11:03 - __main__ - INFO - 🔄 Ciclo #752: 5 ativos | 2 atualizações | 0 transições | 4.05s
+2025-07-26 10:11:39 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044989 | Preço atingiu Stop Loss: 44.339097
+2025-07-26 10:11:39 - __main__ - INFO - 🔄 Ciclo #753: 6 ativos | 4 atualizações | 1 transições | 5.97s
+2025-07-26 10:12:13 - __main__ - INFO - 🔄 Ciclo #754: 5 ativos | 4 atualizações | 0 transições | 4.44s
+2025-07-26 10:12:47 - __main__ - INFO - 🔄 Ciclo #755: 5 ativos | 3 atualizações | 0 transições | 4.38s
+2025-07-26 10:13:22 - __main__ - INFO - 🔄 Ciclo #756: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 10:13:56 - __main__ - INFO - 🔄 Ciclo #757: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 10:14:31 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044498 | Preço atingiu Stop Loss: 44.339097
+2025-07-26 10:14:31 - __main__ - INFO - 🔄 Ciclo #758: 6 ativos | 4 atualizações | 1 transições | 5.77s
+2025-07-26 10:15:05 - __main__ - INFO - 🔄 Ciclo #759: 5 ativos | 5 atualizações | 0 transições | 4.05s
+2025-07-26 10:15:40 - __main__ - INFO - 🔄 Ciclo #760: 5 ativos | 4 atualizações | 0 transições | 4.38s
+2025-07-26 10:15:41 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:15:41 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:15:42 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:16:16 - __main__ - INFO - 🔄 Ciclo #761: 5 ativos | 2 atualizações | 0 transições | 4.20s
+2025-07-26 10:16:51 - __main__ - INFO - 🔄 Ciclo #762: 5 ativos | 4 atualizações | 0 transições | 4.50s
+2025-07-26 10:17:29 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012267881
+2025-07-26 10:17:29 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044354 | Preço atingiu Stop Loss: 44.342154
+2025-07-26 10:17:29 - __main__ - INFO - 🔄 Ciclo #763: 7 ativos | 6 atualizações | 2 transições | 8.45s
+2025-07-26 10:18:03 - __main__ - INFO - 🔄 Ciclo #764: 5 ativos | 2 atualizações | 0 transições | 4.20s
+2025-07-26 10:18:38 - __main__ - INFO - 🔄 Ciclo #765: 5 ativos | 4 atualizações | 0 transições | 4.21s
+2025-07-26 10:19:12 - __main__ - INFO - 🔄 Ciclo #766: 5 ativos | 4 atualizações | 0 transições | 4.30s
+2025-07-26 10:19:46 - __main__ - INFO - 🔄 Ciclo #767: 5 ativos | 3 atualizações | 0 transições | 4.47s
+2025-07-26 10:20:23 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012267881
+2025-07-26 10:20:23 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044363 | Preço atingiu Stop Loss: 44.342154
+2025-07-26 10:20:23 - __main__ - INFO - 🔄 Ciclo #768: 7 ativos | 4 atualizações | 2 transições | 6.70s
+2025-07-26 10:20:57 - __main__ - INFO - 🔄 Ciclo #769: 5 ativos | 3 atualizações | 0 transições | 4.20s
+2025-07-26 10:21:32 - __main__ - INFO - 🔄 Ciclo #770: 5 ativos | 3 atualizações | 0 transições | 4.31s
+2025-07-26 10:21:32 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:21:33 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:21:34 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:22:08 - __main__ - INFO - 🔄 Ciclo #771: 5 ativos | 4 atualizações | 0 transições | 4.22s
+2025-07-26 10:22:43 - __main__ - INFO - 🔄 Ciclo #772: 5 ativos | 4 atualizações | 0 transições | 4.31s
+2025-07-26 10:23:17 - __main__ - INFO - 🔄 Ciclo #773: 5 ativos | 3 atualizações | 0 transições | 4.12s
+2025-07-26 10:23:53 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012267881
+2025-07-26 10:23:53 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044564 | Preço atingiu Stop Loss: 44.342154
+2025-07-26 10:23:53 - __main__ - INFO - 🔄 Ciclo #774: 7 ativos | 7 atualizações | 2 transições | 6.52s
+2025-07-26 10:24:27 - __main__ - INFO - 🔄 Ciclo #775: 5 ativos | 4 atualizações | 0 transições | 4.20s
+2025-07-26 10:25:01 - __main__ - INFO - 🔄 Ciclo #776: 5 ativos | 2 atualizações | 0 transições | 4.00s
+2025-07-26 10:25:36 - __main__ - INFO - 🔄 Ciclo #777: 5 ativos | 3 atualizações | 0 transições | 4.59s
+2025-07-26 10:26:10 - __main__ - INFO - 🔄 Ciclo #778: 5 ativos | 4 atualizações | 0 transições | 4.21s
+2025-07-26 10:26:47 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012267881
+2025-07-26 10:26:47 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.044558 | Preço atingiu Stop Loss: 44.342154
+2025-07-26 10:26:47 - __main__ - INFO - 🔄 Ciclo #779: 7 ativos | 7 atualizações | 2 transições | 6.87s
+2025-07-26 10:27:21 - __main__ - INFO - 🔄 Ciclo #780: 5 ativos | 3 atualizações | 0 transições | 4.34s
+2025-07-26 10:27:21 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 10:27:21 - __main__ - INFO -    ⏱️ Uptime: 7h 27m
+2025-07-26 10:27:21 - __main__ - INFO -    🔄 Verificações: 780
+2025-07-26 10:27:21 - __main__ - INFO -    📝 Atualizações: 3062
+2025-07-26 10:27:21 - __main__ - INFO -    🔄 Transições: 236
+2025-07-26 10:27:21 - __main__ - INFO -    🎯 Sinais ativos: 5
+2025-07-26 10:27:21 - __main__ - INFO -    📈 Preços atualizados: 3062
+2025-07-26 10:27:21 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 10:27:21 - __main__ - INFO -    🆕 Transições recentes: 35
+2025-07-26 10:27:22 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:27:23 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:27:24 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:27:58 - __main__ - INFO - 🔄 Ciclo #781: 5 ativos | 4 atualizações | 0 transições | 4.35s
+2025-07-26 10:28:32 - __main__ - INFO - 🔄 Ciclo #782: 5 ativos | 5 atualizações | 0 transições | 4.05s
+2025-07-26 10:29:06 - __main__ - INFO - 🔄 Ciclo #783: 5 ativos | 3 atualizações | 0 transições | 4.04s
+2025-07-26 10:29:43 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012267881
+2025-07-26 10:29:43 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045186 | Preço atingiu Stop Loss: 44.342154
+2025-07-26 10:29:43 - __main__ - INFO - 🔄 Ciclo #784: 7 ativos | 6 atualizações | 2 transições | 6.86s
+2025-07-26 10:30:17 - __main__ - INFO - 🔄 Ciclo #785: 5 ativos | 5 atualizações | 0 transições | 4.12s
+2025-07-26 10:30:52 - __main__ - INFO - 🔄 Ciclo #786: 5 ativos | 4 atualizações | 0 transições | 4.45s
+2025-07-26 10:31:26 - __main__ - INFO - 🔄 Ciclo #787: 5 ativos | 2 atualizações | 0 transições | 4.23s
+2025-07-26 10:32:01 - __main__ - INFO - 🔄 Ciclo #788: 5 ativos | 3 atualizações | 0 transições | 4.51s
+2025-07-26 10:32:38 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012255077
+2025-07-26 10:32:38 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045182 | Preço atingiu Stop Loss: 44.335046
+2025-07-26 10:32:38 - __main__ - INFO - 🔄 Ciclo #789: 7 ativos | 5 atualizações | 2 transições | 7.09s
+2025-07-26 10:33:12 - __main__ - INFO - 🔄 Ciclo #790: 5 ativos | 3 atualizações | 0 transições | 4.28s
+2025-07-26 10:33:13 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:33:14 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:33:15 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:33:49 - __main__ - INFO - 🔄 Ciclo #791: 5 ativos | 4 atualizações | 0 transições | 4.09s
+2025-07-26 10:34:23 - __main__ - INFO - 🔄 Ciclo #792: 5 ativos | 4 atualizações | 0 transições | 4.13s
+2025-07-26 10:34:57 - __main__ - INFO - 🔄 Ciclo #793: 5 ativos | 5 atualizações | 0 transições | 4.04s
+2025-07-26 10:35:34 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012255077
+2025-07-26 10:35:34 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045217 | Preço atingiu Stop Loss: 44.335046
+2025-07-26 10:35:34 - __main__ - INFO - 🔄 Ciclo #794: 7 ativos | 6 atualizações | 2 transições | 6.80s
+2025-07-26 10:36:08 - __main__ - INFO - 🔄 Ciclo #795: 5 ativos | 4 atualizações | 0 transições | 4.27s
+2025-07-26 10:36:42 - __main__ - INFO - 🔄 Ciclo #796: 5 ativos | 3 atualizações | 0 transições | 4.24s
+2025-07-26 10:37:17 - __main__ - INFO - 🔄 Ciclo #797: 5 ativos | 3 atualizações | 0 transições | 4.51s
+2025-07-26 10:37:51 - __main__ - INFO - 🔄 Ciclo #798: 5 ativos | 5 atualizações | 0 transições | 4.31s
+2025-07-26 10:38:27 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045243 | Preço atingiu Stop Loss: 44.335046
+2025-07-26 10:38:27 - __main__ - INFO - 🔄 Ciclo #799: 6 ativos | 4 atualizações | 1 transições | 6.18s
+2025-07-26 10:39:02 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012255077
+2025-07-26 10:39:02 - __main__ - INFO - 🔄 Ciclo #800: 6 ativos | 5 atualizações | 1 transições | 4.97s
+2025-07-26 10:39:03 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:39:04 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:39:05 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:39:39 - __main__ - INFO - 🔄 Ciclo #801: 5 ativos | 4 atualizações | 0 transições | 3.95s
+2025-07-26 10:40:13 - __main__ - INFO - 🔄 Ciclo #802: 5 ativos | 3 atualizações | 0 transições | 4.08s
+2025-07-26 10:40:47 - __main__ - INFO - 🔄 Ciclo #803: 5 ativos | 3 atualizações | 0 transições | 4.24s
+2025-07-26 10:41:21 - __main__ - INFO - 🔄 Ciclo #804: 5 ativos | 2 atualizações | 0 transições | 4.11s
+2025-07-26 10:41:58 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012255077
+2025-07-26 10:41:58 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045251 | Preço atingiu Stop Loss: 44.335046
+2025-07-26 10:41:58 - __main__ - INFO - 🔄 Ciclo #805: 7 ativos | 6 atualizações | 2 transições | 6.65s
+2025-07-26 10:42:32 - __main__ - INFO - 🔄 Ciclo #806: 5 ativos | 3 atualizações | 0 transições | 4.19s
+2025-07-26 10:43:07 - __main__ - INFO - 🔄 Ciclo #807: 5 ativos | 2 atualizações | 0 transições | 4.52s
+2025-07-26 10:43:41 - __main__ - INFO - 🔄 Ciclo #808: 5 ativos | 2 atualizações | 0 transições | 4.09s
+2025-07-26 10:44:15 - __main__ - INFO - 🔄 Ciclo #809: 5 ativos | 4 atualizações | 0 transições | 4.02s
+2025-07-26 10:44:51 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012255077
+2025-07-26 10:44:51 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045246 | Preço atingiu Stop Loss: 44.335046
+2025-07-26 10:44:51 - __main__ - INFO - 🔄 Ciclo #810: 7 ativos | 5 atualizações | 2 transições | 6.75s
+2025-07-26 10:44:52 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:44:53 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:44:54 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:45:28 - __main__ - INFO - 🔄 Ciclo #811: 5 ativos | 3 atualizações | 0 transições | 4.09s
+2025-07-26 10:46:02 - __main__ - INFO - 🔄 Ciclo #812: 5 ativos | 2 atualizações | 0 transições | 3.97s
+2025-07-26 10:46:36 - __main__ - INFO - 🔄 Ciclo #813: 5 ativos | 4 atualizações | 0 transições | 4.06s
+2025-07-26 10:47:11 - __main__ - INFO - 🔄 Ciclo #814: 5 ativos | 3 atualizações | 0 transições | 4.74s
+2025-07-26 10:47:48 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012307166
+2025-07-26 10:47:48 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045252 | Preço atingiu Stop Loss: 44.337669
+2025-07-26 10:47:48 - __main__ - INFO - 🔄 Ciclo #815: 7 ativos | 7 atualizações | 2 transições | 7.30s
+2025-07-26 10:48:23 - __main__ - INFO - 🔄 Ciclo #816: 5 ativos | 4 atualizações | 0 transições | 5.14s
+2025-07-26 10:48:57 - __main__ - INFO - 🔄 Ciclo #817: 5 ativos | 4 atualizações | 0 transições | 4.16s
+2025-07-26 10:49:31 - __main__ - INFO - 🔄 Ciclo #818: 5 ativos | 3 atualizações | 0 transições | 4.04s
+2025-07-26 10:50:05 - __main__ - INFO - 🔄 Ciclo #819: 5 ativos | 5 atualizações | 0 transições | 4.10s
+2025-07-26 10:50:42 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012307166
+2025-07-26 10:50:42 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045253 | Preço atingiu Stop Loss: 44.337669
+2025-07-26 10:50:42 - __main__ - INFO - 🔄 Ciclo #820: 7 ativos | 5 atualizações | 2 transições | 6.58s
+2025-07-26 10:50:43 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:50:44 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:50:44 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:51:19 - __main__ - INFO - 🔄 Ciclo #821: 5 ativos | 1 atualizações | 0 transições | 4.10s
+2025-07-26 10:51:53 - __main__ - INFO - 🔄 Ciclo #822: 5 ativos | 4 atualizações | 0 transições | 4.03s
+2025-07-26 10:52:27 - __main__ - INFO - 🎯 ENA: ACTIVE → TARGET_1_HIT | Preço: 0.568900 | Preço atingiu Target 1: 0.5701
+2025-07-26 10:52:27 - __main__ - INFO - 🔄 Ciclo #823: 5 ativos | 4 atualizações | 1 transições | 4.17s
+2025-07-26 10:53:00 - __main__ - INFO - 🔄 Ciclo #824: 4 ativos | 3 atualizações | 0 transições | 3.44s
+2025-07-26 10:53:37 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012307166
+2025-07-26 10:53:37 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045264 | Preço atingiu Stop Loss: 44.337669
+2025-07-26 10:53:37 - __main__ - INFO - 🔄 Ciclo #825: 6 ativos | 5 atualizações | 2 transições | 6.44s
+2025-07-26 10:54:10 - __main__ - INFO - 🔄 Ciclo #826: 4 ativos | 3 atualizações | 0 transições | 3.40s
+2025-07-26 10:54:43 - __main__ - INFO - 🔄 Ciclo #827: 4 ativos | 2 atualizações | 0 transições | 3.22s
+2025-07-26 10:55:17 - __main__ - INFO - 🔄 Ciclo #828: 4 ativos | 4 atualizações | 0 transições | 3.30s
+2025-07-26 10:55:50 - __main__ - INFO - 🔄 Ciclo #829: 4 ativos | 1 atualizações | 0 transições | 3.34s
+2025-07-26 10:56:23 - __main__ - INFO - 🔄 Ciclo #830: 4 ativos | 3 atualizações | 0 transições | 3.14s
+2025-07-26 10:56:24 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 10:56:25 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 10:56:26 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 10:57:02 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012307166
+2025-07-26 10:57:02 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045250 | Preço atingiu Stop Loss: 44.337669
+2025-07-26 10:57:02 - __main__ - INFO - 🔄 Ciclo #831: 6 ativos | 4 atualizações | 2 transições | 6.38s
+2025-07-26 10:57:36 - __main__ - INFO - 🔄 Ciclo #832: 4 ativos | 2 atualizações | 0 transições | 3.48s
+2025-07-26 10:58:09 - __main__ - INFO - 🔄 Ciclo #833: 4 ativos | 3 atualizações | 0 transições | 3.31s
+2025-07-26 10:58:42 - __main__ - INFO - 🔄 Ciclo #834: 4 ativos | 4 atualizações | 0 transições | 3.29s
+2025-07-26 10:59:15 - __main__ - INFO - 🔄 Ciclo #835: 4 ativos | 2 atualizações | 0 transições | 3.14s
+2025-07-26 10:59:51 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012307166
+2025-07-26 10:59:51 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045091 | Preço atingiu Stop Loss: 44.337669
+2025-07-26 10:59:51 - __main__ - INFO - 🔄 Ciclo #836: 6 ativos | 4 atualizações | 2 transições | 5.76s
+2025-07-26 11:00:24 - __main__ - INFO - 🔄 Ciclo #837: 4 ativos | 3 atualizações | 0 transições | 3.27s
+2025-07-26 11:00:58 - __main__ - INFO - 🔄 Ciclo #838: 4 ativos | 4 atualizações | 0 transições | 3.42s
+2025-07-26 11:01:31 - __main__ - INFO - 🔄 Ciclo #839: 4 ativos | 3 atualizações | 0 transições | 3.15s
+2025-07-26 11:02:04 - __main__ - INFO - 🔄 Ciclo #840: 4 ativos | 3 atualizações | 0 transições | 3.39s
+2025-07-26 11:02:04 - __main__ - INFO - 📊 ESTATÍSTICAS HORÁRIAS:
+2025-07-26 11:02:04 - __main__ - INFO -    ⏱️ Uptime: 8h 2m
+2025-07-26 11:02:04 - __main__ - INFO -    🔄 Verificações: 840
+2025-07-26 11:02:04 - __main__ - INFO -    📝 Atualizações: 3281
+2025-07-26 11:02:04 - __main__ - INFO -    🔄 Transições: 259
+2025-07-26 11:02:04 - __main__ - INFO -    🎯 Sinais ativos: 4
+2025-07-26 11:02:04 - __main__ - INFO -    📈 Preços atualizados: 3281
+2025-07-26 11:02:04 - __main__ - INFO -    ❌ Erros de API: 0
+2025-07-26 11:02:04 - __main__ - INFO -    🆕 Transições recentes: 36
+2025-07-26 11:02:05 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 11:02:06 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 11:02:07 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 11:02:43 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012248578
+2025-07-26 11:02:43 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045097 | Preço atingiu Stop Loss: 44.339867
+2025-07-26 11:02:43 - __main__ - INFO - 🔄 Ciclo #841: 6 ativos | 6 atualizações | 2 transições | 5.85s
+2025-07-26 11:03:16 - __main__ - INFO - 🔄 Ciclo #842: 4 ativos | 4 atualizações | 0 transições | 3.25s
+2025-07-26 11:03:49 - __main__ - INFO - 🔄 Ciclo #843: 4 ativos | 4 atualizações | 0 transições | 3.38s
+2025-07-26 11:04:23 - __main__ - INFO - 🔄 Ciclo #844: 4 ativos | 2 atualizações | 0 transições | 3.31s
+2025-07-26 11:04:56 - __main__ - INFO - 🔄 Ciclo #845: 4 ativos | 4 atualizações | 0 transições | 3.14s
+2025-07-26 11:05:29 - __main__ - INFO - 🔄 Ciclo #846: 4 ativos | 2 atualizações | 0 transições | 3.28s
+2025-07-26 11:06:05 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012248578
+2025-07-26 11:06:05 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045065 | Preço atingiu Stop Loss: 44.339867
+2025-07-26 11:06:05 - __main__ - INFO - 🔄 Ciclo #847: 6 ativos | 5 atualizações | 2 transições | 6.24s
+2025-07-26 11:06:39 - __main__ - INFO - 🔄 Ciclo #848: 4 ativos | 2 atualizações | 0 transições | 3.31s
+2025-07-26 11:07:12 - __main__ - INFO - 🔄 Ciclo #849: 4 ativos | 4 atualizações | 0 transições | 3.39s
+2025-07-26 11:07:45 - __main__ - INFO - 🔄 Ciclo #850: 4 ativos | 3 atualizações | 0 transições | 3.18s
+2025-07-26 11:07:46 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 11:07:47 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 11:07:47 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 11:08:21 - __main__ - INFO - 🔄 Ciclo #851: 4 ativos | 2 atualizações | 0 transições | 3.23s
+2025-07-26 11:08:56 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012248578
+2025-07-26 11:08:56 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045067 | Preço atingiu Stop Loss: 44.339867
+2025-07-26 11:08:56 - __main__ - INFO - 🔄 Ciclo #852: 6 ativos | 6 atualizações | 2 transições | 5.91s
+2025-07-26 11:09:30 - __main__ - INFO - 🔄 Ciclo #853: 4 ativos | 3 atualizações | 0 transições | 3.56s
+2025-07-26 11:10:03 - __main__ - INFO - 🔄 Ciclo #854: 4 ativos | 3 atualizações | 0 transições | 3.35s
+2025-07-26 11:10:37 - __main__ - INFO - 🔄 Ciclo #855: 4 ativos | 4 atualizações | 0 transições | 3.43s
+2025-07-26 11:11:10 - __main__ - INFO - 🔄 Ciclo #856: 4 ativos | 3 atualizações | 0 transições | 3.36s
+2025-07-26 11:11:46 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012248578
+2025-07-26 11:11:46 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045112 | Preço atingiu Stop Loss: 44.339867
+2025-07-26 11:11:46 - __main__ - INFO - 🔄 Ciclo #857: 6 ativos | 5 atualizações | 2 transições | 5.66s
+2025-07-26 11:12:19 - __main__ - INFO - 🔄 Ciclo #858: 4 ativos | 4 atualizações | 0 transições | 3.15s
+2025-07-26 11:12:52 - __main__ - INFO - 🔄 Ciclo #859: 4 ativos | 3 atualizações | 0 transições | 3.30s
+2025-07-26 11:13:26 - __main__ - INFO - 🔄 Ciclo #860: 4 ativos | 2 atualizações | 0 transições | 3.49s
+2025-07-26 11:13:27 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 11:13:27 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 11:13:28 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 11:14:01 - __main__ - INFO - 🔄 Ciclo #861: 4 ativos | 2 atualizações | 0 transições | 3.28s
+2025-07-26 11:14:34 - __main__ - INFO - 🔄 Ciclo #862: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 11:15:10 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012248578
+2025-07-26 11:15:10 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045117 | Preço atingiu Stop Loss: 44.339867
+2025-07-26 11:15:10 - __main__ - INFO - 🔄 Ciclo #863: 6 ativos | 5 atualizações | 2 transições | 5.54s
+2025-07-26 11:15:43 - __main__ - INFO - 🔄 Ciclo #864: 4 ativos | 3 atualizações | 0 transições | 3.28s
+2025-07-26 11:16:17 - __main__ - INFO - 🔄 Ciclo #865: 4 ativos | 2 atualizações | 0 transições | 3.25s
+2025-07-26 11:16:50 - __main__ - INFO - 🔄 Ciclo #866: 4 ativos | 3 atualizações | 0 transições | 3.52s
+2025-07-26 11:17:24 - __main__ - INFO - 🔄 Ciclo #867: 4 ativos | 2 atualizações | 0 transições | 3.75s
+2025-07-26 11:18:00 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012262449
+2025-07-26 11:18:00 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045109 | Preço atingiu Stop Loss: 44.329842
+2025-07-26 11:18:00 - __main__ - INFO - 🔄 Ciclo #868: 6 ativos | 4 atualizações | 2 transições | 5.92s
+2025-07-26 11:18:33 - __main__ - INFO - 🔄 Ciclo #869: 4 ativos | 3 atualizações | 0 transições | 3.35s
+2025-07-26 11:19:06 - __main__ - INFO - 🔄 Ciclo #870: 4 ativos | 4 atualizações | 0 transições | 3.28s
+2025-07-26 11:19:07 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 11:19:08 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 11:19:08 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 11:19:42 - __main__ - INFO - 🔄 Ciclo #871: 4 ativos | 3 atualizações | 0 transições | 3.41s
+2025-07-26 11:20:15 - __main__ - INFO - 🔄 Ciclo #872: 4 ativos | 2 atualizações | 0 transições | 3.64s
+2025-07-26 11:20:52 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012262449
+2025-07-26 11:20:52 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045111 | Preço atingiu Stop Loss: 44.329842
+2025-07-26 11:20:52 - __main__ - INFO - 🔄 Ciclo #873: 6 ativos | 5 atualizações | 2 transições | 6.04s
+2025-07-26 11:21:25 - __main__ - INFO - 🔄 Ciclo #874: 4 ativos | 2 atualizações | 0 transições | 3.33s
+2025-07-26 11:21:58 - __main__ - INFO - 🔄 Ciclo #875: 4 ativos | 3 atualizações | 0 transições | 3.46s
+2025-07-26 11:22:32 - __main__ - INFO - 🔄 Ciclo #876: 4 ativos | 2 atualizações | 0 transições | 3.24s
+2025-07-26 11:23:05 - __main__ - INFO - 🔄 Ciclo #877: 4 ativos | 3 atualizações | 0 transições | 3.21s
+2025-07-26 11:23:38 - __main__ - INFO - 🔄 Ciclo #878: 4 ativos | 3 atualizações | 0 transições | 3.15s
+2025-07-26 11:24:15 - __main__ - INFO - 🏆 PEPE: ACTIVE → TARGET_2_HIT | Preço: 0.000013 | Preço atingiu Target 2: 0.012262449
+2025-07-26 11:24:15 - __main__ - WARNING - 🛑 HYPE: ACTIVE → STOP_HIT | Preço: 0.045082 | Preço atingiu Stop Loss: 44.329842
+2025-07-26 11:24:15 - __main__ - INFO - 🔄 Ciclo #879: 6 ativos | 5 atualizações | 2 transições | 7.27s
+2025-07-26 11:24:49 - __main__ - INFO - 🔄 Ciclo #880: 4 ativos | 2 atualizações | 0 transições | 3.92s
+2025-07-26 11:24:50 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 11:24:51 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 11:24:52 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 11:25:26 - __main__ - INFO - 🔄 Ciclo #881: 4 ativos | 4 atualizações | 0 transições | 3.95s
+2025-07-26 11:26:00 - __main__ - INFO - 🔄 Ciclo #882: 4 ativos | 3 atualizações | 0 transições | 4.38s
+2025-07-26 11:26:34 - __main__ - INFO - 🔄 Ciclo #883: 4 ativos | 3 atualizações | 0 transições | 3.70s
+2025-07-26 11:27:08 - __main__ - INFO - 🔄 Ciclo #884: 4 ativos | 4 atualizações | 0 transições | 3.65s
+2025-07-26 11:27:42 - __main__ - INFO - 🔄 Ciclo #885: 4 ativos | 4 atualizações | 0 transições | 4.50s
+2025-07-26 11:28:17 - __main__ - INFO - 🔄 Ciclo #886: 4 ativos | 3 atualizações | 0 transições | 4.52s
+2025-07-26 11:28:51 - __main__ - INFO - 🔄 Ciclo #887: 4 ativos | 3 atualizações | 0 transições | 4.85s
+2025-07-26 11:29:28 - __main__ - ERROR - ❌ Erro ao atualizar sinal IMX_SELL_SHORT_1753531125502: database is locked
+2025-07-26 11:29:35 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:29:42 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:29:48 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:30:26 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:30:32 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:30:39 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:31:16 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:31:22 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:31:29 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:31:30 - __main__ - INFO - ✅ API binance: OK
+2025-07-26 11:31:31 - __main__ - INFO - ✅ API coinbase: OK
+2025-07-26 11:31:32 - __main__ - INFO - ✅ API coingecko: OK
+2025-07-26 11:32:09 - __main__ - ERROR - ❌ Erro ao atualizar sinal IMX_SELL_SHORT_1753531125502: database is locked
+2025-07-26 11:32:15 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:32:22 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:32:28 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:33:05 - __main__ - ERROR - ❌ Erro ao atualizar sinal IMX_SELL_SHORT_1753531125502: database is locked
+2025-07-26 11:33:11 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:33:18 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:33:24 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:34:02 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:34:08 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:34:15 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:34:52 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:34:58 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:35:05 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:35:42 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:35:49 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:35:55 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:36:32 - __main__ - ERROR - ❌ Erro ao atualizar sinal IMX_SELL_SHORT_1753531125502: database is locked
+2025-07-26 11:36:39 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:36:45 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:36:52 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:37:28 - __main__ - ERROR - ❌ Erro ao atualizar sinal IMX_SELL_SHORT_1753531125502: database is locked
+2025-07-26 11:37:35 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:37:42 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:37:48 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:38:25 - __main__ - ERROR - ❌ Erro ao atualizar sinal IMX_SELL_SHORT_1753531125502: database is locked
+2025-07-26 11:38:32 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:38:38 - __main__ - ERROR - ❌ Erro ao atualizar sinal NEAR_SELL_SHORT_1753505291303: database is locked
+2025-07-26 11:38:45 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:39:22 - __main__ - ERROR - ❌ Erro ao atualizar sinal IMX_SELL_SHORT_1753531125502: database is locked
+2025-07-26 11:39:29 - __main__ - ERROR - ❌ Erro ao atualizar sinal BNB_BUY_LONG_1753510659574: database is locked
+2025-07-26 11:39:36 - __main__ - ERROR - ❌ Erro ao atualizar sinal BTC_SELL_SHORT_1753503479086: database is locked
+2025-07-26 11:40:06 - __main__ - INFO - 🛑 Loop de monitoramento finalizado

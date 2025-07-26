@@ -126,7 +126,7 @@ class DataReader:
                 return historical_data
             
             # 2. Apenas para 5m e 15m
-            if timeframe not in ["5m", "15m"]:
+            if timeframe not in ["5m"]:
                 self.logger.debug(f"⚪ {symbol} {timeframe}: Não usa dados live, retornando históricos")
                 return historical_data
             
@@ -406,10 +406,20 @@ class DataReader:
         self.logger.info(f"📋 Usando símbolos fallback: {fallback_symbols}")
         return fallback_symbols
     
-    def get_latest_data(self, symbol: str, timeframe: str, limit: int = 200) -> Optional[MarketData]:
-        """
-        Busca dados mais recentes COM TIMEOUT AGRESSIVO
-        """
+    def get_latest_data(self, symbol: str, timeframe: str, limit: int = None) -> Optional[MarketData]:
+        """Busca dados otimizados por timeframe"""
+        
+        if limit is None:
+            # Limites otimizados por timeframe
+            if timeframe == '5m':
+                limit = 80   # ~6.5 horas
+            elif timeframe == '15m':
+                limit = 100  # ~25 horas  
+            elif timeframe == '1h':
+                limit = 120  # ~5 dias
+            else:
+                limit = 80   # fallback
+                
         if not self.database_validated:
             self.logger.warning(f"❌ Banco não validado, não é possível buscar dados para {symbol}")
             return None

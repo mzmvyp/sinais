@@ -74,7 +74,7 @@ class MultiTimeframeConfig:
         if self.timeframe_configs is None:
             self.timeframe_configs = {
                 "5m": TimeframeConfig(
-                    timeframe="5m", min_data_points=100, lookback_hours=12,  # REDUZIDO de 150 para 100
+                    timeframe="5m", min_data_points=50, lookback_hours=12,  # REDUZIDO de 150 para 100
                     confidence_threshold=0.75, max_signals_per_symbol=1, analysis_priority=1,  # PRIORIDADE 1 (máxima)
                     enabled_detectors=['technical', 'candlestick'], rsi_sensitivity=1.2,
                     volume_threshold_multiplier=1.5, pattern_min_strength=0.65  # RELAXADO
@@ -93,7 +93,7 @@ class AnalysisConfig:
     """Configuracoes de analise - OTIMIZADA"""
     multi_timeframe: MultiTimeframeConfig = None
     default_timeframe: str = "5m"  # MUDADO para 5m como padrão
-    min_data_points: int = 80  # REDUZIDO
+    min_data_points: int = 50  # REDUZIDO
     lookback_hours: int = 24
     confidence_threshold: float = 0.70  # REDUZIDO para ser mais permissivo
     symbols: List[str] = None
@@ -142,7 +142,7 @@ class PatternConfig:
 class SystemConfig:
     """Configuracoes do sistema OTIMIZADAS - APENAS 5m/15m"""
     multi_timeframe_enabled: bool = True
-    analysis_interval: int = 100
+    analysis_interval: int = 180
     backup_all_signals: bool = True
     max_total_signals_per_symbol: int = 1
     log_level: str = "INFO"
