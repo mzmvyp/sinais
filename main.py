@@ -10,7 +10,7 @@ import json
 import os
 import signal
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 import logging
 
@@ -139,15 +139,22 @@ def setup_logging(log_level: str):
         )
 
 def print_banner():
-    """Exibe banner do sistema COM TIMING CONTROLLER"""
-    timing_status = "🕒 TIMING CONTROLLER ATIVO" if TIMING_CONTROLLER_AVAILABLE else "⚠️ SEM TIMING CONTROLLER"
+    """Exibe banner do sistema COM SCHEDULER ESPECÍFICO + STREAM DELAY"""
+    
+    try:
+        from core.timeframe_scheduler import get_global_scheduler
+        scheduler_status = "🕒 SCHEDULER ESPECÍFICO ATIVO (35s delay)"
+        scheduler_available = True
+    except ImportError:
+        scheduler_status = "⚠️ SCHEDULER INDISPONÍVEL"
+        scheduler_available = False
     
     banner = f"""
 +=================================================================+
-|                    TRADING ANALYZER v2.2.0                     |
-|           Sistema COMPLETO + TIMING CONTROLLER                 |
+|                    TRADING ANALYZER v2.3.0                     |
+|       Sistema COM SCHEDULER + AGUARDA STREAM GRAVAR            |
 |                                                                 |
-|  {timing_status:<63} |
+|  {scheduler_status:<63} |
 |                                                                 |
 |  🚨 CORREÇÕES APLICADAS:                                        |
 |  ✅ Novos sinais → SEMPRE ACTIVE                               |
@@ -156,18 +163,28 @@ def print_banner():
 |  ✅ Fluxo → ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT      |
 |  ✅ Targets → Exatamente 2 targets por sinal                   |
 |                                                                 |
-|  🕒 TIMING CONTROLLER (NOVO):                                   |
-|  ✅ Elimina atrasos de 5-30 minutos nos sinais                 |
-|  ✅ 5m: máximo 1 minuto após fechamento do candle              |
-|  ✅ 15m: máximo 3 minutos após fechamento do candle            |
-|  ✅ Validação com dados de 1m para precisão máxima             |
-|  ✅ Controle inteligente de janelas de geração                 |
+|  🕒 SCHEDULER ESPECÍFICO + STREAM DELAY (NOVO):                |"""
+    
+    if scheduler_available:
+        banner += f"""
+|  ✅ Aguarda stream gravar candle (30s) + análise (5s)          |
+|  ✅ 5m:  XX:00:35, XX:05:35, XX:10:35, XX:15:35...             |
+|  ✅ 15m: XX:00:35, XX:15:35, XX:30:35, XX:45:35...            |
+|  ✅ SEM gaps de candles (todos processados)                    |
+|  ✅ SEM conflitos entre timeframes                             |
+|  ✅ Dados sempre atualizados pelo stream                       |"""
+    else:
+        banner += f"""
+|  ❌ Scheduler específico não disponível                        |
+|  ⚠️ Usando modo tradicional (possíveis gaps)                   |"""
+    
+    banner += f"""
 |                                                                 |
 |  🎯 CARACTERÍSTICAS:                                            |
 |  • Máx 1 sinal ativo por crypto                                |
-|  • Timeframes: 5m (prioritário) + 15m                          |
+|  • Timeframes: 5m + 15m (processamento independente)           |
 |  • Stop Loss e Targets técnicos                                |
-|  • Sinais sempre frescos e precisos                            |
+|  • Dados frescos do stream (delay otimizado)                   |
 |  • Monitoramento e gerenciamento de sinais                     |
 +=================================================================+
     """
@@ -325,6 +342,59 @@ def test_timing_controller():
     except Exception as e:
         return {'status': 'error', 'message': str(e)}
 
+def test_timeframe_scheduler():
+    """Testa o novo scheduler específico por timeframe"""
+    try:
+        print("🧪 Testando Scheduler Específico + Stream Delay...")
+        
+        from core.timeframe_scheduler import TimeframeScheduler
+        
+        scheduler = TimeframeScheduler(delay_seconds=35)  # 30s stream + 5s análise
+        status = scheduler.get_status()
+        
+        print(f"\n📊 STATUS DO SCHEDULER:")
+        print(f"   • Timeframes ativos: {status['active_timeframes']}")
+        print(f"   • Delay total: {status['delay_seconds']}s")
+        print(f"   • Info: {status['stream_delay_info']}")
+        print(f"   • Status: {status['status']}")
+        
+        print(f"\n🕒 PRÓXIMOS DISPAROS (aguarda stream):")
+        for tf, trigger_info in status['next_triggers'].items():
+            trigger_time = datetime.fromisoformat(trigger_info['next_trigger_time'])
+            candle_close_time = datetime.fromisoformat(trigger_info['candle_close_time'])
+            time_until = trigger_info['time_until_minutes']
+            
+            print(f"   • {tf}:")
+            print(f"     - Candle fecha às: {candle_close_time.strftime('%H:%M:%S')}")
+            print(f"     - Stream grava até: {(candle_close_time + timedelta(seconds=30)).strftime('%H:%M:%S')}")
+            print(f"     - Análise às: {trigger_time.strftime('%H:%M:%S')}")
+            print(f"     - Em: {time_until:.1f} minutos")
+        
+        print(f"\n✨ VANTAGENS:")
+        print(f"   • Dados sempre atualizados pelo stream")
+        print(f"   • SEM gaps de candles")
+        print(f"   • Timing otimizado para seu sistema")
+        
+        return {
+            'status': 'success',
+            'scheduler_available': True,
+            'delay_seconds': status['delay_seconds'],
+            'stream_integration': True
+        }
+        
+    except ImportError as e:
+        return {
+            'status': 'error', 
+            'message': f'Scheduler não disponível: {e}',
+            'scheduler_available': False
+        }
+    except Exception as e:
+        return {
+            'status': 'error',
+            'message': f'Erro ao testar scheduler: {e}',
+            'scheduler_available': False
+        }
+
 def main():
     """Função principal COM TIMING CONTROLLER"""
     parser = argparse.ArgumentParser(
@@ -388,8 +458,11 @@ Exemplos de uso COM TIMING CONTROLLER:
                        help='Execução contínua com timing inteligente')
     
     # NOVOS COMANDOS DE TIMING
+    parser.add_argument('--test-scheduler', action='store_true',
+                   help='Testa o scheduler específico + stream delay')
+
     parser.add_argument('--test-timing', action='store_true',
-                       help='Testa o timing controller')
+                   help='[LEGADO] Testa o timing controller antigo')
     
     parser.add_argument('--timing-status', action='store_true',
                        help='Status atual do timing para todos os símbolos')
@@ -456,6 +529,11 @@ Exemplos de uso COM TIMING CONTROLLER:
         print_banner()
     
     try:
+        # NOVO COMANDO DE SCHEDULER ESPECÍFICO
+        if args.test_scheduler:
+            result = safe_execute(test_timeframe_scheduler, timeout=10, operation_name="Teste do Scheduler + Stream")
+            print(format_output_safe(result, args.output))
+            return
         # NOVOS COMANDOS DE TIMING CONTROLLER
         if args.test_timing:
             result = safe_execute(test_timing_controller, timeout=10, operation_name="Teste do Timing Controller")

@@ -469,68 +469,88 @@ class EnhancedTradingSignal:
             self.logger.warning(f"Erro no cálculo simples de targets técnicos: {e}")
             return self._calculate_fallback_targets()
 
-    def _find_nearby_levels(self, df: pd.DataFrame) -> tuple[List[float], List[float]]:
-        """Encontra níveis de suporte e resistência próximos COM VALIDAÇÃO ROBUSTA"""
+    
+    def _find_nearby_levels(self, df: pd.DataFrame, lookback: int = 50) -> tuple[List[float], List[float]]:
+        """🎯 BUSCA NÍVEIS S/R PRÓXIMOS E SIGNIFICATIVOS"""
         try:
             if df is None or len(df) < 10:
                 return [], []
             
-            recent_data = df.tail(50)
+            # Usa dados recentes para níveis relevantes
+            recent_data = df.tail(lookback)
+            current_price = float(df.iloc[-1]['close_price'])
             
-            # Validação das colunas necessárias
             if 'high_price' not in recent_data.columns or 'low_price' not in recent_data.columns:
-                self.logger.warning("Colunas high_price ou low_price não encontradas")
                 return [], []
             
-            highs = recent_data['high_price']
-            lows = recent_data['low_price']
+            highs = recent_data['high_price'].values
+            lows = recent_data['low_price'].values
             
-            # Verifica se as séries não são None
-            if highs is None or lows is None:
-                return [], []
-            
+            # 🔍 DETECTA PICOS E VALES SIGNIFICATIVOS
             resistance_levels = []
-            for i in range(2, len(highs) - 2):
-                try:
-                    current_high = safe_float_conversion(highs.iloc[i])
-                    prev1_high = safe_float_conversion(highs.iloc[i-1])
-                    prev2_high = safe_float_conversion(highs.iloc[i-2])
-                    next1_high = safe_float_conversion(highs.iloc[i+1])
-                    next2_high = safe_float_conversion(highs.iloc[i+2])
-                    
-                    if (current_high > 0 and prev1_high > 0 and prev2_high > 0 and 
-                        next1_high > 0 and next2_high > 0 and
-                        current_high > prev1_high and current_high > prev2_high and
-                        current_high > next1_high and current_high > next2_high):
-                        resistance_levels.append(current_high)
-                except Exception as e:
-                    self.logger.debug(f"Erro ao processar high {i}: {e}")
-                    continue
-            
             support_levels = []
-            for i in range(2, len(lows) - 2):
-                try:
-                    current_low = safe_float_conversion(lows.iloc[i])
-                    prev1_low = safe_float_conversion(lows.iloc[i-1])
-                    prev2_low = safe_float_conversion(lows.iloc[i-2])
-                    next1_low = safe_float_conversion(lows.iloc[i+1])
-                    next2_low = safe_float_conversion(lows.iloc[i+2])
-                    
-                    if (current_low > 0 and prev1_low > 0 and prev2_low > 0 and 
-                        next1_low > 0 and next2_low > 0 and
-                        current_low < prev1_low and current_low < prev2_low and
-                        current_low < next1_low and current_low < next2_low):
-                        support_levels.append(current_low)
-                except Exception as e:
-                    self.logger.debug(f"Erro ao processar low {i}: {e}")
-                    continue
             
-            return resistance_levels, support_levels
+            # Busca máximas locais (resistências)
+            for i in range(2, len(highs) - 2):
+                current_high = highs[i]
+                
+                # Verifica se é pico local
+                if (current_high > highs[i-1] and current_high > highs[i-2] and
+                    current_high > highs[i+1] and current_high > highs[i+2]):
+                    
+                    # Só adiciona se for relevante (não muito longe do preço atual)
+                    distance_pct = abs(current_high - current_price) / current_price
+                    if distance_pct < 0.15:  # Máximo 15% de distância
+                        resistance_levels.append(float(current_high))
+            
+            # Busca mínimas locais (suportes)
+            for i in range(2, len(lows) - 2):
+                current_low = lows[i]
+                
+                # Verifica se é vale local
+                if (current_low < lows[i-1] and current_low < lows[i-2] and
+                    current_low < lows[i+1] and current_low < lows[i+2]):
+                    
+                    # Só adiciona se for relevante
+                    distance_pct = abs(current_price - current_low) / current_price
+                    if distance_pct < 0.15:  # Máximo 15% de distância
+                        support_levels.append(float(current_low))
+            
+            # 🎯 REMOVE NÍVEIS MUITO PRÓXIMOS (consolidação)
+            resistance_levels = self._consolidate_levels(resistance_levels, current_price)
+            support_levels = self._consolidate_levels(support_levels, current_price)
+            
+            # Ordena por proximidade ao preço atual
+            resistance_levels.sort()
+            support_levels.sort(reverse=True)
+            
+            return resistance_levels[:5], support_levels[:5]  # Máximo 5 de cada
             
         except Exception as e:
-            self.logger.warning(f"Erro na busca de níveis S/R: {e}")
             return [], []
 
+    def _consolidate_levels(self, levels: List[float], current_price: float) -> List[float]:
+        """Remove níveis muito próximos entre si"""
+        if not levels:
+            return []
+        
+        consolidated = []
+        levels_sorted = sorted(levels)
+        
+        for level in levels_sorted:
+            # Só adiciona se não for muito próximo dos existentes
+            is_unique = True
+            for existing in consolidated:
+                distance_pct = abs(level - existing) / current_price
+                if distance_pct < 0.02:  # Menos de 2% de diferença
+                    is_unique = False
+                    break
+            
+            if is_unique:
+                consolidated.append(level)
+        
+        return consolidated
+    
     def _calculate_atr(self, data: pd.DataFrame, period: int = 14) -> float:
         """Calcula ATR (Average True Range) COM VALIDAÇÃO"""
         try:
@@ -635,12 +655,12 @@ class EnhancedTradingSignal:
                     self.logger.warning(f"🔧 Stop loss SHORT ajustado para risco máximo: {self.stop_loss:.4f}")  
                     
             # VALIDAÇÃO 2: Garante apenas 2 targets
-            if len(self.targets) > 2:
-                self.targets = self.targets[:2]
-                self.logger.debug(f"🎯 Limitado a 2 targets para {self.symbol}")
-            elif len(self.targets) < 2:
+            if len(self.targets) < 1:
                 self.targets = self._calculate_fallback_targets()
-                self.logger.warning(f"🎯 Targets insuficientes para {self.symbol}, calculados automaticamente")
+                self.logger.warning(f"🎯 Nenhum target para {self.symbol}, calculados automaticamente")
+            elif len(self.targets) == 1:
+                # Aceita 1 target (patterns como Doji)
+                self.logger.debug(f"🎯 {self.symbol}: 1 target aceito (pattern conservador)")
             
             # VALIDAÇÃO 3: Targets na direção correta
             self.logger.info(f"🎯 Validando targets para {self.symbol}: Entry=${self.entry_price:.4f}")

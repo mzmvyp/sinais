@@ -35,101 +35,6 @@ logging.info("🚫 Monitoramento em tempo real DESABILITADO (evita locks de DB)"
 
 from config.settings import settings
 
-class PrioritySignalResolver:
-    """Resolve conflitos com PRIORIDADE 15m + Score rigoroso para 5m"""
-    
-    def __init__(self):
-        self.logger = logging.getLogger(__name__)
-        # NOVA LÓGICA: 15m tem prioridade, 5m precisa score >= 90 e ser 10+ pontos maior
-        self.MIN_5M_SCORE = 75.0
-        self.SCORE_ADVANTAGE_REQUIRED = 5.0
-    
-    def resolve_conflicts(self, signals: List[EnhancedTradingSignal]) -> List[EnhancedTradingSignal]:
-        """
-        NOVA LÓGICA DE PRIORIDADE:
-        1. 15m tem prioridade por padrão
-        2. 5m só ganha se: score >= 90 E score_5m > score_15m + 10
-        """
-        if not signals:
-            return signals
-        
-        start_time = time.time()
-        
-        grouped = {}
-        for signal in signals:
-            symbol = signal.symbol
-            if symbol not in grouped:
-                grouped[symbol] = []
-            grouped[symbol].append(signal)
-        
-        resolved_signals = []
-        conflicts_resolved = 0
-        
-        for symbol, group_signals in grouped.items():
-            if len(group_signals) == 1:
-                resolved_signals.append(group_signals[0])
-            else:
-                conflicts_resolved += 1
-                
-                # Separa por timeframe
-                signals_15m = [s for s in group_signals if s.timeframe == "15m"]
-                signals_5m = [s for s in group_signals if s.timeframe == "5m"]
-                
-                best_signal = None
-                
-                if signals_15m and signals_5m:
-                    # NOVA LÓGICA: Comparação 15m vs 5m
-                    best_15m = max(signals_15m, key=lambda s: s.confidence)
-                    best_5m = max(signals_5m, key=lambda s: s.confidence)
-                    
-                    # Converte confidence para score (0-100)
-                    score_15m = best_15m.confidence * 100
-                    score_5m = best_5m.confidence * 100
-                    
-                    # 5m só ganha se score >= 90 E for 10+ pontos maior que 15m
-                    if (score_5m >= self.MIN_5M_SCORE and 
-                        score_5m > score_15m + self.SCORE_ADVANTAGE_REQUIRED):
-                        best_signal = best_5m
-                        self.logger.info(f"✅ 5m VENCEU: {symbol} → {best_5m.detector_name} | Score: {score_5m:.1f} vs 15m: {score_15m:.1f}")
-                    else:
-                        best_signal = best_15m
-                        reason = f"Score 5m: {score_5m:.1f}" 
-                        if score_5m < self.MIN_5M_SCORE:
-                            reason += f" < {self.MIN_5M_SCORE} (mínimo)"
-                        else:
-                            reason += f" não supera 15m: {score_15m:.1f} + {self.SCORE_ADVANTAGE_REQUIRED}"
-                        self.logger.info(f"✅ 15m PREFERIDO: {symbol} → {best_15m.detector_name} | {reason}")
-                
-                elif signals_15m:
-                    # Só tem 15m
-                    best_signal = max(signals_15m, key=lambda s: s.confidence)
-                    self.logger.debug(f"✅ 15m ÚNICO: {symbol} → {best_signal.detector_name}")
-                
-                elif signals_5m:
-                    # Só tem 5m - aplica filtro rigoroso
-                    qualified_5m = [s for s in signals_5m if s.confidence * 100 >= self.MIN_5M_SCORE]
-                    if qualified_5m:
-                        best_signal = max(qualified_5m, key=lambda s: s.confidence)
-                        self.logger.info(f"✅ 5m QUALIFICADO: {symbol} → {best_signal.detector_name} | Score: {best_signal.confidence * 100:.1f}")
-                    else:
-                        # Nenhum 5m qualificado - pega o melhor mesmo assim mas com warning
-                        best_signal = max(signals_5m, key=lambda s: s.confidence)
-                        self.logger.warning(f"⚠️ 5m FORÇADO: {symbol} → {best_signal.detector_name} | Score: {best_signal.confidence * 100:.1f} < {self.MIN_5M_SCORE}")
-                
-                else:
-                    # Outros timeframes - pega o melhor
-                    best_signal = max(group_signals, key=lambda s: s.confidence)
-                    self.logger.debug(f"✅ OUTRO TF: {symbol} → {best_signal.timeframe} {best_signal.detector_name}")
-                
-                if best_signal:
-                    resolved_signals.append(best_signal)
-        
-        elapsed = time.time() - start_time
-        if conflicts_resolved > 0:
-            self.logger.info(f"🚨 {conflicts_resolved} conflitos resolvidos com PRIORIDADE 15m em {elapsed:.2f}s")
-        
-        return resolved_signals
-
 class MultiTimeframeAnalyzer:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -139,10 +44,26 @@ class MultiTimeframeAnalyzer:
         enabled_timeframes = settings.get_enabled_timeframes()
         self.technical_analyzers = {tf: TechnicalAnalyzer() for tf in enabled_timeframes}
 
-        # NOVA LÓGICA: Prioridade 15m + Score rigoroso para 5m
-        self.conflict_resolver = PrioritySignalResolver()
-        self.quality_mode = "15m_priority_5m_rigorous"
+        # NOVA LÓGICA: Processamento específico por timeframe (aguarda stream)
+        self.timeframe_specific_mode = True
+        self.quality_mode = "timeframe_specific_with_stream_delay"
 
+        # SCHEDULER ESPECÍFICO POR TIMEFRAME
+        try:
+            from core.timeframe_scheduler import get_global_scheduler
+            self.scheduler = get_global_scheduler()
+            self.scheduler_enabled = True
+            
+            # Registra callbacks para cada timeframe
+            self.scheduler.register_timeframe_callback("5m", self._process_5m_event)
+            self.scheduler.register_timeframe_callback("15m", self._process_15m_event)
+            
+            self.logger.info("✅ Scheduler específico inicializado (aguarda 35s após fechamento)")
+        except ImportError:
+            self.scheduler = None
+            self.scheduler_enabled = False
+            self.logger.warning("⚠️ Scheduler não disponível - usando modo tradicional")
+            
         self._last_cleanup = datetime.now()
         
         # Monitoramento em tempo real DESABILITADO
@@ -154,13 +75,213 @@ class MultiTimeframeAnalyzer:
         self.MAX_VALIDATION_TIME = 2  # Reduzido para 2s
         self.DISABLE_MICROSTRUCTURE = True  # Desabilita microestrutura
         
-        self.logger.info("MultiTimeframeAnalyzer com PRIORIDADE 15m + FILTRO CANDLESTICK inicializado:")
-        self.logger.info(f"  • Timeframes: {enabled_timeframes} (PRIORIDADE: 15m)")
-        self.logger.info(f"  • Score mínimo 5m: {self.conflict_resolver.MIN_5M_SCORE}")
-        self.logger.info(f"  • Vantagem necessária 5m: +{self.conflict_resolver.SCORE_ADVANTAGE_REQUIRED} pontos")
+        self.logger.info("MultiTimeframeAnalyzer com PROCESSAMENTO ESPECÍFICO POR TIMEFRAME:")
+        self.logger.info(f"  • Timeframes: {enabled_timeframes} (PROCESSAMENTO ESPECÍFICO)")
+        self.logger.info(f"  • Modo: Cada timeframe processado independentemente")
+        self.logger.info(f"  • Delay: 35s após fechamento (30s stream + 5s análise)")
+        self.logger.info(f"  • Cronograma 5m: XX:00:35, XX:05:35, XX:10:35...")
+        self.logger.info(f"  • Cronograma 15m: XX:00:35, XX:15:35, XX:30:35...")
         self.logger.info(f"  • Microestrutura: DESABILITADA (evita locks)")
-        self.logger.info(f"  • Monitoramento tempo real: DESABILITADO (evita locks)")
+        self.logger.info(f"  • Scheduler: {'ATIVO' if self.scheduler_enabled else 'INATIVO'}")
         # 🔧 CORREÇÃO 3: Logs do filtro candlestick
+        
+    def _process_5m_event(self, event):
+        """Processa evento de fechamento de candle 5m (aguarda stream gravar)"""
+        try:
+            self.logger.info(f"🕒 EVENTO 5m: Candle {event.candle_close_time.strftime('%H:%M')} fechado + stream gravado")
+            
+            symbols = self.data_reader.get_valid_symbols_for_analysis()
+            if not symbols:
+                self.logger.warning("❌ Nenhum símbolo válido para análise 5m")
+                return
+            
+            processed_count = 0
+            signals_generated = 0
+            
+            for symbol in symbols:
+                try:
+                    result = self._analyze_single_timeframe_at_event(symbol, "5m", event)
+                    processed_count += 1
+                    
+                    if result.get('signals_saved', 0) > 0:
+                        signals_generated += result['signals_saved']
+                        self.logger.info(f"✅ {symbol} 5m: {result['signals_saved']} sinais gerados")
+                    
+                except Exception as e:
+                    self.logger.error(f"❌ Erro processando {symbol} 5m: {e}")
+            
+            self.logger.info(
+                f"📊 EVENTO 5m CONCLUÍDO: {processed_count} símbolos processados, "
+                f"{signals_generated} sinais gerados"
+            )
+            
+        except Exception as e:
+            self.logger.error(f"❌ Erro no evento 5m: {e}")
+    
+    def _process_15m_event(self, event):
+        """Processa evento de fechamento de candle 15m (aguarda stream gravar)"""
+        try:
+            self.logger.info(f"🕒 EVENTO 15m: Candle {event.candle_close_time.strftime('%H:%M')} fechado + stream gravado")
+            
+            symbols = self.data_reader.get_valid_symbols_for_analysis()
+            if not symbols:
+                self.logger.warning("❌ Nenhum símbolo válido para análise 15m")
+                return
+            
+            processed_count = 0
+            signals_generated = 0
+            
+            for symbol in symbols:
+                try:
+                    result = self._analyze_single_timeframe_at_event(symbol, "15m", event)
+                    processed_count += 1
+                    
+                    if result.get('signals_saved', 0) > 0:
+                        signals_generated += result['signals_saved']
+                        self.logger.info(f"✅ {symbol} 15m: {result['signals_saved']} sinais gerados")
+                    
+                except Exception as e:
+                    self.logger.error(f"❌ Erro processando {symbol} 15m: {e}")
+            
+            self.logger.info(
+                f"📊 EVENTO 15m CONCLUÍDO: {processed_count} símbolos processados, "
+                f"{signals_generated} sinais gerados"
+            )
+            
+        except Exception as e:
+            self.logger.error(f"❌ Erro no evento 15m: {e}")
+    
+    def _analyze_single_timeframe_at_event(self, symbol: str, timeframe: str, event) -> Dict[str, Any]:
+        """Análise ESPECÍFICA de um timeframe quando seu candle fecha (com dados do stream)"""
+        
+        start_time = time.time()
+        
+        # VERIFICAÇÃO RÁPIDA de sinais bloqueadores
+        if self.signal_writer.check_existing_active_signals(symbol):
+            return {
+                'symbol': symbol, 
+                'timeframe': timeframe,
+                'status': 'blocked', 
+                'reason': 'existing_blocking_signal',
+                'signals_detected': 0, 
+                'signals_validated': 0, 
+                'signals_saved': 0,
+                'execution_time': time.time() - start_time,
+                'event_time': event.trigger_time.isoformat()
+            }
+        
+        self.logger.debug(f"🔍 {symbol} {timeframe}: Análise específica pós-stream")
+        
+        # Busca dados ESPECÍFICOS para o timeframe (dados já gravados pelo stream)
+        try:
+            market_data = self.data_reader.get_latest_data(symbol, timeframe)
+            self.logger.debug(f"📊 {symbol} {timeframe}: Dados pós-stream carregados")
+            
+            if not market_data or not market_data.is_sufficient_data:
+                return {
+                    'symbol': symbol, 
+                    'timeframe': timeframe,
+                    'status': 'insufficient_data', 
+                    'signals_detected': 0, 
+                    'signals_validated': 0, 
+                    'signals_saved': 0,
+                    'execution_time': time.time() - start_time,
+                    'event_time': event.trigger_time.isoformat()
+                }
+                
+        except Exception as e:
+            self.logger.error(f"❌ {symbol} {timeframe}: Erro nos dados - {e}")
+            return {
+                'symbol': symbol, 
+                'timeframe': timeframe,
+                'status': 'data_error', 
+                'reason': str(e),
+                'signals_detected': 0, 
+                'signals_validated': 0, 
+                'signals_saved': 0,
+                'execution_time': time.time() - start_time,
+                'event_time': event.trigger_time.isoformat()
+            }
+        
+        # Análise do timeframe específico
+        signals_detected = []
+        try:
+            tf_result = self._analyze_single_timeframe_fast(symbol, timeframe, market_data)
+            signals_detected = tf_result.get('signals', [])
+            
+            self.logger.debug(f"🔍 {symbol} {timeframe}: {len(signals_detected)} sinais detectados")
+                
+        except Exception as e:
+            self.logger.error(f"❌ {symbol} {timeframe}: Erro na análise - {e}")
+            return {
+                'symbol': symbol, 
+                'timeframe': timeframe,
+                'status': 'analysis_error', 
+                'reason': str(e),
+                'signals_detected': 0, 
+                'signals_validated': 0, 
+                'signals_saved': 0,
+                'execution_time': time.time() - start_time,
+                'event_time': event.trigger_time.isoformat()
+            }
+        
+        # Validação SIMPLIFICADA
+        validated_signals = self._simple_validation_no_locks(signals_detected, {timeframe: market_data})
+        
+        # Gravação
+        signals_saved = 0
+        if validated_signals:
+            signal = validated_signals[0]
+            try:
+                is_valid, validation_msg = self.validate_signal_before_saving(signal, {timeframe: market_data})
+                
+                if not is_valid:
+                    self.logger.warning(f"❌ {symbol} {timeframe}: SINAL REJEITADO - {validation_msg}")
+                    return {
+                        'symbol': symbol, 
+                        'timeframe': timeframe,
+                        'status': 'rejected', 
+                        'reason': validation_msg,
+                        'signals_detected': len(signals_detected), 
+                        'signals_validated': len(validated_signals), 
+                        'signals_saved': 0,
+                        'execution_time': time.time() - start_time,
+                        'event_time': event.trigger_time.isoformat()
+                    }
+                
+                signal.status = "ACTIVE"
+                
+                if self.signal_writer.write_enhanced_signal(signal):
+                    signals_saved = 1
+                    
+                    total_time = time.time() - start_time
+                    score = signal.confidence * 100
+                    self.logger.info(
+                        f"💾 {symbol} {timeframe}: GRAVADO | {signal.detector_name} | "
+                        f"Score: {score:.1f} | Entry: ${signal.entry_price:.4f} | "
+                        f"Stop: ${signal.stop_loss:.4f} | T1: ${signal.targets[0]:.4f} | "
+                        f"T2: ${signal.targets[1]:.4f} | {total_time:.1f}s | Pós-stream: OK"
+                    )
+                        
+                else:
+                    self.logger.warning(f"❌ {symbol} {timeframe}: FALHA NA GRAVAÇÃO")
+            except Exception as e:
+                self.logger.error(f"❌ {symbol} {timeframe}: Erro ao salvar - {e}")
+        
+        total_time = time.time() - start_time
+        
+        return {
+            'symbol': symbol, 
+            'timeframe': timeframe,
+            'status': 'success', 
+            'signals_detected': len(signals_detected), 
+            'signals_validated': len(validated_signals), 
+            'signals_saved': signals_saved,
+            'execution_time': total_time,
+            'processing_mode': 'timeframe_specific_with_stream',
+            'event_time': event.trigger_time.isoformat(),
+            'candle_close_time': event.candle_close_time.isoformat()
+        }    
         
     def validate_signal_before_saving(self, signal, market_data_by_tf):
         """Valida sinal RIGOROSAMENTE antes de salvar"""
@@ -234,7 +355,7 @@ class MultiTimeframeAnalyzer:
             self.logger.error(f"❌ Erro ao processar backup de patterns: {e}")
         
     def analyze_symbol_all_timeframes(self, symbol: str) -> Dict[str, Any]:
-        """Análise com PRIORIDADE 15m e proteção anti-lock"""
+        """Análise manual de símbolo (sem scheduler) - compatibilidade"""
         
         symbol_start_time = time.time()
         
@@ -247,78 +368,51 @@ class MultiTimeframeAnalyzer:
                 'signals_detected': 0, 
                 'signals_validated': 0, 
                 'signals_saved': 0,
-                'execution_time': time.time() - symbol_start_time
+                'execution_time': time.time() - symbol_start_time,
+                'mode': 'manual_analysis'
             }
         
-        self.logger.info(f"🔍 {symbol}: Análise (prioridade 15m)")
+        self.logger.info(f"🔍 {symbol}: Análise manual (todos os timeframes)")
         
-        # ORDEM PRIORITÁRIA: 15m primeiro, depois 5m
-        timeframes_prioritized = ["15m", "5m"]
+        # Para análise manual, processa ambos timeframes
+        timeframes = ["5m", "15m"]
         all_signals = []
 
-        # Busca dados COM TIMEOUT
+        # Busca dados para ambos timeframes
         market_data_by_tf = {}
-        for tf in timeframes_prioritized:
+        for tf in timeframes:
             try:
-                data_start = time.time()
-                
-                # USAR DADOS LIVE PARA 5m E 15m
-                # CORREÇÃO: Apenas 5m usa dados live
-                if tf == "5m":
-                    market_data = self.data_reader.get_enhanced_data(symbol, tf)
-                    self.logger.debug(f"🔴 {symbol} {tf}: Dados LIVE requisitados")
-                else:
-                    # 15m usa dados históricos puros (sem mistura de 1m)
-                    market_data = self.data_reader.get_latest_data(symbol, tf)
-                    self.logger.debug(f"📊 {symbol} {tf}: Dados HISTÓRICOS puros")
-                                    
-                data_time = time.time() - data_start            
-                
-                
-                if data_time > 2:  # Se demorou mais que 2s
-                    self.logger.warning(f"⏰ {symbol} {tf}: Dados lentos ({data_time:.1f}s)")
-                
+                market_data = self.data_reader.get_latest_data(symbol, tf)
                 market_data_by_tf[tf] = market_data
                     
             except Exception as e:
                 self.logger.warning(f"❌ {symbol} {tf}: Erro nos dados - {e}")
                 market_data_by_tf[tf] = None
 
-        # Análise por timeframe COM TIMEOUT
-        for timeframe in timeframes_prioritized:
-            # Verifica timeout geral
-            if time.time() - symbol_start_time > self.MAX_SYMBOL_TIME:
-                self.logger.warning(f"⏰ {symbol}: Timeout geral ({self.MAX_SYMBOL_TIME}s)")
-                break
-                
+        # Análise por timeframe
+        for timeframe in timeframes:
             market_data = market_data_by_tf[timeframe]
             if market_data and market_data.is_sufficient_data:
                 try:
-                    tf_start = time.time()
                     tf_result = self._analyze_single_timeframe_fast(symbol, timeframe, market_data)
-                    tf_time = time.time() - tf_start
-                    
                     tf_signals = tf_result.get('signals', [])
                     all_signals.extend(tf_signals)
                     
-                    # 🔥 LOG DETALHADO
-                    self.logger.info(f"🔍 {symbol} {timeframe}: {len(tf_signals)} sinais detectados em {tf_time:.1f}s")
-                    for sig in tf_signals:
-                        self.logger.info(f"   → {sig.detector_name} | {sig.signal_type} | Conf: {sig.confidence:.3f}")
+                    self.logger.info(f"🔍 {symbol} {timeframe}: {len(tf_signals)} sinais detectados")
                             
                 except Exception as e:
                     self.logger.error(f"❌ {symbol} {timeframe}: Erro - {e}")
 
-        # Resolução de conflitos com NOVA LÓGICA
+        # Pega apenas o melhor sinal (sem conflitos)
         if len(all_signals) > 1:
-            conflict_start = time.time()
-            filtered_signals = self.conflict_resolver.resolve_conflicts(all_signals)
-            conflict_time = time.time() - conflict_start
-            self.logger.debug(f"🔧 {symbol}: {len(all_signals)} → {len(filtered_signals)} em {conflict_time:.2f}s")
+            # Prioriza por confidence
+            best_signal = max(all_signals, key=lambda s: s.confidence)
+            filtered_signals = [best_signal]
+            self.logger.debug(f"🔧 {symbol}: {len(all_signals)} → 1 melhor sinal (conf: {best_signal.confidence:.3f})")
         else:
             filtered_signals = all_signals
 
-        # Validação SIMPLIFICADA (sem microestrutura)
+        # Validação SIMPLIFICADA
         validated_signals = self._simple_validation_no_locks(filtered_signals, market_data_by_tf)
 
         # Gravação
@@ -338,7 +432,8 @@ class MultiTimeframeAnalyzer:
                         'signals_detected': len(all_signals), 
                         'signals_validated': len(validated_signals), 
                         'signals_saved': 0,
-                        'execution_time': time.time() - symbol_start_time
+                        'execution_time': time.time() - symbol_start_time,
+                        'mode': 'manual_analysis'
                     }
                 
                 signal.status = "ACTIVE"
@@ -369,9 +464,9 @@ class MultiTimeframeAnalyzer:
             'signals_validated': len(validated_signals), 
             'signals_saved': signals_saved,
             'execution_time': total_time,
-            'priority_logic': '15m_first_5m_rigorous'
+            'mode': 'manual_analysis'
         }
-     
+    
     def _analyze_single_timeframe_fast(self, symbol: str, timeframe: str, market_data: MarketData) -> Dict[str, Any]:
         """Análise SEMPRE usa candle fechado, validação usa candle dinâmico"""
         
@@ -548,104 +643,79 @@ class MultiTimeframeAnalyzer:
         return validated_signals
 
     def run_continuous_multi_timeframe_analysis(self, base_interval: int = None):
-        """Execução contínua DEFINITIVA com logs verbosos"""
-        if base_interval is None: 
-           base_interval = getattr(settings.system, 'analysis_interval', 300)
+        """Execução contínua COM SCHEDULER ESPECÍFICO (aguarda stream gravar)"""
         
-        self.logger.info("🚀 ANÁLISE CONTÍNUA DEFINITIVA - PRIORIDADE 15m + FILTRO CANDLESTICK")
-        self.logger.info(f"⏱️ Intervalo entre ciclos: {base_interval}s")
-        
-        valid_symbols = self.data_reader.get_valid_symbols_for_analysis()
-        
-        if not valid_symbols:
-            self.logger.error("❌ Nenhum símbolo válido encontrado!")
+        if not self.scheduler_enabled:
+            self.logger.error("❌ Scheduler não disponível - modo específico indisponível")
+            self.logger.info("⚠️ Execute: pip install threading (se necessário)")
             return
         
-        self.logger.info(f"✅ Símbolos: {valid_symbols}")
+        self.logger.info("🚀 ANÁLISE CONTÍNUA COM SCHEDULER ESPECÍFICO + AGUARDA STREAM")
+        self.logger.info("=" * 70)
+        self.logger.info("🕒 CRONOGRAMA DE DISPAROS (pós-stream):")
+        self.logger.info("   • 5m:  XX:00:35, XX:05:35, XX:10:35, XX:15:35...")
+        self.logger.info("   • 15m: XX:00:35, XX:15:35, XX:30:35, XX:45:35...")
+        self.logger.info("📊 CARACTERÍSTICAS:")
+        self.logger.info("   • Stream grava candle em 30s")
+        self.logger.info("   • Análise dispara 35s após fechamento (5s extra)")
+        self.logger.info("   • Cada timeframe processado independentemente")
+        self.logger.info("   • SEM conflitos entre timeframes")
+        self.logger.info("   • SEM gaps de candles")
+        self.logger.info("=" * 70)
         
-        cycle_count = 0
-        
-        while True:
-            try:
-                cycle_count += 1
-                cycle_start = time.time()
-                total_signals = 0
-                blocked_count = 0
-                error_count = 0
+        try:
+            # Inicia scheduler
+            self.scheduler.start()
+            
+            # Mostra próximos disparos
+            status = self.scheduler.get_status()
+            self.logger.info("📅 PRÓXIMOS DISPAROS (aguarda stream):")
+            for tf, trigger_info in status['next_triggers'].items():
+                trigger_time = trigger_info['next_trigger_time']
+                time_until = trigger_info['time_until_minutes']
+                candle_close = trigger_info['candle_close_time']
                 
-                self.logger.info(f"🔄 Ciclo {cycle_count} - Prioridade 15m + Filtro Candlestick")
-                
-                for i, symbol in enumerate(valid_symbols, 1):
-                    try:
-                        symbol_start = time.time()
-                        result = self.analyze_symbol_all_timeframes(symbol)
-                        symbol_time = time.time() - symbol_start
-                        
-                        if result.get('status') == 'blocked':
-                            blocked_count += 1
-                        elif result.get('status') == 'error':
-                            error_count += 1
-                        else:
-                            signals_saved = result.get('signals_saved', 0)
-                            total_signals += signals_saved
-                            if signals_saved > 0:
-                                self.logger.info(f"🎯 {symbol} ({i}/{len(valid_symbols)}): {signals_saved} ATIVO")
-                            else:
-                                self.logger.debug(f"✓ {symbol} ({i}/{len(valid_symbols)}): OK em {symbol_time:.1f}s")
-                        
-                        time.sleep(0.1)
-                        
-                    except Exception as e:
-                        error_count += 1
-                        self.logger.error(f"❌ Erro em {symbol}: {e}")
-                
-                cycle_time = time.time() - cycle_start
-                
-                # RESUMO DO CICLO COM LOGS VERBOSOS
                 self.logger.info(
-                    f"✅ Ciclo {cycle_count}: {total_signals} novos ACTIVE | "
-                    f"{blocked_count} bloqueados | {error_count} erros | {cycle_time:.1f}s"
+                    f"   • {tf}: Candle fecha às {candle_close[-8:-3]}, "
+                    f"análise às {trigger_time[-8:-3]} (em {time_until:.1f} min)"
                 )
+            
+            self.logger.info(f"\n🎯 Sistema ativo - aguardando eventos (stream delay: 35s)...")
+            self.logger.info("💡 Pressione Ctrl+C para parar")
+            
+            # Loop principal
+            cycle_count = 0
+            last_cleanup = time.time()
+            last_status = time.time()
+            
+            while True:
+                time.sleep(30)
                 
-                # LOG VERBOSE DO FINAL DO CICLO
-                self.logger.info(f"📊 Ciclo {cycle_count} finalizado com sucesso!")
-                self.logger.info(f"⏳ Iniciando aguardo de {base_interval}s...")
+                cycle_count += 1
+                current_time = time.time()
                 
-                # SLEEP COM HEARTBEAT
-                sleep_start = time.time()
-                heartbeat_interval = 60  # Heartbeat a cada 60s
-                next_heartbeat = heartbeat_interval
+                # Limpeza periódica
+                if current_time - last_cleanup > 3600:
+                    self._perform_quick_cleanup()
+                    last_cleanup = current_time
                 
-                while True:
-                    elapsed_sleep = time.time() - sleep_start
-                    
-                    if elapsed_sleep >= base_interval:
-                        break
-                    
-                    # Heartbeat
-                    if elapsed_sleep >= next_heartbeat:
-                        remaining = base_interval - elapsed_sleep
-                        self.logger.info(f"💓 Heartbeat: aguardando mais {remaining:.0f}s até próximo ciclo...")
-                        next_heartbeat += heartbeat_interval
-                    
-                    time.sleep(1)  # Sleep curto para permitir heartbeat
+                # Status periódico
+                if current_time - last_status > 600:
+                    scheduler_status = self.scheduler.get_status()
+                    self.logger.info(f"💓 Sistema ativo - Scheduler: {scheduler_status['status']} (delay: {scheduler_status['delay_seconds']}s)")
+                    last_status = current_time
                 
-                self.logger.info(f"⏰ Aguardo de {base_interval}s concluído. Iniciando Ciclo {cycle_count + 1}...")
-                
-            except KeyboardInterrupt:
-                self.logger.info("🛑 Análise interrompida pelo usuário")
-                break
-            except Exception as e:
-                self.logger.error(f"❌ Erro crítico no ciclo {cycle_count}: {e}")
-                import traceback
-                self.logger.error(f"Stack trace: {traceback.format_exc()}")
-                
-                self.logger.info(f"🔄 Tentando recuperar em 10s...")
-                time.sleep(10)
-                continue
-        
-        self.logger.info("🏁 Análise contínua finalizada")
-
+        except KeyboardInterrupt:
+            self.logger.info("\n🛑 Análise interrompida pelo usuário")
+        except Exception as e:
+            self.logger.error(f"❌ Erro crítico no scheduler: {e}")
+            import traceback
+            self.logger.error(f"Stack trace: {traceback.format_exc()}")
+        finally:
+            if self.scheduler:
+                self.scheduler.stop()
+            self.logger.info("🏁 Análise contínua finalizada")
+    
     def _perform_quick_cleanup(self):
         """Limpeza rápida sem locks"""
         now = datetime.now()
@@ -670,39 +740,60 @@ class MultiTimeframeAnalyzer:
                 self.logger.error(f"❌ Erro na limpeza: {e}")
     
     def get_system_status(self) -> Dict[str, Any]:
-        """Status com nova lógica de prioridade"""
+        """Status com nova lógica específica por timeframe"""
         try:
             symbols = settings.get_analysis_symbols()
             enabled_timeframes = settings.get_enabled_timeframes()
+            
+            # Status do scheduler
+            scheduler_status = {}
+            if self.scheduler_enabled and self.scheduler:
+                scheduler_status = self.scheduler.get_status()
+                processing_mode = "timeframe_specific_with_stream_delay"
+                processing_description = "Cada timeframe processado quando seu candle fecha (aguarda stream 30s)"
+            else:
+                processing_mode = "traditional_batch"
+                processing_description = "Processamento tradicional em lotes"
             
             components = {
                 'database': 'OK_NO_LOCKS',
                 'technical_analyzer': 'OPTIMIZED',
                 'microstructure_validation': 'DISABLED_NO_LOCKS',
-                'quality_system': '15M_PRIORITY_5M_RIGOROUS',
+                'processing_mode': processing_mode,
+                'scheduler': 'ACTIVE' if self.scheduler_enabled else 'DISABLED',
+                'stream_integration': 'ACTIVE_35S_DELAY' if self.scheduler_enabled else 'DISABLED',
                 'signal_status_logic': 'CORRECTED_2_TARGETS',
                 'new_signals_status': 'ALWAYS_ACTIVE',
                 'blocking_logic': 'ACTIVE_AND_TARGET_1_HIT_ONLY',
                 'real_time_monitoring': 'DISABLED_NO_LOCKS',
-                'priority_logic': '15M_PREFERRED_5M_RIGOROUS',
-                'anti_lock_protection': 'ACTIVE'
+                'anti_lock_protection': 'ACTIVE',
+                'timeframe_isolation': 'ACTIVE' if self.timeframe_specific_mode else 'DISABLED'
             }
             
-            return {
+            status_data = {
                 'status': 'OK',
-                'system_type': 'Trading Analyzer - PRIORIDADE 15m + FILTRO CANDLESTICK + SEM LOCKS',
+                'system_type': 'Trading Analyzer - SCHEDULER ESPECÍFICO + STREAM DELAY',
                 'timestamp': datetime.now().isoformat(),
                 'components': components,
                 'symbols_available': len(symbols),
                 'enabled_timeframes': enabled_timeframes,
+                'processing_description': processing_description,
                 'signal_flow': 'ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT',
                 'blocking_states': ['ACTIVE', 'TARGET_1_HIT'],
                 'completed_states': ['TARGET_2_HIT', 'STOP_HIT', 'EXPIRED'],
-                'priority_logic': {
-                    'preferred_timeframe': '15m',
-                    'min_5m_score': self.conflict_resolver.MIN_5M_SCORE,
-                    'advantage_required': self.conflict_resolver.SCORE_ADVANTAGE_REQUIRED,
-                    'description': '15m tem prioridade, 5m precisa score >= 90 e superar 15m em +10 pontos'
+                
+                'timeframe_processing': {
+                    'mode': 'stream_aware_specific_events',
+                    'description': 'Aguarda stream gravar (30s) + análise específica (5s)',
+                    'timing': {
+                        '5m': 'XX:00:35, XX:05:35, XX:10:35, XX:15:35...',
+                        '15m': 'XX:00:35, XX:15:35, XX:30:35, XX:45:35...'
+                    },
+                    'stream_delay': '30 segundos',
+                    'analysis_delay': '5 segundos',
+                    'total_delay': '35 segundos',
+                    'no_gaps': True,
+                    'no_conflicts': True
                 },
                 
                 'anti_lock_settings': {
@@ -712,6 +803,7 @@ class MultiTimeframeAnalyzer:
                     'max_validation_time': self.MAX_VALIDATION_TIME,
                     'connection_optimized': True
                 },
+                
                 'configuration': {
                     'multi_timeframe_enabled': True,
                     'timeframes_active': enabled_timeframes,
@@ -719,18 +811,26 @@ class MultiTimeframeAnalyzer:
                     'signal_status_corrected': True,
                     'targets_count': 2,
                     'new_signals_always_active': True,
-                    'priority_15m_over_5m': True,
-                    'rigorous_5m_scoring': True,
+                    'timeframe_specific_processing': self.timeframe_specific_mode,
+                    'scheduler_enabled': self.scheduler_enabled,
+                    'stream_integration': True,
                     'anti_lock_protection': True,
                     'no_database_locks': True
-                    
                 }
             }
+            
+            # Adiciona informações do scheduler se disponível
+            if self.scheduler_enabled and scheduler_status:
+                status_data['scheduler_status'] = scheduler_status
+            
+            return status_data
+            
         except Exception as e:
             return {
                 'status': 'ERROR',
                 'message': str(e),
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().isoformat(),
+                'processing_mode': 'error'
             }
     
     # Métodos de compatibilidade

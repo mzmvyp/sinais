@@ -1,0 +1,11 @@
+2025-07-26 14:31:46 - __main__ - INFO - 🔄 Monitor com SQLs CORRIGIDOS inicializado (intervalo: 30s)
+2025-07-26 14:31:46 - __main__ - INFO - 📊 Stream DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-26 14:31:46 - __main__ - INFO - 📊 Signals DB: C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db
+2025-07-26 14:31:46 - __main__ - INFO - 📊 Stream DB: 23675 registros kline
+2025-07-26 14:31:46 - __main__ - INFO - 📊 Símbolos disponíveis: 10 -> ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE', 'SOL', 'SUI']
+2025-07-26 14:31:46 - __main__ - INFO - 📊 Símbolos com dados recentes: 10
+2025-07-26 14:31:46 - __main__ - INFO - 📊 Signals DB: 7 sinais total, 7 ativos
+2025-07-26 14:31:46 - __main__ - INFO - 🔄 Loop de monitoramento iniciado
+2025-07-26 14:31:46 - __main__ - INFO - 🚀 MONITOR CORRIGIDO INICIADO
+2025-07-26 14:31:46 - __main__ - INFO - ⏱️ Intervalo: 30s
+2025-07-26 14:31:46 - __main__ - INFO - 🎯 Usando CLOSE_PRICE da tabela kline_microstructure_1m

@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-# real_time_signal_monitor_corrected.py - MONITOR CORRIGIDO COM DADOS LOCAIS
+# real_time_signal_monitor_fixed.py - MONITOR COM SQLs CORRIGIDOS
 
 """
 Monitor em tempo real CORRIGIDO que:
-1. Usa dados da tabela kline_microstructure_1m para current_price
-2. Banco correto: crypto_stream.db
-3. Lógica: filtra por símbolo e pega MAX close como current_price
-4. Atualiza status: ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT
-5. NÃO usa APIs externas para preços
+1. USA CLOSE_PRICE da tabela kline_microstructure_1m (não kline_close_time)
+2. Corrige comparações de datas com inserted_at (TEXT formato ISO)
+3. Todos os SQLs ajustados para estrutura correta da tabela
+4. Lógica: filtra por símbolo e pega CLOSE_PRICE mais recente
 """
 
 import sys
@@ -22,8 +21,8 @@ import sqlite3
 import traceback
 import argparse
 
-class CorrectedSignalMonitor:
-    """Monitor de sinais corrigido - usa dados locais do crypto_stream.db"""
+class FixedSignalMonitor:
+    """Monitor de sinais com SQLs corrigidos para estrutura real da tabela"""
     
     def __init__(self, check_interval: int = 60):
         self._setup_logging()
@@ -43,14 +42,14 @@ class CorrectedSignalMonitor:
         self.price_updates_failed = 0
         self.start_time = None
         
-        # BANCOS DE DADOS CORRETOS
+        # BANCOS DE DADOS
         self.stream_db_path = r"C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db"
         self.signals_db_path = r"C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db"
         
-        # Cache de última verificação para detectar transições
+        # Cache de última verificação
         self.last_check_results = {}
         
-        self.logger.info(f"🔄 Monitor Corrigido inicializado (intervalo: {check_interval}s)")
+        self.logger.info(f"🔄 Monitor com SQLs CORRIGIDOS inicializado (intervalo: {check_interval}s)")
         self.logger.info(f"📊 Stream DB: {self.stream_db_path}")
         self.logger.info(f"📊 Signals DB: {self.signals_db_path}")
     
@@ -67,7 +66,7 @@ class CorrectedSignalMonitor:
         
         # Handler para arquivo
         try:
-            file_handler = logging.FileHandler('monitor_corrected.log', encoding='utf-8')
+            file_handler = logging.FileHandler('monitor_fixed.log', encoding='utf-8')
             file_handler.setFormatter(formatter)
             file_handler.setLevel(logging.INFO)
             logger.addHandler(file_handler)
@@ -100,12 +99,12 @@ class CorrectedSignalMonitor:
         
         self.logger.info(f"🚀 MONITOR CORRIGIDO INICIADO")
         self.logger.info(f"⏱️ Intervalo: {self.check_interval}s")
-        self.logger.info(f"🎯 Usando dados locais da tabela kline_microstructure_1m")
+        self.logger.info(f"🎯 Usando CLOSE_PRICE da tabela kline_microstructure_1m")
         
         return True
     
     def _check_databases(self) -> bool:
-        """Verifica conectividade com ambos os bancos"""
+        """Verifica conectividade com ambos os bancos - SQL CORRIGIDO"""
         try:
             # Verifica banco de stream
             if not os.path.exists(self.stream_db_path):
@@ -119,9 +118,18 @@ class CorrectedSignalMonitor:
             cursor_stream.execute("SELECT COUNT(*) FROM kline_microstructure_1m")
             stream_count = cursor_stream.fetchone()[0]
             
-            # Verifica símbolos disponíveis
+            # CORRIGIDO: Verifica símbolos disponíveis
             cursor_stream.execute("SELECT DISTINCT symbol FROM kline_microstructure_1m ORDER BY symbol")
             available_symbols = [row[0] for row in cursor_stream.fetchall()]
+            
+            # CORRIGIDO: Verifica dados recentes (últimos 30 minutos)
+            thirty_min_ago = (datetime.now() - timedelta(minutes=30)).isoformat()
+            cursor_stream.execute("""
+                SELECT COUNT(DISTINCT symbol) 
+                FROM kline_microstructure_1m 
+                WHERE inserted_at > ?
+            """, (thirty_min_ago,))
+            recent_symbols_count = cursor_stream.fetchone()[0]
             
             conn_stream.close()
             
@@ -143,6 +151,7 @@ class CorrectedSignalMonitor:
             
             self.logger.info(f"📊 Stream DB: {stream_count} registros kline")
             self.logger.info(f"📊 Símbolos disponíveis: {len(available_symbols)} -> {available_symbols}")
+            self.logger.info(f"📊 Símbolos com dados recentes: {recent_symbols_count}")
             self.logger.info(f"📊 Signals DB: {signals_count} sinais total, {active_signals_count} ativos")
             
             return True
@@ -153,19 +162,19 @@ class CorrectedSignalMonitor:
     
     def _get_current_price_from_kline(self, symbol: str) -> Optional[float]:
         """
-        MÉTODO CORRIGIDO: Obtém current_price da tabela kline_microstructure_1m
-        Filtra por símbolo e pega o close mais recente
+        SQL CORRIGIDO: Obtém CLOSE_PRICE da tabela kline_microstructure_1m
+        Filtra por símbolo e pega o close_price mais recente
         """
         try:
             conn = sqlite3.connect(self.stream_db_path)
             cursor = conn.cursor()
             
-            # Busca o close mais recente para o símbolo
+            # CORRIGIDO: Busca CLOSE_PRICE (não kline_close_time)
             cursor.execute("""
-                SELECT close, timestamp_end 
+                SELECT close_price, inserted_at 
                 FROM kline_microstructure_1m 
                 WHERE symbol = ? 
-                ORDER BY timestamp_end DESC 
+                ORDER BY inserted_at DESC 
                 LIMIT 1
             """, (symbol,))
             
@@ -173,10 +182,10 @@ class CorrectedSignalMonitor:
             conn.close()
             
             if result:
-                close_price = float(result[0])
-                timestamp_end = result[1]
+                close_price = float(result[0])  # CORRIGIDO: result[0] é close_price
+                timestamp = result[1]
                 
-                self.logger.debug(f"📊 {symbol}: Último close = {close_price:.6f} (timestamp: {timestamp_end})")
+                self.logger.debug(f"📊 {symbol}: close_price = {close_price:.6f} (timestamp: {timestamp})")
                 return close_price
             else:
                 self.logger.warning(f"⚠️ Nenhum dado encontrado para {symbol} na tabela kline_microstructure_1m")
@@ -253,7 +262,7 @@ class CorrectedSignalMonitor:
                 transitions = []
                 
                 for signal in active_signals:
-                    result = self._process_signal_corrected(signal)
+                    result = self._process_signal_fixed(signal)
                     if result['updated']:
                         updates_count += 1
                     if result['transition']:
@@ -302,8 +311,8 @@ class CorrectedSignalMonitor:
         
         self.logger.info("🛑 Loop de monitoramento finalizado")
     
-    def _process_signal_corrected(self, signal: Dict) -> Dict:
-        """MÉTODO CORRIGIDO: Processa sinal usando dados locais"""
+    def _process_signal_fixed(self, signal: Dict) -> Dict:
+        """PROCESSO CORRIGIDO: Usa close_price da tabela kline"""
         result = {'updated': False, 'transition': None}
         
         try:
@@ -312,11 +321,11 @@ class CorrectedSignalMonitor:
             old_status = signal['status']
             old_price = signal['current_price']
             
-            # OBTÉM PREÇO ATUAL DA TABELA KLINE_MICROSTRUCTURE_1M
+            # CORRIGIDO: Obtém close_price da tabela kline_microstructure_1m
             current_price = self._get_current_price_from_kline(symbol)
             
             if current_price is None:
-                self.logger.warning(f"⚠️ Não foi possível obter preço para {symbol}")
+                self.logger.warning(f"⚠️ Não foi possível obter close_price para {symbol}")
                 self.price_updates_failed += 1
                 return result
             
@@ -350,7 +359,7 @@ class CorrectedSignalMonitor:
                         result['transition'] = {
                             'signal_id': signal_id,
                             'symbol': symbol,
-                            'timeframe': '1m',  # Usando dados de 1 minuto
+                            'timeframe': '1m',
                             'old_status': old_status,
                             'new_status': new_status,
                             'price': current_price,
@@ -495,7 +504,7 @@ class CorrectedSignalMonitor:
         self.logger.log(level, f"{icon} {message}")
     
     def _log_periodic_statistics(self):
-        """Log de estatísticas periódicas"""
+        """Log de estatísticas periódicas - CORRIGIDO"""
         if not self.start_time:
             return
             
@@ -509,7 +518,7 @@ class CorrectedSignalMonitor:
             cursor.execute("SELECT COUNT(*) FROM trading_signals_v2 WHERE status = 'ACTIVE'")
             active_count = cursor.fetchone()[0]
             
-            # Conta transições recentes (última hora)
+            # CORRIGIDO: Conta transições recentes (última hora) - usa formato ISO
             one_hour_ago = (datetime.now() - timedelta(hours=1)).isoformat()
             cursor.execute("""
                 SELECT COUNT(*) FROM trading_signals_v2 
@@ -519,15 +528,15 @@ class CorrectedSignalMonitor:
             
             conn.close()
             
-            # Verifica dados de stream recentes
+            # CORRIGIDO: Verifica dados de stream recentes - usa formato ISO
             conn_stream = sqlite3.connect(self.stream_db_path)
             cursor_stream = conn_stream.cursor()
             
-            # Últimos dados de stream (últimos 5 minutos)
-            five_min_ago = (datetime.now() - timedelta(minutes=5)).timestamp() * 1000  # em ms
+            # Últimos 5 minutos em formato ISO
+            five_min_ago = (datetime.now() - timedelta(minutes=5)).isoformat()
             cursor_stream.execute("""
                 SELECT COUNT(DISTINCT symbol) FROM kline_microstructure_1m 
-                WHERE timestamp_end > ?
+                WHERE inserted_at > ?
             """, (five_min_ago,))
             recent_symbols = cursor_stream.fetchone()[0]
             
@@ -597,8 +606,8 @@ class CorrectedSignalMonitor:
         }
     
     def force_check_now(self) -> Dict:
-        """Força uma verificação imediata"""
-        self.logger.info("🔄 VERIFICAÇÃO FORÇADA COM DADOS LOCAIS")
+        """Força uma verificação imediata - CORRIGIDO"""
+        self.logger.info("🔄 VERIFICAÇÃO FORÇADA COM CLOSE_PRICE CORRETO")
         
         try:
             signals = self._get_active_signals()
@@ -614,7 +623,7 @@ class CorrectedSignalMonitor:
                 symbol = signal['symbol']
                 old_price = signal['current_price']
                 
-                # Obtém preço atual da tabela kline
+                # CORRIGIDO: Obtém close_price da tabela kline
                 new_price = self._get_current_price_from_kline(symbol)
                 
                 detail = {
@@ -625,7 +634,7 @@ class CorrectedSignalMonitor:
                 }
                 
                 if new_price:
-                    result = self._process_signal_corrected(signal)
+                    result = self._process_signal_fixed(signal)
                     if result['updated']:
                         updated_count += 1
                         detail['updated'] = True
@@ -639,7 +648,7 @@ class CorrectedSignalMonitor:
                 self._log_transition(transition)
             
             # Log detalhado dos preços
-            self.logger.info("📊 DETALHES DOS PREÇOS (TABELA KLINE):")
+            self.logger.info("📊 DETALHES DOS PREÇOS (CLOSE_PRICE):")
             for detail in price_details:
                 status = "✅ ATUALIZADO" if detail['updated'] else "📊 SEM MUDANÇA"
                 new_price_str = f"{detail['new_price']:.6f}" if detail['new_price'] else "N/A"
@@ -664,21 +673,22 @@ class CorrectedSignalMonitor:
             return {'status': 'error', 'message': str(e)}
     
     def test_price_data_availability(self):
-        """Testa disponibilidade de dados de preços"""
-        self.logger.info("🔍 TESTANDO DISPONIBILIDADE DE DADOS DE PREÇOS")
+        """Testa disponibilidade de dados de preços - CORRIGIDO"""
+        self.logger.info("🔍 TESTANDO DISPONIBILIDADE DE DADOS DE PREÇOS (CLOSE_PRICE)")
         
         try:
-            # Verifica símbolos com dados recentes
+            # CORRIGIDO: Verifica símbolos com dados recentes
             conn = sqlite3.connect(self.stream_db_path)
             cursor = conn.cursor()
             
-            # Últimos 10 minutos
-            ten_min_ago = (datetime.now() - timedelta(minutes=10)).timestamp() * 1000
+            # Últimos 10 minutos em formato ISO
+            ten_min_ago = (datetime.now() - timedelta(minutes=10)).isoformat()
             
+            # CORRIGIDO: Busca close_price (não kline_close_time)
             cursor.execute("""
-                SELECT symbol, MAX(timestamp_end) as last_update, close
+                SELECT symbol, MAX(inserted_at) as last_update, close_price
                 FROM kline_microstructure_1m 
-                WHERE timestamp_end > ?
+                WHERE inserted_at > ?
                 GROUP BY symbol
                 ORDER BY symbol
             """, (ten_min_ago,))
@@ -688,9 +698,8 @@ class CorrectedSignalMonitor:
             
             if recent_data:
                 self.logger.info(f"📊 {len(recent_data)} símbolos com dados recentes:")
-                for symbol, last_update, close in recent_data:
-                    last_update_dt = datetime.fromtimestamp(last_update / 1000)
-                    self.logger.info(f"   {symbol}: {close:.6f} (atualizado: {last_update_dt})")
+                for symbol, last_update, close_price in recent_data:
+                    self.logger.info(f"   {symbol}: close_price = {close_price:.6f} (atualizado: {last_update})")
             else:
                 self.logger.warning("⚠️ Nenhum símbolo com dados recentes encontrado")
             
@@ -723,20 +732,20 @@ class CorrectedSignalMonitor:
 
 def main():
     """Execução principal"""
-    parser = argparse.ArgumentParser(description="Monitor de Sinais Corrigido - Dados Locais")
+    parser = argparse.ArgumentParser(description="Monitor de Sinais com SQLs CORRIGIDOS")
     parser.add_argument('--interval', type=int, default=60, help='Intervalo em segundos')
     parser.add_argument('--force-check', action='store_true', help='Força verificação e sai')
     parser.add_argument('--test-data', action='store_true', help='Testa disponibilidade de dados')
     
     args = parser.parse_args()
     
-    print(f"🚀 MONITOR DE SINAIS CORRIGIDO")
+    print(f"🚀 MONITOR DE SINAIS - SQLs CORRIGIDOS")
     print(f"⏱️ Intervalo: {args.interval} segundos")
-    print(f"📊 Usando dados locais da tabela kline_microstructure_1m")
+    print(f"📊 Usando CLOSE_PRICE da tabela kline_microstructure_1m")
     print("="*60)
     
     try:
-        monitor = CorrectedSignalMonitor(args.interval)
+        monitor = FixedSignalMonitor(args.interval)
         
         if args.test_data:
             monitor.test_price_data_availability()

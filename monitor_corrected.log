@@ -1,0 +1,463 @@
+2025-07-26 14:03:25 - __main__ - INFO - 🔄 Monitor Corrigido inicializado (intervalo: 30s)
+2025-07-26 14:03:25 - __main__ - INFO - 📊 Stream DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-26 14:03:25 - __main__ - INFO - 📊 Signals DB: C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db
+2025-07-26 14:03:25 - __main__ - INFO - 📊 Stream DB: 23393 registros kline
+2025-07-26 14:03:25 - __main__ - INFO - 📊 Símbolos disponíveis: 10 -> ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE', 'SOL', 'SUI']
+2025-07-26 14:03:25 - __main__ - INFO - 📊 Signals DB: 0 sinais total, 0 ativos
+2025-07-26 14:03:25 - __main__ - INFO - 🔄 Loop de monitoramento iniciado
+2025-07-26 14:03:25 - __main__ - INFO - 🚀 MONITOR CORRIGIDO INICIADO
+2025-07-26 14:03:25 - __main__ - INFO - ⏱️ Intervalo: 30s
+2025-07-26 14:03:25 - __main__ - INFO - 🎯 Usando dados locais da tabela kline_microstructure_1m
+2025-07-26 14:04:03 - __main__ - INFO - 🔄 VERIFICAÇÃO FORÇADA COM DADOS LOCAIS
+2025-07-26 14:04:26 - __main__ - INFO - 🔄 Monitor Corrigido inicializado (intervalo: 30s)
+2025-07-26 14:04:26 - __main__ - INFO - 📊 Stream DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-26 14:04:26 - __main__ - INFO - 📊 Signals DB: C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db
+2025-07-26 14:04:26 - __main__ - INFO - 📊 Stream DB: 23397 registros kline
+2025-07-26 14:04:26 - __main__ - INFO - 📊 Símbolos disponíveis: 10 -> ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE', 'SOL', 'SUI']
+2025-07-26 14:04:26 - __main__ - INFO - 📊 Signals DB: 0 sinais total, 0 ativos
+2025-07-26 14:04:26 - __main__ - INFO - 🔄 Loop de monitoramento iniciado
+2025-07-26 14:04:26 - __main__ - INFO - 🚀 MONITOR CORRIGIDO INICIADO
+2025-07-26 14:04:26 - __main__ - INFO - ⏱️ Intervalo: 30s
+2025-07-26 14:04:26 - __main__ - INFO - 🎯 Usando dados locais da tabela kline_microstructure_1m
+2025-07-26 14:05:17 - __main__ - INFO - 🔄 VERIFICAÇÃO FORÇADA COM DADOS LOCAIS
+2025-07-26 14:15:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:15:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:15:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:15:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:15:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:15:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:15:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:15:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:15:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:15:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:15:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:15:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:15:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:15:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:16:27 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:16:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:16:27 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:16:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:16:27 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:16:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:16:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:16:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:16:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:16:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:16:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:16:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:16:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:16:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:16:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:16:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:16:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:16:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:16:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:16:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:16:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:16:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:16:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:16:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:16:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:16:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:16:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:16:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:17:27 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:17:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:17:27 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:17:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:17:27 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:17:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:17:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:17:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:17:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:17:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:17:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:17:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:17:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:17:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:17:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:17:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:17:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:17:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:17:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:17:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:17:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:17:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:17:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:17:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:17:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:17:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:17:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:17:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:18:27 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:18:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:18:27 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:18:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:18:27 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:18:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:18:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:18:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:18:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:18:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:18:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:18:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:18:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:18:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:18:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:18:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:18:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:18:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:18:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:18:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:18:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:18:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:18:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:18:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:18:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:18:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:18:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:18:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:19:27 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:19:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:19:27 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:19:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:19:27 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:19:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:19:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:19:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:19:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:19:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:19:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:19:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:19:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:19:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:19:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:19:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:19:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:19:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:19:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:19:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:19:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:19:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:19:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:19:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:19:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:19:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:19:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:19:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:20:27 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:20:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:20:27 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:20:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:20:27 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:20:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:20:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:20:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:20:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:20:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:20:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:20:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:20:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:20:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:20:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:20:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:20:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:20:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:20:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:20:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:20:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:20:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:20:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:20:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:20:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:20:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:20:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:20:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:21:27 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:21:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:21:27 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:21:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:21:27 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:21:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:21:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:21:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:21:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:21:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:21:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:21:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:21:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:21:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:21:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:21:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:21:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:21:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:21:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:21:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:21:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:21:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:21:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:21:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:21:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:21:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:21:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:21:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:22:27 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:22:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:22:27 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:22:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:22:27 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:22:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:22:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:22:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:22:27 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:22:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:22:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:22:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:22:27 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:22:27 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:22:57 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: close
+2025-07-26 14:22:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:22:57 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: close
+2025-07-26 14:22:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:22:57 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: close
+2025-07-26 14:22:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:22:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: close
+2025-07-26 14:22:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:22:57 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: close
+2025-07-26 14:22:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:22:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: close
+2025-07-26 14:22:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:22:57 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: close
+2025-07-26 14:22:57 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:23:27 - __main__ - INFO - 🛑 Loop de monitoramento finalizado
+2025-07-26 14:23:29 - __main__ - INFO - 🔄 Monitor Corrigido inicializado (intervalo: 30s)
+2025-07-26 14:23:29 - __main__ - INFO - 📊 Stream DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-26 14:23:29 - __main__ - INFO - 📊 Signals DB: C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db
+2025-07-26 14:23:29 - __main__ - INFO - 📊 Stream DB: 23587 registros kline
+2025-07-26 14:23:29 - __main__ - INFO - 📊 Símbolos disponíveis: 10 -> ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE', 'SOL', 'SUI']
+2025-07-26 14:23:29 - __main__ - INFO - 📊 Signals DB: 7 sinais total, 7 ativos
+2025-07-26 14:23:29 - __main__ - INFO - 🔄 Loop de monitoramento iniciado
+2025-07-26 14:23:29 - __main__ - INFO - 🚀 MONITOR CORRIGIDO INICIADO
+2025-07-26 14:23:29 - __main__ - INFO - ⏱️ Intervalo: 30s
+2025-07-26 14:23:29 - __main__ - INFO - 🎯 Usando dados locais da tabela kline_microstructure_1m
+2025-07-26 14:23:29 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: no such column: timestamp_end
+2025-07-26 14:23:29 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:23:29 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: no such column: timestamp_end
+2025-07-26 14:23:29 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:23:29 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: no such column: timestamp_end
+2025-07-26 14:23:29 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:23:29 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: no such column: timestamp_end
+2025-07-26 14:23:29 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:23:29 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: no such column: timestamp_end
+2025-07-26 14:23:29 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:23:29 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: no such column: timestamp_end
+2025-07-26 14:23:29 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:23:29 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: no such column: timestamp_end
+2025-07-26 14:23:29 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:24:45 - __main__ - INFO - 🔄 Monitor Corrigido inicializado (intervalo: 30s)
+2025-07-26 14:24:45 - __main__ - INFO - 📊 Stream DB: C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db
+2025-07-26 14:24:45 - __main__ - INFO - 📊 Signals DB: C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db
+2025-07-26 14:24:45 - __main__ - INFO - 📊 Stream DB: 23605 registros kline
+2025-07-26 14:24:45 - __main__ - INFO - 📊 Símbolos disponíveis: 10 -> ['BNB', 'BTC', 'ENA', 'ETH', 'HYPE', 'IMX', 'NEAR', 'PEPE', 'SOL', 'SUI']
+2025-07-26 14:24:45 - __main__ - INFO - 📊 Signals DB: 7 sinais total, 7 ativos
+2025-07-26 14:24:45 - __main__ - INFO - 🔄 Loop de monitoramento iniciado
+2025-07-26 14:24:45 - __main__ - INFO - 🚀 MONITOR CORRIGIDO INICIADO
+2025-07-26 14:24:45 - __main__ - INFO - ⏱️ Intervalo: 30s
+2025-07-26 14:24:45 - __main__ - INFO - 🎯 Usando dados locais da tabela kline_microstructure_1m
+2025-07-26 14:24:45 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:24:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:24:45 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:24:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:24:45 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:24:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:24:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:24:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:24:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:24:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:24:45 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:24:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:24:45 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:24:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:25:15 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:25:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:25:15 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:25:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:25:15 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:25:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:25:15 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:25:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:25:15 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:25:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:25:15 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:25:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:25:15 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:23:59.999000'
+2025-07-26 14:25:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:25:45 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:25:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:25:45 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:25:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:25:45 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:25:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:25:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:25:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:25:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:25:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:25:45 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:25:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:25:45 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:25:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:26:15 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:26:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:26:15 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:24:59.999000'
+2025-07-26 14:26:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:26:15 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:26:15 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:26:15 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:26:15 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:26:15 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:26:45 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:26:45 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:26:45 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:26:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:26:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:26:45 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:26:45 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:26:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:27:15 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:27:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:27:15 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:27:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:27:15 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:27:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:27:15 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:27:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:27:15 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:27:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:27:15 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:27:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:27:15 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:25:59.999000'
+2025-07-26 14:27:15 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:27:45 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:27:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:27:45 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:27:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:27:45 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:27:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:27:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:27:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:27:45 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:27:45 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:27:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:27:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:27:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:27:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:28:16 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:28:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:28:16 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:28:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:28:16 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:28:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:28:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:28:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:26:59.999000'
+2025-07-26 14:28:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:28:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:28:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:28:46 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:28:46 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:28:46 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:28:46 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:28:46 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:28:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:28:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:28:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:29:16 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:29:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:29:16 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:29:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:29:16 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:29:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:29:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:29:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:29:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:29:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:29:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:29:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:29:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:27:59.999000'
+2025-07-26 14:29:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:29:46 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:29:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:29:46 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:29:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:29:46 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:29:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:29:46 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:29:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:29:46 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:29:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:29:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:29:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:29:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:29:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:30:16 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:30:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:30:16 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:30:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:30:16 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:30:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:30:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:30:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:28:59.999000'
+2025-07-26 14:30:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:30:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:30:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:30:46 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:30:46 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:30:46 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:30:46 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:30:46 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:30:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:30:46 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:30:46 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
+2025-07-26 14:31:16 - __main__ - ERROR - ❌ Erro ao buscar preço de NEAR: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:31:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para NEAR
+2025-07-26 14:31:16 - __main__ - ERROR - ❌ Erro ao buscar preço de IMX: could not convert string to float: '2025-07-26T14:30:59.999000'
+2025-07-26 14:31:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para IMX
+2025-07-26 14:31:16 - __main__ - ERROR - ❌ Erro ao buscar preço de HYPE: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:31:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para HYPE
+2025-07-26 14:31:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ETH: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:31:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ETH
+2025-07-26 14:31:16 - __main__ - ERROR - ❌ Erro ao buscar preço de ENA: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:31:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para ENA
+2025-07-26 14:31:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BTC: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:31:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BTC
+2025-07-26 14:31:16 - __main__ - ERROR - ❌ Erro ao buscar preço de BNB: could not convert string to float: '2025-07-26T14:29:59.999000'
+2025-07-26 14:31:16 - __main__ - WARNING - ⚠️ Não foi possível obter preço para BNB
