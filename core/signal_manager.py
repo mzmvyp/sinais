@@ -17,7 +17,7 @@ from config.settings import settings
 from core.signal_writer import EnhancedSignalWriter
 
 class SignalManager:
-    """Gerenciador de sinais ativos - LÓGICA CORRIGIDA"""
+    """Gerenciador de sinais ativos - LÓGICA CORRIGIDA PARA TARGETS"""
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -26,178 +26,190 @@ class SignalManager:
         self.signals_table = settings.database.signals_table
         self.backup_table = settings.database.backup_table
         
-        # 🚨 ESTADOS CORRIGIDOS
-        self.BLOCKING_STATES = ['ACTIVE', 'TARGET_1_HIT']  # Estados que bloqueiam novos sinais
-        self.COMPLETED_STATES = ['TARGET_2_HIT', 'STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']  # Estados finalizados
+        # 🚨 ESTADOS CORRIGIDOS - agora TARGET_1_HIT depende do número de targets
+        self.ALWAYS_BLOCKING_STATES = ['ACTIVE']  # Sempre bloqueiam
+        self.CONDITIONAL_BLOCKING_STATES = ['TARGET_1_HIT']  # Bloqueiam apenas se tem 2+ targets
+        self.COMPLETED_STATES = ['TARGET_2_HIT', 'STOP_HIT', 'EXPIRED', 'MANUALLY_CLOSED']  # Nunca bloqueiam
         
-        self.logger.info("SignalManager inicializado com estados corrigidos")
+        self.logger.info("SignalManager inicializado com lógica inteligente de targets")
     
     def _get_connection(self):
         return sqlite3.connect(self.db_path, timeout=10)
     
-    def get_active_signals_overview(self) -> Dict:
+    def get_truly_blocking_signals(self, symbol: str = None) -> Dict:
         """
-        📊 Visão geral dos sinais que BLOQUEIAM timeframes (ACTIVE, TARGET_1_HIT)
+        📊 Retorna apenas sinais que REALMENTE bloqueiam baseado na lógica de targets
         """
-        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
-        
-        sql = f"""
+        base_query = """
         SELECT 
             symbol, timeframe, detector_name, signal_type, confidence, 
-            entry_price, created_at, status, targets_hit, stop_loss, targets
-        FROM {self.signals_table}
-        WHERE status IN ({placeholders})
+            entry_price, created_at, status, targets, stop_loss, id
+        FROM {table}
+        WHERE status IN ('ACTIVE', 'TARGET_1_HIT')
+        {symbol_filter}
         ORDER BY symbol, timeframe, created_at DESC
-        """
+        """.format(
+            table=self.signals_table,
+            symbol_filter="AND symbol = ?" if symbol else ""
+        )
         
         try:
+            params = [symbol] if symbol else []
+            
             with self._get_connection() as conn:
-                df = pd.read_sql_query(sql, conn, params=self.BLOCKING_STATES)
+                df = pd.read_sql_query(base_query, conn, params=params)
             
             if df.empty:
                 return {
                     'total_blocking': 0,
                     'symbols_blocked': 0,
                     'by_symbol': {},
-                    'by_timeframe': {},
-                    'by_status': {},
-                    'signals': []
+                    'signals': [],
+                    'logic_explanation': 'ACTIVE sempre bloqueia | TARGET_1_HIT bloqueia apenas se tem 2+ targets'
                 }
+            
+            # Analisa cada sinal para ver se realmente bloqueia
+            truly_blocking = []
+            
+            for _, row in df.iterrows():
+                try:
+                    targets = json.loads(row['targets']) if row['targets'] else []
+                    targets_count = len(targets)
+                except:
+                    targets_count = 0
+                
+                is_blocking = False
+                blocking_reason = ""
+                
+                if row['status'] == 'ACTIVE':
+                    is_blocking = True
+                    blocking_reason = "Ativo - aguardando resultado"
+                    
+                elif row['status'] == 'TARGET_1_HIT':
+                    if targets_count >= 2:
+                        is_blocking = True
+                        blocking_reason = f"Target 1/2 atingido - target 2 pendente"
+                    else:
+                        blocking_reason = f"Target único atingido - NÃO bloqueia"
+                
+                if is_blocking:
+                    signal_data = row.to_dict()
+                    signal_data['blocking_reason'] = blocking_reason
+                    signal_data['targets_count'] = targets_count
+                    truly_blocking.append(signal_data)
             
             # Agrupa por symbol
             by_symbol = {}
-            for symbol, group in df.groupby('symbol'):
-                by_symbol[symbol] = {
-                    'total': len(group),
-                    'timeframes': group['timeframe'].tolist(),
-                    'detectors': group['detector_name'].tolist(),
-                    'avg_confidence': round(group['confidence'].mean(), 3),
-                    'statuses': group['status'].tolist()
-                }
-            
-            # Agrupa por timeframe e status
-            by_timeframe = df['timeframe'].value_counts().to_dict()
-            by_status = df['status'].value_counts().to_dict()
+            for signal in truly_blocking:
+                symbol_name = signal['symbol']
+                if symbol_name not in by_symbol:
+                    by_symbol[symbol_name] = {
+                        'total': 0,
+                        'timeframes': [],
+                        'detectors': [],
+                        'statuses': [],
+                        'blocking_reasons': []
+                    }
+                
+                by_symbol[symbol_name]['total'] += 1
+                by_symbol[symbol_name]['timeframes'].append(signal['timeframe'])
+                by_symbol[symbol_name]['detectors'].append(signal['detector_name'])
+                by_symbol[symbol_name]['statuses'].append(signal['status'])
+                by_symbol[symbol_name]['blocking_reasons'].append(signal['blocking_reason'])
             
             return {
-                'total_blocking': len(df),
+                'total_blocking': len(truly_blocking),
                 'symbols_blocked': len(by_symbol),
                 'by_symbol': by_symbol,
-                'by_timeframe': by_timeframe,
-                'by_status': by_status,
-                'blocking_states': self.BLOCKING_STATES,
-                'completed_states': self.COMPLETED_STATES,
-                'signals': df.to_dict('records')
+                'signals': truly_blocking,
+                'logic_explanation': 'ACTIVE sempre bloqueia | TARGET_1_HIT bloqueia apenas se tem 2+ targets',
+                'blocking_states_logic': {
+                    'ACTIVE': 'Sempre bloqueia - ainda não atingiu nenhum target',
+                    'TARGET_1_HIT_with_2_targets': 'Bloqueia - target 2 ainda pendente',
+                    'TARGET_1_HIT_with_1_target': 'NÃO bloqueia - objetivo já atingido',
+                    'TARGET_2_HIT': 'NÃO bloqueia - objetivo completo',
+                    'STOP_HIT': 'NÃO bloqueia - sinal finalizado',
+                    'EXPIRED': 'NÃO bloqueia - sinal expirado'
+                }
             }
             
         except Exception as e:
-            self.logger.error(f"Erro ao obter visão geral dos sinais: {e}")
+            self.logger.error(f"Erro ao obter sinais bloqueadores: {e}")
             return {'error': str(e)}
+    
+    def get_active_signals_overview(self) -> Dict:
+        """
+        📊 Visão geral dos sinais com lógica inteligente de bloqueio
+        """
+        return self.get_truly_blocking_signals()
     
     def get_signals_by_symbol(self, symbol: str) -> Dict:
         """
-        🔍 Detalhes dos sinais de um symbol específico
+        🔍 Detalhes dos sinais de um symbol específico com lógica inteligente
         """
-        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
+        result = self.get_truly_blocking_signals(symbol)
         
-        sql = f"""
-        SELECT 
-            id, timeframe, detector_name, signal_type, confidence, 
-            entry_price, stop_loss, targets, created_at, status, targets_hit, current_price
-        FROM {self.signals_table}
-        WHERE symbol = ? AND status IN ({placeholders})
-        ORDER BY timeframe, created_at DESC
-        """
+        if 'error' in result:
+            return result
         
-        try:
-            with self._get_connection() as conn:
-                cursor = conn.cursor()
-                cursor.execute(sql, [symbol] + self.BLOCKING_STATES)
-                results = cursor.fetchall()
-                
-                if not results:
-                    return {
-                        'symbol': symbol,
-                        'blocking_signals': 0,
-                        'signals': [],
-                        'blocked_timeframes': [],
-                        'available_timeframes': settings.get_enabled_timeframes()
-                    }
-                
-                signals = []
-                blocked_timeframes = []
-                
-                for row in results:
-                    # Parse de dados JSON
-                    try:
-                        targets = json.loads(row[7]) if row[7] else []
-                        targets_hit = json.loads(row[10]) if row[10] else [False, False]
-                    except (json.JSONDecodeError, TypeError):
-                        targets = []
-                        targets_hit = [False, False]
-                    
-                    signal_data = {
-                        'id': row[0],
-                        'timeframe': row[1],
-                        'detector_name': row[2],
-                        'signal_type': row[3],
-                        'confidence': row[4],
-                        'entry_price': row[5],
-                        'stop_loss': row[6],
-                        'targets': targets,
-                        'created_at': row[8],
-                        'status': row[9],
-                        'targets_hit': targets_hit,
-                        'current_price': row[11],
-                        'progress': self._calculate_signal_progress(targets_hit, row[9])
-                    }
-                    signals.append(signal_data)
-                    blocked_timeframes.append(row[1])
-                
-                enabled_timeframes = settings.get_enabled_timeframes()
-                available_timeframes = [tf for tf in enabled_timeframes if tf not in blocked_timeframes]
-                
-                return {
-                    'symbol': symbol,
-                    'blocking_signals': len(signals),
-                    'signals': signals,
-                    'blocked_timeframes': blocked_timeframes,
-                    'available_timeframes': available_timeframes
-                }
-                
-        except Exception as e:
-            self.logger.error(f"Erro ao obter sinais do symbol {symbol}: {e}")
-            return {'error': str(e)}
+        # Calcula timeframes disponíveis baseado nos que realmente bloqueiam
+        enabled_timeframes = settings.get_enabled_timeframes()
+        blocked_timeframes = []
+        
+        for signal in result['signals']:
+            blocked_timeframes.append(signal['timeframe'])
+        
+        available_timeframes = [tf for tf in enabled_timeframes if tf not in blocked_timeframes]
+        
+        # Adiciona análise detalhada de cada sinal
+        detailed_signals = []
+        for signal in result['signals']:
+            signal['progress'] = self._calculate_signal_progress_intelligent(signal)
+            detailed_signals.append(signal)
+        
+        return {
+            'symbol': symbol,
+            'blocking_signals': result['total_blocking'],
+            'signals': detailed_signals,
+            'blocked_timeframes': list(set(blocked_timeframes)),
+            'available_timeframes': available_timeframes,
+            'logic_explanation': result['logic_explanation']
+        }
     
-    def _calculate_signal_progress(self, targets_hit: List[bool], status: str) -> str:
-        """Calcula progresso do sinal - CORRIGIDO para 2 targets"""
+    def _calculate_signal_progress_intelligent(self, signal: Dict) -> str:
+        """Calcula progresso do sinal com lógica inteligente de targets"""
+        status = signal['status']
+        targets_count = signal.get('targets_count', 0)
+        blocking_reason = signal.get('blocking_reason', '')
+        
         if status == 'TARGET_2_HIT':
             return "TARGET 2/2 ATINGIDO - FINALIZADO"
         elif status == 'TARGET_1_HIT':
-            return "TARGET 1/2 ATINGIDO - AINDA ATIVO"
+            if targets_count >= 2:
+                return f"TARGET 1/2 ATINGIDO - AGUARDANDO TARGET 2 (BLOQUEIA)"
+            else:
+                return f"TARGET ÚNICO ATINGIDO - FINALIZADO (NÃO BLOQUEIA)"
         elif status == 'ACTIVE':
-            return "AGUARDANDO RESULTADO"
+            return f"ATIVO - AGUARDANDO RESULTADO (BLOQUEIA)"
         elif status == 'STOP_HIT':
             return "STOP LOSS ATINGIDO - FINALIZADO"
         else:
-            return status
+            return f"{status} - {blocking_reason}"
     
     def deactivate_signal_by_id(self, signal_id: str, reason: str = "manual_admin") -> bool:
         """
         🔴 Desativa um sinal específico pelo ID (apenas se estiver bloqueando)
         """
-        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
-        
         sql = f"""
         UPDATE {self.signals_table}
         SET status = 'MANUALLY_CLOSED', updated_at = ?
-        WHERE id = ? AND status IN ({placeholders})
+        WHERE id = ? AND status IN ('ACTIVE', 'TARGET_1_HIT')
         """
         
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
-                cursor.execute(sql, [datetime.now().isoformat(), signal_id] + self.BLOCKING_STATES)
+                cursor.execute(sql, [datetime.now().isoformat(), signal_id])
                 affected_rows = cursor.rowcount
                 conn.commit()
                 
@@ -214,25 +226,23 @@ class SignalManager:
     
     def deactivate_signals_by_symbol(self, symbol: str, timeframe: Optional[str] = None, reason: str = "manual_admin") -> int:
         """
-        🔴 Desativa sinais que estão bloqueando um symbol
+        🔴 Desativa sinais que estão REALMENTE bloqueando um symbol
         """
-        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
-        
         if timeframe:
             sql = f"""
             UPDATE {self.signals_table}
             SET status = 'MANUALLY_CLOSED', updated_at = ?
-            WHERE symbol = ? AND timeframe = ? AND status IN ({placeholders})
+            WHERE symbol = ? AND timeframe = ? AND status IN ('ACTIVE', 'TARGET_1_HIT')
             """
-            params = [datetime.now().isoformat(), symbol, timeframe] + self.BLOCKING_STATES
+            params = [datetime.now().isoformat(), symbol, timeframe]
             action_desc = f"{symbol} {timeframe}"
         else:
             sql = f"""
             UPDATE {self.signals_table}
             SET status = 'MANUALLY_CLOSED', updated_at = ?
-            WHERE symbol = ? AND status IN ({placeholders})
+            WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_1_HIT')
             """
-            params = [datetime.now().isoformat(), symbol] + self.BLOCKING_STATES
+            params = [datetime.now().isoformat(), symbol]
             action_desc = f"{symbol} (todos timeframes)"
         
         try:
@@ -244,6 +254,16 @@ class SignalManager:
                 
                 if affected_rows > 0:
                     self.logger.info(f"🔴 {affected_rows} SINAIS DESATIVADOS: {action_desc} | Motivo: {reason}")
+                    
+                    # Log adicional: verifica quais eram realmente bloqueadores
+                    truly_blocking = self.get_truly_blocking_signals(symbol)
+                    remaining_blocking = truly_blocking.get('total_blocking', 0)
+                    
+                    if remaining_blocking == 0:
+                        self.logger.info(f"✅ {symbol} agora está completamente desbloqueado")
+                    else:
+                        self.logger.warning(f"⚠️ {symbol} ainda tem {remaining_blocking} sinais bloqueadores")
+                    
                     return affected_rows
                 else:
                     self.logger.warning(f"⚠️ Nenhum sinal bloqueador encontrado para: {action_desc}")
@@ -334,7 +354,7 @@ class SignalManager:
     
     def force_clear_all_blocking_signals(self, confirmation_code: str = None) -> Dict:
         """
-        ⚠️ FUNÇÃO PERIGOSA: Limpa TODOS os sinais que estão bloqueando
+        ⚠️ FUNÇÃO PERIGOSA: Limpa TODOS os sinais que estão REALMENTE bloqueando
         """
         expected_code = "CLEAR_ALL_BLOCKING_CONFIRMED"
         
@@ -345,28 +365,27 @@ class SignalManager:
                 'signals_cleared': 0
             }
         
-        placeholders = ', '.join(['?' for _ in self.BLOCKING_STATES])
-        
         sql = f"""
         UPDATE {self.signals_table}
         SET status = 'MANUALLY_CLOSED', updated_at = ?
-        WHERE status IN ({placeholders})
+        WHERE status IN ('ACTIVE', 'TARGET_1_HIT')
         """
         
         try:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
-                cursor.execute(sql, [datetime.now().isoformat()] + self.BLOCKING_STATES)
+                cursor.execute(sql, [datetime.now().isoformat()])
                 affected_rows = cursor.rowcount
                 conn.commit()
                 
-                self.logger.warning(f"⚠️ LIMPEZA TOTAL EXECUTADA: {affected_rows} sinais bloqueadores fechados | Confirmação: {confirmation_code}")
+                self.logger.warning(f"⚠️ LIMPEZA TOTAL EXECUTADA: {affected_rows} sinais fechados | Confirmação: {confirmation_code}")
                 
                 return {
                     'status': 'success',
-                    'message': 'Todos os sinais bloqueadores foram fechados',
+                    'message': 'Todos os sinais potencialmente bloqueadores foram fechados',
                     'signals_cleared': affected_rows,
-                    'states_cleared': self.BLOCKING_STATES,
+                    'note': 'Sinais TARGET_1_HIT com 1 target já não bloqueavam',
+                    'states_cleared': ['ACTIVE', 'TARGET_1_HIT'],
                     'timestamp': datetime.now().isoformat()
                 }
                 
@@ -377,6 +396,77 @@ class SignalManager:
                 'message': str(e),
                 'signals_cleared': 0
             }
+
+def print_blocking_analysis(symbol: str = None):
+    """
+    🖨️ Função utilitária para analisar sinais com lógica inteligente de bloqueio
+    """
+    manager = SignalManager()
+    
+    if symbol:
+        data = manager.get_truly_blocking_signals(symbol.upper())
+        if 'error' in data:
+            print(f"❌ Erro: {data['error']}")
+            return
+        
+        print(f"\n🧠 ANÁLISE INTELIGENTE DE BLOQUEIO PARA {symbol.upper()}")
+        print("=" * 80)
+        print(f"💡 {data['logic_explanation']}")
+        print("=" * 80)
+        
+        if data['total_blocking'] == 0:
+            print("✅ Nenhum sinal realmente bloqueando - Symbol disponível para novos sinais")
+            return
+        
+        print(f"🚫 Total de sinais REALMENTE bloqueando: {data['total_blocking']}")
+        print("\nDetalhes dos sinais bloqueadores:")
+        print("-" * 80)
+        
+        for signal in data['signals']:
+            progress = signal.get('blocking_reason', 'Unknown')
+            targets_count = signal.get('targets_count', 0)
+            
+            status_icon = {
+                'ACTIVE': '🔴',
+                'TARGET_1_HIT': '🟡' if targets_count >= 2 else '🟢'
+            }.get(signal['status'], '🔴')
+            
+            print(f"{status_icon} {signal['timeframe']} | {signal['detector_name']} | {signal['signal_type']} | "
+                  f"Targets: {targets_count} | Status: {signal['status']} | "
+                  f"Razão: {progress} | Criado: {signal['created_at'][:19]}")
+    
+    else:
+        data = manager.get_truly_blocking_signals()
+        if 'error' in data:
+            print(f"❌ Erro: {data['error']}")
+            return
+        
+        print(f"\n🧠 ANÁLISE INTELIGENTE DE BLOQUEIO GERAL")
+        print("=" * 80)
+        print(f"💡 {data['logic_explanation']}")
+        print("=" * 80)
+        
+        if data['total_blocking'] == 0:
+            print("✅ Nenhum sinal realmente bloqueando no sistema - Todos os symbols disponíveis")
+            return
+        
+        print(f"🚫 Total de sinais REALMENTE bloqueando: {data['total_blocking']}")
+        print(f"Symbols com sinais bloqueadores: {data['symbols_blocked']}")
+        
+        print(f"\nLógica de estados:")
+        for state, explanation in data['blocking_states_logic'].items():
+            print(f"   • {state}: {explanation}")
+        
+        print("\nPor symbol:")
+        print("-" * 80)
+        
+        for symbol, info in data['by_symbol'].items():
+            reasons = list(set(info['blocking_reasons']))
+            reasons_str = '; '.join(reasons)
+            
+            print(f"• {symbol:8} | {info['total']} sinais bloqueando | "
+                  f"TF: {', '.join(set(info['timeframes']))} | "
+                  f"Razões: {reasons_str}")
 
 def print_active_signals_table(symbol: str = None):
     """

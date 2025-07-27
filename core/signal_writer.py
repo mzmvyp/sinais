@@ -847,10 +847,13 @@ class EnhancedSignalWriter:
     
     def check_existing_active_signals(self, symbol: str) -> bool:
         """
-        Verifica sinais que BLOQUEIAM novos sinais (ACTIVE, TARGET_1_HIT)
+        Verifica sinais que REALMENTE BLOQUEIAM novos sinais baseado na lógica de targets:
+        - ACTIVE: sempre bloqueia
+        - TARGET_1_HIT: bloqueia apenas se tem 2 targets (ainda não finalizou)
+        - TARGET_2_HIT, STOP_HIT, EXPIRED, MANUALLY_CLOSED: nunca bloqueiam
         """
         query = f"""
-        SELECT id, status, targets_hit, created_at, timeframe
+        SELECT id, status, targets, created_at, timeframe, detector_name
         FROM {self.signals_table} 
         WHERE symbol = ? AND status IN ('ACTIVE', 'TARGET_1_HIT')
         ORDER BY created_at DESC
@@ -860,21 +863,63 @@ class EnhancedSignalWriter:
             with self._get_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(query, (symbol,))
-                blocking_signals = cursor.fetchall()
+                potential_blocking_signals = cursor.fetchall()
                 
-                has_blocking = len(blocking_signals) > 0
+                if not potential_blocking_signals:
+                    return False
                 
-                if has_blocking:
-                    self.logger.info(f"🚫 {symbol} BLOQUEADO: {len(blocking_signals)} sinal(s) que impedem novos sinais:")
-                    for signal_id, status, targets_hit_str, created_at, timeframe in blocking_signals:
-                        self.logger.info(f"   • {signal_id} | {status} | {timeframe} | Criado: {created_at}")
+                actually_blocking = []
                 
-                return has_blocking
+                for signal_id, status, targets_json, created_at, timeframe, detector_name in potential_blocking_signals:
+                    # Parse targets
+                    try:
+                        targets = json.loads(targets_json) if targets_json else []
+                        targets_count = len(targets) if targets else 0
+                    except:
+                        targets_count = 0
                     
+                    is_blocking = False
+                    blocking_reason = ""
+                    
+                    if status == 'ACTIVE':
+                        # ACTIVE sempre bloqueia
+                        is_blocking = True
+                        blocking_reason = "Sinal ativo aguardando resultado"
+                        
+                    elif status == 'TARGET_1_HIT':
+                        if targets_count >= 2:
+                            # Target 1 atingido, mas ainda tem target 2 pendente
+                            is_blocking = True
+                            blocking_reason = f"Target 1/2 atingido, target 2 ainda pendente"
+                        else:
+                            # Só tinha 1 target e já foi atingido - não bloqueia mais
+                            is_blocking = False
+                            blocking_reason = f"Target único atingido - não bloqueia"
+                            self.logger.debug(f"✅ {symbol}: Sinal {signal_id} com 1 target atingido não bloqueia mais")
+                    
+                    if is_blocking:
+                        actually_blocking.append({
+                            'id': signal_id,
+                            'status': status,
+                            'targets_count': targets_count,
+                            'reason': blocking_reason,
+                            'timeframe': timeframe,
+                            'detector_name': detector_name
+                        })
+                
+                if actually_blocking:
+                    self.logger.info(f"🚫 {symbol} BLOQUEADO: {len(actually_blocking)} sinal(s) que impedem novos sinais:")
+                    for signal in actually_blocking:
+                        self.logger.info(f"   • {signal['id']} | {signal['status']} | {signal['timeframe']} | {signal['detector_name']} | {signal['reason']}")
+                    return True
+                else:
+                    self.logger.debug(f"✅ {symbol}: Sem sinais bloqueadores (targets únicos já atingidos)")
+                    return False
+                        
         except Exception as e:
             self.logger.error(f"❌ Erro ao verificar sinais bloqueadores para {symbol}: {e}")
             return False
-   
+    
     def _check_duplicate_signal(self, signal):
         """Verifica se já existe sinal muito similar (anti-duplicação)"""
         try:
