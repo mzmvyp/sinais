@@ -514,7 +514,7 @@ class MultiTimeframeAnalyzer:
             
             if not self._validate_timestamp_flexible(analysis_timestamp, timeframe, TIMESTAMP_TOLERANCE):
                 self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp rejeitado: {analysis_timestamp}")
-                continue
+                return {'signals': []}
 
             # LOG para debug
             self.logger.info(f"🔍 {symbol} {timeframe}: Entry = ${analysis_price:.4f} | Timestamp: {analysis_timestamp}")
