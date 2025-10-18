@@ -39,8 +39,13 @@ class LLMSignalEnhancer:
         self.news_fetcher: Optional[CachedNewsFetcher] = None
         
         if self.enabled:
-            # Verifica API key
-            api_key = api_key or os.getenv('OPENAI_API_KEY')
+            # CORREÇÃO: Usar API key do settings se não fornecida
+            if not api_key:
+                try:
+                    from config.settings import settings
+                    api_key = getattr(settings.llm, 'api_key', None)
+                except:
+                    api_key = os.getenv('OPENAI_API_KEY')
             
             if not api_key:
                 self.logger.warning("⚠️ OPENAI_API_KEY não configurada - LLM desabilitado")
