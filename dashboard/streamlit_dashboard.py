@@ -15,7 +15,7 @@ from config.settings import settings
 from trading.paper_trader import PaperTrader
 from trading.portfolio_manager import PortfolioManager
 from trading.performance_tracker import PerformanceTracker
-from ml.xgboost_predictor import XGBoostPredictor, XGBOOST_AVAILABLE
+from ml.optimized_xgboost_predictor import OptimizedXGBoostPredictor, XGBOOST_AVAILABLE
 from llm.sentiment_analyzer import SentimentAnalyzer, OPENAI_AVAILABLE
 
 
@@ -154,7 +154,7 @@ def load_ml_status():
         return {'status': 'not_available'}
     
     try:
-        predictor = XGBoostPredictor()
+        predictor = OptimizedXGBoostPredictor()
         return predictor.get_model_info()
     except Exception as e:
         return {'status': 'error', 'error': str(e)}
@@ -596,7 +596,7 @@ python -m ml.model_trainer --test
         with col2:
             st.subheader("📊 Feature Importance")
             try:
-                predictor = XGBoostPredictor()
+                predictor = OptimizedXGBoostPredictor()
                 importance_df = predictor.get_feature_importance(top_n=10)
                 
                 if not importance_df.empty:

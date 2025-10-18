@@ -7,7 +7,7 @@ import logging
 from typing import Dict, Optional
 from datetime import datetime
 
-from ml.xgboost_predictor import XGBoostPredictor, XGBOOST_AVAILABLE
+from ml.optimized_xgboost_predictor import OptimizedXGBoostPredictor, XGBOOST_AVAILABLE
 
 
 class MLSignalEnhancer:
@@ -26,11 +26,11 @@ class MLSignalEnhancer:
         self.enabled = enabled and XGBOOST_AVAILABLE
         self.ml_weight = ml_weight  # Peso do ML no score final (25%)
         
-        self.predictor: Optional[XGBoostPredictor] = None
+        self.predictor: Optional[OptimizedXGBoostPredictor] = None
         
         if self.enabled:
             try:
-                self.predictor = XGBoostPredictor()
+                self.predictor = OptimizedXGBoostPredictor()
                 
                 if self.predictor.model is None:
                     self.logger.warning("⚠️ Modelo ML não treinado - ML desabilitado")

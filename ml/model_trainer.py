@@ -8,7 +8,7 @@ import argparse
 from datetime import datetime
 from typing import List
 
-from ml.xgboost_predictor import XGBoostPredictor
+from ml.optimized_xgboost_predictor import OptimizedXGBoostPredictor
 from config.settings import settings
 
 
@@ -58,7 +58,7 @@ def train_model(
     logger.info("=" * 70)
     
     # Inicializa predictor
-    predictor = XGBoostPredictor()
+    predictor = OptimizedXGBoostPredictor()
     
     # Treina
     start_time = datetime.now()
@@ -126,7 +126,7 @@ def test_predictions(symbols: List[str] = None):
     logger.info("🧪 TESTE DE PREDIÇÕES")
     logger.info("=" * 70)
     
-    predictor = XGBoostPredictor()
+    predictor = OptimizedXGBoostPredictor()
     
     if predictor.model is None:
         logger.error("❌ Modelo não encontrado. Execute o treinamento primeiro.")
