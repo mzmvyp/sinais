@@ -90,7 +90,7 @@ def main():
     print("\n1. Iniciando coleta de dados...")
     try:
         # Inicia coleta de dados em background
-        data_process = subprocess.Popen([sys.executable, "start_data_collection.py"])
+        data_process = subprocess.Popen([sys.executable, "binance_data_collector.py"])
         print("   Coleta de dados iniciada em background")
     except Exception as e:
         print(f"Erro na coleta de dados: {e}")
