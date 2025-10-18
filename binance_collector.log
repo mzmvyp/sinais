@@ -1,0 +1,5 @@
+2025-10-17 21:46:41,192 - __main__ - INFO - === COLETOR DE DADOS REAIS DA BINANCE INICIADO ===
+2025-10-17 21:46:41,193 - __main__ - INFO - ATENCAO: APENAS DADOS REAIS - NENHUM DADO FICTICIO
+2025-10-17 21:46:41,201 - __main__ - INFO - Estrutura do banco de dados criada/verificada
+2025-10-17 21:46:41,201 - __main__ - INFO - === OBTENDO DADOS HISTORICOS ===
+2025-10-17 21:46:41,221 - __main__ - INFO - Obtendo dados históricos: BTCUSDT 1h
