@@ -9,6 +9,7 @@ Signal Writer - CORREÇÃO DOS ERROS DE TARGETS:
 import sqlite3
 import json
 import time
+import threading
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
@@ -706,8 +707,13 @@ class EnhancedSignalWriter:
         self.db_path = settings.database.signals_db_path
         self.signals_table = settings.database.signals_table
         self.backup_table = settings.database.backup_table
+        
+        # Locks para evitar race conditions
+        self._lock = threading.Lock()
+        self._db_lock = threading.Lock()
+        
         self._ensure_tables_exist()
-        self.logger.info("🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros")
+        self.logger.info("🚨 EnhancedSignalWriter CORRIGIDO - Targets e JSON seguros + Thread-safe")
         
     def _get_connection(self):
         return sqlite3.connect(self.db_path, timeout=10)
@@ -961,33 +967,34 @@ class EnhancedSignalWriter:
     
     
     def write_enhanced_signal(self, signal: EnhancedTradingSignal) -> bool:
-        """GRAVAÇÃO CORRIGIDA com validação robusta"""
+        """GRAVAÇÃO CORRIGIDA com validação robusta + Thread-safe"""
         
-        # Validação de sinal obsoleto
-        if not self._validate_signal_freshness(signal):
-            self._backup_signal(signal, "blocked_stale_signal")
-            return False
-        
-        # Verificação de bloqueio
-        if self.check_existing_active_signals(signal.symbol):
-            self.logger.info(f"🚫 SINAL BLOQUEADO: {signal.symbol} tem sinal ativo/TARGET_1_HIT")
-            self._backup_signal(signal, "blocked_existing_active_signal")
-            return False
-        # VALIDAÇÃO ANTI-DUPLICAÇÃO: Verifica se já existe sinal muito similar
-        if self._check_duplicate_signal(signal):
-            self.logger.warning(f"🚫 SINAL DUPLICADO: {signal.symbol} {signal.detector_name} muito similar ao existente")
-            self._backup_signal(signal, "blocked_duplicate_signal")
-            return False
-        # ADICIONAR validação antes de INSERT
-        is_valid, validation_msg = self.validate_signal_pricing(signal)
-        if not is_valid:
-            self.logger.warning(f"❌ Sinal rejeitado: {signal.symbol} - {validation_msg}")
-            return False
-        
-        # FORÇA STATUS ACTIVE
-        signal.status = "ACTIVE"
-        
-        self.logger.info(f"💾 GRAVANDO NOVO SINAL: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Status: {signal.status}")
+        with self._lock:  # Lock para operações concorrentes
+            # Validação de sinal obsoleto
+            if not self._validate_signal_freshness(signal):
+                self._backup_signal(signal, "blocked_stale_signal")
+                return False
+            
+            # Verificação de bloqueio
+            if self.check_existing_active_signals(signal.symbol):
+                self.logger.info(f"🚫 SINAL BLOQUEADO: {signal.symbol} tem sinal ativo/TARGET_1_HIT")
+                self._backup_signal(signal, "blocked_existing_active_signal")
+                return False
+            # VALIDAÇÃO ANTI-DUPLICAÇÃO: Verifica se já existe sinal muito similar
+            if self._check_duplicate_signal(signal):
+                self.logger.warning(f"🚫 SINAL DUPLICADO: {signal.symbol} {signal.detector_name} muito similar ao existente")
+                self._backup_signal(signal, "blocked_duplicate_signal")
+                return False
+            # ADICIONAR validação antes de INSERT
+            is_valid, validation_msg = self.validate_signal_pricing(signal)
+            if not is_valid:
+                self.logger.warning(f"❌ Sinal rejeitado: {signal.symbol} - {validation_msg}")
+                return False
+            
+            # FORÇA STATUS ACTIVE
+            signal.status = "ACTIVE"
+            
+            self.logger.info(f"💾 GRAVANDO NOVO SINAL: {signal.symbol} | {signal.timeframe} | {signal.detector_name} | Status: {signal.status}")
                 
         sql = f"""
         INSERT OR REPLACE INTO {self.signals_table} (
@@ -1004,40 +1011,41 @@ class EnhancedSignalWriter:
             # Faz backup primeiro
             self._backup_signal(signal, "generated")
 
-            # SERIALIZAÇÃO JSON SEGURA COM VALIDAÇÃO
-            with self._get_connection() as conn:
-                entry_time = signal.entry_timestamp if signal.entry_timestamp else signal.timestamp
-                # TIMESTAMPS CORRETOS
-                current_timestamp = datetime.now()  # SYSDATE para created_at
+            # SERIALIZAÇÃO JSON SEGURA COM VALIDAÇÃO + Thread-safe
+            with self._db_lock:  # Lock para operações de banco
+                with self._get_connection() as conn:
+                    entry_time = signal.entry_timestamp if signal.entry_timestamp else signal.timestamp
+                    # TIMESTAMPS CORRETOS
+                    current_timestamp = datetime.now()  # SYSDATE para created_at
 
-                # ENTRY_TIME = timestamp do candle de análise
-                if hasattr(signal, 'entry_timestamp') and signal.entry_timestamp:
-                    candle_close_time = signal.entry_timestamp
-                else:
-                    candle_close_time = current_timestamp
+                    # ENTRY_TIME = timestamp do candle de análise
+                    if hasattr(signal, 'entry_timestamp') and signal.entry_timestamp:
+                        candle_close_time = signal.entry_timestamp
+                    else:
+                        candle_close_time = current_timestamp
 
-                values = (
-                    signal.id, signal.symbol, signal.signal_type, signal.timeframe,
-                    signal.detector_type, signal.detector_name, signal.signal_source,
-                    signal.signal_hash, safe_float_conversion(signal.entry_price), 
-                    json.dumps([safe_float_conversion(t) for t in signal.targets], default=safe_json_serialize),
-                    safe_float_conversion(signal.stop_loss), safe_float_conversion(signal.confidence), 
-                    signal.confluence_score, signal.status, 
-                    current_timestamp.isoformat(),          # created_at = SYSDATE
-                    candle_close_time.isoformat(),         # entry_time = close time do candle
-                    safe_float_conversion(signal.entry_price),  # current_price
-                    json.dumps(signal.targets_hit, default=safe_json_serialize),
-                    json.dumps(signal.indicators_used, default=safe_json_serialize), 
-                    current_timestamp.isoformat(),         # updated_at
-                    json.dumps(signal.timeframe_analysis, default=safe_json_serialize),
-                    json.dumps(signal.market_conditions, default=safe_json_serialize),
-                    json.dumps(signal.pattern_data, default=safe_json_serialize),
-                    json.dumps(signal.technical_data, default=safe_json_serialize),
-                    json.dumps(signal.stop_loss_analysis, default=safe_json_serialize),
-                    json.dumps(signal.targets_analysis, default=safe_json_serialize)
-                )
-                conn.execute(sql, values)
-                conn.commit()
+                    values = (
+                        signal.id, signal.symbol, signal.signal_type, signal.timeframe,
+                        signal.detector_type, signal.detector_name, signal.signal_source,
+                        signal.signal_hash, safe_float_conversion(signal.entry_price), 
+                        json.dumps([safe_float_conversion(t) for t in signal.targets], default=safe_json_serialize),
+                        safe_float_conversion(signal.stop_loss), safe_float_conversion(signal.confidence), 
+                        signal.confluence_score, signal.status, 
+                        current_timestamp.isoformat(),          # created_at = SYSDATE
+                        candle_close_time.isoformat(),         # entry_time = close time do candle
+                        safe_float_conversion(signal.entry_price),  # current_price
+                        json.dumps(signal.targets_hit, default=safe_json_serialize),
+                        json.dumps(signal.indicators_used, default=safe_json_serialize), 
+                        current_timestamp.isoformat(),         # updated_at
+                        json.dumps(signal.timeframe_analysis, default=safe_json_serialize),
+                        json.dumps(signal.market_conditions, default=safe_json_serialize),
+                        json.dumps(signal.pattern_data, default=safe_json_serialize),
+                        json.dumps(signal.technical_data, default=safe_json_serialize),
+                        json.dumps(signal.stop_loss_analysis, default=safe_json_serialize),
+                        json.dumps(signal.targets_analysis, default=safe_json_serialize)
+                    )
+                    conn.execute(sql, values)
+                    conn.commit()
             
             # Log detalhado de sucesso
             risk_pct = abs(signal.stop_loss - signal.entry_price) / signal.entry_price * 100

@@ -509,19 +509,12 @@ class MultiTimeframeAnalyzer:
             analysis_price = float(analysis_candle['close_price'])
             analysis_timestamp = analysis_candle['timestamp'].to_pydatetime()
 
-            # VALIDAÇÃO: Verifica se timestamp é compatível com timeframe (mais flexível)
-            if timeframe == "1h":
-                # Para 1h, aceita timestamps que terminam em :59:59 (dados de streaming)
-                if analysis_timestamp.minute not in [0, 59] or (analysis_timestamp.minute == 0 and analysis_timestamp.second != 0):
-                    self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp: {analysis_timestamp}")
-            elif timeframe == "4h":
-                # Para 4h, aceita timestamps que terminam em :59:59 e hora ser múltiplo de 4
-                if analysis_timestamp.minute not in [0, 59] or (analysis_timestamp.minute == 0 and analysis_timestamp.second != 0) or analysis_timestamp.hour % 4 != 0:
-                    self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp: {analysis_timestamp}")
-            elif timeframe == "1d":
-                # Para 1d, aceita timestamps que terminam em 23:59:59 (dados de streaming)
-                if analysis_timestamp.hour not in [0, 23] or (analysis_timestamp.hour == 0 and (analysis_timestamp.minute != 0 or analysis_timestamp.second != 0)):
-                    self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp: {analysis_timestamp}")
+            # VALIDAÇÃO FLEXÍVEL: Verifica se timestamp é compatível com timeframe (tolerância de 60s)
+            TIMESTAMP_TOLERANCE = 60  # segundos de tolerância
+            
+            if not self._validate_timestamp_flexible(analysis_timestamp, timeframe, TIMESTAMP_TOLERANCE):
+                self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp rejeitado: {analysis_timestamp}")
+                continue
 
             # LOG para debug
             self.logger.info(f"🔍 {symbol} {timeframe}: Entry = ${analysis_price:.4f} | Timestamp: {analysis_timestamp}")
@@ -1075,6 +1068,31 @@ class MultiTimeframeAnalyzer:
             }
         except Exception as e:
             return {'status': 'error', 'message': str(e)}
+
+    def _validate_timestamp_flexible(self, timestamp, timeframe: str, tolerance_seconds: int = 60) -> bool:
+        """Validação flexível de timestamp com tolerância"""
+        try:
+            now = datetime.now()
+            time_diff = abs((timestamp - now).total_seconds())
+            
+            # Se está muito longe no tempo, rejeita
+            if time_diff > tolerance_seconds:
+                return False
+            
+            if timeframe == "1h":
+                # Para 1h, aceita qualquer minuto se dentro da tolerância
+                return True
+            elif timeframe == "4h":
+                # Para 4h, verifica se hora é múltiplo de 4 (com tolerância)
+                return timestamp.hour % 4 == 0
+            elif timeframe == "1d":
+                # Para 1d, aceita se hora é 0 ou 23 (com tolerância)
+                return timestamp.hour in [0, 23]
+            
+            return True
+        except Exception as e:
+            self.logger.warning(f"Erro na validação de timestamp: {e}")
+            return True  # Em caso de erro, aceita
 
 # Alias para compatibilidade
 TradingAnalyzer = MultiTimeframeAnalyzer

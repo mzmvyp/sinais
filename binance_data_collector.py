@@ -348,6 +348,30 @@ class BinanceDataCollector:
         finally:
             self.running = False
             self.logger.info("=== COLETOR FINALIZADO ===")
+
+    async def start_collection_with_reconnect(self):
+        """Inicia coleta com reconexão automática"""
+        max_retries = 10
+        retry_count = 0
+        
+        while self.running and retry_count < max_retries:
+            try:
+                await self.start_collection()
+                retry_count = 0  # Reset on success
+                self.logger.info("WebSocket reconectado com sucesso")
+            except websockets.exceptions.ConnectionClosed:
+                retry_count += 1
+                wait_time = min(5 * retry_count, 60)  # Exponential backoff
+                self.logger.warning(f"WebSocket desconectado, reconectando em {wait_time}s... (tentativa {retry_count})")
+                await asyncio.sleep(wait_time)
+            except Exception as e:
+                retry_count += 1
+                wait_time = min(10 * retry_count, 120)
+                self.logger.error(f"Erro crítico: {e}, reconectando em {wait_time}s... (tentativa {retry_count})")
+                await asyncio.sleep(wait_time)
+        
+        if retry_count >= max_retries:
+            self.logger.error("Máximo de tentativas de reconexão atingido")
     
     def stop_collection(self):
         """Para a coleta de dados"""
@@ -370,7 +394,7 @@ async def main():
     collector = BinanceDataCollector()
     
     try:
-        await collector.start_collection()
+        await collector.start_collection_with_reconnect()
     except KeyboardInterrupt:
         collector.stop_collection()
         print("Coleta interrompida pelo usuário")

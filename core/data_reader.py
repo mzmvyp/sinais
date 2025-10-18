@@ -13,6 +13,7 @@ import pandas as pd
 import logging
 import time
 import os
+import gc
 from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass
@@ -514,17 +515,38 @@ class DataReader:
             
             self.logger.debug(f"✅ {symbol} {timeframe}: {len(df)} registros em {execution_time:.2f}s")
             
-            return MarketData(
+            result = MarketData(
                 symbol=symbol,
                 timeframe=timeframe,
                 data=df,
                 last_update=datetime.now()
             )
             
+            # Limpeza de memória para evitar memory leak
+            self._cleanup_memory()
+            
+            return result
+            
         except Exception as e:
             execution_time = time.time() - start_time
             self.logger.error(f"❌ Erro ao buscar {symbol} {timeframe} em {execution_time:.2f}s: {e}")
             return None
+        finally:
+            # Força garbage collection para liberar memória
+            gc.collect()
+    
+    def _cleanup_memory(self):
+        """Limpeza de memória para evitar memory leak"""
+        try:
+            # Força garbage collection
+            gc.collect()
+            
+            # Ajusta thresholds do garbage collector para ser mais agressivo
+            gc.set_threshold(700, 10, 10)
+            
+            self.logger.debug("Memória limpa com sucesso")
+        except Exception as e:
+            self.logger.warning(f"Erro na limpeza de memória: {e}")
     
     def get_current_price(self, symbol: str) -> Optional[float]:
         """
