@@ -1094,5 +1094,32 @@ class MultiTimeframeAnalyzer:
             self.logger.warning(f"Erro na validação de timestamp: {e}")
             return True  # Em caso de erro, aceita
 
+    def validate_signal_coherence(self, signals: List) -> List:
+        """Valida coerência de sinais - evita contradições"""
+        if not signals:
+            return []
+        
+        # Agrupar por direção
+        bullish_signals = [s for s in signals if hasattr(s, 'signal_type') and 'BUY' in s.signal_type]
+        bearish_signals = [s for s in signals if hasattr(s, 'signal_type') and 'SELL' in s.signal_type]
+        
+        # Se há conflito, usar votação ponderada
+        if bullish_signals and bearish_signals:
+            bullish_strength = sum(getattr(s, 'confidence', 0) for s in bullish_signals)
+            bearish_strength = sum(getattr(s, 'confidence', 0) for s in bearish_signals)
+            
+            if bullish_strength > bearish_strength * 1.2:  # 20% margem
+                self.logger.info(f"✅ Sinais coerentes: Bullish escolhido (Bull={bullish_strength:.2f} vs Bear={bearish_strength:.2f})")
+                return bullish_signals
+            elif bearish_strength > bullish_strength * 1.2:
+                self.logger.info(f"✅ Sinais coerentes: Bearish escolhido (Bear={bearish_strength:.2f} vs Bull={bullish_strength:.2f})")
+                return bearish_signals
+            else:
+                # Conflito muito próximo - não gerar sinal
+                self.logger.warning(f"🚫 Sinais contraditórios rejeitados: Bull={bullish_strength:.2f} Bear={bearish_strength:.2f}")
+                return []
+        
+        return signals
+
 # Alias para compatibilidade
 TradingAnalyzer = MultiTimeframeAnalyzer

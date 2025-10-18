@@ -18,6 +18,7 @@ try:
     import xgboost as xgb
     from sklearn.model_selection import TimeSeriesSplit, RandomizedSearchCV
     from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+    from sklearn.utils import class_weight
     XGBOOST_AVAILABLE = True
 except ImportError:
     XGBOOST_AVAILABLE = False
@@ -137,8 +138,26 @@ class OptimizedXGBoostPredictor:
         # Time series split para validação temporal
         tscv = TimeSeriesSplit(n_splits=cv_folds, gap=24)
         
-        # Configuração do XGBoost com early stopping
-        xgb_model = xgb.XGBClassifier(**self.base_params)
+        # CORREÇÃO: Calcular class_weight para desbalanceamento
+        try:
+            class_weights = class_weight.compute_class_weight(
+                'balanced',
+                classes=np.unique(y),
+                y=y
+            )
+            class_weight_dict = {i: class_weights[i] for i in range(len(class_weights))}
+            scale_pos_weight = class_weights[1] / class_weights[0] if len(class_weights) > 1 else 1.0
+            
+            self.logger.info(f"📊 Class weights calculados: {class_weight_dict}")
+            self.logger.info(f"📊 Scale pos weight: {scale_pos_weight:.3f}")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Erro ao calcular class weights: {e}")
+            scale_pos_weight = 1.0
+        
+        # Configuração do XGBoost com early stopping + class_weight
+        xgb_params = self.base_params.copy()
+        xgb_params['scale_pos_weight'] = scale_pos_weight
+        xgb_model = xgb.XGBClassifier(**xgb_params)
         
         # RandomizedSearch para otimização
         self.logger.info(f"🎲 Executando RandomizedSearch ({n_iter} iterações)...")

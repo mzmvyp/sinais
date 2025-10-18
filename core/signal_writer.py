@@ -991,6 +991,11 @@ class EnhancedSignalWriter:
                 self.logger.warning(f"❌ Sinal rejeitado: {signal.symbol} - {validation_msg}")
                 return False
             
+            # CORREÇÃO: Validar targets e stops
+            if not self.validate_targets_and_stops(signal):
+                self.logger.warning(f"❌ Sinal rejeitado: {signal.symbol} - Targets/stops inválidos")
+                return False
+            
             # FORÇA STATUS ACTIVE
             signal.status = "ACTIVE"
             
@@ -1117,6 +1122,58 @@ class EnhancedSignalWriter:
                     
         except Exception as e:
             self.logger.error(f"Erro na verificação pós-gravação: {e}")
+
+    def validate_targets_and_stops(self, signal) -> bool:
+        """Validação robusta de coerência de targets e stops"""
+        try:
+            # Para LONG
+            if 'BUY' in signal.signal_type:
+                # Stop deve estar abaixo da entrada
+                if signal.stop_loss >= signal.entry_price:
+                    self.logger.error(f"LONG: Stop {signal.stop_loss} >= Entry {signal.entry_price}")
+                    return False
+                
+                # Targets devem estar acima da entrada e em ordem crescente
+                prev_target = signal.entry_price
+                for i, target in enumerate(signal.targets):
+                    if target <= prev_target:
+                        self.logger.error(f"LONG: Target {i+1} ({target}) <= {prev_target}")
+                        return False
+                    prev_target = target
+                
+                # Risk/Reward mínimo
+                risk = signal.entry_price - signal.stop_loss
+                reward = signal.targets[0] - signal.entry_price
+                if reward / risk < 1.2:  # Mínimo 1.2:1
+                    self.logger.warning(f"LONG: R/R baixo: {reward/risk:.2f}")
+                    return False
+            
+            # Para SHORT
+            elif 'SELL' in signal.signal_type:
+                # Stop deve estar acima da entrada
+                if signal.stop_loss <= signal.entry_price:
+                    self.logger.error(f"SHORT: Stop {signal.stop_loss} <= Entry {signal.entry_price}")
+                    return False
+                
+                # Targets devem estar abaixo da entrada e em ordem decrescente
+                prev_target = signal.entry_price
+                for i, target in enumerate(signal.targets):
+                    if target >= prev_target:
+                        self.logger.error(f"SHORT: Target {i+1} ({target}) >= {prev_target}")
+                        return False
+                    prev_target = target
+                
+                # Risk/Reward mínimo
+                risk = signal.stop_loss - signal.entry_price
+                reward = signal.entry_price - signal.targets[0]
+                if reward / risk < 1.2:
+                    self.logger.warning(f"SHORT: R/R baixo: {reward/risk:.2f}")
+                    return False
+            
+            return True
+        except Exception as e:
+            self.logger.error(f"Erro na validação de targets/stops: {e}")
+            return False
 
     def get_active_signals_count(self, symbol: str) -> int:
         """Conta sinais que REALMENTE bloqueiam novos sinais"""

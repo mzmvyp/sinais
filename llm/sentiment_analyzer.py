@@ -18,6 +18,26 @@ try:
 except ImportError:
     OPENAI_AVAILABLE = False
 
+# Dicionário de sentiment keywords para crypto
+CRYPTO_SENTIMENT_KEYWORDS = {
+    'BULLISH_STRONG': [
+        'breakout', 'moon', 'pump', 'surge', 'rally', 'ATH', 'all-time high',
+        'institutional adoption', 'ETF approved', 'major partnership'
+    ],
+    'BULLISH_MODERATE': [
+        'support', 'bounce', 'recovery', 'accumulation', 'bullish divergence',
+        'golden cross', 'uptick', 'positive momentum'
+    ],
+    'BEARISH_STRONG': [
+        'crash', 'dump', 'plunge', 'collapse', 'bear market', 'FUD',
+        'hack', 'exploit', 'regulatory crackdown', 'delisting'
+    ],
+    'BEARISH_MODERATE': [
+        'resistance', 'rejection', 'correction', 'pullback', 'death cross',
+        'overbought', 'distribution', 'negative divergence'
+    ]
+}
+
 
 @dataclass
 class SentimentResult:
@@ -221,29 +241,73 @@ class SentimentAnalyzer:
             if 'volume_profile' in market_context:
                 context_text += f"\n- Volume: {market_context['volume_profile']}"
         
-        prompt = f"""Analyze the sentiment for {symbol} cryptocurrency based on recent news and market context.
+        prompt = f"""You are a professional cryptocurrency trading analyst specializing in sentiment analysis for SHORT-TERM price movements.
 
-**Recent News:**
+**TASK**: Analyze {symbol} sentiment for TRADING SIGNALS (not investment advice).
+
+**RECENT NEWS** (ordered by relevance):
 {news_text}
 
-**Market Context:**{context_text if context_text else "\n- No additional context"}
+**TECHNICAL CONTEXT**:
+{context_text if context_text else "- No additional context"}
 
-**Task:**
-Provide a sentiment analysis with:
-1. A sentiment score from -100 (very bearish) to +100 (very bullish)
-2. A confidence level from 0 (low confidence) to 1 (high confidence)
-3. A brief reasoning (2-3 sentences max)
+**SENTIMENT SCORING RULES**:
+1. Score from -100 (extremely bearish SHORT signal) to +100 (extremely bullish LONG signal)
+2. Consider ONLY short-term impact (next 1-4 hours)
+3. Weight factors:
+   - Breaking news: 40%
+   - Market sentiment shifts: 30%
+   - Technical alignment: 20%
+   - Social sentiment: 10%
 
-**Output Format (JSON):**
+**CONFIDENCE SCORING**:
+- High (0.8-1.0): Multiple strong signals align
+- Medium (0.5-0.7): Mixed signals, some uncertainty
+- Low (0.0-0.4): Conflicting or weak signals
+
+**OUTPUT FORMAT (JSON)**:
 {{
-  "sentiment_score": <number between -100 and 100>,
-  "confidence": <number between 0 and 1>,
-  "reasoning": "<brief explanation>"
+  "sentiment_score": <-100 to 100>,
+  "confidence": <0.0 to 1.0>,
+  "reasoning": "<max 50 words explaining the KEY driver>",
+  "primary_driver": "<news|technical|social|regulatory>",
+  "time_horizon": "<1h|4h|1d>"
 }}
 
-Be concise, objective, and focus on actionable insights."""
+Focus on ACTIONABLE trading sentiment, not long-term investment outlook."""
         
         return prompt
+    
+    def analyze_keyword_sentiment(self, text: str) -> tuple[float, float]:
+        """Analisa sentiment baseado em keywords específicas de crypto"""
+        text_lower = text.lower()
+        scores = {
+            'BULLISH_STRONG': 0,
+            'BULLISH_MODERATE': 0,
+            'BEARISH_STRONG': 0,
+            'BEARISH_MODERATE': 0
+        }
+        
+        for category, keywords in CRYPTO_SENTIMENT_KEYWORDS.items():
+            for keyword in keywords:
+                if keyword.lower() in text_lower:
+                    scores[category] += 1
+        
+        # Calcular score ponderado
+        total_score = (
+            scores['BULLISH_STRONG'] * 100 +
+            scores['BULLISH_MODERATE'] * 50 -
+            scores['BEARISH_MODERATE'] * 50 -
+            scores['BEARISH_STRONG'] * 100
+        )
+        
+        total_keywords = sum(scores.values())
+        if total_keywords > 0:
+            normalized_score = total_score / total_keywords
+            confidence = min(1.0, total_keywords / 10)  # Mais keywords = mais confiança
+            return normalized_score, confidence
+        
+        return 0, 0
     
     def _call_gpt(self, prompt: str) -> Optional[str]:
         """Chama API do OpenAI"""

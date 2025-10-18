@@ -233,13 +233,13 @@ class FeatureEngineer:
         
         return df
     
-    def create_target(self, df: pd.DataFrame, prediction_horizon: int = 36) -> pd.DataFrame:
+    def create_target(self, df: pd.DataFrame, prediction_horizon: int = 12) -> pd.DataFrame:
         """
         Cria target para treinamento (movimento de preço futuro)
         
         Args:
             df: DataFrame com features
-            prediction_horizon: Quantos períodos à frente prever (padrão: 36 = 3h em 5m)
+            prediction_horizon: Quantos períodos à frente prever (padrão: 12 = 1h em 5m)
         
         Returns:
             DataFrame com coluna 'target' (1 = alta, 0 = baixa)
@@ -277,7 +277,7 @@ class FeatureEngineer:
         symbols: List[str], 
         timeframe: str = "5m",
         lookback: int = 1000,
-        prediction_horizon: int = 36
+        prediction_horizon: int = 12
     ) -> Tuple[Optional[pd.DataFrame], Optional[pd.Series], List[str]]:
         """
         Prepara dados de treinamento para múltiplos símbolos

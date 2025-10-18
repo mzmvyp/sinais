@@ -34,12 +34,19 @@ class RSIAnalyzer:
         self.period = settings.indicators.rsi_period
 
     def calculate_rsi(self, close_prices: pd.Series) -> pd.Series:
+        """Cálculo RSI CORRIGIDO usando EMA (Exponential Moving Average)"""
         if len(close_prices) < self.period:
             return pd.Series(dtype=float)
+        
         delta = close_prices.diff()
-        gain = (delta.where(delta > 0, 0)).rolling(window=self.period).mean()
-        loss = (-delta.where(delta < 0, 0)).rolling(window=self.period).mean()
-        rs = gain / (loss + 1e-10)
+        gain = delta.where(delta > 0, 0)
+        loss = -delta.where(delta < 0, 0)
+        
+        # CORREÇÃO: Usar EMA ao invés de SMA (método correto do RSI)
+        avg_gain = gain.ewm(span=self.period, adjust=False).mean()
+        avg_loss = loss.ewm(span=self.period, adjust=False).mean()
+        
+        rs = avg_gain / (avg_loss + 1e-10)
         rsi = 100 - (100 / (1 + rs))
         return rsi.fillna(50.0)
 
