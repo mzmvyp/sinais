@@ -64,10 +64,24 @@ class RSIAnalyzer:
         latest_rsi = rsi.iloc[-1]
 
         signals = []
+        
+        # Sinais de extremos (alta confiança)
         if latest_rsi >= overbought:
             signals.append({'type': 'rsi_overbought', 'signal_type': 'SELL_SHORT', 'confidence': 0.75, 'priority': 'high'})
         elif latest_rsi <= oversold:
             signals.append({'type': 'rsi_oversold', 'signal_type': 'BUY_LONG', 'confidence': 0.75, 'priority': 'high'})
+        
+        # Sinais de tendência (confiança média) - NOVO
+        elif latest_rsi > 60:  # Tendência de alta
+            signals.append({'type': 'rsi_bullish_trend', 'signal_type': 'BUY_LONG', 'confidence': 0.60, 'priority': 'medium'})
+        elif latest_rsi < 40:  # Tendência de baixa
+            signals.append({'type': 'rsi_bearish_trend', 'signal_type': 'SELL_SHORT', 'confidence': 0.60, 'priority': 'medium'})
+        
+        # Sinais de momentum (confiança baixa) - NOVO
+        elif latest_rsi > 50:  # Momentum positivo
+            signals.append({'type': 'rsi_bullish_momentum', 'signal_type': 'BUY_LONG', 'confidence': 0.45, 'priority': 'low'})
+        elif latest_rsi < 50:  # Momentum negativo
+            signals.append({'type': 'rsi_bearish_momentum', 'signal_type': 'SELL_SHORT', 'confidence': 0.45, 'priority': 'low'})
 
         # O metadata pode usar o RSI do candle atual para simples informação
         current_rsi_full = self.calculate_rsi(market_data.data['close_price'])
@@ -105,11 +119,24 @@ class MACDAnalyzer:
         latest_signal, prev_signal = signal.iloc[-1], signal.iloc[-2]
 
         signals = []
-        # Detecção de cruzamento
+        
+        # Detecção de cruzamento (alta confiança)
         if prev_macd <= prev_signal and latest_macd > latest_signal:
             signals.append({'type': 'macd_bullish_crossover', 'signal_type': 'BUY_LONG', 'confidence': 0.8, 'priority': 'crossover'})
         elif prev_macd >= prev_signal and latest_macd < latest_signal:
             signals.append({'type': 'macd_bearish_crossover', 'signal_type': 'SELL_SHORT', 'confidence': 0.8, 'priority': 'crossover'})
+        
+        # Sinais de momentum (confiança média) - NOVO
+        elif latest_macd > latest_signal:  # MACD acima da linha de sinal
+            signals.append({'type': 'macd_bullish_momentum', 'signal_type': 'BUY_LONG', 'confidence': 0.65, 'priority': 'medium'})
+        elif latest_macd < latest_signal:  # MACD abaixo da linha de sinal
+            signals.append({'type': 'macd_bearish_momentum', 'signal_type': 'SELL_SHORT', 'confidence': 0.65, 'priority': 'medium'})
+        
+        # Sinais de tendência (confiança baixa) - NOVO
+        elif latest_macd > 0:  # MACD positivo
+            signals.append({'type': 'macd_bullish_trend', 'signal_type': 'BUY_LONG', 'confidence': 0.50, 'priority': 'low'})
+        elif latest_macd < 0:  # MACD negativo
+            signals.append({'type': 'macd_bearish_trend', 'signal_type': 'SELL_SHORT', 'confidence': 0.50, 'priority': 'low'})
 
         # O metadata pode usar o MACD do candle atual para simples informação
         full_macd, full_signal, _ = self.calculate_macd(market_data.data['close_price'], params)
@@ -152,7 +179,7 @@ class BollingerBandsAnalyzer:
         
         signals = []
         
-        # 🎯 SINAIS DE EXTREMOS (alta probabilidade de reversão)
+        # SINAIS DE EXTREMOS (alta probabilidade de reversão)
         if latest_price <= latest_lower:
             signals.append({
                 'type': 'bollinger_oversold_extreme', 
@@ -166,6 +193,38 @@ class BollingerBandsAnalyzer:
                 'signal_type': 'SELL_SHORT', 
                 'confidence': 0.85,
                 'priority': 'extreme'
+            })
+        
+        # SINAIS DE PROXIMIDADE DAS BANDAS (confiança média) - NOVO
+        elif latest_price <= latest_lower * 1.02:  # Próximo da banda inferior (2%)
+            signals.append({
+                'type': 'bollinger_near_lower', 
+                'signal_type': 'BUY_LONG', 
+                'confidence': 0.70,
+                'priority': 'medium'
+            })
+        elif latest_price >= latest_upper * 0.98:  # Próximo da banda superior (2%)
+            signals.append({
+                'type': 'bollinger_near_upper', 
+                'signal_type': 'SELL_SHORT', 
+                'confidence': 0.70,
+                'priority': 'medium'
+            })
+        
+        # SINAIS DE POSIÇÃO RELATIVA (confiança baixa) - NOVO
+        elif latest_price > latest_middle:  # Acima da média
+            signals.append({
+                'type': 'bollinger_above_middle', 
+                'signal_type': 'BUY_LONG', 
+                'confidence': 0.55,
+                'priority': 'low'
+            })
+        elif latest_price < latest_middle:  # Abaixo da média
+            signals.append({
+                'type': 'bollinger_below_middle', 
+                'signal_type': 'SELL_SHORT', 
+                'confidence': 0.55,
+                'priority': 'low'
             })
         
         # Metadata com informações das bandas
@@ -324,6 +383,12 @@ class TechnicalAnalyzer:
             # MACD crossovers (54% sucesso)
             elif signal.get('priority') == 'crossover':
                 return 80 + signal.get('confidence', 0.5) * 100
+            # Prioridade média (novos sinais)
+            elif signal.get('priority') == 'medium':
+                return 70 + signal.get('confidence', 0.5) * 100
+            # Prioridade baixa (novos sinais)
+            elif signal.get('priority') == 'low':
+                return 60 + signal.get('confidence', 0.5) * 100
             else:
                 return 50 + signal.get('confidence', 0.5) * 100
 

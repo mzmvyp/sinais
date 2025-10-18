@@ -1,9 +1,9 @@
-# settings.py - CORRIGIDO PARA APENAS 5m e 15m
+# settings.py - CORRIGIDO PARA APENAS 1h, 4h e 1d
 
 # -*- coding: utf-8 -*-
 """
 Configuracoes Multi-Timeframe do Sistema de Trading - VERSÃO FINAL CORRIGIDA
-APENAS 5m e 15m ATIVOS
+APENAS 1h, 4h e 1d ATIVOS
 """
 import os
 from dataclasses import dataclass, field
@@ -37,11 +37,41 @@ class PrecisionConfig:
 @dataclass
 class DatabaseConfig:
     """Configuracoes de banco de dados"""
-    stream_db_path: str = r"C:\Users\mzmvy\Documents\python\trading_system\data\crypto_stream.db"
-    signals_db_path: str = r"C:\Users\mzmvy\Documents\python\trading_system\data\trading_analyzer_v2.db"
+    # Caminhos alternativos para buscar os bancos
+    _base_paths: List[str] = field(default_factory=lambda: [
+        r"C:\Users\mzmvy\Documents\python\trading_system\data",
+        r"C:\Users\mzmvy\Documents\python\bot_trade\sinais\data",
+        r".\data",
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+    ])
+    
+    stream_db_path: str = ""
+    signals_db_path: str = ""
     stream_table: str = "crypto_ohlc"
     signals_table: str = "trading_signals_v2"
     backup_table: str = "signal_backup_v2"
+    
+    def __post_init__(self):
+        """Detecta automaticamente os bancos de dados"""
+        if not self.stream_db_path:
+            self.stream_db_path = self._find_db("crypto_stream.db")
+        if not self.signals_db_path:
+            self.signals_db_path = self._find_db("trading_analyzer_v2.db")
+    
+    def _find_db(self, db_name: str) -> str:
+        """Procura banco de dados em múltiplos caminhos"""
+        for base_path in self._base_paths:
+            db_path = os.path.join(base_path, db_name)
+            if os.path.exists(db_path):
+                return os.path.abspath(db_path)
+        
+        # Se não encontrou, retorna o caminho padrão (será criado se necessário)
+        default_path = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), 
+            "data", 
+            db_name
+        )
+        return os.path.abspath(default_path)
 
 @dataclass
 class TimeframeConfig:
@@ -59,7 +89,7 @@ class TimeframeConfig:
 
 @dataclass
 class MultiTimeframeConfig:
-    """Configuracao multi-timeframe - APENAS 5m e 15m"""
+    """Configuracao multi-timeframe - APENAS 1h, 4h e 1d"""
     enabled_timeframes: List[str] = None
     timeframe_configs: Dict[str, TimeframeConfig] = None
     allow_conflicting_signals: bool = False
@@ -67,32 +97,37 @@ class MultiTimeframeConfig:
     hierarchy_priority: bool = True
 
     def __post_init__(self):
-        # CORRIGIDO: Apenas 5m e 15m habilitados
+        # CORRIGIDO: Apenas 1h, 4h e 1d habilitados conforme especificação
         if self.enabled_timeframes is None:
-            self.enabled_timeframes = ["5m", "15m"]
+            self.enabled_timeframes = ["1h", "4h", "1d"]
         
         if self.timeframe_configs is None:
             self.timeframe_configs = {
-                "5m": TimeframeConfig(
-                    timeframe="5m", min_data_points=50, lookback_hours=12,  # REDUZIDO de 150 para 100
-                    confidence_threshold=0.75, max_signals_per_symbol=1, analysis_priority=1,  # PRIORIDADE 1 (máxima)
-                    enabled_detectors=['technical', 'candlestick'], rsi_sensitivity=1.2,
-                    volume_threshold_multiplier=1.5, pattern_min_strength=0.65  # RELAXADO
-                ),
-                "15m": TimeframeConfig(
-                    timeframe="15m", min_data_points=80, lookback_hours=24,  # REDUZIDO de 100 para 80
-                    confidence_threshold=0.70, max_signals_per_symbol=1, analysis_priority=2,  # PRIORIDADE 2
+                "1h": TimeframeConfig(
+                    timeframe="1h", min_data_points=100, lookback_hours=48,
+                    confidence_threshold=0.70, max_signals_per_symbol=1, analysis_priority=1,
                     enabled_detectors=['technical', 'candlestick'], rsi_sensitivity=1.0,
-                    volume_threshold_multiplier=1.3, pattern_min_strength=0.6  # RELAXADO
+                    volume_threshold_multiplier=1.2, pattern_min_strength=0.6
+                ),
+                "4h": TimeframeConfig(
+                    timeframe="4h", min_data_points=50, lookback_hours=192,  # 8 dias
+                    confidence_threshold=0.75, max_signals_per_symbol=1, analysis_priority=2,
+                    enabled_detectors=['technical', 'candlestick'], rsi_sensitivity=1.0,
+                    volume_threshold_multiplier=1.3, pattern_min_strength=0.7
+                ),
+                "1d": TimeframeConfig(
+                    timeframe="1d", min_data_points=30, lookback_hours=720,  # 30 dias
+                    confidence_threshold=0.80, max_signals_per_symbol=1, analysis_priority=3,
+                    enabled_detectors=['technical', 'candlestick'], rsi_sensitivity=1.0,
+                    volume_threshold_multiplier=1.5, pattern_min_strength=0.8
                 )
-                # 1h REMOVIDO COMPLETAMENTE
             }
 
 @dataclass
 class AnalysisConfig:
     """Configuracoes de analise - OTIMIZADA"""
     multi_timeframe: MultiTimeframeConfig = None
-    default_timeframe: str = "5m"  # MUDADO para 5m como padrão
+    default_timeframe: str = "1h"  # MUDADO para 1h conforme especificação
     min_data_points: int = 50  # REDUZIDO
     lookback_hours: int = 24
     confidence_threshold: float = 0.70  # REDUZIDO para ser mais permissivo
@@ -100,13 +135,14 @@ class AnalysisConfig:
 
     def __post_init__(self):
         if self.symbols is None:
-            self.symbols = ['BTC', 'ETH', 'BNB', 'ENA', 'HYPE', 'IMX', 'NEAR', 'PEPE', 'SOL', 'SUI']
+            # Usa todos os pares coletados pela Binance
+            self.symbols = ['BTCUSDT', 'ETHUSDT', 'ADAUSDT', 'DOTUSDT', 'LINKUSDT', 'UNIUSDT', 'SOLUSDT', 'MATICUSDT']
         if self.multi_timeframe is None:
             self.multi_timeframe = MultiTimeframeConfig()
 
 @dataclass
 class IndicatorConfig:
-    """Configuracoes dos indicadores tecnicos - APENAS 5m e 15m"""
+    """Configuracoes dos indicadores tecnicos - APENAS 1h, 4h e 1d"""
     rsi_period: int = 14
     rsi_overbought: Dict[str, float] = None
     rsi_oversold: Dict[str, float] = None
@@ -117,13 +153,19 @@ class IndicatorConfig:
     min_volume_ratio: Dict[str, float] = None
 
     def __post_init__(self):
-        # APENAS 5m e 15m
-        if self.rsi_overbought is None: self.rsi_overbought = {"5m": 65, "15m": 65}
-        if self.rsi_oversold is None: self.rsi_oversold = {"5m": 35, "15m": 35}
-        if self.macd_fast is None: self.macd_fast = {"5m": 10, "15m": 12}
-        if self.macd_slow is None: self.macd_slow = {"5m": 22, "15m": 26}
-        if self.macd_signal is None: self.macd_signal = {"5m": 8, "15m": 9}
-        if self.min_volume_ratio is None: self.min_volume_ratio = {"5m": 1.5, "15m": 1.3}  # RELAXADO
+        # APENAS 1h, 4h e 1d
+        if self.rsi_overbought is None: 
+            self.rsi_overbought = {"1h": 70, "4h": 75, "1d": 80}
+        if self.rsi_oversold is None: 
+            self.rsi_oversold = {"1h": 30, "4h": 25, "1d": 20}
+        if self.macd_fast is None: 
+            self.macd_fast = {"1h": 12, "4h": 10, "1d": 8}
+        if self.macd_slow is None: 
+            self.macd_slow = {"1h": 26, "4h": 21, "1d": 17}
+        if self.macd_signal is None: 
+            self.macd_signal = {"1h": 9, "4h": 8, "1d": 7}
+        if self.min_volume_ratio is None: 
+            self.min_volume_ratio = {"1h": 1.2, "4h": 1.3, "1d": 1.5}
 
 @dataclass
 class PatternConfig:
@@ -140,7 +182,7 @@ class PatternConfig:
 
 @dataclass
 class SystemConfig:
-    """Configuracoes do sistema OTIMIZADAS - APENAS 5m/15m"""
+    """Configuracoes do sistema OTIMIZADAS - APENAS 1h/4h/1d"""
     multi_timeframe_enabled: bool = True
     analysis_interval: int = 180
     backup_all_signals: bool = True
@@ -155,7 +197,11 @@ class SystemConfig:
     cleanup_interval_hours: int = 24      # ADICIONADO
     signal_lifecycle_hours: int = 48      # ADICIONADO
     
-    live_data_timeframes: List[str] = field(default_factory=lambda: ["5m", "15m"])  
+    # NOVO: Sistema de retenção de dados por 4 anos
+    data_retention_years: int = 4         # Manter apenas 4 anos de dados
+    data_cleanup_interval_hours: int = 24  # Limpeza a cada 24h
+    
+    live_data_timeframes: List[str] = field(default_factory=lambda: ["1h"])  
     live_data_enabled: bool = True
     
     def get_live_data_timeframes(self) -> List[str]:
@@ -179,8 +225,42 @@ class ValidationConfig:
     buy_momentum_threshold: float = 50.0  # REDUZIDO de 55 para 50 (mais flexível)
     sell_momentum_threshold: float = 50.0 # ALTERADO de 45 para 50 (mais flexível)
 
+@dataclass
+class MLConfig:
+    """Configurações de Machine Learning"""
+    enabled: bool = True
+    model_path: str = "data/models/xgboost_model.pkl"
+    retrain_interval_days: int = 7
+    min_data_points: int = 1000
+    prediction_horizon_hours: int = 3  # 3 horas = 36 períodos de 5m
+    confidence_threshold: float = 0.65
+    ml_weight: float = 0.25  # Peso do ML no score final (25%)
+
+@dataclass  
+class LLMConfig:
+    """Configurações de LLM Sentiment Analysis"""
+    enabled: bool = True  # Habilitado com API key fornecida
+    provider: str = "openai"
+    model: str = "gpt-4o-mini"
+    api_key: str = "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"
+    max_tokens: int = 150
+    temperature: float = 0.3
+    cache_duration_minutes: int = 60
+    max_cost_per_month: float = 50.0
+    llm_weight: float = 0.20  # Peso do LLM no score final (20%)
+
+@dataclass
+class PaperTradingConfig:
+    """Configurações de Paper Trading"""
+    enabled: bool = True
+    initial_capital: float = 10000.0
+    max_position_size_pct: float = 0.10  # 10% por posição
+    max_open_positions: int = 5
+    fee_percentage: float = 0.001  # 0.1% Binance
+    slippage_percentage: float = 0.0005  # 0.05%
+
 class Settings:
-    """Classe principal de configuracoes - CORRIGIDA PARA 5m/15m APENAS"""
+    """Classe principal de configuracoes - CORRIGIDA PARA 1h/4h/1d APENAS + NOVAS FEATURES"""
     def __init__(self):
         self.database = DatabaseConfig()
         self.analysis = AnalysisConfig()
@@ -191,32 +271,37 @@ class Settings:
         self.validation = ValidationConfig()
         # 🔧 CORREÇÃO: Linha comentada para evitar erro
         # self.candlestick = CandlestickConfig()  # COMENTADO - classe não definida
+        
+        # 🆕 NOVAS CONFIGURAÇÕES
+        self.ml = MLConfig()
+        self.llm = LLMConfig()
+        self.paper_trading = PaperTradingConfig()
 
     def get_timeframe_config(self, timeframe: str) -> TimeframeConfig:
-        """CORRIGIDO: Fallback para 5m se timeframe não encontrado"""
-        valid_timeframes = ["5m", "15m"]
+        """CORRIGIDO: Fallback para 1h se timeframe não encontrado"""
+        valid_timeframes = ["1h", "4h", "1d"]
         if timeframe not in valid_timeframes:
-            timeframe = "5m"  # Fallback para 5m
-        return self.analysis.multi_timeframe.timeframe_configs.get(timeframe, self.analysis.multi_timeframe.timeframe_configs["5m"])
+            timeframe = "1h"  # Fallback para 1h
+        return self.analysis.multi_timeframe.timeframe_configs.get(timeframe, self.analysis.multi_timeframe.timeframe_configs["1h"])
 
     def get_enabled_timeframes(self) -> List[str]:
-        """GARANTIDO: Retorna apenas 5m e 15m"""
-        enabled = ["5m", "15m"]  # HARDCODED para evitar problemas
+        """GARANTIDO: Retorna apenas 1h, 4h e 1d"""
+        enabled = ["1h", "4h", "1d"]  # HARDCODED para evitar problemas
         if self.system.multi_timeframe_enabled:
             return enabled
         else:
-            return [self.analysis.default_timeframe]  # "5m"
+            return [self.analysis.default_timeframe]  # "1h"
 
     def get_rsi_levels(self, timeframe: str) -> Dict[str, float]:
         """CORRIGIDO: Fallback para timeframes válidos"""
-        if timeframe not in ["5m", "15m"]:
-            timeframe = "5m"
+        if timeframe not in ["1h", "4h", "1d"]:
+            timeframe = "1h"
         return {'overbought': self.indicators.rsi_overbought.get(timeframe, 70), 'oversold': self.indicators.rsi_oversold.get(timeframe, 30)}
 
     def get_macd_params(self, timeframe: str) -> Dict[str, int]:
         """CORRIGIDO: Fallback para timeframes válidos"""
-        if timeframe not in ["5m", "15m"]:
-            timeframe = "5m"
+        if timeframe not in ["1h", "4h", "1d"]:
+            timeframe = "1h"
         return {'fast': self.indicators.macd_fast.get(timeframe, 12), 'slow': self.indicators.macd_slow.get(timeframe, 26), 'signal': self.indicators.macd_signal.get(timeframe, 9)}
 
     def get_analysis_symbols(self) -> List[str]:

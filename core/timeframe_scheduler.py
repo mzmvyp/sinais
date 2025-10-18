@@ -18,7 +18,7 @@ class TimeframeScheduler:
     def __init__(self, delay_seconds: int = 37):  # 35s = 30s stream + 5s análise
         self.logger = logging.getLogger(__name__)
         self.delay_seconds = delay_seconds
-        self.active_timeframes = ["5m", "15m"]
+        self.active_timeframes = ["1h"]
         self.is_running = False
         self.scheduler_thread = None
         self.timeframe_callbacks: Dict[str, Callable] = {}

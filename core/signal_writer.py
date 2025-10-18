@@ -827,7 +827,7 @@ class EnhancedSignalWriter:
             cursor = conn.cursor()
             
             # Busca primeiro por dados de 1m (mais atuais), depois 5m
-            for tf in ['1m', '5m', '15m']:
+            for tf in ['1h', '4h', '1d']:
                 cursor.execute("""
                     SELECT close_price FROM crypto_ohlc 
                     WHERE symbol = ? AND timeframe = ? 

@@ -1,4 +1,4 @@
-# analyzer.py - PRIORIDADE 15m + SCORE RIGOROSO PARA 5m + SEM LOCKS + FILTRO CANDLESTICK
+# analyzer.py - PRIORIDADE 1d + SCORE RIGOROSO PARA 1h/4h + SEM LOCKS + FILTRO CANDLESTICK
 
 import logging
 import time
@@ -7,7 +7,17 @@ from datetime import datetime, timedelta
 
 from core.data_reader import DataReader, MarketData
 from core.signal_writer import EnhancedSignalWriter, EnhancedTradingSignal
-from indicators.technical import TechnicalAnalyzer, RSIAnalyzer 
+from indicators.technical import TechnicalAnalyzer, RSIAnalyzer
+
+# NOVO: Imports para integração ML e LLM
+try:
+    from ml.ml_integration import MLSignalEnhancer, create_ml_enhancer
+    from llm.llm_integration import LLMSignalEnhancer, create_llm_enhancer
+    ML_LLM_AVAILABLE = True
+    print("OK ML e LLM enhancers disponiveis")
+except ImportError as e:
+    ML_LLM_AVAILABLE = False
+    print(f"Warning ML/LLM enhancers nao disponiveis: {e}") 
 
 try:
     from core.improved_signal_quality_system import (
@@ -43,6 +53,32 @@ class MultiTimeframeAnalyzer:
         
         enabled_timeframes = settings.get_enabled_timeframes()
         self.technical_analyzers = {tf: TechnicalAnalyzer() for tf in enabled_timeframes}
+        
+        # NOVO: Inicialização dos enhancers ML e LLM
+        self.ml_enhancer = None
+        self.llm_enhancer = None
+        
+        if ML_LLM_AVAILABLE:
+            try:
+                # ML Enhancer com peso de 25%
+                self.ml_enhancer = create_ml_enhancer(
+                    enabled=settings.ml.enabled,
+                    ml_weight=settings.ml.ml_weight
+                )
+                
+                # LLM Enhancer com peso de 20%
+                self.llm_enhancer = create_llm_enhancer(
+                    enabled=settings.llm.enabled,
+                    llm_weight=settings.llm.llm_weight
+                )
+                
+                self.logger.info(f"✅ Integração ML/LLM ativa - ML: {settings.ml.ml_weight*100:.0f}%, LLM: {settings.llm.llm_weight*100:.0f}%")
+            except Exception as e:
+                self.logger.error(f"❌ Erro ao inicializar enhancers ML/LLM: {e}")
+                self.ml_enhancer = None
+                self.llm_enhancer = None
+        else:
+            self.logger.warning("⚠️ ML/LLM não disponível - usando apenas análise técnica")
 
         # NOVA LÓGICA: Processamento específico por timeframe (aguarda stream)
         self.timeframe_specific_mode = True
@@ -55,8 +91,7 @@ class MultiTimeframeAnalyzer:
             self.scheduler_enabled = True
             
             # Registra callbacks para cada timeframe
-            self.scheduler.register_timeframe_callback("5m", self._process_5m_event)
-            self.scheduler.register_timeframe_callback("15m", self._process_15m_event)
+            self.scheduler.register_timeframe_callback("1h", self._process_1h_event)
             
             self.logger.info("✅ Scheduler específico inicializado (aguarda 35s após fechamento)")
         except ImportError:
@@ -77,22 +112,22 @@ class MultiTimeframeAnalyzer:
         
         self.logger.info("MultiTimeframeAnalyzer com PROCESSAMENTO ESPECÍFICO POR TIMEFRAME:")
         self.logger.info(f"  • Timeframes: {enabled_timeframes} (PROCESSAMENTO ESPECÍFICO)")
+        self.logger.info(f"  • Integração ML/LLM: {'✅ ATIVA' if (self.ml_enhancer or self.llm_enhancer) else '❌ INATIVA'}")
         self.logger.info(f"  • Modo: Cada timeframe processado independentemente")
         self.logger.info(f"  • Delay: 35s após fechamento (30s stream + 5s análise)")
-        self.logger.info(f"  • Cronograma 5m: XX:00:35, XX:05:35, XX:10:35...")
-        self.logger.info(f"  • Cronograma 15m: XX:00:35, XX:15:35, XX:30:35...")
+        self.logger.info(f"  • Cronograma 1h: XX:00:35 (conforme especificação)")
         self.logger.info(f"  • Microestrutura: DESABILITADA (evita locks)")
         self.logger.info(f"  • Scheduler: {'ATIVO' if self.scheduler_enabled else 'INATIVO'}")
         # 🔧 CORREÇÃO 3: Logs do filtro candlestick
         
-    def _process_5m_event(self, event):
-        """Processa evento de fechamento de candle 5m (aguarda stream gravar)"""
+    def _process_1h_event(self, event):
+        """Processa evento de fechamento de candle 1h (aguarda stream gravar)"""
         try:
-            self.logger.info(f"🕒 EVENTO 5m: Candle {event.candle_close_time.strftime('%H:%M')} fechado + stream gravado")
+            self.logger.info(f"🕒 EVENTO 1h: Candle {event.candle_close_time.strftime('%H:%M')} fechado + stream gravado")
             
             symbols = self.data_reader.get_valid_symbols_for_analysis()
             if not symbols:
-                self.logger.warning("❌ Nenhum símbolo válido para análise 5m")
+                self.logger.warning("❌ Nenhum símbolo válido para análise 1h")
                 return
             
             processed_count = 0
@@ -100,56 +135,24 @@ class MultiTimeframeAnalyzer:
             
             for symbol in symbols:
                 try:
-                    result = self._analyze_single_timeframe_at_event(symbol, "5m", event)
+                    result = self._analyze_single_timeframe_at_event(symbol, "1h", event)
                     processed_count += 1
                     
                     if result.get('signals_saved', 0) > 0:
                         signals_generated += result['signals_saved']
-                        self.logger.info(f"✅ {symbol} 5m: {result['signals_saved']} sinais gerados")
+                        self.logger.info(f"✅ {symbol} 1h: {result['signals_saved']} sinais gerados")
                     
                 except Exception as e:
-                    self.logger.error(f"❌ Erro processando {symbol} 5m: {e}")
+                    self.logger.error(f"❌ Erro processando {symbol} 1h: {e}")
             
             self.logger.info(
-                f"📊 EVENTO 5m CONCLUÍDO: {processed_count} símbolos processados, "
+                f"📊 EVENTO 1h CONCLUÍDO: {processed_count} símbolos processados, "
                 f"{signals_generated} sinais gerados"
             )
             
         except Exception as e:
-            self.logger.error(f"❌ Erro no evento 5m: {e}")
+            self.logger.error(f"❌ Erro no evento 1h: {e}")
     
-    def _process_15m_event(self, event):
-        """Processa evento de fechamento de candle 15m (aguarda stream gravar)"""
-        try:
-            self.logger.info(f"🕒 EVENTO 15m: Candle {event.candle_close_time.strftime('%H:%M')} fechado + stream gravado")
-            
-            symbols = self.data_reader.get_valid_symbols_for_analysis()
-            if not symbols:
-                self.logger.warning("❌ Nenhum símbolo válido para análise 15m")
-                return
-            
-            processed_count = 0
-            signals_generated = 0
-            
-            for symbol in symbols:
-                try:
-                    result = self._analyze_single_timeframe_at_event(symbol, "15m", event)
-                    processed_count += 1
-                    
-                    if result.get('signals_saved', 0) > 0:
-                        signals_generated += result['signals_saved']
-                        self.logger.info(f"✅ {symbol} 15m: {result['signals_saved']} sinais gerados")
-                    
-                except Exception as e:
-                    self.logger.error(f"❌ Erro processando {symbol} 15m: {e}")
-            
-            self.logger.info(
-                f"📊 EVENTO 15m CONCLUÍDO: {processed_count} símbolos processados, "
-                f"{signals_generated} sinais gerados"
-            )
-            
-        except Exception as e:
-            self.logger.error(f"❌ Erro no evento 15m: {e}")
     
     def _analyze_single_timeframe_at_event(self, symbol: str, timeframe: str, event) -> Dict[str, Any]:
         """Análise ESPECÍFICA de um timeframe quando seu candle fecha (com dados do stream)"""
@@ -329,7 +332,7 @@ class MultiTimeframeAnalyzer:
             
             # VALIDAÇÃO 3: Timeout do sinal
             signal_age_minutes = (datetime.now() - signal.timestamp).total_seconds() / 60
-            max_age = 2 if signal.timeframe == "5m" else 5  # Máximo 2min para 5m, 5min para 15m
+            max_age = 10  # Máximo 10min para 1h
             
             if signal_age_minutes > max_age:
                 return False, f"SINAL EXPIRADO: {signal_age_minutes:.1f}min > {max_age}min"
@@ -386,8 +389,8 @@ class MultiTimeframeAnalyzer:
         
         self.logger.info(f"🔍 {symbol}: Análise manual (todos os timeframes)")
         
-        # Para análise manual, processa ambos timeframes
-        timeframes = ["5m", "15m"]
+        # Para análise manual, processa apenas 1h
+        timeframes = ["1h"]
         all_signals = []
 
         # Busca dados para ambos timeframes
@@ -427,10 +430,16 @@ class MultiTimeframeAnalyzer:
         # Validação SIMPLIFICADA
         validated_signals = self._simple_validation_no_locks(filtered_signals, market_data_by_tf)
 
+        # NOVO: Integração ML/LLM nos sinais
+        enhanced_signals = []
+        for signal in validated_signals:
+            enhanced_signal = self._enhance_signal_with_ml_llm(signal)
+            enhanced_signals.append(enhanced_signal)
+
         # Gravação
         signals_saved = 0
-        if validated_signals:
-            signal = validated_signals[0]
+        if enhanced_signals:
+            signal = enhanced_signals[0]
             try:
                 # VALIDAÇÃO ANTES DE SALVAR
                 is_valid, validation_msg = self.validate_signal_before_saving(signal, market_data_by_tf)
@@ -495,17 +504,24 @@ class MultiTimeframeAnalyzer:
                 self.logger.error(f"❌ {symbol} {timeframe}: Dados insuficientes")
                 return {'signals': []}
 
-            # Para 15m: usa último candle fechado (não mistura com 1m)
+            # Para 1h, 4h, 1d: usa último candle fechado
             analysis_candle = market_data.data.iloc[-1]
             analysis_price = float(analysis_candle['close_price'])
             analysis_timestamp = analysis_candle['timestamp'].to_pydatetime()
 
-            # VALIDAÇÃO: Verifica se timestamp é compatível com timeframe
-            if timeframe == "15m":
-                # Para 15m, timestamp deve terminar em :14:59, :29:59, :44:59, :59:59
-                minute = analysis_timestamp.minute
-                if minute not in [14, 29, 44, 59]:
-                    self.logger.warning(f"⚠️ {symbol} {timeframe}: Timestamp suspeito: {analysis_timestamp}")
+            # VALIDAÇÃO: Verifica se timestamp é compatível com timeframe (mais flexível)
+            if timeframe == "1h":
+                # Para 1h, aceita timestamps que terminam em :59:59 (dados de streaming)
+                if analysis_timestamp.minute not in [0, 59] or (analysis_timestamp.minute == 0 and analysis_timestamp.second != 0):
+                    self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp: {analysis_timestamp}")
+            elif timeframe == "4h":
+                # Para 4h, aceita timestamps que terminam em :59:59 e hora ser múltiplo de 4
+                if analysis_timestamp.minute not in [0, 59] or (analysis_timestamp.minute == 0 and analysis_timestamp.second != 0) or analysis_timestamp.hour % 4 != 0:
+                    self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp: {analysis_timestamp}")
+            elif timeframe == "1d":
+                # Para 1d, aceita timestamps que terminam em 23:59:59 (dados de streaming)
+                if analysis_timestamp.hour not in [0, 23] or (analysis_timestamp.hour == 0 and (analysis_timestamp.minute != 0 or analysis_timestamp.second != 0)):
+                    self.logger.debug(f"🔍 {symbol} {timeframe}: Timestamp: {analysis_timestamp}")
 
             # LOG para debug
             self.logger.info(f"🔍 {symbol} {timeframe}: Entry = ${analysis_price:.4f} | Timestamp: {analysis_timestamp}")
@@ -608,6 +624,60 @@ class MultiTimeframeAnalyzer:
                                 
             except Exception as e:
                 self.logger.warning(f"❌ Erro candlestick {symbol} {timeframe}: {e}")
+        
+        # 🔧 CORREÇÃO: ADICIONAR INDICADORES TÉCNICOS
+        self.logger.debug(f"🔍 {symbol} {timeframe}: Verificando detector 'technical'...")
+        if 'technical' in tf_config.enabled_detectors:
+            self.logger.debug(f"✅ {symbol} {timeframe}: Detector 'technical' habilitado")
+            try:
+                tech_start = time.time()
+                technical_analyzer = self.technical_analyzers.get(timeframe)
+                self.logger.debug(f"🔍 {symbol} {timeframe}: Technical analyzer: {technical_analyzer}")
+                if technical_analyzer:
+                    # Usa dados fechados para análise técnica
+                    analysis_data = market_data.data[:-1] if len(market_data.data) > 50 else market_data.data
+                    
+                    # Cria MarketData com dados de análise
+                    from core.data_reader import MarketData
+                    analysis_market_data = MarketData(
+                        symbol=symbol,
+                        timeframe=timeframe,
+                        data=analysis_data,
+                        last_update=market_data.last_update
+                    )
+                    
+                    # Analisa indicadores técnicos
+                    self.logger.debug(f"🔍 {symbol} {timeframe}: Analisando indicadores técnicos...")
+                    tech_results = technical_analyzer.analyze_all(analysis_market_data, timeframe)
+                    self.logger.debug(f"🔍 {symbol} {timeframe}: Resultados técnicos: {len(tech_results)} indicadores")
+                    
+                    total_tech_signals = 0
+                    for indicator_name, result in tech_results.items():
+                        self.logger.debug(f"🔍 {symbol} {timeframe}: {indicator_name} - {len(result.signals)} sinais")
+                        if result.signals:
+                            for signal_data in result.signals:
+                                self.logger.debug(f"🔍 {symbol} {timeframe}: Processando sinal {signal_data['type']}")
+                                # Converte signal_data para EnhancedTradingSignal
+                                create_signal_fast(
+                                    detector_name=f"Technical_{indicator_name}",
+                                    detector_type="technical",
+                                    signal_type=signal_data['signal_type'],
+                                    confidence=signal_data['confidence'],
+                                    priority=signal_data.get('priority', 'medium'),
+                                    entry_price=analysis_price,
+                                    stop_loss=analysis_price * 0.98 if 'BUY' in signal_data['signal_type'] else analysis_price * 1.02,
+                                    target_1=analysis_price * 1.02 if 'BUY' in signal_data['signal_type'] else analysis_price * 0.98,
+                                    target_2=analysis_price * 1.04 if 'BUY' in signal_data['signal_type'] else analysis_price * 0.96,
+                                    market_data=analysis_data
+                                )
+                                total_tech_signals += 1
+                    
+                    tech_time = time.time() - tech_start
+                    self.logger.debug(f"📊 Technical {symbol} {timeframe}: {total_tech_signals} sinais em {tech_time:.2f}s")
+                    
+            except Exception as e:
+                self.logger.warning(f"❌ Erro technical {symbol} {timeframe}: {e}")
+        
         return {'signals': signals}
    
     def _simple_validation_no_locks(self, signals: List[EnhancedTradingSignal], market_data_by_tf: Dict) -> List[EnhancedTradingSignal]:
@@ -625,10 +695,14 @@ class MultiTimeframeAnalyzer:
             max_score = 2
             
             # 1. Confidence - peso maior
-            if signal.timeframe == "15m":
-                min_confidence = 0.70  # Mais permissivo para 15m
-            else:  # 5m
-                min_confidence = 0.85  # Mais rigoroso para 5m
+            if signal.timeframe == "1h":
+                min_confidence = 0.60  # Mais permissivo para 1h
+            elif signal.timeframe == "4h":
+                min_confidence = 0.65  # Médio para 4h
+            elif signal.timeframe == "1d":
+                min_confidence = 0.70  # Mais rigoroso para 1d
+            else:
+                min_confidence = 0.70  # Padrão
             
             if signal.confidence >= min_confidence:
                 validation_score += 2
@@ -883,6 +957,107 @@ class MultiTimeframeAnalyzer:
         }
         
         return results
+
+    def _enhance_signal_with_ml_llm(self, signal: EnhancedTradingSignal) -> EnhancedTradingSignal:
+        """
+        Integra ML e LLM no sinal para gerar confiança final ponderada
+        
+        Args:
+            signal: Sinal técnico base
+            
+        Returns:
+            Sinal com confiança final integrada
+        """
+        if not (self.ml_enhancer or self.llm_enhancer):
+            # Sem enhancers - retorna sinal original
+            return signal
+        
+        original_confidence = signal.confidence
+        current_confidence = original_confidence
+        enhancement_log = []
+        
+        # 1. Aplicar ML Enhancer (se disponível)
+        if self.ml_enhancer and self.ml_enhancer.enabled:
+            try:
+                ml_result = self.ml_enhancer.enhance_signal(
+                    symbol=signal.symbol,
+                    signal_type=signal.signal_type,
+                    technical_confidence=current_confidence,
+                    timeframe=signal.timeframe
+                )
+                
+                if ml_result.get('ml_enabled'):
+                    current_confidence = ml_result['final_confidence']
+                    ml_contribution = ml_result.get('ml_contribution', 0)
+                    agreement = ml_result.get('ml_agrees', False)
+                    
+                    enhancement_log.append(f"ML: {ml_contribution:+.3f} ({'✅' if agreement else '⚠️'})")
+                    
+                    # Adiciona metadata ML ao sinal
+                    if not hasattr(signal, 'ml_data'):
+                        signal.ml_data = {}
+                    signal.ml_data.update({
+                        'ml_prediction': ml_result.get('ml_prediction'),
+                        'ml_confidence': ml_result.get('ml_confidence'),
+                        'ml_agrees': agreement,
+                        'ml_contribution': ml_contribution
+                    })
+                    
+            except Exception as e:
+                self.logger.error(f"❌ Erro no ML enhancer para {signal.symbol}: {e}")
+        
+        # 2. Aplicar LLM Enhancer (se disponível)
+        if self.llm_enhancer and self.llm_enhancer.enabled:
+            try:
+                # Contexto do mercado para o LLM
+                market_context = {
+                    'rsi': getattr(signal, 'rsi', None),
+                    'trend': signal.signal_type,
+                    'timeframe': signal.timeframe
+                }
+                
+                llm_result = self.llm_enhancer.enhance_signal(
+                    symbol=signal.symbol,
+                    signal_type=signal.signal_type,
+                    current_confidence=current_confidence,
+                    market_context=market_context
+                )
+                
+                if llm_result.get('llm_enabled'):
+                    current_confidence = llm_result['final_confidence']
+                    llm_contribution = llm_result.get('llm_contribution', 0)
+                    agreement = llm_result.get('llm_agrees', False)
+                    
+                    enhancement_log.append(f"LLM: {llm_contribution:+.3f} ({'✅' if agreement else '⚠️'})")
+                    
+                    # Adiciona metadata LLM ao sinal
+                    if not hasattr(signal, 'llm_data'):
+                        signal.llm_data = {}
+                    signal.llm_data.update({
+                        'sentiment_score': llm_result.get('sentiment_score'),
+                        'sentiment_confidence': llm_result.get('sentiment_confidence'),
+                        'llm_agrees': agreement,
+                        'llm_contribution': llm_contribution,
+                        'news_count': llm_result.get('news_count')
+                    })
+                    
+            except Exception as e:
+                self.logger.error(f"❌ Erro no LLM enhancer para {signal.symbol}: {e}")
+        
+        # 3. Atualiza confiança final do sinal
+        signal.confidence = current_confidence
+        
+        # 4. Log da integração
+        if enhancement_log:
+            confidence_change = current_confidence - original_confidence
+            self.logger.info(
+                f"🧠 {signal.symbol} Integração: "
+                f"Técnico: {original_confidence:.3f} → "
+                f"Final: {current_confidence:.3f} ({confidence_change:+.3f}) | "
+                f"{' | '.join(enhancement_log)}"
+            )
+        
+        return signal
 
     def cleanup_old_data(self, days: int) -> Dict[str, Any]:
         """Limpeza manual"""

@@ -57,7 +57,7 @@ def run_with_timeout(func, args, timeout_seconds=30):
 try:
     from core.analyzer import MultiTimeframeAnalyzer
     ANALYZER_AVAILABLE = True
-    print("✅ MultiTimeframeAnalyzer importado com sucesso")
+    print("OK MultiTimeframeAnalyzer importado com sucesso")
 except ImportError as e:
     print(f"❌ Erro crítico ao importar analyzer: {e}")
     ANALYZER_AVAILABLE = False
@@ -66,9 +66,9 @@ except ImportError as e:
 try:
     from core.timing_controller import SignalTimingController
     TIMING_CONTROLLER_AVAILABLE = True
-    print("✅ Timing Controller disponível")
+    print("OK Timing Controller disponivel")
 except ImportError as e:
-    print(f"⚠️ Timing Controller não disponível: {e}")
+    print(f"Warning: Timing Controller nao disponivel: {e}")
     TIMING_CONTROLLER_AVAILABLE = False
 
 try:
@@ -82,18 +82,18 @@ except ImportError as e:
 try:
     from core.signal_manager import SignalManager, print_active_signals_table, clear_symbol_signals
     SIGNAL_MANAGER_AVAILABLE = True
-    print("✅ Signal Manager disponível")
+    print("OK Signal Manager disponivel")
 except ImportError:
     SIGNAL_MANAGER_AVAILABLE = False
-    print("⚠️ Signal Manager não disponível")
+    print("Warning: Signal Manager nao disponivel")
 
 try:
     from core.signal_monitor import SignalStatusMonitor, print_signal_monitoring_report
     SIGNAL_MONITOR_AVAILABLE = True
-    print("✅ Signal Monitor disponível")
+    print("OK Signal Monitor disponivel")
 except ImportError:
     SIGNAL_MONITOR_AVAILABLE = False
-    print("⚠️ Signal Monitor não disponível")
+    print("Warning: Signal Monitor nao disponivel")
 
 # Outros imports opcionais
 try:
@@ -143,10 +143,10 @@ def print_banner():
     
     try:
         from core.timeframe_scheduler import get_global_scheduler
-        scheduler_status = "🕒 SCHEDULER ESPECÍFICO ATIVO (35s delay)"
+        scheduler_status = "SCHEDULER ESPECIFICO ATIVO (35s delay)"
         scheduler_available = True
     except ImportError:
-        scheduler_status = "⚠️ SCHEDULER INDISPONÍVEL"
+        scheduler_status = "Warning SCHEDULER INDISPONIVEL"
         scheduler_available = False
     
     banner = f"""
@@ -156,34 +156,34 @@ def print_banner():
 |                                                                 |
 |  {scheduler_status:<63} |
 |                                                                 |
-|  🚨 CORREÇÕES APLICADAS:                                        |
-|  ✅ Novos sinais → SEMPRE ACTIVE                               |
-|  ✅ Estados bloqueadores → ACTIVE, TARGET_1_HIT                |
-|  ✅ Estados finalizados → TARGET_2_HIT, STOP_HIT, EXPIRED      |
-|  ✅ Fluxo → ACTIVE → TARGET_1_HIT → TARGET_2_HIT/STOP_HIT      |
-|  ✅ Targets → Exatamente 2 targets por sinal                   |
+|  CORRECOES APLICADAS:                                           |
+|  OK Novos sinais -> SEMPRE ACTIVE                               |
+|  OK Estados bloqueadores -> ACTIVE, TARGET_1_HIT                |
+|  OK Estados finalizados -> TARGET_2_HIT, STOP_HIT, EXPIRED      |
+|  OK Fluxo -> ACTIVE -> TARGET_1_HIT -> TARGET_2_HIT/STOP_HIT    |
+|  OK Targets -> Exatamente 2 targets por sinal                   |
 |                                                                 |
-|  🕒 SCHEDULER ESPECÍFICO + STREAM DELAY (NOVO):                |"""
+|  SCHEDULER ESPECIFICO + STREAM DELAY (NOVO):                    |"""
     
     if scheduler_available:
         banner += f"""
-|  ✅ Aguarda stream gravar candle (30s) + análise (5s)          |
-|  ✅ 5m:  XX:00:35, XX:05:35, XX:10:35, XX:15:35...             |
-|  ✅ 15m: XX:00:35, XX:15:35, XX:30:35, XX:45:35...            |
-|  ✅ SEM gaps de candles (todos processados)                    |
-|  ✅ SEM conflitos entre timeframes                             |
-|  ✅ Dados sempre atualizados pelo stream                       |"""
+|  OK Aguarda stream gravar candle (30s) + analise (5s)          |
+|  OK 5m:  XX:00:35, XX:05:35, XX:10:35, XX:15:35...             |
+|  OK 15m: XX:00:35, XX:15:35, XX:30:35, XX:45:35...            |
+|  OK SEM gaps de candles (todos processados)                    |
+|  OK SEM conflitos entre timeframes                             |
+|  OK Dados sempre atualizados pelo stream                       |"""
     else:
         banner += f"""
-|  ❌ Scheduler específico não disponível                        |
-|  ⚠️ Usando modo tradicional (possíveis gaps)                   |"""
+|  ERRO Scheduler especifico nao disponivel                        |
+|  Warning Usando modo tradicional (possiveis gaps)                   |"""
     
     banner += f"""
 |                                                                 |
-|  🎯 CARACTERÍSTICAS:                                            |
-|  • Máx 1 sinal ativo por crypto                                |
-|  • Timeframes: 5m + 15m (processamento independente)           |
-|  • Stop Loss e Targets técnicos                                |
+|  CARACTERISTICAS:                                               |
+|  • Max 1 sinal ativo por crypto                                |
+|  • Timeframes: 1h + 4h + 1d (processamento independente)       |
+|  • Stop Loss e Targets tecnicos                                |
 |  • Dados frescos do stream (delay otimizado)                   |
 |  • Monitoramento e gerenciamento de sinais                     |
 +=================================================================+
@@ -307,7 +307,7 @@ def test_timing_controller():
         
         # Testa símbolos disponíveis
         symbols = ["BTC", "ETH", "BNB"][:2]  # Máximo 2 para teste rápido
-        timeframes = ["5m", "15m"]
+        timeframes = ["1h", "4h", "1d"]
         
         print(f"\n📊 Testando timing para {len(symbols)} símbolos x {len(timeframes)} timeframes:")
         
@@ -395,8 +395,49 @@ def test_timeframe_scheduler():
             'scheduler_available': False
         }
 
+def check_real_data():
+    """Verifica se há dados reais da Binance"""
+    try:
+        import sqlite3
+        import os
+        
+        db_path = "data/crypto_stream.db"
+        if not os.path.exists(db_path):
+            print("ERRO CRITICO: Banco de dados nao existe!")
+            print("   Execute: python start_data_collection.py")
+            return False
+        
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # Verificar se há dados
+        cursor.execute("SELECT COUNT(*) FROM crypto_ohlc")
+        count = cursor.fetchone()[0]
+        
+        conn.close()
+        
+        if count == 0:
+            print("ERRO CRITICO: Nenhum dado real encontrado!")
+            print("   Execute: python start_data_collection.py")
+            return False
+        
+        print(f"Dados reais encontrados: {count} registros")
+        return True
+        
+    except Exception as e:
+        print(f"Erro ao verificar dados reais: {e}")
+        return False
+
 def main():
     """Função principal COM TIMING CONTROLLER"""
+    
+    # Verificar dados reais PRIMEIRO
+    if not check_real_data():
+        print("\n=== SISTEMA BLOQUEADO ===")
+        print("Este sistema usa APENAS dados reais da Binance.")
+        print("Execute 'python start_data_collection.py' para coletar dados reais.")
+        return
+    
     parser = argparse.ArgumentParser(
         description="Trading Analyzer v2.2.0 - Sistema Completo COM TIMING CONTROLLER",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -549,7 +590,7 @@ Exemplos de uso COM TIMING CONTROLLER:
                 controller = SignalTimingController()
                 data_reader = DataReader()
                 symbols = settings.get_analysis_symbols()[:5]  # Máximo 5 para não sobrecarregar
-                timeframes = ["5m", "15m"]
+                timeframes = ["1h", "4h", "1d"]
                 
                 summary = controller.get_timing_summary(symbols, timeframes, data_reader)
                 

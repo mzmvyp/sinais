@@ -13,7 +13,7 @@ import pandas as pd
 import logging
 import time
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional, List, Dict, Any
 from dataclasses import dataclass
 
@@ -125,8 +125,8 @@ class DataReader:
                 self.logger.debug(f"❌ {symbol} {timeframe}: Dados históricos insuficientes")
                 return historical_data
             
-            # 2. Apenas para 5m e 15m
-            if timeframe not in ["5m"]:
+            # 2. Apenas para 1h, 4h e 1d
+            if timeframe not in ["1h"]:
                 self.logger.debug(f"⚪ {symbol} {timeframe}: Não usa dados live, retornando históricos")
                 return historical_data
             
@@ -406,22 +406,67 @@ class DataReader:
         self.logger.info(f"📋 Usando símbolos fallback: {fallback_symbols}")
         return fallback_symbols
     
+    def _has_real_data(self, symbol: str, timeframe: str) -> bool:
+        """Verifica se há dados reais da Binance no banco"""
+        try:
+            with sqlite3.connect(self.db_path, timeout=1) as conn:
+                cursor = conn.cursor()
+                
+                # Verificar se há dados para o símbolo/timeframe
+                cursor.execute(f"""
+                    SELECT COUNT(*) FROM {self.table_name}
+                    WHERE symbol = ? AND timeframe = ?
+                """, (symbol, timeframe))
+                
+                count = cursor.fetchone()[0]
+                
+                if count == 0:
+                    self.logger.warning(f"⚠️ Nenhum dado encontrado para {symbol} {timeframe}")
+                    return False
+                
+                # Verificar se os dados são recentes (últimas 24h)
+                cursor.execute(f"""
+                    SELECT MAX(timestamp) FROM {self.table_name}
+                    WHERE symbol = ? AND timeframe = ?
+                """, (symbol, timeframe))
+                
+                last_timestamp = cursor.fetchone()[0]
+                if last_timestamp:
+                    last_update = datetime.fromisoformat(last_timestamp.replace('Z', '+00:00'))
+                    now = datetime.now(timezone.utc)
+                    
+                    if now - last_update > timedelta(hours=24):
+                        self.logger.warning(f"⚠️ Dados antigos para {symbol} {timeframe} - última atualização: {last_update}")
+                        return False
+                
+                self.logger.info(f"✅ Dados reais encontrados para {symbol} {timeframe} - {count} registros")
+                return True
+                
+        except Exception as e:
+            self.logger.error(f"❌ Erro ao verificar dados reais para {symbol} {timeframe}: {e}")
+            return False
+    
     def get_latest_data(self, symbol: str, timeframe: str, limit: int = None) -> Optional[MarketData]:
-        """Busca dados otimizados por timeframe"""
+        """Busca dados otimizados por timeframe - APENAS DADOS REAIS DA BINANCE"""
         
         if limit is None:
             # Limites otimizados por timeframe
             if timeframe == '5m':
-                limit = 80   # ~6.5 horas
+                limit = 2000   # ~7 dias para ML
             elif timeframe == '15m':
-                limit = 100  # ~25 horas  
+                limit = 1000  # ~10 dias  
             elif timeframe == '1h':
-                limit = 120  # ~5 dias
+                limit = 500  # ~20 dias
             else:
-                limit = 80   # fallback
+                limit = 1000   # fallback para ML
                 
         if not self.database_validated:
             self.logger.warning(f"❌ Banco não validado, não é possível buscar dados para {symbol}")
+            return None
+        
+        # VALIDACAO CRITICA: Verificar se há dados reais
+        if not self._has_real_data(symbol, timeframe):
+            self.logger.error(f"❌ SEM DADOS REAIS para {symbol} {timeframe} - Execute binance_data_collector.py primeiro!")
             return None
         
         start_time = time.time()
